@@ -168,16 +168,30 @@ namespace web
 
 	string HTTPBuilder::build(const string* const data)
 	{
-		if (method.size() && _parameters.empty())
+		string result;
+
+		if (method.empty())	//response 
 		{
-			_parameters += "/";
+			result = string(httpVersion) + " " + _responseCode + "\r\n" + _headers + "\r\n";
+
+			if (data)
+			{
+				result += "\r\n" + *data;
+			}
+		}
+		else	//request
+		{
+			if (_parameters.empty())
+			{
+				_parameters = "/";
+			}
+
+			result = method + " " + _parameters + " " + string(httpVersion) + "\r\n" + _headers + "\r\n";
 		}
 
-		string result = method + " " + _parameters + " " + httpVersion.data() + " " + _responseCode + "\r\n" + _headers + "\r\n";
 		if (data)
 		{
-			result += "\r\n";
-			result += *data;
+			result += "\r\n" + *data;
 		}
 
 		return result;
