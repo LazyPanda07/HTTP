@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __COMPILE_TIME_CHECK__
+#define __COMPILE_TIME_CHECK__
 
 #include <type_traits>
 #include <string>
@@ -87,3 +88,5 @@ namespace utility
 		};
 	};
 }
+
+#endif
