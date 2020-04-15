@@ -187,7 +187,7 @@ namespace web
 				{
 					for (auto&& i : value)
 					{
-						_headers += std::to_string(i) + std::string("; ");
+						_headers += std::to_string(i) + std::string(", ");
 					}
 
 					_headers.pop_back();	// delete space
@@ -199,7 +199,7 @@ namespace web
 				{
 					for (auto&& i : value)
 					{
-						_headers += static_cast<std::string>(i) + std::string("; ");
+						_headers += static_cast<std::string>(i) + std::string(", ");
 					}
 
 					_headers.pop_back();	// delete space

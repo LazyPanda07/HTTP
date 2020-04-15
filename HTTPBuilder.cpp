@@ -93,8 +93,6 @@ namespace web
 
 	HTTPBuilder& HTTPBuilder::headers()
 	{
-		_headers.pop_back();
-
 		return *this;
 	}
 
