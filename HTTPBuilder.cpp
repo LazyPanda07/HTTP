@@ -170,6 +170,11 @@ namespace web
 
 	string HTTPBuilder::build(const string* const data)
 	{
+		if (method.size() && _parameters.empty())
+		{
+			_parameters += "/";
+		}
+
 		string result = method + " " + _parameters + " " + httpVersion.data() + " " + _responseCode + "\r\n" + _headers + "\r\n\r\n";
 		if (data)
 		{
