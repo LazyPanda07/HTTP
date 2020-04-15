@@ -159,6 +159,13 @@ namespace web
 		return *this;
 	}
 
+	HTTPBuilder& HTTPBuilder::parameters(const string& parameters)
+	{
+		_parameters = "/" + parameters;
+
+		return *this;
+	}
+
 	HTTPBuilder& HTTPBuilder::responseCode(ResponseCodes code)
 	{
 		_responseCode = convert(code).data() + string(" ") + responseMessage.at(code);

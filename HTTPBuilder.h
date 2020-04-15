@@ -121,6 +121,8 @@ namespace web
 		template<typename StringT, typename T, typename... Args>
 		HTTPBuilder& parameters(StringT&& name, T&& value, Args&&... args);
 
+		HTTPBuilder& parameters(const std::string& parameters);
+
 		HTTPBuilder& responseCode(ResponseCodes code);
 
 		template<typename StringT, typename T, typename... Args>
