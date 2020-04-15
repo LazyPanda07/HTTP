@@ -173,9 +173,10 @@ namespace web
 			_parameters += "/";
 		}
 
-		string result = method + " " + _parameters + " " + httpVersion.data() + " " + _responseCode + "\r\n" + _headers + "\r\n\r\n";
+		string result = method + " " + _parameters + " " + httpVersion.data() + " " + _responseCode + "\r\n" + _headers + "\r\n";
 		if (data)
 		{
+			result += "\r\n";
 			result += *data;
 		}
 
