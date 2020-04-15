@@ -1,6 +1,7 @@
 #pragma once
 
 #include <type_traits>
+#include <string>
 
 #define CREATE_CHECK_CLASS(checkMethodName, ...)	\
 		private:	\
