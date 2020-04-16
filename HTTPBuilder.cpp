@@ -179,7 +179,7 @@ namespace web
 
 		if (method.empty())	//response 
 		{
-			result = string(httpVersion) + " " + _responseCode + "\r\n" + _headers + "\r\n";
+			result = string(httpVersion) + " " + _responseCode + "\r\n" + _headers;
 		}
 		else	//request
 		{
@@ -188,7 +188,7 @@ namespace web
 				_parameters = "/";
 			}
 
-			result = method + " " + _parameters + " " + string(httpVersion) + "\r\n" + _headers + "\r\n";
+			result = method + " " + _parameters + " " + string(httpVersion) + "\r\n" + _headers;
 		}
 
 		if (data)
