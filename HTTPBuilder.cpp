@@ -161,7 +161,7 @@ namespace web
 
 	HTTPBuilder& HTTPBuilder::parameters(const string& parameters)
 	{
-		_parameters = "/" + parameters;
+		_parameters = parameters;
 
 		return *this;
 	}
@@ -180,11 +180,6 @@ namespace web
 		if (method.empty())	//response 
 		{
 			result = string(httpVersion) + " " + _responseCode + "\r\n" + _headers + "\r\n";
-
-			if (data)
-			{
-				result += "\r\n" + *data;
-			}
 		}
 		else	//request
 		{
