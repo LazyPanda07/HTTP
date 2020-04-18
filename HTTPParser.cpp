@@ -198,12 +198,12 @@ namespace web
 		return response;
 	}
 
-	const map<string, string>& HTTPParser::getBody() const
+	const map<string, string>& HTTPParser::getHeaders() const
 	{
 		return body;
 	}
 
-	const string& HTTPParser::getData() const
+	const string& HTTPParser::getBody() const
 	{
 		return data;
 	}

@@ -28,9 +28,9 @@ namespace web
 
 		const std::pair<std::string, std::string>& getResponse() const;
 
-		const std::map<std::string, std::string>& getBody() const;
+		const std::map<std::string, std::string>& getHeaders() const;
 
-		const std::string& getData() const;
+		const std::string& getBody() const;
 
 		~HTTPParser() = default;
 	};
