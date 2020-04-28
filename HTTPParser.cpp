@@ -8,7 +8,7 @@ constexpr int responseCodeSize = 3;
 
 namespace web
 {
-	HTTPParser::HTTPParser(const string& HTTPMessage)
+	void HTTPParser::parsing(string_view&& HTTPMessage)
 	{
 		size_t prevString = 0;
 		size_t nextString = HTTPMessage.find('\r');
@@ -160,22 +160,32 @@ namespace web
 				colon ? value += next[i] : header += next[i];
 			}
 
-			body[header] = value;
+			headers[header] = value;
 		}
 
-		map<string, string>::const_iterator length = body.find("Content-Length");
+		map<string, string>::const_iterator length = headers.find("Content-Length");
 
-		if (length != end(body))
+		if (length != end(headers))
 		{
-			data.reserve(atoi(length->second.data()));
+			body.reserve(atoi(length->second.data()));
 
 			size_t dataSegment = HTTPMessage.find("\r\n\r\n") + 4;
 
 			for (size_t i = dataSegment; i < HTTPMessage.size(); i++)
 			{
-				data.push_back(HTTPMessage[i]);
+				body.push_back(HTTPMessage[i]);
 			}
 		}
+	}
+
+	HTTPParser::HTTPParser(const string& HTTPMessage)
+	{
+		this->parsing(HTTPMessage.data());
+	}
+
+	HTTPParser::HTTPParser(const vector<char>& HTTPMessage)
+	{
+		this->parsing(HTTPMessage.data());
 	}
 
 	const string& HTTPParser::getMethod() const
@@ -200,11 +210,11 @@ namespace web
 
 	const map<string, string>& HTTPParser::getHeaders() const
 	{
-		return body;
+		return headers;
 	}
 
 	const string& HTTPParser::getBody() const
 	{
-		return data;
+		return body;
 	}
 }
