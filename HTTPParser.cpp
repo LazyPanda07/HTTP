@@ -180,12 +180,12 @@ namespace web
 
 	HTTPParser::HTTPParser(const string& HTTPMessage)
 	{
-		this->parsing(HTTPMessage.data());
+		this->parsing(string_view(HTTPMessage.data(), HTTPMessage.size()));
 	}
 
 	HTTPParser::HTTPParser(const vector<char>& HTTPMessage)
 	{
-		this->parsing(HTTPMessage.data());
+		this->parsing(string_view(HTTPMessage.data(), HTTPMessage.size()));
 	}
 
 	const string& HTTPParser::getMethod() const
