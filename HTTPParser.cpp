@@ -123,10 +123,6 @@ namespace web
 						}
 					}
 
-					if (firstString[i] == ' ')
-					{
-						break;
-					}
 					else if (firstString[i] == '&')
 					{
 						equal = false;
