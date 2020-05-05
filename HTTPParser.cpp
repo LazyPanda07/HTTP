@@ -102,7 +102,7 @@ namespace web
 				{
 					startParameters++;
 				}
-				
+
 				string name;
 				string value;
 				bool equal = false;
