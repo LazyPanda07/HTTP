@@ -94,7 +94,7 @@ namespace web
 			size_t startParameters = firstString.find('/');
 			if (firstString[startParameters + 1] != ' ')
 			{
-				startParameters++;
+				startParameters+= 2;
 				string name;
 				string value;
 				bool equal = false;
