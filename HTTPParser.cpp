@@ -95,6 +95,8 @@ namespace web
 		if (method.size())
 		{
 			size_t startParameters = firstString.find('/');
+			size_t httpStart = firstString.find("HTTP");
+
 			if (firstString[startParameters + 1] != ' ')
 			{
 				if (firstString[startParameters + 1] == '?')
@@ -110,7 +112,7 @@ namespace web
 				string value;
 				bool equal = false;
 
-				for (size_t i = startParameters; i < firstString.size(); i++)
+				for (size_t i = startParameters; i < httpStart; i++)
 				{
 					if (!equal)
 					{
