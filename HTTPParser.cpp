@@ -72,20 +72,23 @@ namespace web
 			httpVersion += firstString[i];
 		}
 
-		for (size_t i = 0; i < firstString.size() - responseCodeSize; i++)
+		if (method.empty())
 		{
-			string_view tem(firstString.data() + i, responseCodeSize);
-			if (atoi(tem.data()) >= 100 && all_of(begin(tem), end(tem), [](auto ch) {return isdigit(ch); }))
+			for (size_t i = 0; i < firstString.size() - responseCodeSize; i++)
 			{
-				string message;
-
-				for (size_t j = i; j < firstString.size(); j++)
+				string_view tem(firstString.data() + i, responseCodeSize);
+				if (atoi(tem.data()) >= 100 && all_of(begin(tem), end(tem), [](auto ch) {return isdigit(ch); }))
 				{
-					message += firstString[j];
-				}
+					string message;
 
-				response = make_pair(tem, message);
-				break;
+					for (size_t j = i; j < firstString.size(); j++)
+					{
+						message += firstString[j];
+					}
+
+					response = make_pair(tem, message);
+					break;
+				}
 			}
 		}
 
