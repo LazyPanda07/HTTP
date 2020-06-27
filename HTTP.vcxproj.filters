@@ -15,21 +15,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="HTTPBuilder.cpp">
+    <ClCompile Include="src\HTTPBuilder.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="HTTPParser.cpp">
+    <ClCompile Include="src\HTTPParser.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="HTTPBuilder.h">
+    <ClInclude Include="src\HTTPParser.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="HTTPParser.h">
+    <ClInclude Include="src\CheckAtCompileTime.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="CheckAtCompileTime.h">
+    <ClInclude Include="src\HTTPBuilder.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
