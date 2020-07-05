@@ -176,7 +176,7 @@ namespace web
 
 		if (length != end(headers))
 		{
-			body.reserve(atoi(length->second.data()));
+			body.reserve(stoi(length->second));
 
 			size_t dataSegment = HTTPMessage.find("\r\n\r\n") + 4;
 
