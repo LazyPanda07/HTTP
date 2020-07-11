@@ -171,11 +171,11 @@ namespace web
 	{
 		if constexpr (utility::StringConversion<StringT>::value)
 		{
-			if constexpr (std::is_arithmetic_v<T>)
+			if constexpr (std::is_arithmetic_v<std::remove_reference_t<T>>)
 			{
 				_headers += static_cast<std::string>(name) + std::string(": ") + std::to_string(value) + std::string("\r\n");
 			}
-			else if constexpr (utility::StringConversion<T>::value)
+			else if constexpr (utility::StringConversion<std::remove_reference_t<T>>::value)
 			{
 				_headers += static_cast<std::string>(name) + std::string(": ") + static_cast<std::string>(value) + std::string("\r\n");
 			}
