@@ -81,7 +81,7 @@ namespace web
 				{
 					string message;
 
-					for (size_t j = i; j < firstString.size(); j++)
+					for (size_t j = i + responseCodeSize + 1; j < firstString.size(); j++)
 					{
 						message += firstString[j];
 					}
@@ -172,7 +172,7 @@ namespace web
 			headers[header] = value;
 		}
 
-		map<string, string>::const_iterator length = headers.find("Content-Length");
+		unordered_map<string, string>::const_iterator length = headers.find("Content-Length");
 
 		if (length != end(headers))
 		{
@@ -207,7 +207,7 @@ namespace web
 		return httpVersion;
 	}
 
-	const map<string, string>& HTTPParser::getParameters() const
+	const unordered_map<string, string>& HTTPParser::getParameters() const
 	{
 		return parameters;
 	}
@@ -217,7 +217,7 @@ namespace web
 		return response;
 	}
 
-	const map<string, string>& HTTPParser::getHeaders() const
+	const unordered_map<string, string>& HTTPParser::getHeaders() const
 	{
 		return headers;
 	}

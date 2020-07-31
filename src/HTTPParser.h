@@ -1,6 +1,6 @@
 #pragma once
 
-#include <map>
+#include <unordered_map>
 #include <string>
 #include <vector>
 
@@ -11,10 +11,10 @@ namespace web
 	private:
 		std::string method;
 		std::string httpVersion;
-		std::map<std::string, std::string> parameters;
+		std::unordered_map<std::string, std::string> parameters;
 		std::pair<std::string, std::string> response;	//code - response message
 
-		std::map<std::string, std::string> headers;
+		std::unordered_map<std::string, std::string> headers;
 		std::string body;
 
 	private:
@@ -29,11 +29,11 @@ namespace web
 
 		const std::string& getHTTPVersion() const;
 
-		const std::map<std::string, std::string>& getParameters() const;
+		const std::unordered_map<std::string, std::string>& getParameters() const;
 
 		const std::pair<std::string, std::string>& getResponse() const;
 
-		const std::map<std::string, std::string>& getHeaders() const;
+		const std::unordered_map<std::string, std::string>& getHeaders() const;
 
 		const std::string& getBody() const;
 
