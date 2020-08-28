@@ -108,33 +108,15 @@ namespace web
 					startParameters++;
 				}
 
-				string name;
-				string value;
-				bool equal = false;
-
 				for (size_t i = startParameters; i < httpStart; i++)
 				{
-					if (!equal)
+					if (firstString[i] == ' ')
 					{
-						equal = firstString[i] == '=';
-						if (equal)
-						{
-							continue;
-						}
+						break;
 					}
 
-					else if (firstString[i] == '&')
-					{
-						equal = false;
-						parameters[name] = value;
-						name = value = "";
-						continue;
-					}
-
-					equal ? value += firstString[i] : name += firstString[i];
+					parameters += firstString[i];
 				}
-
-				parameters[name] = value;
 			}
 		}
 
@@ -207,7 +189,7 @@ namespace web
 		return httpVersion;
 	}
 
-	const unordered_map<string, string>& HTTPParser::getParameters() const
+	const string& HTTPParser::getParameters() const
 	{
 		return parameters;
 	}

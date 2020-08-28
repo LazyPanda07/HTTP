@@ -91,11 +91,6 @@ namespace web
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::headers()
-	{
-		return *this;
-	}
-
 	HTTPBuilder& HTTPBuilder::getRequest()
 	{
 		method = "GET";
@@ -161,7 +156,7 @@ namespace web
 
 	HTTPBuilder& HTTPBuilder::parameters(const string& parameters)
 	{
-		_parameters = parameters;
+		_parameters = '/' + parameters;
 
 		return *this;
 	}

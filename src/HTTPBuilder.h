@@ -87,8 +87,6 @@ namespace web
 	private:
 		HTTPBuilder& parameters();
 
-		HTTPBuilder& headers();
-
 	private:
 		static constexpr std::string_view httpVersion = "HTTP/1.1";
 
@@ -224,6 +222,11 @@ namespace web
 			throw std::logic_error("Bad type of StringT, it must be converted to string");
 		}
 
-		return headers(std::move(args)...);
+		if constexpr (sizeof...(args))
+		{
+			return headers(std::move(args)...);
+		}
+
+		return *this;
 	}
 }

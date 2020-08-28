@@ -11,7 +11,7 @@ namespace web
 	private:
 		std::string method;
 		std::string httpVersion;
-		std::unordered_map<std::string, std::string> parameters;
+		std::string parameters;
 		std::pair<std::string, std::string> response;	//code - response message
 
 		std::unordered_map<std::string, std::string> headers;
@@ -29,7 +29,7 @@ namespace web
 
 		const std::string& getHTTPVersion() const;
 
-		const std::unordered_map<std::string, std::string>& getParameters() const;
+		const std::string& getParameters() const;
 
 		const std::pair<std::string, std::string>& getResponse() const;
 
