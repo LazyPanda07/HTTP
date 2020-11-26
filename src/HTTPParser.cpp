@@ -1,6 +1,7 @@
 #include "HTTPParser.h"
 
 #include <algorithm>
+#include <iterator>
 
 using namespace std;
 
@@ -13,7 +14,6 @@ namespace web
 		size_t prevString = 0;
 		size_t nextString = HTTPMessage.find('\r');
 		const string_view firstString(HTTPMessage.data(), nextString);
-		const size_t httpStart = firstString.find("HTTP");
 
 		switch (firstString[0])
 		{
@@ -62,18 +62,13 @@ namespace web
 			break;
 		}
 
-		for (size_t i = httpStart; i < firstString.size(); i++)
-		{
-			if (firstString[i] == ' ')
-			{
-				break;
-			}
-
-			httpVersion += firstString[i];
-		}
-
 		if (method.empty())
 		{
+			size_t startHTTP = firstString.find("HTTP");
+			size_t endHTTP = firstString.find(' ', startHTTP);
+
+			httpVersion = string(firstString.begin() + startHTTP, firstString.begin() + endHTTP);
+
 			for (size_t i = 0; i < firstString.size() - responseCodeSize; i++)
 			{
 				string_view tem(firstString.data() + i, responseCodeSize);
@@ -86,7 +81,7 @@ namespace web
 						message += firstString[j];
 					}
 
-					response = make_pair(tem, message);
+					response = make_pair(stoi(string(tem)), message);
 					break;
 				}
 			}
@@ -95,29 +90,11 @@ namespace web
 		if (method.size())
 		{
 			size_t startParameters = firstString.find('/');
-			size_t httpStart = firstString.find("HTTP");
+			size_t endParameters = firstString.find(' ', startParameters);
 
-			if (firstString[startParameters + 1] != ' ')
-			{
-				if (firstString[startParameters + 1] == '?')
-				{
-					startParameters += 2;
-				}
-				else
-				{
-					startParameters++;
-				}
+			parameters = string(firstString.begin() + startParameters, firstString.begin() + endParameters);
 
-				for (size_t i = startParameters; i < httpStart; i++)
-				{
-					if (firstString[i] == ' ')
-					{
-						break;
-					}
-
-					parameters += firstString[i];
-				}
-			}
+			httpVersion = string(firstString.begin() + firstString.find("HTTP"), firstString.end());
 		}
 
 		while (true)
@@ -132,40 +109,15 @@ namespace web
 				break;
 			}
 
-			string header;
-			string value;
-			bool colon = false;
-
-			for (size_t i = 0; i < next.size(); i++)
-			{
-				if (!colon)
-				{
-					colon = next[i] == ':';
-					if (colon)
-					{
-						i++;	//skip :
-						continue;	//skip space
-					}
-				}
-
-				colon ? value += next[i] : header += next[i];
-			}
+			string header(next.begin(), next.begin() + next.find(':'));
+			string value(next.begin() + next.find(": ") + 2, next.end());
 
 			headers[header] = value;
 		}
 
-		unordered_map<string, string>::const_iterator length = headers.find("Content-Length");
-
-		if (length != end(headers))
+		if (headers.find("Content-Length") != headers.end())
 		{
-			body.reserve(stoi(length->second));
-
-			size_t dataSegment = HTTPMessage.find("\r\n\r\n") + 4;
-
-			for (size_t i = dataSegment; i < HTTPMessage.size(); i++)
-			{
-				body.push_back(HTTPMessage[i]);
-			}
+			body = string(HTTPMessage.begin() + HTTPMessage.find("\r\n\r\n") + 4, HTTPMessage.end());
 		}
 	}
 
@@ -194,7 +146,7 @@ namespace web
 		return parameters;
 	}
 
-	const pair<string, string>& HTTPParser::getResponse() const
+	const pair<short, string>& HTTPParser::getResponse() const
 	{
 		return response;
 	}

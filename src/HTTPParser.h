@@ -9,12 +9,11 @@ namespace web
 	class HTTPParser
 	{
 	private:
+		std::unordered_map<std::string, std::string> headers;
+		std::pair<short, std::string> response;	//code - response message
 		std::string method;
 		std::string httpVersion;
 		std::string parameters;
-		std::pair<std::string, std::string> response;	//code - response message
-
-		std::unordered_map<std::string, std::string> headers;
 		std::string body;
 
 	private:
@@ -31,7 +30,7 @@ namespace web
 
 		const std::string& getParameters() const;
 
-		const std::pair<std::string, std::string>& getResponse() const;
+		const std::pair<short, std::string>& getResponse() const;
 
 		const std::unordered_map<std::string, std::string>& getHeaders() const;
 

@@ -91,6 +91,12 @@ namespace web
 		return *this;
 	}
 
+	HTTPBuilder::HTTPBuilder() :
+		_HTTPVersion("HTTP/1.1")
+	{
+
+	}
+
 	HTTPBuilder& HTTPBuilder::getRequest()
 	{
 		method = "GET";
@@ -168,13 +174,20 @@ namespace web
 		return *this;
 	}
 
+	HTTPBuilder& HTTPBuilder::HTTPVersion(const string& HTTPVersion)
+	{
+		_HTTPVersion = HTTPVersion;
+
+		return *this;
+	}
+
 	string HTTPBuilder::build(const string* const data)
 	{
 		string result;
 
 		if (method.empty())	//response 
 		{
-			result = string(httpVersion) + " " + _responseCode + "\r\n" + _headers;
+			result = string(_HTTPVersion) + " " + _responseCode + "\r\n" + _headers;
 		}
 		else	//request
 		{
@@ -183,12 +196,14 @@ namespace web
 				_parameters = "/";
 			}
 
-			result = method + " " + _parameters + " " + string(httpVersion) + "\r\n" + _headers;
+			result = method + " " + _parameters + " " + _HTTPVersion + "\r\n" + _headers;
 		}
+
+		result += "\r\n";
 
 		if (data)
 		{
-			result += "\r\n" + *data;
+			result += *data;
 		}
 
 		return result;

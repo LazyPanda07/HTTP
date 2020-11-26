@@ -7,7 +7,7 @@
 
 namespace web
 {
-	enum class ResponseCodes : short
+	enum class ResponseCodes
 	{
 		Continue = 100,
 		switchingProtocols,
@@ -88,15 +88,14 @@ namespace web
 		HTTPBuilder& parameters();
 
 	private:
-		static constexpr std::string_view httpVersion = "HTTP/1.1";
-
 		std::string method;
 		std::string _parameters;
 		std::string _responseCode;
 		std::string _headers;
+		std::string _HTTPVersion;
 
 	public:
-		HTTPBuilder() = default;
+		HTTPBuilder();
 
 		HTTPBuilder& getRequest();
 
@@ -122,6 +121,8 @@ namespace web
 		HTTPBuilder& parameters(const std::string& parameters);
 
 		HTTPBuilder& responseCode(ResponseCodes code);
+
+		HTTPBuilder& HTTPVersion(const std::string& httpVersion);
 
 		template<typename StringT, typename T, typename... Args>
 		HTTPBuilder& headers(StringT&& name, T&& value, Args&&... args);
