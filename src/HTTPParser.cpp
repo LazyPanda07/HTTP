@@ -105,11 +105,11 @@ namespace web
 				string value;
 				bool equal = false;
 
-				queryValues.remove_suffix(httpVersion.size() + 1);
+				queryValues.remove_suffix(httpVersion.size());
 
-				for (; nextKeyValuePair <= queryValues.size(); nextKeyValuePair++)
+				for (; nextKeyValuePair < queryValues.size(); nextKeyValuePair++)
 				{
-					if (queryValues[nextKeyValuePair] == '&' || nextKeyValuePair == queryValues.size())
+					if (queryValues[nextKeyValuePair] == '&' || nextKeyValuePair + 1 == queryValues.size())
 					{
 						equal = false;
 
