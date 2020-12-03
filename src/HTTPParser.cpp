@@ -91,10 +91,46 @@ namespace web
 		{
 			size_t startParameters = firstString.find('/');
 			size_t endParameters = firstString.find(' ', startParameters);
+			size_t queryStart = firstString.find('?');
 
 			parameters = string(firstString.begin() + startParameters, firstString.begin() + endParameters);
 
 			httpVersion = string(firstString.begin() + firstString.find("HTTP"), firstString.end());
+
+			if (queryStart != string::npos)
+			{
+				string_view queryValues = firstString.substr(queryStart + 1);
+				size_t nextKeyValuePair = 0;
+				string key;
+				string value;
+				bool equal = false;
+
+				queryValues.remove_suffix(httpVersion.size() + 1);
+
+				for (; nextKeyValuePair < queryValues.size(); nextKeyValuePair++)
+				{
+					if (queryValues[nextKeyValuePair] == '&' || nextKeyValuePair + 1 == queryValues.size())
+					{
+						equal = false;
+
+						keyValueParameters.insert(make_pair(move(key), move(value)));
+
+						continue;
+					}
+
+					if (!equal)
+					{
+						equal = queryValues[nextKeyValuePair] == '=';
+
+						if (equal)
+						{
+							continue;
+						}
+					}
+
+					equal ? value += queryValues[nextKeyValuePair] : key += queryValues[nextKeyValuePair];
+				}
+			}
 		}
 
 		while (true)
@@ -144,6 +180,11 @@ namespace web
 	const string& HTTPParser::getParameters() const
 	{
 		return parameters;
+	}
+
+	const unordered_map<string, string>& HTTPParser::getKeyValueParameters() const
+	{
+		return keyValueParameters;
 	}
 
 	const pair<short, string>& HTTPParser::getResponse() const
