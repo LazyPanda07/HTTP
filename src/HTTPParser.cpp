@@ -107,7 +107,7 @@ namespace web
 
 				queryValues.remove_suffix(httpVersion.size() + 1);
 
-				for (; nextKeyValuePair < queryValues.size(); nextKeyValuePair++)
+				for (; nextKeyValuePair != queryValues.size(); nextKeyValuePair++)
 				{
 					if (queryValues[nextKeyValuePair] == '&' || nextKeyValuePair == queryValues.size())
 					{
