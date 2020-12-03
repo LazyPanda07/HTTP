@@ -109,7 +109,7 @@ namespace web
 
 				for (; nextKeyValuePair < queryValues.size(); nextKeyValuePair++)
 				{
-					if (queryValues[nextKeyValuePair] == '&' || nextKeyValuePair + 1 == queryValues.size())
+					if (queryValues[nextKeyValuePair] == '&' || nextKeyValuePair == queryValues.size())
 					{
 						equal = false;
 
