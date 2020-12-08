@@ -162,7 +162,7 @@ namespace web
 			throw std::logic_error("Bad type of StringT, it must be converted to string");
 		}
 
-		return parameters(std::move(args)...);
+		return parameters(std::forward<Args>(args)...);
 	}
 
 	template<typename StringT, typename T, typename... Args>
@@ -170,6 +170,14 @@ namespace web
 	{
 		if constexpr (utility::StringConversion<StringT>::value)
 		{
+			if constexpr (sizeof...(args))
+			{
+				if (static_cast<std::string>(name) == "Content-Length" || static_cast<std::string>(name) == "content-length")
+				{
+					return headers(std::forward<Args>(args)...);
+				}
+			}
+
 			if constexpr (std::is_arithmetic_v<std::remove_reference_t<T>>)
 			{
 				_headers += static_cast<std::string>(name) + std::string(": ") + std::to_string(value) + std::string("\r\n");
@@ -210,7 +218,7 @@ namespace web
 				}
 				else
 				{
-					throw std::locale("Bad type of values in class T, it must be converted to string or arithmetictype");
+					throw std::logic_error("Bad type of values in class T, it must be converted to string or arithmetic type");
 				}
 			}
 			else
@@ -225,7 +233,7 @@ namespace web
 
 		if constexpr (sizeof...(args))
 		{
-			return headers(std::move(args)...);
+			return headers(std::forward<Args>(args)...);
 		}
 
 		return *this;

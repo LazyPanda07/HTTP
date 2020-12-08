@@ -185,6 +185,14 @@ namespace web
 	{
 		string result;
 
+		if (data)
+		{
+			this->headers
+			(
+				"Content-Length", data->size()
+			);
+		}
+
 		if (method.empty())	//response 
 		{
 			result = string(_HTTPVersion) + " " + _responseCode + "\r\n" + _headers;
