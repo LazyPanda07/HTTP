@@ -9,6 +9,43 @@ constexpr int responseCodeSize = 3;
 
 namespace web
 {
+	void HTTPParser::parseKeyValueParameter(string_view rawParameters)
+	{
+		size_t nextKeyValuePair = 0;
+		string key;
+		string value;
+		bool equal = false;
+
+		if (rawParameters.find("HTTP") != string_view::npos)
+		{
+			rawParameters.remove_suffix(httpVersion.size());
+		}
+
+		for (; nextKeyValuePair < rawParameters.size(); nextKeyValuePair++)
+		{
+			if (rawParameters[nextKeyValuePair] == '&' || nextKeyValuePair + 1 == rawParameters.size())
+			{
+				equal = false;
+
+				keyValueParameters.insert(make_pair(move(key), move(value)));
+
+				continue;
+			}
+
+			if (!equal)
+			{
+				equal = rawParameters[nextKeyValuePair] == '=';
+
+				if (equal)
+				{
+					continue;
+				}
+			}
+
+			equal ? value += rawParameters[nextKeyValuePair] : key += rawParameters[nextKeyValuePair];
+		}
+	}
+
 	void HTTPParser::parsing(string_view&& HTTPMessage)
 	{
 		size_t prevString = 0;
@@ -99,37 +136,7 @@ namespace web
 
 			if (queryStart != string::npos)
 			{
-				string_view queryValues = firstString.substr(queryStart + 1);
-				size_t nextKeyValuePair = 0;
-				string key;
-				string value;
-				bool equal = false;
-
-				queryValues.remove_suffix(httpVersion.size());
-
-				for (; nextKeyValuePair < queryValues.size(); nextKeyValuePair++)
-				{
-					if (queryValues[nextKeyValuePair] == '&' || nextKeyValuePair + 1 == queryValues.size())
-					{
-						equal = false;
-
-						keyValueParameters.insert(make_pair(move(key), move(value)));
-
-						continue;
-					}
-
-					if (!equal)
-					{
-						equal = queryValues[nextKeyValuePair] == '=';
-
-						if (equal)
-						{
-							continue;
-						}
-					}
-
-					equal ? value += queryValues[nextKeyValuePair] : key += queryValues[nextKeyValuePair];
-				}
+				this->parseKeyValueParameter(firstString.substr(queryStart + 1));
 			}
 		}
 
@@ -154,6 +161,12 @@ namespace web
 		if (headers.find("Content-Length") != headers.end())
 		{
 			body = string(HTTPMessage.begin() + HTTPMessage.find("\r\n\r\n") + 4, HTTPMessage.end());
+			unordered_map<string, string>::const_iterator it = headers.find("Content-Type");
+
+			if (it != headers.end() && it->second == "application/x-www-form-urlencoded")
+			{
+				this->parseKeyValueParameter(body);
+			}
 		}
 	}
 

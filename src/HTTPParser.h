@@ -18,6 +18,8 @@ namespace web
 		std::string body;
 
 	private:
+		void parseKeyValueParameter(std::string_view rawParameters);
+
 		void parsing(std::string_view&& HTTPMessage);
 
 	public:
