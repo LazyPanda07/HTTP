@@ -5,6 +5,12 @@
 
 #include "CheckAtCompileTime.h"
 
+#ifdef HTTP_DLL
+#define HTTP_API __declspec(dllexport)
+#else
+#define HTTP_API
+#endif // HTTP_DLL
+
 namespace web
 {
 	enum class ResponseCodes
@@ -82,7 +88,7 @@ namespace web
 		invalidSSLCertificate
 	};
 
-	class HTTPBuilder
+	class HTTP_API HTTPBuilder
 	{
 	private:
 		HTTPBuilder& parameters();

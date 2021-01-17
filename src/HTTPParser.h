@@ -4,9 +4,15 @@
 #include <string>
 #include <vector>
 
+#ifdef HTTP_DLL
+#define HTTP_API __declspec(dllexport)
+#else
+#define HTTP_API
+#endif // HTTP_DLL
+
 namespace web
 {
-	class HTTPParser
+	class HTTP_API HTTPParser
 	{
 	private:
 		std::unordered_map<std::string, std::string> headers;
