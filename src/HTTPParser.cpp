@@ -23,7 +23,7 @@ namespace web
 
 		for (; nextKeyValuePair < rawParameters.size(); nextKeyValuePair++)
 		{
-			if (rawParameters[nextKeyValuePair] == '&' || nextKeyValuePair + 1 == rawParameters.size())
+			if (rawParameters[nextKeyValuePair] == '&')
 			{
 				equal = false;
 
@@ -44,6 +44,8 @@ namespace web
 
 			equal ? value += rawParameters[nextKeyValuePair] : key += rawParameters[nextKeyValuePair];
 		}
+
+		keyValueParameters.insert(make_pair(move(key), move(value)));
 	}
 
 	void HTTPParser::parsing(string_view&& HTTPMessage)
