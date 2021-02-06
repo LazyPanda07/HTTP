@@ -1,15 +1,17 @@
 #pragma once
 
+#ifdef HTTP_DLL
+#define HTTP_API __declspec(dllexport)
+#define JSON_DLL
+#else
+#define HTTP_API
+#endif // HTTP_DLL
+
 #include <string>
 #include <stdexcept>
 
 #include "CheckAtCompileTime.h"
-
-#ifdef HTTP_DLL
-#define HTTP_API __declspec(dllexport)
-#else
-#define HTTP_API
-#endif // HTTP_DLL
+#include "JSONBuilder.h"
 
 namespace web
 {
@@ -134,6 +136,8 @@ namespace web
 		HTTPBuilder& headers(StringT&& name, T&& value, Args&&... args);
 
 		std::string build(const std::string* const data = nullptr);
+
+		std::string build(const json::JSONBuilder& builder);
 
 		HTTPBuilder& clear();
 

@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <iterator>
 
+#pragma comment (lib, "JSON.lib")
+
 using namespace std;
 
 constexpr int responseCodeSize = 3;
@@ -48,7 +50,7 @@ namespace web
 		keyValueParameters.insert(make_pair(move(key), move(value)));
 	}
 
-	void HTTPParser::parsing(string_view&& HTTPMessage)
+	void HTTPParser::parse(string_view&& HTTPMessage)
 	{
 		size_t prevString = 0;
 		size_t nextString = HTTPMessage.find('\r');
@@ -165,21 +167,28 @@ namespace web
 			body = string(HTTPMessage.begin() + HTTPMessage.find("\r\n\r\n") + 4, HTTPMessage.end());
 			unordered_map<string, string>::const_iterator it = headers.find("Content-Type");
 
-			if (it != headers.end() && it->second == "application/x-www-form-urlencoded")
+			if (it != headers.end())
 			{
-				this->parseKeyValueParameter(body);
+				if (it->second == "application/x-www-form-urlencoded")
+				{
+					this->parseKeyValueParameter(body);
+				}
+				else if (it->second == "application/json")
+				{
+					jsonParser.setJSONData(body);
+				}
 			}
 		}
 	}
 
 	HTTPParser::HTTPParser(const string& HTTPMessage)
 	{
-		this->parsing(string_view(HTTPMessage.data(), HTTPMessage.size()));
+		this->parse(string_view(HTTPMessage.data(), HTTPMessage.size()));
 	}
 
 	HTTPParser::HTTPParser(const vector<char>& HTTPMessage)
 	{
-		this->parsing(string_view(HTTPMessage.data(), HTTPMessage.size()));
+		this->parse(string_view(HTTPMessage.data(), HTTPMessage.size()));
 	}
 
 	const string& HTTPParser::getMethod() const
@@ -215,5 +224,10 @@ namespace web
 	const string& HTTPParser::getBody() const
 	{
 		return body;
+	}
+
+	const json::JSONParser& HTTPParser::getJSON() const
+	{
+		return *jsonParser;
 	}
 }

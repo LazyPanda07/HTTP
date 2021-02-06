@@ -1,14 +1,17 @@
 #pragma once
 
+#ifdef HTTP_DLL
+#define HTTP_API __declspec(dllexport)
+#define JSON_DLL
+#else
+#define HTTP_API
+#endif // HTTP_DLL
+
 #include <unordered_map>
 #include <string>
 #include <vector>
 
-#ifdef HTTP_DLL
-#define HTTP_API __declspec(dllexport)
-#else
-#define HTTP_API
-#endif // HTTP_DLL
+#include "JSONParser.h"
 
 namespace web
 {
@@ -22,11 +25,12 @@ namespace web
 		std::string httpVersion;
 		std::string parameters;
 		std::string body;
+		json::JSONParser jsonParser;
 
 	private:
 		void parseKeyValueParameter(std::string_view rawParameters);
 
-		void parsing(std::string_view&& HTTPMessage);
+		void parse(std::string_view&& HTTPMessage);
 
 	public:
 		HTTPParser(const std::string& HTTPMessage);
@@ -46,6 +50,8 @@ namespace web
 		const std::unordered_map<std::string, std::string>& getHeaders() const;
 
 		const std::string& getBody() const;
+
+		const json::JSONParser& getJSON() const;
 
 		~HTTPParser() = default;
 	};

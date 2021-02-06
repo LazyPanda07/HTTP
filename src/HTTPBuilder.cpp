@@ -3,6 +3,8 @@
 #include <array>
 #include <unordered_map>
 
+#pragma comment (lib, "JSON.lib")
+
 using namespace std;
 
 constexpr std::array<char, 4> convert(web::ResponseCodes code);
@@ -215,6 +217,13 @@ namespace web
 		}
 
 		return result;
+	}
+
+	string HTTPBuilder::build(const json::JSONBuilder& builder)
+	{
+		string json = builder.build();
+
+		return this->build(&json);
 	}
 
 	HTTPBuilder& HTTPBuilder::clear()

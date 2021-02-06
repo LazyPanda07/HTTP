@@ -33,4 +33,9 @@
 
 # VS folders
 .vs/
+
+# Binaries
 bin/
+
+# .sln file
+HTTP.sln
