@@ -223,6 +223,11 @@ namespace web
 	{
 		string json = builder.build();
 
+		this->headers
+		(
+			"Content-Type", "application/json"
+		);
+
 		return this->build(&json);
 	}
 
