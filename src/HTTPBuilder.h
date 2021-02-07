@@ -13,6 +13,8 @@
 #include "CheckAtCompileTime.h"
 #include "JSONBuilder.h"
 
+#pragma comment (lib, "JSON.lib")
+
 namespace web
 {
 	enum class ResponseCodes

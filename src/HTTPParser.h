@@ -13,6 +13,8 @@
 
 #include "JSONParser.h"
 
+#pragma comment (lib, "JSON.lib")
+
 namespace web
 {
 	class HTTP_API HTTPParser

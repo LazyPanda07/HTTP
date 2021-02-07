@@ -3,8 +3,6 @@
 #include <array>
 #include <unordered_map>
 
-#pragma comment (lib, "JSON.lib")
-
 using namespace std;
 
 constexpr std::array<char, 4> convert(web::ResponseCodes code);

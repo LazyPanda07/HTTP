@@ -3,8 +3,6 @@
 #include <algorithm>
 #include <iterator>
 
-#pragma comment (lib, "JSON.lib")
-
 using namespace std;
 
 constexpr int responseCodeSize = 3;
