@@ -162,7 +162,15 @@ namespace web
 
 		if (headers.find("Content-Length") != headers.end())
 		{
-			body = string(HTTPMessage.begin() + HTTPMessage.find("\r\n\r\n") + 4, HTTPMessage.end());
+			if (HTTPMessage.find("charset=utf-8") != string::npos)
+			{
+				body = json::utility::toUTF8JSON(string(HTTPMessage.begin() + HTTPMessage.find("\r\n\r\n") + 4, HTTPMessage.end()), CP_UTF8);
+			}
+			else
+			{
+				body = string(HTTPMessage.begin() + HTTPMessage.find("\r\n\r\n") + 4, HTTPMessage.end());
+			}
+			
 			unordered_map<string, string>::const_iterator it = headers.find("Content-Type");
 
 			if (it != headers.end())
