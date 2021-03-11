@@ -234,6 +234,6 @@ namespace web
 
 	const json::JSONParser& HTTPParser::getJSON() const
 	{
-		return *jsonParser;
+		return jsonParser;
 	}
 }
