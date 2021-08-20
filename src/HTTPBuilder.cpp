@@ -247,7 +247,7 @@ constexpr std::array<char, 4> convert(web::ResponseCodes code)
 	{
 		res[i--] = tem % 10 + '0';
 
-		tem *= 0.1;
+		tem /= 10;
 	}
 
 	return res;
