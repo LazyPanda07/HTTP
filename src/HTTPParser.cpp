@@ -120,7 +120,8 @@ namespace web
 						message += firstString[j];
 					}
 
-					response = make_pair(stoi(string(tem)), message);
+					response = { static_cast<ResponseCodes>(stoi(string(tem))), message };
+
 					break;
 				}
 			}
@@ -217,9 +218,19 @@ namespace web
 		return keyValueParameters;
 	}
 
-	const pair<short, string>& HTTPParser::getResponse() const
+	const pair<ResponseCodes, string>& HTTPParser::getFullResponse() const
 	{
 		return response;
+	}
+
+	ResponseCodes HTTPParser::getResponseCode() const
+	{
+		return response.first;
+	}
+
+	string HTTPParser::getResponseMessage() const
+	{
+		return response.second;
 	}
 
 	const unordered_map<string, string>& HTTPParser::getHeaders() const

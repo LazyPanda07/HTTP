@@ -527,6 +527,7 @@ COPY /Y $(SolutionDir)bin\$(Configuration)-$(Platform)\JSON\JSON.lib $(Outdir)</
     <ClInclude Include="src\CheckAtCompileTime.h" />
     <ClInclude Include="src\HTTPBuilder.h" />
     <ClInclude Include="src\HTTPParser.h" />
+    <ClInclude Include="src\HTTPUtility.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="JSON\JSON.vcxproj">

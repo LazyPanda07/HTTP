@@ -12,6 +12,7 @@
 #include <vector>
 
 #include "JSONParser.h"
+#include "HTTPUtility.h"
 
 #pragma comment (lib, "JSON.lib")
 
@@ -22,7 +23,7 @@ namespace web
 	private:
 		std::unordered_map<std::string, std::string> headers;
 		std::unordered_map<std::string, std::string> keyValueParameters;
-		std::pair<short, std::string> response;	//code - response message
+		std::pair<ResponseCodes, std::string> response;	//code - response message
 		std::string method;
 		std::string httpVersion;
 		std::string parameters;
@@ -47,7 +48,11 @@ namespace web
 
 		const std::unordered_map<std::string, std::string>& getKeyValueParameters() const;
 
-		const std::pair<short, std::string>& getResponse() const;
+		const std::pair<ResponseCodes, std::string>& getFullResponse() const;
+
+		ResponseCodes getResponseCode() const;
+
+		std::string getResponseMessage() const;
 
 		const std::unordered_map<std::string, std::string>& getHeaders() const;
 
