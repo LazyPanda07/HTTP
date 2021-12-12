@@ -3,12 +3,39 @@
 #include <algorithm>
 #include <iterator>
 
+#pragma warning(disable: 26800)
+
 using namespace std;
 
 constexpr int responseCodeSize = 3;
 
 namespace web
 {
+	size_t HTTPParser::insensitiveStringHash::operator () (const string& value) const
+	{
+		string tem;
+
+		tem.reserve(value.size());
+
+		for_each(value.begin(), value.end(), [&tem](char c) { tem += tolower(c); });
+
+		return hash<string>()(tem);
+	}
+
+	bool HTTPParser::insensitiveStringEqual::operator () (const string& left, const string& right) const
+	{
+		return equal
+		(
+			left.begin(), left.end(),
+			right.begin(), right.end(),
+			[](char first, char second) { return tolower(first) == tolower(second); }
+		);
+	}
+
+	const string HTTPParser::contentLengthHeader = "Content-Length";
+	const string HTTPParser::contentTypeHeader = "Content-Type";
+	const string HTTPParser::utf8Encoded = "charset=utf-8";
+
 	void HTTPParser::parseKeyValueParameter(string_view rawParameters)
 	{
 		size_t nextKeyValuePair = 0;
@@ -27,7 +54,7 @@ namespace web
 			{
 				equal = false;
 
-				keyValueParameters.insert(make_pair(move(key), move(value)));
+				keyValueParameters[move(key)] = move(value);
 
 				continue;
 			}
@@ -45,14 +72,14 @@ namespace web
 			equal ? value += rawParameters[nextKeyValuePair] : key += rawParameters[nextKeyValuePair];
 		}
 
-		keyValueParameters.insert(make_pair(move(key), move(value)));
+		keyValueParameters[move(key)] = move(value);
 	}
 
 	void HTTPParser::parse(string_view&& HTTPMessage)
 	{
 		size_t prevString = 0;
 		size_t nextString = HTTPMessage.find('\r');
-		const string_view firstString(HTTPMessage.data(), nextString);
+		string_view firstString(HTTPMessage.data(), nextString);
 
 		switch (firstString[0])
 		{
@@ -111,7 +138,7 @@ namespace web
 			for (size_t i = 0; i < firstString.size() - responseCodeSize; i++)
 			{
 				string_view tem(firstString.data() + i, responseCodeSize);
-				if (atoi(tem.data()) >= 100 && all_of(begin(tem), end(tem), [](auto ch) {return isdigit(ch); }))
+				if (atoi(tem.data()) >= 100 && all_of(begin(tem), end(tem), [](char c) { return isdigit(c); }))
 				{
 					string message;
 
@@ -145,10 +172,10 @@ namespace web
 
 		while (true)
 		{
-			prevString = nextString + 2;
+			prevString = nextString + crlf.size();
 			nextString = HTTPMessage.find('\r', prevString);
 
-			const string_view next(HTTPMessage.data() + prevString, nextString - prevString);
+			string_view next(HTTPMessage.data() + prevString, nextString - prevString);
 
 			if (prevString == nextString || nextString == string::npos)
 			{
@@ -158,29 +185,29 @@ namespace web
 			string header(next.begin(), next.begin() + next.find(':'));
 			string value(next.begin() + next.find(": ") + 2, next.end());
 
-			headers[header] = value;
+			headers[move(header)] = move(value);
 		}
 
-		if (headers.find("Content-Length") != headers.end())
+		if (headers.find(contentLengthHeader) != headers.end())
 		{
-			if (HTTPMessage.find("charset=utf-8") != string::npos)
+			if (HTTPMessage.find(utf8Encoded) != string::npos)
 			{
-				body = json::utility::toUTF8JSON(string(HTTPMessage.begin() + HTTPMessage.find("\r\n\r\n") + 4, HTTPMessage.end()), CP_UTF8);
+				body = json::utility::toUTF8JSON(string(HTTPMessage.begin() + HTTPMessage.find(crlfcrlf) + crlfcrlf.size(), HTTPMessage.end()), CP_UTF8);
 			}
 			else
 			{
-				body = string(HTTPMessage.begin() + HTTPMessage.find("\r\n\r\n") + 4, HTTPMessage.end());
+				body = string(HTTPMessage.begin() + HTTPMessage.find(crlfcrlf) + crlfcrlf.size(), HTTPMessage.end());
 			}
 			
-			unordered_map<string, string>::const_iterator it = headers.find("Content-Type");
+			auto it = headers.find(contentTypeHeader);
 
 			if (it != headers.end())
 			{
-				if (it->second == "application/x-www-form-urlencoded")
+				if (it->second == urlEncoded)
 				{
 					this->parseKeyValueParameter(body);
 				}
-				else if (it->second == "application/json")
+				else if (it->second == jsonEncoded)
 				{
 					jsonParser.setJSONData(body);
 				}
@@ -233,7 +260,7 @@ namespace web
 		return response.second;
 	}
 
-	const unordered_map<string, string>& HTTPParser::getHeaders() const
+	const unordered_map<string, string, HTTPParser::insensitiveStringHash, HTTPParser::insensitiveStringEqual>& HTTPParser::getHeaders() const
 	{
 		return headers;
 	}

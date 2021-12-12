@@ -20,8 +20,28 @@ namespace web
 {
 	class HTTP_API HTTPParser
 	{
+	public:
+		struct insensitiveStringHash
+		{
+			size_t operator () (const std::string& value) const;
+		};
+
+		struct insensitiveStringEqual
+		{
+			bool operator () (const std::string& left, const std::string& right) const;
+		};
+
+	public:
+		static const std::string contentLengthHeader;
+		static const std::string contentTypeHeader;
+		static const std::string utf8Encoded;
+		static constexpr std::string_view crlfcrlf = "\r\n\r\n";
+		static constexpr std::string_view crlf = "\r\n";
+		static constexpr std::string_view urlEncoded = "application/x-www-form-urlencoded";
+		static constexpr std::string_view jsonEncoded = "application/json";
+
 	private:
-		std::unordered_map<std::string, std::string> headers;
+		std::unordered_map<std::string, std::string, insensitiveStringHash, insensitiveStringEqual> headers;
 		std::unordered_map<std::string, std::string> keyValueParameters;
 		std::pair<ResponseCodes, std::string> response;	//code - response message
 		std::string method;
@@ -54,7 +74,7 @@ namespace web
 
 		std::string getResponseMessage() const;
 
-		const std::unordered_map<std::string, std::string>& getHeaders() const;
+		const std::unordered_map<std::string, std::string, insensitiveStringHash, insensitiveStringEqual>& getHeaders() const;
 
 		const std::string& getBody() const;
 
