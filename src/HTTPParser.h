@@ -34,7 +34,9 @@ namespace web
 	public:
 		static const std::string contentLengthHeader;
 		static const std::string contentTypeHeader;
+		static const std::string transferEncodingHeader;
 		static const std::string utf8Encoded;
+		static const std::string chunkEncoded;
 		static constexpr std::string_view crlfcrlf = "\r\n\r\n";
 		static constexpr std::string_view crlf = "\r\n";
 		static constexpr std::string_view urlEncoded = "application/x-www-form-urlencoded";
@@ -48,6 +50,7 @@ namespace web
 		std::string httpVersion;
 		std::string parameters;
 		std::string body;
+		std::vector<std::string> chunks;
 		json::JSONParser jsonParser;
 
 	private:
@@ -77,6 +80,8 @@ namespace web
 		const std::unordered_map<std::string, std::string, insensitiveStringHash, insensitiveStringEqual>& getHeaders() const;
 
 		const std::string& getBody() const;
+
+		const std::vector<std::string>& getChunks() const;
 
 		const json::JSONParser& getJSON() const;
 

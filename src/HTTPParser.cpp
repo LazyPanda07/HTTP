@@ -34,7 +34,9 @@ namespace web
 
 	const string HTTPParser::contentLengthHeader = "Content-Length";
 	const string HTTPParser::contentTypeHeader = "Content-Type";
+	const string HTTPParser::transferEncodingHeader = "Transfer-Encoding";
 	const string HTTPParser::utf8Encoded = "charset=utf-8";
+	const string HTTPParser::chunkEncoded = "chunked";
 
 	void HTTPParser::parseKeyValueParameter(string_view rawParameters)
 	{
@@ -268,6 +270,11 @@ namespace web
 	const string& HTTPParser::getBody() const
 	{
 		return body;
+	}
+
+	const vector<string>& HTTPParser::getChunks() const
+	{
+		return chunks;
 	}
 
 	const json::JSONParser& HTTPParser::getJSON() const
