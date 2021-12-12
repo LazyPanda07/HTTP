@@ -4,6 +4,8 @@ var classweb_1_1_h_t_t_p_builder =
     [ "~HTTPBuilder", "classweb_1_1_h_t_t_p_builder.html#aca01b380901b29179c8f1a5f58db1c84", null ],
     [ "build", "classweb_1_1_h_t_t_p_builder.html#a41737295e41fac6daeab903bdd730fd9", null ],
     [ "build", "classweb_1_1_h_t_t_p_builder.html#a409f633e2c0791749584a3dfe4ff7597", null ],
+    [ "chunk", "classweb_1_1_h_t_t_p_builder.html#aeb8419f4b9c26390151fea8762d2accf", null ],
+    [ "chunks", "classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759", null ],
     [ "clear", "classweb_1_1_h_t_t_p_builder.html#a19dfb77f3d55960e96ebaa93fa8b5ab1", null ],
     [ "connectRequest", "classweb_1_1_h_t_t_p_builder.html#a709dce20561ed12f27af9c3f2675699d", null ],
     [ "deleteRequest", "classweb_1_1_h_t_t_p_builder.html#af89af347f10292209346086aa017e05d", null ],

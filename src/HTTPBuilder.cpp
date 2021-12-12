@@ -2,6 +2,7 @@
 
 #include <array>
 #include <unordered_map>
+#include <algorithm>
 
 using namespace std;
 
@@ -89,6 +90,31 @@ namespace web
 		_parameters.pop_back();
 
 		return *this;
+	}
+
+	string HTTPBuilder::getChunks(const vector<string>& chunks)
+	{
+		string result;
+
+		for (const auto& i : chunks)
+		{
+			result += HTTPBuilder::getChunk(i);
+		}
+
+		result += "0\r\n\r\n";
+
+		return result;
+	}
+
+	string HTTPBuilder::getChunk(const string& chunk)
+	{
+		ostringstream result;
+
+		result << hex << chunk.size() << "\r\n";
+
+		result << chunk << "\r\n";
+
+		return result.str();
 	}
 
 	HTTPBuilder::HTTPBuilder(const string& fullHTTPVersion) :
@@ -181,6 +207,20 @@ namespace web
 		return *this;
 	}
 
+	HTTPBuilder& HTTPBuilder::chunks(const vector<string>& chunks)
+	{
+		copy(chunks.begin(), chunks.end(), back_inserter(_chunks));
+
+		return *this;
+	}
+
+	HTTPBuilder& HTTPBuilder::chunk(const string& chunk)
+	{
+		_chunks.push_back(chunk);
+
+		return *this;
+	}
+
 	string HTTPBuilder::build(const string& data, const unordered_map<string, string>& additionalHeaders) const
 	{
 		string result;
@@ -189,6 +229,10 @@ namespace web
 		if (data.size())
 		{
 			buildHeaders["Content-Length"] = to_string(data.size());
+		}
+		else if (_chunks.size())
+		{
+			buildHeaders["Transfer-Encoding"] = "chunked";
 		}
 
 		if (method.empty())	//response 
@@ -217,6 +261,10 @@ namespace web
 		if (data.size())
 		{
 			result += data;
+		}
+		else if (_chunks.size())
+		{
+			result += HTTPBuilder::getChunks(_chunks);
 		}
 
 		return result;

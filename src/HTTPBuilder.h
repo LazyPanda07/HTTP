@@ -30,6 +30,18 @@ namespace web
 		std::string _responseCode;
 		std::string _headers;
 		std::string _HTTPVersion;
+		std::vector<std::string> _chunks;
+
+	public:
+		/// @brief Make HTTP parsed data with zero chunk
+		/// @param chunks Data to convert
+		/// @return 
+		static std::string getChunks(const std::vector<std::string>& chunks);
+
+		/// @brief Make HTTP parsed chunk
+		/// @param chunk 
+		/// @return 
+		static std::string getChunk(const std::string& chunk);
 
 	public:
 		HTTPBuilder(const std::string& fullHTTPVersion = "HTTP/1.1");
@@ -100,6 +112,10 @@ namespace web
 		/// @return Self
 		template<typename StringT, typename T, typename... Args>
 		HTTPBuilder& headers(StringT&& name, T&& value, Args&&... args);
+
+		HTTPBuilder& chunks(const std::vector<std::string>& chunks);
+
+		HTTPBuilder& chunk(const std::string& chunk);
 
 		std::string build(const std::string& data = "", const std::unordered_map<std::string, std::string>& additionalHeaders = {}) const;
 
