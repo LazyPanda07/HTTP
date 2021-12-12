@@ -20,6 +20,12 @@ namespace web
 {
 	class HTTP_API HTTPParser
 	{
+	private:
+		struct readOnlyBuffer : public std::streambuf
+		{
+			readOnlyBuffer(std::string_view view);
+		};
+
 	public:
 		struct insensitiveStringHash
 		{

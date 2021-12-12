@@ -11,6 +11,13 @@ constexpr int responseCodeSize = 3;
 
 namespace web
 {
+	HTTPParser::readOnlyBuffer::readOnlyBuffer(string_view view)
+	{
+		char* data = const_cast<char*>(view.data());
+
+		setg(data, data, data + view.size());
+	}
+
 	size_t HTTPParser::insensitiveStringHash::operator () (const string& value) const
 	{
 		string tem;
@@ -190,9 +197,11 @@ namespace web
 			headers[move(header)] = move(value);
 		}
 
+		bool isUTF8 = HTTPMessage.find(utf8Encoded) != string::npos;
+
 		if (headers.find(contentLengthHeader) != headers.end())
 		{
-			if (HTTPMessage.find(utf8Encoded) != string::npos)
+			if (isUTF8)
 			{
 				body = json::utility::toUTF8JSON(string(HTTPMessage.begin() + HTTPMessage.find(crlfcrlf) + crlfcrlf.size(), HTTPMessage.end()), CP_UTF8);
 			}
@@ -212,6 +221,48 @@ namespace web
 				else if (it->second == jsonEncoded)
 				{
 					jsonParser.setJSONData(body);
+				}
+			}
+		}
+		else if (auto transferEncoding = headers.find(transferEncodingHeader); transferEncoding != headers.end())
+		{
+			if (transferEncoding->second == chunkEncoded)
+			{
+				size_t chunksStart = HTTPMessage.find(crlfcrlf) + crlfcrlf.size();
+				size_t chunksEnd = HTTPMessage.rfind(crlfcrlf);
+				readOnlyBuffer buffer(string_view(HTTPMessage.data() + chunksStart, chunksEnd - chunksStart));
+				istringstream chunksData;
+
+				chunksData.set_rdbuf(&buffer);
+
+				while (true)
+				{
+					string size;
+					string value;
+
+					getline(chunksData, size);
+
+					size.pop_back(); // \r symbol
+
+					value.resize(stol(size));
+
+					if (value.empty())
+					{
+						return;
+					}
+
+					chunksData.read(value.data(), value.size());
+
+					chunksData.ignore(crlf.size());
+
+					if (isUTF8)
+					{
+						chunks.push_back(json::utility::toUTF8JSON(value, CP_UTF8));
+					}
+					else
+					{
+						chunks.push_back(move(value));
+					}	
 				}
 			}
 		}
