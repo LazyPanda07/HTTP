@@ -18,7 +18,8 @@
 
 namespace web
 {
-	class HTTP_API HTTPBuilder
+	/// @brief HTTP builder
+	class HTTP_API HTTPBuilder final
 	{
 	private:
 		HTTPBuilder& parameters();
@@ -31,39 +32,76 @@ namespace web
 		std::string _HTTPVersion;
 
 	public:
-		HTTPBuilder();
+		HTTPBuilder(const std::string& fullHTTPVersion = "HTTP/1.1");
 
+		/// @brief Set GET request
+		/// @return Self
 		HTTPBuilder& getRequest();
 
+		/// @brief Set POST request
+		/// @return Self
 		HTTPBuilder& postRequest();
 
+		/// @brief Set PUT request
+		/// @return Self
 		HTTPBuilder& putRequest();
 
+		/// @brief Set HEAD request
+		/// @return Self
 		HTTPBuilder& headRequest();
 
+		/// @brief Set OPTIONS request
+		/// @return Self
 		HTTPBuilder& optionsRequest();
 
+		/// @brief Set DELETE request
+		/// @return Self
 		HTTPBuilder& deleteRequest();
 
+		/// @brief Set CONNECT request
+		/// @return Self
 		HTTPBuilder& connectRequest();
 
+		/// @brief Set TRACE request
+		/// @return Self
 		HTTPBuilder& traceRequest();
 
+		/// @brief Set PATCH request
+		/// @return Self
 		HTTPBuilder& patchRequest();
 
+		/// @brief Append key - value parameters
+		/// @tparam StringT 
+		/// @tparam T 
+		/// @tparam ...Args 
+		/// @param name 
+		/// @param value 
+		/// @param ...args 
+		/// @return Self
 		template<typename StringT, typename T, typename... Args>
 		HTTPBuilder& parameters(StringT&& name, T&& value, Args&&... args);
 
+		/// @brief Set parameters
+		/// @param parameters 
+		/// @return Self
 		HTTPBuilder& parameters(const std::string& parameters);
 
-		HTTPBuilder& responseCode(ResponseCodes code);
+		HTTPBuilder& responseCode(responseCodes code);
 
 		HTTPBuilder& HTTPVersion(const std::string& httpVersion);
 
+		/// @brief Append header - value
+		/// @tparam StringT 
+		/// @tparam T 
+		/// @tparam ...Args 
+		/// @param name 
+		/// @param value 
+		/// @param ...args 
+		/// @return Self
 		template<typename StringT, typename T, typename... Args>
 		HTTPBuilder& headers(StringT&& name, T&& value, Args&&... args);
 
-		std::string build(const std::string* const data = nullptr);
+		std::string build(const std::string& data = "");
 
 		std::string build(const json::JSONBuilder& builder);
 

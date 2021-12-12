@@ -18,7 +18,8 @@
 
 namespace web
 {
-	class HTTP_API HTTPParser
+	/// @brief HTTP parser
+	class HTTP_API HTTPParser final
 	{
 	private:
 		struct readOnlyBuffer : public std::streambuf
@@ -27,11 +28,13 @@ namespace web
 		};
 
 	public:
+		/// @brief Custom hashing for headers with case insensitive
 		struct insensitiveStringHash
 		{
 			size_t operator () (const std::string& value) const;
 		};
 
+		/// @brief Custom equal for headers
 		struct insensitiveStringEqual
 		{
 			bool operator () (const std::string& left, const std::string& right) const;
@@ -51,7 +54,7 @@ namespace web
 	private:
 		std::unordered_map<std::string, std::string, insensitiveStringHash, insensitiveStringEqual> headers;
 		std::unordered_map<std::string, std::string> keyValueParameters;
-		std::pair<ResponseCodes, std::string> response;	//code - response message
+		std::pair<responseCodes, std::string> response;	//code - response message
 		std::string method;
 		std::string httpVersion;
 		std::string parameters;
@@ -77,9 +80,9 @@ namespace web
 
 		const std::unordered_map<std::string, std::string>& getKeyValueParameters() const;
 
-		const std::pair<ResponseCodes, std::string>& getFullResponse() const;
+		const std::pair<responseCodes, std::string>& getFullResponse() const;
 
-		ResponseCodes getResponseCode() const;
+		responseCodes getResponseCode() const;
 
 		std::string getResponseMessage() const;
 

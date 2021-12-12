@@ -156,7 +156,7 @@ namespace web
 						message += firstString[j];
 					}
 
-					response = { static_cast<ResponseCodes>(stoi(string(tem))), message };
+					response = { static_cast<responseCodes>(stoi(string(tem))), message };
 
 					break;
 				}
@@ -244,7 +244,7 @@ namespace web
 
 					size.pop_back(); // \r symbol
 
-					value.resize(stol(size));
+					value.resize(stol(size, nullptr, 16));
 
 					if (value.empty())
 					{
@@ -298,12 +298,12 @@ namespace web
 		return keyValueParameters;
 	}
 
-	const pair<ResponseCodes, string>& HTTPParser::getFullResponse() const
+	const pair<responseCodes, string>& HTTPParser::getFullResponse() const
 	{
 		return response;
 	}
 
-	ResponseCodes HTTPParser::getResponseCode() const
+	responseCodes HTTPParser::getResponseCode() const
 	{
 		return response.first;
 	}

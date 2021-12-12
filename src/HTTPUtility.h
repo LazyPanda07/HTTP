@@ -2,7 +2,8 @@
 
 namespace web
 {
-	enum class ResponseCodes
+	/// @brief Response codes
+	enum class responseCodes
 	{
 		Continue = 100,
 		switchingProtocols,
