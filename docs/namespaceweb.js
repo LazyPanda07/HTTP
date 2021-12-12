@@ -74,5 +74,7 @@ var namespaceweb =
       [ "aTimeoutOccurred", "namespaceweb.html#a5a849da4ada867d4591d74f812c24e10afe5d49b53fc5b3b0fc196c69a2a7e7ae", null ],
       [ "SSLHandshakeFailed", "namespaceweb.html#a5a849da4ada867d4591d74f812c24e10aae62edfee054b11b0709d4399a93647b", null ],
       [ "invalidSSLCertificate", "namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a2111f1f632e355ecb74a721d527bfd35", null ]
-    ] ]
+    ] ],
+    [ "operator<<", "namespaceweb.html#af48d73e7f4753a44dbcbc60053f0b841", null ],
+    [ "operator<<", "namespaceweb.html#a0dd8ec67664c7e9aab3962ad340fbcbb", null ]
 ];

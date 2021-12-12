@@ -94,6 +94,12 @@ namespace web
 
 		const json::JSONParser& getJSON() const;
 
+		/// @brief Set HTTP to output stream
+		/// @param outputStream std::ostream subclass instance
+		/// @param parser const reference to HTTPParser instance
+		/// @return outputStream
+		friend HTTP_API std::ostream& operator << (std::ostream& outputStream, const HTTPParser& parser);
+
 		~HTTPParser() = default;
 	};
 }

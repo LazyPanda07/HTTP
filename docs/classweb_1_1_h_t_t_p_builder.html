@@ -84,6 +84,7 @@ $(document).ready(function(){initNavTree('classweb_1_1_h_t_t_p_builder.html','')
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="classweb_1_1_h_t_t_p_builder-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">web::HTTPBuilder Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div>  </div>
@@ -141,14 +142,20 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5922eb4df1fb698cf9f54ad28975a018"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classweb_1_1_h_t_t_p_builder.html#a5922eb4df1fb698cf9f54ad28975a018">headers</a> (StringT &amp;&amp;name, T &amp;&amp;value, Args &amp;&amp;... args)</td></tr>
 <tr class="memdesc:a5922eb4df1fb698cf9f54ad28975a018"><td class="mdescLeft">&#160;</td><td class="mdescRight">Append header - value.  <a href="classweb_1_1_h_t_t_p_builder.html#a5922eb4df1fb698cf9f54ad28975a018">More...</a><br /></td></tr>
 <tr class="separator:a5922eb4df1fb698cf9f54ad28975a018"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7843df90a992ff15f44b070d78ae4e91"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classweb_1_1_h_t_t_p_builder.html#a7843df90a992ff15f44b070d78ae4e91">build</a> (const std::string &amp;data=&quot;&quot;)</td></tr>
-<tr class="separator:a7843df90a992ff15f44b070d78ae4e91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fe34d62f915c840dbe27398180bb2cf"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classweb_1_1_h_t_t_p_builder.html#a1fe34d62f915c840dbe27398180bb2cf">build</a> (const json::JSONBuilder &amp;builder)</td></tr>
-<tr class="separator:a1fe34d62f915c840dbe27398180bb2cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a409f633e2c0791749584a3dfe4ff7597"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classweb_1_1_h_t_t_p_builder.html#a409f633e2c0791749584a3dfe4ff7597">build</a> (const std::string &amp;data=&quot;&quot;, const std::unordered_map&lt; std::string, std::string &gt; &amp;additionalHeaders={}) const</td></tr>
+<tr class="separator:a409f633e2c0791749584a3dfe4ff7597"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41737295e41fac6daeab903bdd730fd9"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classweb_1_1_h_t_t_p_builder.html#a41737295e41fac6daeab903bdd730fd9">build</a> (const json::JSONBuilder &amp;builder, const std::unordered_map&lt; std::string, std::string &gt; &amp;additionalHeaders={}) const</td></tr>
+<tr class="separator:a41737295e41fac6daeab903bdd730fd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19dfb77f3d55960e96ebaa93fa8b5ab1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classweb_1_1_h_t_t_p_builder.html#a19dfb77f3d55960e96ebaa93fa8b5ab1">clear</a> ()</td></tr>
 <tr class="separator:a19dfb77f3d55960e96ebaa93fa8b5ab1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca01b380901b29179c8f1a5f58db1c84"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classweb_1_1_h_t_t_p_builder.html#aca01b380901b29179c8f1a5f58db1c84">~HTTPBuilder</a> ()=default</td></tr>
 <tr class="separator:aca01b380901b29179c8f1a5f58db1c84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a9a7452a3f26a51c81906478cb2045fb2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_h_t_t_p_parser_8h.html#acf879ba207cfe7e6b02da3fe19e29047">HTTP_API</a> std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classweb_1_1_h_t_t_p_builder.html#a9a7452a3f26a51c81906478cb2045fb2">operator&lt;&lt;</a> (std::ostream &amp;outputStream, const <a class="el" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a> &amp;builder)</td></tr>
+<tr class="memdesc:a9a7452a3f26a51c81906478cb2045fb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set HTTP to output stream.  <a href="classweb_1_1_h_t_t_p_builder.html#a9a7452a3f26a51c81906478cb2045fb2">More...</a><br /></td></tr>
+<tr class="separator:a9a7452a3f26a51c81906478cb2045fb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>HTTP builder. </p>
@@ -201,28 +208,36 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a1fe34d62f915c840dbe27398180bb2cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1fe34d62f915c840dbe27398180bb2cf">&#9670;&nbsp;</a></span>build() <span class="overload">[1/2]</span></h2>
+<a id="a41737295e41fac6daeab903bdd730fd9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41737295e41fac6daeab903bdd730fd9">&#9670;&nbsp;</a></span>build() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">string web::HTTPBuilder::build </td>
+          <td class="memname">std::string web::HTTPBuilder::build </td>
           <td>(</td>
           <td class="paramtype">const json::JSONBuilder &amp;&#160;</td>
-          <td class="paramname"><em>builder</em></td><td>)</td>
+          <td class="paramname"><em>builder</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const std::unordered_map&lt; std::string, std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>additionalHeaders</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00220">220</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
-
 </div>
 </div>
-<a id="a7843df90a992ff15f44b070d78ae4e91"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7843df90a992ff15f44b070d78ae4e91">&#9670;&nbsp;</a></span>build() <span class="overload">[2/2]</span></h2>
+<a id="a409f633e2c0791749584a3dfe4ff7597"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a409f633e2c0791749584a3dfe4ff7597">&#9670;&nbsp;</a></span>build() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -231,8 +246,18 @@ Public Member Functions</h2></td></tr>
           <td class="memname">std::string web::HTTPBuilder::build </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>data</em> = <code>&quot;&quot;</code></td><td>)</td>
+          <td class="paramname"><em>data</em> = <code>&quot;&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const std::unordered_map&lt; std::string, std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>additionalHeaders</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -254,7 +279,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00232">232</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00235">235</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
 
 </div>
 </div>
@@ -377,7 +402,7 @@ template&lt;typename StringT , typename T , typename... Args&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Self </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8h_source.html#l00145">145</a> of file <a class="el" href="_h_t_t_p_builder_8h_source.html">HTTPBuilder.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8h_source.html#l00151">151</a> of file <a class="el" href="_h_t_t_p_builder_8h_source.html">HTTPBuilder.h</a>.</p>
 
 </div>
 </div>
@@ -525,7 +550,7 @@ template&lt;typename StringT , typename T , typename... Args&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Self </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8h_source.html#l00114">114</a> of file <a class="el" href="_h_t_t_p_builder_8h_source.html">HTTPBuilder.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8h_source.html#l00120">120</a> of file <a class="el" href="_h_t_t_p_builder_8h_source.html">HTTPBuilder.h</a>.</p>
 
 </div>
 </div>
@@ -634,6 +659,53 @@ template&lt;typename StringT , typename T , typename... Args&gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>Self </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00149">149</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a9a7452a3f26a51c81906478cb2045fb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a7452a3f26a51c81906478cb2045fb2">&#9670;&nbsp;</a></span>operator&lt;&lt;</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_h_t_t_p_parser_8h.html#acf879ba207cfe7e6b02da3fe19e29047">HTTP_API</a> std::ostream&amp; operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>outputStream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a> &amp;&#160;</td>
+          <td class="paramname"><em>builder</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set HTTP to output stream. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">outputStream</td><td>std::ostream subclass instance </td></tr>
+    <tr><td class="paramname">parser</td><td>const reference to <a class="el" href="classweb_1_1_h_t_t_p_builder.html" title="HTTP builder.">HTTPBuilder</a> instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>outputStream </dd></dl>
 
 </div>
 </div>

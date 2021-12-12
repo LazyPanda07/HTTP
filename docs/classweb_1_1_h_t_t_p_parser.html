@@ -86,6 +86,7 @@ $(document).ready(function(){initNavTree('classweb_1_1_h_t_t_p_parser.html','');
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="classweb_1_1_h_t_t_p_parser-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">web::HTTPParser Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div>  </div>
@@ -157,6 +158,12 @@ Static Public Attributes</h2></td></tr>
 <tr class="separator:a513117f493dfe4f4d1b4da2a8dfc4c0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acaf0e09b72893588dae3cb479b776dbe"><td class="memItemLeft" align="right" valign="top">static constexpr std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classweb_1_1_h_t_t_p_parser.html#acaf0e09b72893588dae3cb479b776dbe">jsonEncoded</a> = &quot;application/json&quot;</td></tr>
 <tr class="separator:acaf0e09b72893588dae3cb479b776dbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:aaab3463fcc6864d05d50af287b0073ca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_h_t_t_p_parser_8h.html#acf879ba207cfe7e6b02da3fe19e29047">HTTP_API</a> std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classweb_1_1_h_t_t_p_parser.html#aaab3463fcc6864d05d50af287b0073ca">operator&lt;&lt;</a> (std::ostream &amp;outputStream, const <a class="el" href="classweb_1_1_h_t_t_p_parser.html">HTTPParser</a> &amp;parser)</td></tr>
+<tr class="memdesc:aaab3463fcc6864d05d50af287b0073ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set HTTP to output stream.  <a href="classweb_1_1_h_t_t_p_parser.html#aaab3463fcc6864d05d50af287b0073ca">More...</a><br /></td></tr>
+<tr class="separator:aaab3463fcc6864d05d50af287b0073ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>HTTP parser. </p>
@@ -431,6 +438,53 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="_h_t_t_p_parser_8cpp_source.html#l00311">311</a> of file <a class="el" href="_h_t_t_p_parser_8cpp_source.html">HTTPParser.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="aaab3463fcc6864d05d50af287b0073ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaab3463fcc6864d05d50af287b0073ca">&#9670;&nbsp;</a></span>operator&lt;&lt;</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_h_t_t_p_parser_8h.html#acf879ba207cfe7e6b02da3fe19e29047">HTTP_API</a> std::ostream&amp; operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>outputStream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classweb_1_1_h_t_t_p_parser.html">HTTPParser</a> &amp;&#160;</td>
+          <td class="paramname"><em>parser</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set HTTP to output stream. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">outputStream</td><td>std::ostream subclass instance </td></tr>
+    <tr><td class="paramname">parser</td><td>const reference to <a class="el" href="classweb_1_1_h_t_t_p_parser.html" title="HTTP parser.">HTTPParser</a> instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>outputStream </dd></dl>
 
 </div>
 </div>

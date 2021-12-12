@@ -165,7 +165,7 @@ namespace web
 
 		if (method.size())
 		{
-			size_t startParameters = firstString.find('/');
+			size_t startParameters = firstString.find('/') + 1;
 			size_t endParameters = firstString.find(' ', startParameters);
 			size_t queryStart = firstString.find('?');
 
@@ -229,7 +229,7 @@ namespace web
 			if (transferEncoding->second == chunkEncoded)
 			{
 				size_t chunksStart = HTTPMessage.find(crlfcrlf) + crlfcrlf.size();
-				size_t chunksEnd = HTTPMessage.rfind(crlfcrlf);
+				size_t chunksEnd = HTTPMessage.rfind(crlfcrlf) + crlfcrlf.size();
 				readOnlyBuffer buffer(string_view(HTTPMessage.data() + chunksStart, chunksEnd - chunksStart));
 				istringstream chunksData;
 
@@ -242,7 +242,7 @@ namespace web
 
 					getline(chunksData, size);
 
-					size.pop_back(); // \r symbol
+					size.pop_back(); // \r symbol from \r\n
 
 					value.resize(stol(size, nullptr, 16));
 
@@ -331,5 +331,55 @@ namespace web
 	const json::JSONParser& HTTPParser::getJSON() const
 	{
 		return jsonParser;
+	}
+
+	HTTP_API ostream& operator << (ostream& outputStream, const HTTPParser& parser)
+	{
+		string result;
+
+		if (parser.method.size())
+		{
+			result += parser.method + " /" + parser.parameters + ' ' + parser.httpVersion;
+		}
+		else
+		{
+			const auto& [code, message] = parser.getFullResponse();
+
+			result += parser.httpVersion + ' ' + to_string(static_cast<int>(code)) + ' ' + message;
+		}
+		
+		result += HTTPParser::crlf;
+
+		for (const auto& [header, value] : parser.headers)
+		{
+			result.
+				append(header + ": " + value).
+				append(HTTPParser::crlf);
+		}
+
+		if (parser.body.size())
+		{
+			result.
+				append(HTTPParser::crlf).
+				append(parser.body);
+		}
+		else if (parser.chunks.size())
+		{
+			result += HTTPParser::crlf;
+
+			for (const auto& chunk : parser.chunks)
+			{
+				result.
+					append((ostringstream() << hex << chunk.size() << HTTPParser::crlf).str()).
+					append(chunk).
+					append(HTTPParser::crlf);
+			}
+
+			result.
+				append("0").
+				append(HTTPParser::crlfcrlf);
+		}
+
+		return outputStream << result;
 	}
 }

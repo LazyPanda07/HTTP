@@ -253,7 +253,7 @@ $(document).ready(function(){initNavTree('_h_t_t_p_parser_8cpp_source.html','');
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        <span class="keywordflow">if</span> (method.size())</div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        {</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;            <span class="keywordtype">size_t</span> startParameters = firstString.find(<span class="charliteral">&#39;/&#39;</span>);</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;            <span class="keywordtype">size_t</span> startParameters = firstString.find(<span class="charliteral">&#39;/&#39;</span>) + 1;</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;            <span class="keywordtype">size_t</span> endParameters = firstString.find(<span class="charliteral">&#39; &#39;</span>, startParameters);</div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;            <span class="keywordtype">size_t</span> queryStart = firstString.find(<span class="charliteral">&#39;?&#39;</span>);</div>
 <div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
@@ -317,7 +317,7 @@ $(document).ready(function(){initNavTree('_h_t_t_p_parser_8cpp_source.html','');
 <div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;            <span class="keywordflow">if</span> (transferEncoding-&gt;second == chunkEncoded)</div>
 <div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;            {</div>
 <div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;                <span class="keywordtype">size_t</span> chunksStart = HTTPMessage.find(crlfcrlf) + crlfcrlf.size();</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;                <span class="keywordtype">size_t</span> chunksEnd = HTTPMessage.rfind(crlfcrlf);</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;                <span class="keywordtype">size_t</span> chunksEnd = HTTPMessage.rfind(crlfcrlf) + crlfcrlf.size();</div>
 <div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;                readOnlyBuffer buffer(string_view(HTTPMessage.data() + chunksStart, chunksEnd - chunksStart));</div>
 <div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;                istringstream chunksData;</div>
 <div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
@@ -330,7 +330,7 @@ $(document).ready(function(){initNavTree('_h_t_t_p_parser_8cpp_source.html','');
 <div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160; </div>
 <div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;                    getline(chunksData, size);</div>
 <div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160; </div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;                    size.pop_back(); <span class="comment">// \r symbol</span></div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;                    size.pop_back(); <span class="comment">// \r symbol from \r\n</span></div>
 <div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160; </div>
 <div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;                    value.resize(stol(size, <span class="keyword">nullptr</span>, 16));</div>
 <div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160; </div>
@@ -420,10 +420,64 @@ $(document).ready(function(){initNavTree('_h_t_t_p_parser_8cpp_source.html','');
 <div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;<span class="keyword">    </span>{</div>
 <div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;        <span class="keywordflow">return</span> jsonParser;</div>
 <div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    }</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;}</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160; </div>
+<div class="line"><a name="l00336"></a><span class="lineno"><a class="line" href="namespaceweb.html#a0dd8ec67664c7e9aab3962ad340fbcbb">  336</a></span>&#160;    <a class="code" href="_h_t_t_p_builder_8h.html#acf879ba207cfe7e6b02da3fe19e29047">HTTP_API</a> ostream&amp; <a class="code" href="namespaceweb.html#a0dd8ec67664c7e9aab3962ad340fbcbb">operator &lt;&lt; </a>(ostream&amp; outputStream, <span class="keyword">const</span> <a class="code" href="classweb_1_1_h_t_t_p_parser.html">HTTPParser</a>&amp; parser)</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    {</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;        <span class="keywordtype">string</span> result;</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160; </div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;        <span class="keywordflow">if</span> (parser.method.size())</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;        {</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;            result += parser.method + <span class="stringliteral">&quot; /&quot;</span> + parser.parameters + <span class="charliteral">&#39; &#39;</span> + parser.httpVersion;</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;        }</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;        {</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; [code, message] = parser.<a class="code" href="classweb_1_1_h_t_t_p_parser.html#a0c13284683cf3b283471a6959fc4731b">getFullResponse</a>();</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160; </div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;            result += parser.httpVersion + <span class="charliteral">&#39; &#39;</span> + to_string(<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(code)) + <span class="charliteral">&#39; &#39;</span> + message;</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;        }</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;        </div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;        result += HTTPParser::crlf;</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160; </div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [header, value] : parser.headers)</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;        {</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;            result.</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;                append(header + <span class="stringliteral">&quot;: &quot;</span> + value).</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;                append(HTTPParser::crlf);</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;        }</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160; </div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;        <span class="keywordflow">if</span> (parser.body.size())</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;        {</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;            result.</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;                append(HTTPParser::crlf).</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;                append(parser.body);</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;        }</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (parser.chunks.size())</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;        {</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;            result += HTTPParser::crlf;</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160; </div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; chunk : parser.chunks)</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;            {</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;                result.</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;                    append((ostringstream() &lt;&lt; hex &lt;&lt; chunk.size() &lt;&lt; HTTPParser::crlf).str()).</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;                    append(chunk).</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;                    append(HTTPParser::crlf);</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;            }</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160; </div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;            result.</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;                append(<span class="stringliteral">&quot;0&quot;</span>).</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;                append(HTTPParser::crlfcrlf);</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;        }</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160; </div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;        <span class="keywordflow">return</span> outputStream &lt;&lt; result;</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    }</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;}</div>
+<div class="ttc" id="a_h_t_t_p_builder_8h_html_acf879ba207cfe7e6b02da3fe19e29047"><div class="ttname"><a href="_h_t_t_p_builder_8h.html#acf879ba207cfe7e6b02da3fe19e29047">HTTP_API</a></div><div class="ttdeci">#define HTTP_API</div><div class="ttdef"><b>Definition:</b> <a href="_h_t_t_p_builder_8h_source.html#l00007">HTTPBuilder.h:7</a></div></div>
 <div class="ttc" id="a_h_t_t_p_parser_8cpp_html_ad0786f4e2ae6df433f30d873acdd7aa4"><div class="ttname"><a href="_h_t_t_p_parser_8cpp.html#ad0786f4e2ae6df433f30d873acdd7aa4">responseCodeSize</a></div><div class="ttdeci">constexpr int responseCodeSize</div><div class="ttdef"><b>Definition:</b> <a href="_h_t_t_p_parser_8cpp_source.html#l00010">HTTPParser.cpp:10</a></div></div>
 <div class="ttc" id="a_h_t_t_p_parser_8h_html"><div class="ttname"><a href="_h_t_t_p_parser_8h.html">HTTPParser.h</a></div></div>
+<div class="ttc" id="aclassweb_1_1_h_t_t_p_parser_html"><div class="ttname"><a href="classweb_1_1_h_t_t_p_parser.html">web::HTTPParser</a></div><div class="ttdoc">HTTP parser.</div><div class="ttdef"><b>Definition:</b> <a href="_h_t_t_p_parser_8h_source.html#l00022">HTTPParser.h:23</a></div></div>
+<div class="ttc" id="aclassweb_1_1_h_t_t_p_parser_html_a0c13284683cf3b283471a6959fc4731b"><div class="ttname"><a href="classweb_1_1_h_t_t_p_parser.html#a0c13284683cf3b283471a6959fc4731b">web::HTTPParser::getFullResponse</a></div><div class="ttdeci">const std::pair&lt; responseCodes, std::string &gt; &amp; getFullResponse() const</div><div class="ttdef"><b>Definition:</b> <a href="_h_t_t_p_parser_8cpp_source.html#l00301">HTTPParser.cpp:301</a></div></div>
 <div class="ttc" id="anamespaceweb_html"><div class="ttname"><a href="namespaceweb.html">web</a></div><div class="ttdef"><b>Definition:</b> <a href="_h_t_t_p_builder_8cpp_source.html#l00010">HTTPBuilder.cpp:11</a></div></div>
+<div class="ttc" id="anamespaceweb_html_a0dd8ec67664c7e9aab3962ad340fbcbb"><div class="ttname"><a href="namespaceweb.html#a0dd8ec67664c7e9aab3962ad340fbcbb">web::operator&lt;&lt;</a></div><div class="ttdeci">HTTP_API ostream &amp; operator&lt;&lt;(ostream &amp;outputStream, const HTTPParser &amp;parser)</div><div class="ttdef"><b>Definition:</b> <a href="_h_t_t_p_parser_8cpp_source.html#l00336">HTTPParser.cpp:336</a></div></div>
 <div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10">web::responseCodes</a></div><div class="ttdeci">responseCodes</div><div class="ttdoc">Response codes.</div><div class="ttdef"><b>Definition:</b> <a href="_h_t_t_p_utility_8h_source.html#l00006">HTTPUtility.h:7</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

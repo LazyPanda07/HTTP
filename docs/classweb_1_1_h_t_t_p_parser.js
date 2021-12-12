@@ -15,5 +15,6 @@ var classweb_1_1_h_t_t_p_parser =
     [ "getMethod", "classweb_1_1_h_t_t_p_parser.html#a56a8fb9cfd6f339a19feb7375508871f", null ],
     [ "getParameters", "classweb_1_1_h_t_t_p_parser.html#a0984b70490bfcae61da4dedfecd4fec2", null ],
     [ "getResponseCode", "classweb_1_1_h_t_t_p_parser.html#a1caadfa601095ced75894d767e676e1c", null ],
-    [ "getResponseMessage", "classweb_1_1_h_t_t_p_parser.html#af75950b8f6da904c71ead7d2c2053fef", null ]
+    [ "getResponseMessage", "classweb_1_1_h_t_t_p_parser.html#af75950b8f6da904c71ead7d2c2053fef", null ],
+    [ "operator<<", "classweb_1_1_h_t_t_p_parser.html#aaab3463fcc6864d05d50af287b0073ca", null ]
 ];

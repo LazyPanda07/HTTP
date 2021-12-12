@@ -181,16 +181,14 @@ namespace web
 		return *this;
 	}
 
-	string HTTPBuilder::build(const string& data)
+	string HTTPBuilder::build(const string& data, const unordered_map<string, string>& additionalHeaders) const
 	{
 		string result;
+		unordered_map<string, string> buildHeaders(additionalHeaders);
 
 		if (data.size())
 		{
-			this->headers
-			(
-				"Content-Length", data.size()
-			);
+			buildHeaders["Content-Length"] = to_string(data.size());
 		}
 
 		if (method.empty())	//response 
@@ -199,12 +197,19 @@ namespace web
 		}
 		else	//request
 		{
+			result = method + ' ';
+
 			if (_parameters.empty())
 			{
-				_parameters = "/";
+				result += "/";
 			}
 
-			result = method + " " + _parameters + " " + _HTTPVersion + "\r\n" + _headers;
+			result += _parameters + ' ' + _HTTPVersion + "\r\n" + _headers;
+		}
+
+		for (const auto& [header, value] : buildHeaders)
+		{
+			result += header + ": " + value + "\r\n";
 		}
 
 		result += "\r\n";
@@ -217,16 +222,14 @@ namespace web
 		return result;
 	}
 
-	string HTTPBuilder::build(const json::JSONBuilder& builder)
+	string HTTPBuilder::build(const json::JSONBuilder& builder, const unordered_map<string, string>& additionalHeaders) const
 	{
 		string json = builder.build();
+		unordered_map<string, string> contentTypeHeader(additionalHeaders);
 
-		this->headers
-		(
-			"Content-Type", "application/json"
-		);
+		contentTypeHeader["Content-Type"] = "application/json";
 
-		return this->build(json);
+		return this->build(json, additionalHeaders);
 	}
 
 	HTTPBuilder& HTTPBuilder::clear()
@@ -234,6 +237,11 @@ namespace web
 		method = _parameters = _responseCode = _headers = "";
 
 		return *this;
+	}
+
+	HTTP_API ostream& operator << (ostream& outputStream, const HTTPBuilder& builder)
+	{
+		return outputStream << builder.build();
 	}
 }
 

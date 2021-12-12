@@ -101,11 +101,17 @@ namespace web
 		template<typename StringT, typename T, typename... Args>
 		HTTPBuilder& headers(StringT&& name, T&& value, Args&&... args);
 
-		std::string build(const std::string& data = "");
+		std::string build(const std::string& data = "", const std::unordered_map<std::string, std::string>& additionalHeaders = {}) const;
 
-		std::string build(const json::JSONBuilder& builder);
+		std::string build(const json::JSONBuilder& builder, const std::unordered_map<std::string, std::string>& additionalHeaders = {}) const;
 
 		HTTPBuilder& clear();
+
+		/// @brief Set HTTP to output stream
+		/// @param outputStream std::ostream subclass instance
+		/// @param parser const reference to HTTPBuilder instance
+		/// @return outputStream
+		friend HTTP_API std::ostream& operator << (std::ostream& outputStream, const HTTPBuilder& builder);
 
 		~HTTPBuilder() = default;
 	};
