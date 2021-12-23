@@ -188,7 +188,19 @@ namespace web
 
 	HTTPBuilder& HTTPBuilder::parameters(const string& parameters)
 	{
-		_parameters = '/' + parameters;
+		if (parameters.empty())
+		{
+			return *this;
+		}
+
+		if (parameters.front() == '/')
+		{
+			_parameters = parameters;
+		}
+		else
+		{
+			_parameters = '/' + parameters;
+		}
 
 		return *this;
 	}
