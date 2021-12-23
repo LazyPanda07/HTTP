@@ -218,7 +218,7 @@ namespace web
 				{
 					this->parseKeyValueParameter(body);
 				}
-				else if (it->second == jsonEncoded)
+				else if (it->second.find(jsonEncoded) != string::npos)
 				{
 					jsonParser.setJSONData(body);
 				}
