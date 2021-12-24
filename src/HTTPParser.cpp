@@ -209,7 +209,7 @@ namespace web
 			{
 				body = string(HTTPMessage.begin() + HTTPMessage.find(crlfcrlf) + crlfcrlf.size(), HTTPMessage.end());
 			}
-			
+
 			auto it = headers.find(contentTypeHeader);
 
 			if (it != headers.end())
@@ -262,7 +262,7 @@ namespace web
 					else
 					{
 						chunks.push_back(move(value));
-					}	
+					}
 				}
 			}
 		}
@@ -276,6 +276,46 @@ namespace web
 	HTTPParser::HTTPParser(const vector<char>& HTTPMessage)
 	{
 		this->parse(string_view(HTTPMessage.data(), HTTPMessage.size()));
+	}
+
+	HTTPParser::HTTPParser(const HTTPParser& other)
+	{
+		(*this) = other;
+	}
+
+	HTTPParser::HTTPParser(HTTPParser&& other) noexcept
+	{
+		(*this) = move(other);
+	}
+
+	HTTPParser& HTTPParser::operator = (const HTTPParser& other)
+	{
+		headers = other.headers;
+		keyValueParameters = other.keyValueParameters;
+		response = other.response;
+		method = other.method;
+		httpVersion = other.httpVersion;
+		parameters = other.parameters;
+		body = other.body;
+		chunks = other.chunks;
+		jsonParser = other.jsonParser;
+
+		return *this;
+	}
+
+	HTTPParser& HTTPParser::operator = (HTTPParser&& other) noexcept
+	{
+		headers = move(other.headers);
+		keyValueParameters = move(other.keyValueParameters);
+		response = move(other.response);
+		method = move(other.method);
+		httpVersion = move(other.httpVersion);
+		parameters = move(other.parameters);
+		body = move(other.body);
+		chunks = move(other.chunks);
+		jsonParser = move(other.jsonParser);
+
+		return *this;
 	}
 
 	const string& HTTPParser::getMethod() const
@@ -347,7 +387,7 @@ namespace web
 
 			result += parser.httpVersion + ' ' + to_string(static_cast<int>(code)) + ' ' + message;
 		}
-		
+
 		result += HTTPParser::crlf;
 
 		for (const auto& [header, value] : parser.headers)

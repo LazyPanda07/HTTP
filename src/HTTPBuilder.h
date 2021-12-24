@@ -46,6 +46,14 @@ namespace web
 	public:
 		HTTPBuilder(const std::string& fullHTTPVersion = "HTTP/1.1");
 
+		HTTPBuilder(const HTTPBuilder& other);
+
+		HTTPBuilder(HTTPBuilder&& other) noexcept;
+
+		HTTPBuilder& operator = (const HTTPBuilder& other);
+
+		HTTPBuilder& operator = (HTTPBuilder&& other) noexcept;
+
 		/// @brief Set GET request
 		/// @return Self
 		HTTPBuilder& getRequest();

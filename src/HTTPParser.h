@@ -72,6 +72,14 @@ namespace web
 
 		HTTPParser(const std::vector<char>& HTTPMessage);
 
+		HTTPParser(const HTTPParser& other);
+
+		HTTPParser(HTTPParser&& other) noexcept;
+
+		HTTPParser& operator = (const HTTPParser& other);
+
+		HTTPParser& operator = (HTTPParser&& other) noexcept;
+
 		const std::string& getMethod() const;
 
 		const std::string& getHTTPVersion() const;

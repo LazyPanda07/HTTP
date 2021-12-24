@@ -123,6 +123,40 @@ namespace web
 
 	}
 
+	HTTPBuilder::HTTPBuilder(const HTTPBuilder& other)
+	{
+		(*this) = other;
+	}
+
+	HTTPBuilder::HTTPBuilder(HTTPBuilder&& other) noexcept
+	{
+		(*this) = move(other);
+	}
+
+	HTTPBuilder& HTTPBuilder::operator = (const HTTPBuilder& other)
+	{
+		method = other.method;
+		_parameters = other._parameters;
+		_responseCode = other._responseCode;
+		_headers = other._headers;
+		_HTTPVersion = other._HTTPVersion;
+		_chunks = other._chunks;
+
+		return *this;
+	}
+
+	HTTPBuilder& HTTPBuilder::operator = (HTTPBuilder&& other) noexcept
+	{
+		method = move(other.method);
+		_parameters = move(other._parameters);
+		_responseCode = move(other._responseCode);
+		_headers = move(other._headers);
+		_HTTPVersion = move(other._HTTPVersion);
+		_chunks = move(other._chunks);
+
+		return *this;
+	}
+
 	HTTPBuilder& HTTPBuilder::getRequest()
 	{
 		method = "GET";
