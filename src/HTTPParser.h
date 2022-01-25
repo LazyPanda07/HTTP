@@ -29,13 +29,13 @@ namespace web
 
 	public:
 		/// @brief Custom hashing for headers with case insensitive
-		struct insensitiveStringHash
+		struct HTTP_API insensitiveStringHash
 		{
 			size_t operator () (const std::string& value) const;
 		};
 
 		/// @brief Custom equal for headers
-		struct insensitiveStringEqual
+		struct HTTP_API insensitiveStringEqual
 		{
 			bool operator () (const std::string& left, const std::string& right) const;
 		};
