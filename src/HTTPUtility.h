@@ -1,5 +1,7 @@
 #pragma once
 
+#include <ostream>
+
 namespace web
 {
 	/// @brief Response codes
@@ -77,4 +79,9 @@ namespace web
 		SSLHandshakeFailed,
 		invalidSSLCertificate
 	};
+
+	inline std::ostream& operator << (std::ostream& stream, responseCodes responseCode)
+	{
+		return stream << static_cast<int>(responseCode);
+	}
 }

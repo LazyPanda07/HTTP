@@ -39,12 +39,6 @@ namespace web
 		);
 	}
 
-	const string HTTPParser::contentLengthHeader = "Content-Length";
-	const string HTTPParser::contentTypeHeader = "Content-Type";
-	const string HTTPParser::transferEncodingHeader = "Transfer-Encoding";
-	const string HTTPParser::utf8Encoded = "charset=utf-8";
-	const string HTTPParser::chunkEncoded = "chunked";
-
 	void HTTPParser::parseKeyValueParameter(string_view rawParameters)
 	{
 		size_t nextKeyValuePair = 0;
@@ -84,7 +78,7 @@ namespace web
 		keyValueParameters[move(key)] = move(value);
 	}
 
-	void HTTPParser::parse(string_view&& HTTPMessage)
+	void HTTPParser::parse(string_view HTTPMessage)
 	{
 		size_t prevString = 0;
 		size_t nextString = HTTPMessage.find('\r');
@@ -139,28 +133,15 @@ namespace web
 
 		if (method.empty())
 		{
-			size_t startHTTP = firstString.find("HTTP");
-			size_t endHTTP = firstString.find(' ', startHTTP);
+			readOnlyBuffer buffer(firstString);
+			istringstream data;
+			string responseCode;
 
-			httpVersion = string(firstString.begin() + startHTTP, firstString.begin() + endHTTP);
+			data.set_rdbuf(&buffer);
 
-			for (size_t i = 0; i < firstString.size() - responseCodeSize; i++)
-			{
-				string_view tem(firstString.data() + i, responseCodeSize);
-				if (atoi(tem.data()) >= 100 && all_of(begin(tem), end(tem), [](char c) { return isdigit(c); }))
-				{
-					string message;
+			data >> httpVersion >> responseCode >> response.second;
 
-					for (size_t j = i + responseCodeSize + 1; j < firstString.size(); j++)
-					{
-						message += firstString[j];
-					}
-
-					response = { static_cast<responseCodes>(stoi(string(tem))), message };
-
-					break;
-				}
-			}
+			response.first = static_cast<responseCodes>(stoi(responseCode));
 		}
 
 		if (method.size())
@@ -348,7 +329,7 @@ namespace web
 		return response.first;
 	}
 
-	string HTTPParser::getResponseMessage() const
+	const string& HTTPParser::getResponseMessage() const
 	{
 		return response.second;
 	}

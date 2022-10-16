@@ -4,6 +4,5 @@ var searchData=
   ['chunk_161',['chunk',['../classweb_1_1_h_t_t_p_builder.html#aeb8419f4b9c26390151fea8762d2accf',1,'web::HTTPBuilder']]],
   ['chunks_162',['chunks',['../classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759',1,'web::HTTPBuilder']]],
   ['clear_163',['clear',['../classweb_1_1_h_t_t_p_builder.html#a19dfb77f3d55960e96ebaa93fa8b5ab1',1,'web::HTTPBuilder']]],
-  ['connectrequest_164',['connectRequest',['../classweb_1_1_h_t_t_p_builder.html#a709dce20561ed12f27af9c3f2675699d',1,'web::HTTPBuilder']]],
-  ['convert_165',['convert',['../_h_t_t_p_builder_8cpp.html#a614dc4e30f00472e48d8b697105aedd9',1,'HTTPBuilder.cpp']]]
+  ['connectrequest_164',['connectRequest',['../classweb_1_1_h_t_t_p_builder.html#a709dce20561ed12f27af9c3f2675699d',1,'web::HTTPBuilder']]]
 ];

@@ -6,8 +6,6 @@
 
 using namespace std;
 
-constexpr std::array<char, 4> convert(web::responseCodes code);
-
 namespace web
 {
 	static const unordered_map<responseCodes, string> responseMessage =
@@ -241,14 +239,28 @@ namespace web
 
 	HTTPBuilder& HTTPBuilder::responseCode(responseCodes code)
 	{
-		_responseCode = convert(code).data() + string(" ") + responseMessage.at(code);
+		_responseCode = to_string(static_cast<int>(code)) + ' ' + responseMessage.at(code);
+
+		return *this;
+	}
+
+	HTTPBuilder& HTTPBuilder::responseCode(int code, const string& responseMessage)
+	{
+		_responseCode = to_string(code) + ' ' + responseMessage;
 
 		return *this;
 	}
 
 	HTTPBuilder& HTTPBuilder::HTTPVersion(const string& HTTPVersion)
 	{
-		_HTTPVersion = HTTPVersion;
+		if (HTTPVersion.find("HTTP") == string::npos)
+		{
+			_HTTPVersion = HTTPVersion;
+		}
+		else
+		{
+			_HTTPVersion = "HTTP/" + HTTPVersion;
+		}
 
 		return *this;
 	}
@@ -337,20 +349,4 @@ namespace web
 	{
 		return outputStream << builder.build();
 	}
-}
-
-constexpr std::array<char, 4> convert(web::responseCodes code)
-{
-	std::array<char, 4> res{};
-	short tem = static_cast<short>(code);
-	size_t i = 2;
-
-	while (tem)
-	{
-		res[i--] = tem % 10 + '0';
-
-		tem /= 10;
-	}
-
-	return res;
 }

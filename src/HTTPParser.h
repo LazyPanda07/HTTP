@@ -41,15 +41,15 @@ namespace web
 		};
 
 	public:
-		static const std::string contentLengthHeader;
-		static const std::string contentTypeHeader;
-		static const std::string transferEncodingHeader;
-		static const std::string utf8Encoded;
-		static const std::string chunkEncoded;
-		static constexpr std::string_view crlfcrlf = "\r\n\r\n";
-		static constexpr std::string_view crlf = "\r\n";
-		static constexpr std::string_view urlEncoded = "application/x-www-form-urlencoded";
-		static constexpr std::string_view jsonEncoded = "application/json";
+		static inline const std::string contentLengthHeader = "Content-Length";
+		static inline const std::string contentTypeHeader = "Content-Type";
+		static inline const std::string transferEncodingHeader = "Transfer-Encoding";
+		static inline const std::string utf8Encoded = "charset=utf-8";
+		static inline const std::string chunkEncoded = "chunked";
+		static inline constexpr std::string_view crlfcrlf = "\r\n\r\n";
+		static inline constexpr std::string_view crlf = "\r\n";
+		static inline constexpr std::string_view urlEncoded = "application/x-www-form-urlencoded";
+		static inline constexpr std::string_view jsonEncoded = "application/json";
 
 	private:
 		std::unordered_map<std::string, std::string, insensitiveStringHash, insensitiveStringEqual> headers;
@@ -65,7 +65,7 @@ namespace web
 	private:
 		void parseKeyValueParameter(std::string_view rawParameters);
 
-		void parse(std::string_view&& HTTPMessage);
+		void parse(std::string_view HTTPMessage);
 
 	public:
 		HTTPParser(const std::string& HTTPMessage);
@@ -92,7 +92,7 @@ namespace web
 
 		responseCodes getResponseCode() const;
 
-		std::string getResponseMessage() const;
+		const std::string& getResponseMessage() const;
 
 		const std::unordered_map<std::string, std::string, insensitiveStringHash, insensitiveStringEqual>& getHeaders() const;
 

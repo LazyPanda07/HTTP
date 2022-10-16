@@ -76,5 +76,6 @@ var namespaceweb =
       [ "invalidSSLCertificate", "namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a2111f1f632e355ecb74a721d527bfd35", null ]
     ] ],
     [ "operator<<", "namespaceweb.html#af48d73e7f4753a44dbcbc60053f0b841", null ],
-    [ "operator<<", "namespaceweb.html#a0dd8ec67664c7e9aab3962ad340fbcbb", null ]
+    [ "operator<<", "namespaceweb.html#a0dd8ec67664c7e9aab3962ad340fbcbb", null ],
+    [ "operator<<", "namespaceweb.html#a43bb3f3390fb1e6e6196d7372a752cad", null ]
 ];

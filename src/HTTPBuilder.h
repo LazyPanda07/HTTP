@@ -108,6 +108,8 @@ namespace web
 
 		HTTPBuilder& responseCode(responseCodes code);
 
+		HTTPBuilder& responseCode(int code, const std::string& responseMessage);
+
 		HTTPBuilder& HTTPVersion(const std::string& httpVersion);
 
 		/// @brief Append header - value

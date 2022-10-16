@@ -72,5 +72,6 @@ var _h_t_t_p_utility_8h =
       [ "aTimeoutOccurred", "_h_t_t_p_utility_8h.html#a5a849da4ada867d4591d74f812c24e10afe5d49b53fc5b3b0fc196c69a2a7e7ae", null ],
       [ "SSLHandshakeFailed", "_h_t_t_p_utility_8h.html#a5a849da4ada867d4591d74f812c24e10aae62edfee054b11b0709d4399a93647b", null ],
       [ "invalidSSLCertificate", "_h_t_t_p_utility_8h.html#a5a849da4ada867d4591d74f812c24e10a2111f1f632e355ecb74a721d527bfd35", null ]
-    ] ]
+    ] ],
+    [ "operator<<", "_h_t_t_p_utility_8h.html#a43bb3f3390fb1e6e6196d7372a752cad", null ]
 ];
