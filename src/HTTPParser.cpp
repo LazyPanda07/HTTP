@@ -406,9 +406,7 @@ namespace web
 
 	istream& operator >> (istream& inputStream, HTTPParser& parser)
 	{
-		string httpMessage;
-
-		inputStream >> httpMessage;
+		string httpMessage(istreambuf_iterator(inputStream), {});
 
 		parser.parse(httpMessage);
 
