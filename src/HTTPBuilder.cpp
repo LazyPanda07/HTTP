@@ -345,7 +345,7 @@ namespace web
 		return *this;
 	}
 
-	HTTP_API ostream& operator << (ostream& outputStream, const HTTPBuilder& builder)
+	ostream& operator << (ostream& outputStream, const HTTPBuilder& builder)
 	{
 		return outputStream << builder.build();
 	}

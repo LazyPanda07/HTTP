@@ -65,9 +65,9 @@ namespace web
 	private:
 		void parseKeyValueParameter(std::string_view rawParameters);
 
-		void parse(std::string_view HTTPMessage);
-
 	public:
+		HTTPParser() = default;
+
 		HTTPParser(const std::string& HTTPMessage);
 
 		HTTPParser(const std::vector<char>& HTTPMessage);
@@ -79,6 +79,8 @@ namespace web
 		HTTPParser& operator = (const HTTPParser& other);
 
 		HTTPParser& operator = (HTTPParser&& other) noexcept;
+
+		void parse(std::string_view HTTPMessage);
 
 		const std::string& getMethod() const;
 
@@ -107,6 +109,8 @@ namespace web
 		/// @param parser const reference to HTTPParser instance
 		/// @return outputStream
 		friend HTTP_API std::ostream& operator << (std::ostream& outputStream, const HTTPParser& parser);
+
+		friend HTTP_API std::istream& operator >> (std::istream& inputStream, HTTPParser& parser);
 
 		~HTTPParser() = default;
 	};
