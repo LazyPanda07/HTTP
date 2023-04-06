@@ -230,32 +230,7 @@ namespace web
 
 		bool isUTF8 = HTTPMessage.find(utf8Encoded) != string::npos;
 
-		if (headers.find(contentLengthHeader) != headers.end())
-		{
-			if (isUTF8)
-			{
-				body = json::utility::toUTF8JSON(string(HTTPMessage.begin() + HTTPMessage.find(crlfcrlf) + crlfcrlf.size(), HTTPMessage.end()), CP_UTF8);
-			}
-			else
-			{
-				body = string(HTTPMessage.begin() + HTTPMessage.find(crlfcrlf) + crlfcrlf.size(), HTTPMessage.end());
-			}
-
-			auto it = headers.find(contentTypeHeader);
-
-			if (it != headers.end())
-			{
-				if (it->second == urlEncoded)
-				{
-					this->parseKeyValueParameter(body);
-				}
-				else if (it->second.find(jsonEncoded) != string::npos)
-				{
-					jsonParser.setJSONData(body);
-				}
-			}
-		}
-		else if (auto transferEncoding = headers.find(transferEncodingHeader); transferEncoding != headers.end())
+		if (auto transferEncoding = headers.find(transferEncodingHeader); transferEncoding != headers.end())
 		{
 			if (transferEncoding->second == chunkEncoded)
 			{
@@ -294,6 +269,29 @@ namespace web
 					{
 						chunks.push_back(move(value));
 					}
+				}
+			}
+		}
+		else if (headers.find(contentLengthHeader) != headers.end())
+		{
+			if (isUTF8)
+			{
+				body = json::utility::toUTF8JSON(string(HTTPMessage.begin() + HTTPMessage.find(crlfcrlf) + crlfcrlf.size(), HTTPMessage.end()), CP_UTF8);
+			}
+			else
+			{
+				body = string(HTTPMessage.begin() + HTTPMessage.find(crlfcrlf) + crlfcrlf.size(), HTTPMessage.end());
+			}
+
+			if (auto it = headers.find(contentTypeHeader); it != headers.end())
+			{
+				if (it->second == urlEncoded)
+				{
+					this->parseKeyValueParameter(body);
+				}
+				else if (it->second.find(jsonEncoded) != string::npos)
+				{
+					jsonParser.setJSONData(body);
 				}
 			}
 		}
