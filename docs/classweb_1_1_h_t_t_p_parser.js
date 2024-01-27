@@ -2,6 +2,7 @@ var classweb_1_1_h_t_t_p_parser =
 [
     [ "insensitiveStringEqual", "structweb_1_1_h_t_t_p_parser_1_1insensitive_string_equal.html", "structweb_1_1_h_t_t_p_parser_1_1insensitive_string_equal" ],
     [ "insensitiveStringHash", "structweb_1_1_h_t_t_p_parser_1_1insensitive_string_hash.html", "structweb_1_1_h_t_t_p_parser_1_1insensitive_string_hash" ],
+    [ "HTTPParser", "classweb_1_1_h_t_t_p_parser.html#a294a1b4c46681f47bc64ab6a653e1b4c", null ],
     [ "HTTPParser", "classweb_1_1_h_t_t_p_parser.html#a2f189bdb5055e3ecfa55fe461b9a7333", null ],
     [ "HTTPParser", "classweb_1_1_h_t_t_p_parser.html#ac630e692911a03f84dc52792aa9af598", null ],
     [ "HTTPParser", "classweb_1_1_h_t_t_p_parser.html#a807e94a43456e073d4d1ddf7f1aee489", null ],
@@ -20,5 +21,7 @@ var classweb_1_1_h_t_t_p_parser =
     [ "getResponseMessage", "classweb_1_1_h_t_t_p_parser.html#af01968ae611b7867288dee2cbe5124ea", null ],
     [ "operator=", "classweb_1_1_h_t_t_p_parser.html#a5b003809fff6778abc6a694fc55cfa66", null ],
     [ "operator=", "classweb_1_1_h_t_t_p_parser.html#a5cdcaecb9ebe2b34fb34883ea77f6ee9", null ],
-    [ "operator<<", "classweb_1_1_h_t_t_p_parser.html#aaab3463fcc6864d05d50af287b0073ca", null ]
+    [ "parse", "classweb_1_1_h_t_t_p_parser.html#a3d7d744fde526e32b4119aec9806a51c", null ],
+    [ "operator<<", "classweb_1_1_h_t_t_p_parser.html#ad81f53ff8fde292756f36a15425d1bde", null ],
+    [ "operator>>", "classweb_1_1_h_t_t_p_parser.html#ac34f5b31fe46e1efa2b047c4b30cfade", null ]
 ];

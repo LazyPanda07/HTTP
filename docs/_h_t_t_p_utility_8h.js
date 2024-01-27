@@ -1,5 +1,6 @@
 var _h_t_t_p_utility_8h =
 [
+    [ "HTTP_API", "_h_t_t_p_utility_8h.html#acf879ba207cfe7e6b02da3fe19e29047", null ],
     [ "responseCodes", "_h_t_t_p_utility_8h.html#a5a849da4ada867d4591d74f812c24e10", [
       [ "Continue", "_h_t_t_p_utility_8h.html#a5a849da4ada867d4591d74f812c24e10aa0bfb8e59e6c13fc8d990781f77694fe", null ],
       [ "switchingProtocols", "_h_t_t_p_utility_8h.html#a5a849da4ada867d4591d74f812c24e10a819e18c183b1fd7865fa280aa4187e85", null ],
@@ -73,5 +74,5 @@ var _h_t_t_p_utility_8h =
       [ "SSLHandshakeFailed", "_h_t_t_p_utility_8h.html#a5a849da4ada867d4591d74f812c24e10aae62edfee054b11b0709d4399a93647b", null ],
       [ "invalidSSLCertificate", "_h_t_t_p_utility_8h.html#a5a849da4ada867d4591d74f812c24e10a2111f1f632e355ecb74a721d527bfd35", null ]
     ] ],
-    [ "operator<<", "_h_t_t_p_utility_8h.html#a43bb3f3390fb1e6e6196d7372a752cad", null ]
+    [ "operator<<", "_h_t_t_p_utility_8h.html#a40f47277f16e9523a56a79f80ece0301", null ]
 ];

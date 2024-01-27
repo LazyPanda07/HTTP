@@ -1,25 +1,16 @@
 #pragma once
 
-#ifdef HTTP_DLL
-#define HTTP_API __declspec(dllexport)
-#define JSON_DLL
-#else
-#define HTTP_API
-#endif // HTTP_DLL
-
 #include <unordered_map>
 #include <string>
 #include <vector>
 
-#include "JSONParser.h"
 #include "HTTPUtility.h"
-
-#pragma comment (lib, "JSON.lib")
+#include "JSONParser.h"
 
 namespace web
 {
 	/// @brief HTTP parser
-	class HTTP_API HTTPParser final
+	class HTTP_API HTTPParser
 	{
 	private:
 		struct readOnlyBuffer : public std::streambuf
@@ -54,7 +45,7 @@ namespace web
 	private:
 		std::unordered_map<std::string, std::string, insensitiveStringHash, insensitiveStringEqual> headers;
 		std::unordered_map<std::string, std::string> keyValueParameters;
-		std::pair<responseCodes, std::string> response;	//code - response message
+		std::pair<responseCodes, std::string> response;	// code - response message
 		std::string method;
 		std::string httpVersion;
 		std::string parameters;

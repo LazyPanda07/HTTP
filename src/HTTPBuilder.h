@@ -1,25 +1,16 @@
 #pragma once
 
-#ifdef HTTP_DLL
-#define HTTP_API __declspec(dllexport)
-#define JSON_DLL
-#else
-#define HTTP_API
-#endif // HTTP_DLL
-
 #include <string>
 #include <stdexcept>
 
+#include "HTTPUtility.h"
 #include "CheckAtCompileTime.h"
 #include "JSONBuilder.h"
-#include "HTTPUtility.h"
-
-#pragma comment (lib, "JSON.lib")
 
 namespace web
 {
 	/// @brief HTTP builder
-	class HTTP_API HTTPBuilder final
+	class HTTP_API HTTPBuilder
 	{
 	private:
 		HTTPBuilder& parameters();

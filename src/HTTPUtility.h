@@ -2,6 +2,17 @@
 
 #include <ostream>
 
+#ifdef HTTP_DLL
+#ifdef __LINUX__
+#define HTTP_API __attribute__((visibility("default")))
+#else
+#define HTTP_API __declspec(dllexport)
+#endif
+#define JSON_DLL
+#else
+#define HTTP_API
+#endif // HTTP_DLL
+
 namespace web
 {
 	/// @brief Response codes
