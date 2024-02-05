@@ -39,8 +39,5 @@ bin/
 out/
 build/
 
-# .sln file
-HTTP.sln
-
 # gtest
 gtest/

@@ -187,7 +187,7 @@ namespace web
 			istringstream data;
 			string responseCode;
 
-			data.set_rdbuf(&buffer);
+			static_cast<ios&>(data).rdbuf(&buffer);
 
 			data >> httpVersion >> responseCode >> response.second;
 
@@ -404,7 +404,8 @@ namespace web
 
 	istream& operator >> (istream& inputStream, HTTPParser& parser)
 	{
-		string httpMessage(istreambuf_iterator(inputStream), {});
+		istreambuf_iterator<char> it(inputStream);
+		string httpMessage(it, {});
 
 		parser.parse(httpMessage);
 
