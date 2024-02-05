@@ -239,7 +239,7 @@ namespace web
 				readOnlyBuffer buffer(string_view(HTTPMessage.data() + chunksStart, chunksEnd - chunksStart));
 				istringstream chunksData;
 
-				chunksData.set_rdbuf(&buffer);
+				static_cast<ios&>(chunksData).rdbuf(&buffer);
 
 				while (true)
 				{
