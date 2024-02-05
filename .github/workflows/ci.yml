@@ -21,7 +21,7 @@ jobs:
       uses: microsoft/setup-msbuild@main
 
     - name: Build
-      run: msbuild /p:Configuration=${{ matrix.configuration }} /p:Platform=x64 INSTALL.vcxproj
+      run: msbuild /p:Configuration=${{ matrix.configuration }} /p:Platform=x64 HTTP.vcxproj
 
     - name: Copy JSON to HTTP
       run: Copy-Item -Path .\bin\${{ matrix.configuration }}-x64\JSON\* -Destination .\bin\${{ matrix.configuration }}-x64\HTTP\
@@ -57,8 +57,13 @@ jobs:
     - name: Install vs_to_cmake
       run: pip install vs_to_cmake/
 
-    - name: Create CMakeLists.txt
+    - name: Create HTTP CMakeLists.txt
       run: vs_to_cmake -f HTTP.vcxproj -d __LINUX__
+
+    - name: Create JSON CMakeLists.txt
+      run: |
+          cd JSON
+          vs_to_cmake -f JSON.vcxproj -d __LINUX__
 
     - name: Build
       run: |
