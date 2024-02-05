@@ -71,13 +71,7 @@ jobs:
           cd build
           cmake -DVS_BUILD_CONFIGURATION=${{ matrix.configuration }} -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }} ..
           make install -j $(nproc)
-
-    - name: Directory
-      run: ls bin/${{ matrix.configuration }}-x64
-      
-    - name: Copy JSON to HTTP
-      run: cp bin/${{ matrix.configuration }}-x64/JSON/* bin/${{ matrix.configuration }}-x64/HTTP/
-
+          
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
