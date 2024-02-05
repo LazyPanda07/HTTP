@@ -24,7 +24,7 @@ jobs:
       run: msbuild /p:Configuration=${{ matrix.configuration }} /p:Platform=x64 HTTP.vcxproj
 
     - name: Copy JSON to HTTP
-      run: Copy-Item -Path .\bin\${{ matrix.configuration }}-x64\JSON\* -Destination .\bin\${{ matrix.configuration }}-x64\HTTP\
+      run: Copy-Item -Path .\JSON\bin\${{ matrix.configuration }}-x64\JSON\* -Destination .\bin\${{ matrix.configuration }}-x64\HTTP\
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
@@ -57,10 +57,10 @@ jobs:
     - name: Install vs_to_cmake
       run: pip install vs_to_cmake/
 
-    - name: Create HTTP CMakeLists.txt
+    - name: Generate HTTP CMakeLists.txt
       run: vs_to_cmake -f HTTP.vcxproj -d __LINUX__
 
-    - name: Create JSON CMakeLists.txt
+    - name: Generate JSON CMakeLists.txt
       run: |
           cd JSON
           vs_to_cmake -f JSON.vcxproj -d __LINUX__
