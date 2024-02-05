@@ -72,6 +72,12 @@ jobs:
           cmake -DVS_BUILD_CONFIGURATION=${{ matrix.configuration }} -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }} ..
           make install -j $(nproc)
 
+    - name: Directory
+      run: ls
+
+    - name: JSON directory
+      run: ls JSON
+
     - name: Copy JSON to HTTP
       run: cp JSON/bin/${{ matrix.configuration }}-x64/JSON/* bin/${{ matrix.configuration }}-x64/HTTP/
 
