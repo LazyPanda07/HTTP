@@ -8,9 +8,11 @@
 #else
 #define HTTP_API __declspec(dllexport)
 #endif
+#define HTTP_API_FUNCTION extern "C" HTTP_API
 #define JSON_DLL
 #else
 #define HTTP_API
+#define HTTP_API_FUNCTION
 #endif // HTTP_DLL
 
 namespace web
@@ -95,4 +97,10 @@ namespace web
 	{
 		return stream << static_cast<int>(responseCode);
 	}
+
+	/**
+	 * @brief Get version of HTTP library
+	 * @return 
+	*/
+	HTTP_API_FUNCTION std::string getHTTPLibraryVersion();
 }

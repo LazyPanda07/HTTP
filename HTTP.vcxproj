@@ -276,6 +276,7 @@ COPY /Y $(SolutionDir)bin\$(Configuration)-$(Platform)\JSON\JSON.lib $(Outdir)</
   <ItemGroup>
     <ClCompile Include="src\HTTPBuilder.cpp" />
     <ClCompile Include="src\HTTPParser.cpp" />
+    <ClCompile Include="src\HTTPUtility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CheckAtCompileTime.h" />

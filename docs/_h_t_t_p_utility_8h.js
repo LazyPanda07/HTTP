@@ -74,5 +74,6 @@ var _h_t_t_p_utility_8h =
       [ "SSLHandshakeFailed", "_h_t_t_p_utility_8h.html#a5a849da4ada867d4591d74f812c24e10aae62edfee054b11b0709d4399a93647b", null ],
       [ "invalidSSLCertificate", "_h_t_t_p_utility_8h.html#a5a849da4ada867d4591d74f812c24e10a2111f1f632e355ecb74a721d527bfd35", null ]
     ] ],
+    [ "getHTTPLibraryVersion", "_h_t_t_p_utility_8h.html#a685cf5dfca5455d008ef53523a0d8a72", null ],
     [ "operator<<", "_h_t_t_p_utility_8h.html#a40f47277f16e9523a56a79f80ece0301", null ]
 ];

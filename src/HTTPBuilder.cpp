@@ -220,19 +220,17 @@ namespace web
 
 	HTTPBuilder& HTTPBuilder::parameters(const string& parameters)
 	{
+		if (_parameters.empty())
+		{
+			_parameters = '/';
+		}
+
 		if (parameters.empty())
 		{
 			return *this;
 		}
 
-		if (parameters.front() == '/')
-		{
-			_parameters = parameters;
-		}
-		else
-		{
-			_parameters = '/' + parameters;
-		}
+		_parameters += parameters;
 
 		return *this;
 	}

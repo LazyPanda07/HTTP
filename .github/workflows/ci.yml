@@ -1,0 +1,14 @@
+name: CI
+
+on:
+  push:
+    branches: [master, dev]
+
+
+jobs:
+  windows-build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
