@@ -20,11 +20,14 @@ jobs:
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@main
 
+    - name: Generate .sln
+      run: devenv HTTP.sln /upgrade
+
     - name: Build
-      run: msbuild /p:Configuration=${{ matrix.configuration }} /p:Platform=x64 HTTP.vcxproj
+      run: msbuild /p:Configuration=${{ matrix.configuration }} /p:Platform=x64 HTTP.sln
 
     - name: Copy JSON to HTTP
-      run: Copy-Item -Path .\JSON\bin\${{ matrix.configuration }}-x64\JSON\* -Destination .\bin\${{ matrix.configuration }}-x64\HTTP\
+      run: Copy-Item -Path .\bin\${{ matrix.configuration }}-x64\JSON\* -Destination .\bin\${{ matrix.configuration }}-x64\HTTP\
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
