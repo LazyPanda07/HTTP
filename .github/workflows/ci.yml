@@ -73,11 +73,8 @@ jobs:
           make install -j $(nproc)
 
     - name: Directory
-      run: ls
-
-    - name: JSON directory
-      run: ls JSON
-
+      run: ls bin
+      
     - name: Copy JSON to HTTP
       run: cp JSON/bin/${{ matrix.configuration }}-x64/JSON/* bin/${{ matrix.configuration }}-x64/HTTP/
 
