@@ -73,10 +73,10 @@ jobs:
           make install -j $(nproc)
 
     - name: Directory
-      run: ls bin
+      run: ls bin/${{ matrix.configuration }}-x64
       
     - name: Copy JSON to HTTP
-      run: cp JSON/bin/${{ matrix.configuration }}-x64/JSON/* bin/${{ matrix.configuration }}-x64/HTTP/
+      run: cp bin/${{ matrix.configuration }}-x64/JSON/* bin/${{ matrix.configuration }}-x64/HTTP/
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
