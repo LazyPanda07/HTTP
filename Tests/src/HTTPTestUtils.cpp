@@ -9,11 +9,11 @@ std::string loadGetRequest()
 
 std::string loadPostRequest()
 {
-	return "POST /post HTTP/1.1\r\nHost: httpbin.org\r\nConnection: close\r\nAccept: */*\r\nUser-Agent: Mozilla/4.0 (compatible; esp8266 Lua; Windows NT 5.1)\r\nContent-Length: 96\r\n\r\n" + 
+	return "POST /post HTTP/1.1\r\nHost: httpbin.org\r\nConnection: close\r\nAccept: */*\r\nUser-Agent: Mozilla/4.0 (compatible; esp8266 Lua; Windows NT 5.1)\r\nContent-Length: 96\r\n\r\n"s + 
 R"({
   "stringValue": "qwe",
   "intValue": 1500,
   "doubleValue": 228.322000,
   "nullValue": null
-}")";
+})";
 }
