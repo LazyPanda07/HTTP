@@ -2,6 +2,8 @@
 
 #include <string>
 
-std::string loadGetRequest();
+std::string getGetRequest();
 
-std::string loadPostRequest();
+std::string getPostRequest();
+
+std::string getHTTPResponse();

@@ -1,7 +1,0 @@
-POST /post HTTP/1.1
-Host: httpbin.org
-Connection: close
-Accept: */*
-User-Agent: Mozilla/4.0 (compatible; esp8266 Lua; Windows NT 5.1)
-Content-Length: 96
-

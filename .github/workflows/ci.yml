@@ -163,3 +163,42 @@ jobs:
         cd build/bin
         export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$(pwd)
         ./Tests
+
+
+  memory-leak-tests:
+    needs: [linux-build]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        configuration: [Debug, DebugDLL, Release, ReleaseDLL, ProductionRelease, ProductionReleaseDLL]
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Download artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: HTTP
+        name: ${{ matrix.configuration }}_Linux
+
+    - name: Get Google Tests
+      uses: LazyPanda07/get-gtest@v1
+      with:
+        install-path: Tests/gtest
+
+    - name: Build tests
+      working-directory: ${{ github.workspace }}/Tests
+      run: |
+          mkdir build
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=Release ..
+          make install -j $(nproc)
+
+    - name: Memory leak test
+      uses: LazyPanda07/check-memory-leaks@v1
+      with:
+        path: Tests/build/bin
+        name: Tests
+        pre-execute: export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$(pwd)
