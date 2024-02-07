@@ -1,7 +1,6 @@
 #include "HTTPTestUtils.h"
 
-#include <fstream>
-#include <sstream>
+using namespace std::string_literals;
 
 std::string loadGetRequest()
 {
