@@ -81,6 +81,7 @@ jobs:
 
   
   windows-tests:
+    needs: [windows-build]
     runs-on: windows-latest
     strategy:
       matrix:
@@ -88,6 +89,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        submodules: recursive
 
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@main
@@ -102,6 +105,12 @@ jobs:
       shell: pwsh
       run: echo "BUILD_TYPE=$(if ("${{ matrix.configuration }}".Contains("Release")) { echo "Release" } else { echo "Debug" })" >> $Env:GITHUB_ENV
 
+    - name: Get Google Tests
+      uses: LazyPanda07/get-gtest@v1
+      with:
+        install-path: ${{ github.workspace }}/Tests/gtest
+        build-type: ${{ env.BUILD_TYPE }}
+
     - name: Build tests
       working-directory: ${{ github.workspace }}/Tests
       run: |
@@ -109,3 +118,47 @@ jobs:
           cd build
           cmake ..
           msbuild /p:Configuration=${{ env.BUILD_TYPE }} /p:Platform=x64 INSTALL.vcxproj
+
+    - name: Tests
+      working-directory: ${{ github.workspace }}/Tests
+      run: |
+          cd build/bin
+          .\Tests.exe
+
+
+  linux-tests:
+    needs: [linux-build]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        configuration: [Debug, DebugDLL, Release, ReleaseDLL, ProductionRelease, ProductionReleaseDLL]
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Download artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: HTTP
+        name: ${{ matrix.configuration }}_Linux
+
+    - name: Get Google Tests
+      uses: LazyPanda07/get-gtest@v1
+      with:
+        install-path: ${{ github.workspace }}/Tests/gtest
+
+    - name: Build tests
+      working-directory: ${{ github.workspace }}/Tests
+      run: |
+          mkdir build
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=Release ..
+          make install -j $(nproc)
+
+    - name: Tests
+      working-directory: ${{ github.workspace }}/Tests
+      run: |
+        cd build/bin
+        ./Tests
