@@ -2,21 +2,19 @@
 
 #include <fstream>
 #include <sstream>
-#include <format>
-
-static std::string loadRequest(const std::string& requestFileName, bool binaryRead = true)
-{
-	std::ifstream data(std::format("data/{}", requestFileName), binaryRead ? std::ios::binary : std::ios::in);
-
-	return (std::ostringstream() << data.rdbuf()).str();
-}
 
 std::string loadGetRequest()
 {
-	return loadRequest("get_request.txt");
+	return "GET /search?q=test HTTP/2\r\nHost: www.bing.com\r\nUser-Agent: curl/7.54.0\r\nAccept: */*\r\n\r\n";
 }
 
 std::string loadPostRequest()
 {
-	return loadRequest("post_request.txt") + loadRequest("post_request.json", false);
+	return "POST /post HTTP/1.1\r\nHost: httpbin.org\r\nConnection: close\r\nAccept: */*\r\nUser-Agent: Mozilla/4.0 (compatible; esp8266 Lua; Windows NT 5.1)\r\nContent-Length: 96\r\n\r\n
+{
+  "stringValue": "qwe",
+  "intValue": 1500,
+  "doubleValue": 228.322000,
+  "nullValue": null
+}";
 }

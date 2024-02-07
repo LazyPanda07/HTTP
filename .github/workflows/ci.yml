@@ -154,8 +154,6 @@ jobs:
       run: |
           mkdir build
           cd build
-          export CC=/usr/bin/gcc-13
-          export CXX=/usr/bin/g++-13
           cmake -DCMAKE_BUILD_TYPE=Release ..
           make install -j $(nproc)
 
@@ -163,4 +161,5 @@ jobs:
       working-directory: ${{ github.workspace }}/Tests
       run: |
         cd build/bin
+        export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$(pwd)
         ./Tests
