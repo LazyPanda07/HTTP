@@ -108,7 +108,7 @@ jobs:
     - name: Get Google Tests
       uses: LazyPanda07/get-gtest@v1
       with:
-        install-path: ${{ github.workspace }}/Tests/gtest
+        install-path: Tests/gtest
         build-type: ${{ env.BUILD_TYPE }}
 
     - name: Build tests
@@ -147,7 +147,7 @@ jobs:
     - name: Get Google Tests
       uses: LazyPanda07/get-gtest@v1
       with:
-        install-path: ${{ github.workspace }}/Tests/gtest
+        install-path: Tests/gtest
 
     - name: Build tests
       working-directory: ${{ github.workspace }}/Tests
