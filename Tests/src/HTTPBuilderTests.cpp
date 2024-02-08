@@ -16,7 +16,7 @@ TEST(Builder, GET)
 			"Accept", "*/*"
 		).build();
 
-	ASSERT_EQ(getRequest, loadGetRequest());
+	ASSERT_EQ(getRequest, getGetRequest());
 }
 
 TEST(Builder, POST)
@@ -40,5 +40,5 @@ TEST(Builder, POST)
 		)
 		.build(json);
 
-	ASSERT_EQ(postRequest, loadPostRequest());
+	ASSERT_EQ(postRequest, getPostRequest());
 }
