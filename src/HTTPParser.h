@@ -45,13 +45,13 @@ namespace web
 	private:
 		std::unordered_map<std::string, std::string, insensitiveStringHash, insensitiveStringEqual> headers;
 		std::unordered_map<std::string, std::string> keyValueParameters;
+		json::JSONParser jsonParser;
 		std::pair<responseCodes, std::string> response;	// code - response message
 		std::string method;
 		std::string httpVersion;
 		std::string parameters;
 		std::string body;
 		std::vector<std::string> chunks;
-		json::JSONParser jsonParser;
 
 	private:
 		void parseKeyValueParameter(std::string_view rawParameters);
@@ -75,7 +75,7 @@ namespace web
 
 		const std::string& getMethod() const;
 
-		const std::string& getHTTPVersion() const;
+		double getHTTPVersion() const;
 
 		const std::string& getParameters() const;
 

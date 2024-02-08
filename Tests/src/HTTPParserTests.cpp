@@ -15,7 +15,7 @@ TEST(Parser, Response)
 
     const auto& headers = parser.getHeaders();
 
-    ASSERT_EQ(parser.getHTTPVersion(), "1.1");
+    ASSERT_EQ(parser.getHTTPVersion(), 1.1);
     ASSERT_EQ(parser.getResponseCode(), web::responseCodes::ok);
     ASSERT_EQ(parser.getResponseMessage(), "OK");
     ASSERT_EQ(headers.at("Connection"), "Keep-Alive");

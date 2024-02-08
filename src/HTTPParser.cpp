@@ -7,7 +7,8 @@
 
 using namespace std;
 
-constexpr int responseCodeSize = 3;
+static constexpr int responseCodeSize = 3;
+static constexpr string_view http = "HTTP";
 
 namespace web
 {
@@ -46,9 +47,9 @@ namespace web
 		string value;
 		bool equal = false;
 
-		if (rawParameters.find("HTTP") != string_view::npos)
+		if (rawParameters.find(http) != string_view::npos)
 		{
-			rawParameters.remove_suffix(httpVersion.size());
+			rawParameters.remove_suffix(http.size() + httpVersion.size());
 		}
 
 		for (; nextKeyValuePair < rawParameters.size(); nextKeyValuePair++)
@@ -202,7 +203,7 @@ namespace web
 
 			parameters = string(firstString.begin() + startParameters, firstString.begin() + endParameters);
 
-			httpVersion = string(firstString.begin() + firstString.find("HTTP"), firstString.end());
+			httpVersion = string(firstString.begin() + firstString.find(http) + http.size() + 1, firstString.end());
 
 			if (queryStart != string::npos)
 			{
@@ -302,9 +303,9 @@ namespace web
 		return method;
 	}
 
-	const string& HTTPParser::getHTTPVersion() const
+	double HTTPParser::getHTTPVersion() const
 	{
-		return httpVersion;
+		return stod(httpVersion);
 	}
 
 	const string& HTTPParser::getParameters() const
