@@ -333,7 +333,7 @@ namespace web
 
 		contentTypeHeader["Content-Type"] = "application/json";
 
-		return this->build(json, additionalHeaders);
+		return this->build(json, contentTypeHeader);
 	}
 
 	HTTPBuilder& HTTPBuilder::clear()
