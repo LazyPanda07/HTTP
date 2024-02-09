@@ -1,6 +1,8 @@
 #pragma once
 
 #include <ostream>
+#include <unordered_map>
+#include <string>
 
 #ifdef HTTP_DLL
 #ifdef __LINUX__
