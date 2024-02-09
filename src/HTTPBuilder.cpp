@@ -291,11 +291,11 @@ namespace web
 			buildHeaders["Transfer-Encoding"] = "chunked";
 		}
 
-		if (method.empty())	//response 
+		if (method.empty()) // response 
 		{
 			result = string(_HTTPVersion) + " " + _responseCode + "\r\n" + _headers;
 		}
-		else	//request
+		else // request
 		{
 			result = method + ' ';
 

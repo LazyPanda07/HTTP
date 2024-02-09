@@ -9,7 +9,7 @@ std::string getPostRequest()
 {
 	using namespace std::string_literals;
 
-	return "POST /post HTTP/1.1\r\nHost: httpbin.org\r\nConnection: close\r\nAccept: */*\r\nUser-Agent: Mozilla/4.0 (compatible; esp8266 Lua; Windows NT 5.1)\r\nContent-Type: application/json\r\nContent-Length: 96\r\n\r\n"s + 
+	return "POST /post HTTP/1.1\r\nHost: httpbin.org\r\nConnection: close\r\nAccept: */*\r\nUser-Agent: Mozilla/4.0 (compatible; esp8266 Lua; Windows NT 5.1)\r\nContent-Length: 96\r\nContent-Type: application/json\r\n\r\n"s + 
 R"({
   "stringValue": "qwe",
   "intValue": 1500,
