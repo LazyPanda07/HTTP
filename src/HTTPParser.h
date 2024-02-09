@@ -19,19 +19,6 @@ namespace web
 		};
 
 	public:
-		/// @brief Custom hashing for headers with case insensitive
-		struct HTTP_API insensitiveStringHash
-		{
-			size_t operator () (const std::string& value) const;
-		};
-
-		/// @brief Custom equal for headers
-		struct HTTP_API insensitiveStringEqual
-		{
-			bool operator () (const std::string& left, const std::string& right) const;
-		};
-
-	public:
 		static inline const std::string contentLengthHeader = "Content-Length";
 		static inline const std::string contentTypeHeader = "Content-Type";
 		static inline const std::string transferEncodingHeader = "Transfer-Encoding";
@@ -87,7 +74,7 @@ namespace web
 
 		const std::string& getResponseMessage() const;
 
-		const std::unordered_map<std::string, std::string, insensitiveStringHash, insensitiveStringEqual>& getHeaders() const;
+		const HeadersMap& getHeaders() const;
 
 		const std::string& getBody() const;
 

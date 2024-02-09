@@ -1,6 +1,5 @@
 #include "HTTPParser.h"
 
-#include <algorithm>
 #include <iterator>
 
 #pragma warning(disable: 26800)
@@ -16,27 +15,6 @@ namespace web
 		char* data = const_cast<char*>(view.data());
 
 		setg(data, data, data + view.size());
-	}
-
-	size_t HTTPParser::insensitiveStringHash::operator () (const string& value) const
-	{
-		string tem;
-
-		tem.reserve(value.size());
-
-		for_each(value.begin(), value.end(), [&tem](char c) { tem += tolower(c); });
-
-		return hash<string>()(tem);
-	}
-
-	bool HTTPParser::insensitiveStringEqual::operator () (const string& left, const string& right) const
-	{
-		return equal
-		(
-			left.begin(), left.end(),
-			right.begin(), right.end(),
-			[](char first, char second) { return tolower(first) == tolower(second); }
-		);
 	}
 
 	void HTTPParser::parseKeyValueParameter(string_view rawParameters)
@@ -332,7 +310,7 @@ namespace web
 		return response.second;
 	}
 
-	const unordered_map<string, string, HTTPParser::insensitiveStringHash, HTTPParser::insensitiveStringEqual>& HTTPParser::getHeaders() const
+	const HeadersMap& HTTPParser::getHeaders() const
 	{
 		return headers;
 	}

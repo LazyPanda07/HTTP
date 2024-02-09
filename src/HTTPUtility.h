@@ -103,4 +103,21 @@ namespace web
 	 * @return 
 	*/
 	HTTP_API_FUNCTION std::string getHTTPLibraryVersion();
+
+	/// @brief Custom hashing for headers with case insensitive
+	struct HTTP_API insensitiveStringHash
+	{
+		size_t operator () (const std::string& value) const;
+	};
+
+	/// @brief Custom equal for headers
+	struct HTTP_API insensitiveStringEqual
+	{
+		bool operator () (const std::string& left, const std::string& right) const;
+	};
+
+	/**
+	 * @brief Case insensitive unordered_map
+	*/
+	using HeadersMap = std::unordered_map<std::string, std::string, insensitiveStringHash, insensitiveStringEqual>;
 }
