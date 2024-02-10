@@ -238,7 +238,7 @@ COPY /Y $(SolutionDir)bin\$(Configuration)-$(Platform)\JSON\JSON.lib $(Outdir)</
     </Link>
     <CustomBuildStep>
       <Command>xcopy /y $(ProjectDir)src\*.h $(OutDir)include\
-xcopy /y $(ProjectDir)JSON\src\*.h $(OutDir)include\
+xcopy /y /e $(ProjectDir)JSON\src\*.h $(OutDir)include\
 COPY /Y $(SolutionDir)bin\$(Configuration)-$(Platform)\JSON\JSON.lib $(Outdir)</Command>
       <Outputs>output.txt</Outputs>
     </CustomBuildStep>
@@ -264,6 +264,7 @@ COPY /Y $(SolutionDir)bin\$(Configuration)-$(Platform)\JSON\JSON.lib $(Outdir)</
     </Link>
     <CustomBuildStep>
       <Command>xcopy /y $(ProjectDir)src\*.h $(OutDir)include\
+xcopy /y /e $(ProjectDir)JSON\src\*.h $(OutDir)include\
 COPY /Y $(SolutionDir)bin\$(Configuration)-$(Platform)\JSON\JSON.dll $(Outdir)
 COPY /Y $(SolutionDir)bin\$(Configuration)-$(Platform)\JSON\JSON.lib $(Outdir)</Command>
     </CustomBuildStep>
