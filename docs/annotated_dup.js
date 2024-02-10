@@ -11,6 +11,8 @@ var annotated_dup =
     ] ],
     [ "web", "namespaceweb.html", [
       [ "HTTPBuilder", "classweb_1_1_h_t_t_p_builder.html", "classweb_1_1_h_t_t_p_builder" ],
-      [ "HTTPParser", "classweb_1_1_h_t_t_p_parser.html", "classweb_1_1_h_t_t_p_parser" ]
+      [ "HTTPParser", "classweb_1_1_h_t_t_p_parser.html", "classweb_1_1_h_t_t_p_parser" ],
+      [ "insensitiveStringEqual", "structweb_1_1insensitive_string_equal.html", "structweb_1_1insensitive_string_equal" ],
+      [ "insensitiveStringHash", "structweb_1_1insensitive_string_hash.html", "structweb_1_1insensitive_string_hash" ]
     ] ]
 ];

@@ -2,6 +2,9 @@ var namespaceweb =
 [
     [ "HTTPBuilder", "classweb_1_1_h_t_t_p_builder.html", "classweb_1_1_h_t_t_p_builder" ],
     [ "HTTPParser", "classweb_1_1_h_t_t_p_parser.html", "classweb_1_1_h_t_t_p_parser" ],
+    [ "insensitiveStringEqual", "structweb_1_1insensitive_string_equal.html", "structweb_1_1insensitive_string_equal" ],
+    [ "insensitiveStringHash", "structweb_1_1insensitive_string_hash.html", "structweb_1_1insensitive_string_hash" ],
+    [ "HeadersMap", "namespaceweb.html#a2a14d700dc792135c09e94a3783c43e3", null ],
     [ "responseCodes", "namespaceweb.html#a5a849da4ada867d4591d74f812c24e10", [
       [ "Continue", "namespaceweb.html#a5a849da4ada867d4591d74f812c24e10aa0bfb8e59e6c13fc8d990781f77694fe", null ],
       [ "switchingProtocols", "namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a819e18c183b1fd7865fa280aa4187e85", null ],

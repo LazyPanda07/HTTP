@@ -91,6 +91,7 @@ $(document).ready(function(){initNavTree('namespaceweb.html',''); initResizable(
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">web Namespace Reference</div></div>
@@ -105,6 +106,18 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classweb_1_1_h_t_t_p_parser.html">HTTPParser</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">HTTP parser.  <a href="classweb_1_1_h_t_t_p_parser.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structweb_1_1insensitive_string_equal.html">insensitiveStringEqual</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Custom equal for headers.  <a href="structweb_1_1insensitive_string_equal.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structweb_1_1insensitive_string_hash.html">insensitiveStringHash</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Custom hashing for headers with case insensitive.  <a href="structweb_1_1insensitive_string_hash.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a2a14d700dc792135c09e94a3783c43e3" id="r_a2a14d700dc792135c09e94a3783c43e3"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceweb.html#a2a14d700dc792135c09e94a3783c43e3">HeadersMap</a> = std::unordered_map&lt; std::string, std::string, <a class="el" href="structweb_1_1insensitive_string_hash.html">insensitiveStringHash</a>, <a class="el" href="structweb_1_1insensitive_string_equal.html">insensitiveStringEqual</a> &gt;</td></tr>
+<tr class="memdesc:a2a14d700dc792135c09e94a3783c43e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Case insensitive unordered_map.  <br /></td></tr>
+<tr class="separator:a2a14d700dc792135c09e94a3783c43e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -216,6 +229,25 @@ Functions</h2></td></tr>
 <tr class="memitem:a40f47277f16e9523a56a79f80ece0301" id="r_a40f47277f16e9523a56a79f80ece0301"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceweb.html#a40f47277f16e9523a56a79f80ece0301">operator&lt;&lt;</a> (std::ostream &amp;stream, <a class="el" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10">responseCodes</a> responseCode)</td></tr>
 <tr class="separator:a40f47277f16e9523a56a79f80ece0301"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="a2a14d700dc792135c09e94a3783c43e3" name="a2a14d700dc792135c09e94a3783c43e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a14d700dc792135c09e94a3783c43e3">&#9670;&#160;</a></span>HeadersMap</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceweb.html#a2a14d700dc792135c09e94a3783c43e3">web::HeadersMap</a> = typedef std::unordered_map&lt;std::string, std::string, <a class="el" href="structweb_1_1insensitive_string_hash.html">insensitiveStringHash</a>, <a class="el" href="structweb_1_1insensitive_string_equal.html">insensitiveStringEqual</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Case insensitive unordered_map. </p>
+
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_utility_8h_source.html#l00124">124</a> of file <a class="el" href="_h_t_t_p_utility_8h_source.html">HTTPUtility.h</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="a5a849da4ada867d4591d74f812c24e10" name="a5a849da4ada867d4591d74f812c24e10"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5a849da4ada867d4591d74f812c24e10">&#9670;&#160;</a></span>responseCodes</h2>
@@ -312,7 +344,7 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="a5a849da4ada867d4591d74f812c24e10a2111f1f632e355ecb74a721d527bfd35" name="a5a849da4ada867d4591d74f812c24e10a2111f1f632e355ecb74a721d527bfd35"></a>invalidSSLCertificate&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_utility_8h_source.html#l00020">20</a> of file <a class="el" href="_h_t_t_p_utility_8h_source.html">HTTPUtility.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_utility_8h_source.html#l00023">23</a> of file <a class="el" href="_h_t_t_p_utility_8h_source.html">HTTPUtility.h</a>.</p>
 
 </div>
 </div>
@@ -324,7 +356,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">HTTP_API_FUNCTION std::string web::getHTTPLibraryVersion </td>
+          <td class="memname"><a class="el" href="_h_t_t_p_utility_8h.html#a6aeefad739ebde09c2e39ad3981a00f7">HTTP_API_FUNCTION</a> std::string web::getHTTPLibraryVersion </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -335,7 +367,7 @@ Functions</h2></td></tr>
 <p>Get version of HTTP library. </p>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_utility_8cpp_source.html#l00007">7</a> of file <a class="el" href="_h_t_t_p_utility_8cpp_source.html">HTTPUtility.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_utility_8cpp_source.html#l00009">9</a> of file <a class="el" href="_h_t_t_p_utility_8cpp_source.html">HTTPUtility.cpp</a>.</p>
 
 </div>
 </div>
@@ -365,7 +397,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00348">348</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00346">346</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
 
 </div>
 </div>
@@ -395,7 +427,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_parser_8cpp_source.html#l00355">355</a> of file <a class="el" href="_h_t_t_p_parser_8cpp_source.html">HTTPParser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_parser_8cpp_source.html#l00333">333</a> of file <a class="el" href="_h_t_t_p_parser_8cpp_source.html">HTTPParser.cpp</a>.</p>
 
 </div>
 </div>
@@ -433,7 +465,7 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_utility_8h_source.html#l00095">95</a> of file <a class="el" href="_h_t_t_p_utility_8h_source.html">HTTPUtility.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_utility_8h_source.html#l00098">98</a> of file <a class="el" href="_h_t_t_p_utility_8h_source.html">HTTPUtility.h</a>.</p>
 
 </div>
 </div>
@@ -463,7 +495,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_parser_8cpp_source.html#l00405">405</a> of file <a class="el" href="_h_t_t_p_parser_8cpp_source.html">HTTPParser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_parser_8cpp_source.html#l00383">383</a> of file <a class="el" href="_h_t_t_p_parser_8cpp_source.html">HTTPParser.cpp</a>.</p>
 
 </div>
 </div>

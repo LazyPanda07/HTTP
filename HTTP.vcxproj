@@ -237,9 +237,9 @@ COPY /Y $(SolutionDir)bin\$(Configuration)-$(Platform)\JSON\JSON.lib $(Outdir)</
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <CustomBuildStep>
-      <Command>COPY /Y $(ProjectDir)src\HTTPParser.h $(Outdir)
-COPY /Y $(ProjectDir)src\HTTPBuilder.h $(Outdir)
-COPY /Y $(ProjectDir)src\CheckAtCompileTime.h $(Outdir)</Command>
+      <Command>xcopy /y $(ProjectDir)src\*.h $(OutDir)include\
+xcopy /y $(ProjectDir)JSON\src\*.h $(OutDir)include\
+COPY /Y $(SolutionDir)bin\$(Configuration)-$(Platform)\JSON\JSON.lib $(Outdir)</Command>
       <Outputs>output.txt</Outputs>
     </CustomBuildStep>
   </ItemDefinitionGroup>
@@ -263,9 +263,7 @@ COPY /Y $(ProjectDir)src\CheckAtCompileTime.h $(Outdir)</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <CustomBuildStep>
-      <Command>COPY /Y $(ProjectDir)src\HTTPParser.h $(Outdir)
-COPY /Y $(ProjectDir)src\HTTPBuilder.h $(Outdir)
-COPY /Y $(ProjectDir)src\CheckAtCompileTime.h $(Outdir)
+      <Command>xcopy /y $(ProjectDir)src\*.h $(OutDir)include\
 COPY /Y $(SolutionDir)bin\$(Configuration)-$(Platform)\JSON\JSON.dll $(Outdir)
 COPY /Y $(SolutionDir)bin\$(Configuration)-$(Platform)\JSON\JSON.lib $(Outdir)</Command>
     </CustomBuildStep>

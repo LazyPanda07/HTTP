@@ -73,6 +73,20 @@ jobs:
           cmake -DVS_BUILD_CONFIGURATION=${{ matrix.configuration }} -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }} ..
           make install -j $(nproc)
           
+    - name: Copy headers
+      if: ${{ startsWith(matrix.configuration, 'ProductionRelease') }}
+      run: |
+          mv src/ bin/${{ matrix.configuration }}-x64/HTTP
+          mv JSON/src/ bin/${{ matrix.configuration }}-x64/HTTP
+          cd bin/${{ matrix.configuration }}-x64/HTTP
+          mkdir include
+          mv src/* include
+          rm -rf src
+          cd include
+          rm -f *.cpp
+          cd Exceptions
+          rm -f *.cpp
+
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
@@ -202,3 +216,47 @@ jobs:
         path: Tests/build/bin
         name: Tests
         pre-execute: export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$(pwd)
+
+
+  publish:
+    needs: [windows-tests, linux-tests, memory-leak-tests]
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: LazyPanda07/extract-current-branch@master
+    
+    - name: Setup release version variable
+      shell: pwsh
+      run: echo "VERSION=$($($($(Select-String -Path .\src\HTTPUtility.cpp -Pattern version) -split '( = )')[3].TrimEnd(';')).Trim('\"'))" >> $Env:GITHUB_ENV
+
+    - name: Download artifacts
+      if: ${{ env.CURRENT_BRANCH == 'master' }}
+      uses: actions/download-artifact@v4
+      
+    - name: Setup Windows build list
+      run: echo "WINDOWS_BUILD_LIST="$(ls | grep Windows)"" >> ${GITHUB_ENV}
+      
+    - name: Create Windows zip
+      if: ${{ env.CURRENT_BRANCH == 'master' }}
+      run: zip -r windows.zip ${{ env.WINDOWS_BUILD_LIST }}
+
+    - name: Create Linux zip
+      if: ${{ env.CURRENT_BRANCH == 'master' }}
+      run: zip -r linux.zip ProductionRelease_Linux ProductionReleaseDLL_Linux
+
+    - name: Publish Windows
+      if: ${{ env.CURRENT_BRANCH == 'master' }}
+      uses: svenstaro/upload-release-action@master
+      with:
+        tag: v${{ env.VERSION }}
+        file: windows.zip
+
+    - name: Publish Linux
+      if: ${{ env.CURRENT_BRANCH == 'master' }}
+      uses: svenstaro/upload-release-action@master
+      with:
+        tag: v${{ env.VERSION }}
+        file: linux.zip
+        
