@@ -77,7 +77,7 @@ jobs:
       if: ${{ startsWith(matrix.configuration, 'ProductionRelease') }}
       run: |
           mv src/ bin/${{ matrix.configuration }}-x64/HTTP
-          mv JSON/src/ bin/${{ matrix.configuration }}-x64/HTTP
+          cp -r JSON/src/ bin/${{ matrix.configuration }}-x64/HTTP
           cd bin/${{ matrix.configuration }}-x64/HTTP
           mkdir include
           mv src/* include
