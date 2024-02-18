@@ -37,61 +37,30 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        configuration: [Debug, DebugDLL, Release, ReleaseDLL, ProductionRelease, ProductionReleaseDLL]
+        configuration: [Debug, Release]
+        shared: [ON, OFF]
 
     steps:
     - uses: actions/checkout@v4
       with:
         submodules: recursive
 
-    - name: Setup build type
-      shell: pwsh
-      run: echo "BUILD_TYPE=$(if ("${{ matrix.configuration }}".Contains("Release")) { echo "Release" } else { echo "Debug" })" >> $Env:GITHUB_ENV
-
-    - name: Get vs_to_cmake
-      uses: actions/checkout@v4
-      with:
-        repository: LazyPanda07/vs_to_cmake
-        ref: dev
-        path: vs_to_cmake
-
-    - name: Install vs_to_cmake
-      run: pip install vs_to_cmake/
-
-    - name: Generate HTTP CMakeLists.txt
-      run: vs_to_cmake -f HTTP.vcxproj -d __LINUX__
-
-    - name: Generate JSON CMakeLists.txt
-      run: |
-          cd JSON
-          vs_to_cmake -f JSON.vcxproj -d __LINUX__
-
+    - name: Setup artifact name
+      if: ${{ matrix.shared == 'ON' }}
+      run: echo "APPEND_NAME=DLL" >> ${GITHUB_ENV}
+        
     - name: Build
       run: |
           mkdir build
           cd build
-          cmake -DVS_BUILD_CONFIGURATION=${{ matrix.configuration }} -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }} ..
+          cmake -DBUILD_SHARED_LIBS=${{ matrix.shared }} -DCMAKE_BUILD_TYPE=${{ matrix.configuration }} ..
           make install -j $(nproc)
           
-    - name: Copy headers
-      if: ${{ startsWith(matrix.configuration, 'ProductionRelease') }}
-      run: |
-          mv src/ bin/${{ matrix.configuration }}-x64/HTTP
-          cp -r JSON/src/ bin/${{ matrix.configuration }}-x64/HTTP
-          cd bin/${{ matrix.configuration }}-x64/HTTP
-          mkdir include
-          mv src/* include
-          rm -rf src
-          cd include
-          rm -f *.cpp
-          cd Exceptions
-          rm -f *.cpp
-
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ matrix.configuration }}_Linux
-        path: bin/${{ matrix.configuration }}-x64/HTTP
+        name: ${{ matrix.configuration }}${{ env.APPEND_NAME }}_Linux
+        path: build/bin
 
   
   windows-tests:
@@ -112,8 +81,8 @@ jobs:
     - name: Download artifacts
       uses: actions/download-artifact@v4
       with:
-        path: HTTP
         name: ${{ matrix.configuration }}_Windows
+        path: HTTP
 
     - name: Setup build type
       shell: pwsh
@@ -145,18 +114,23 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        configuration: [Debug, DebugDLL, Release, ReleaseDLL, ProductionRelease, ProductionReleaseDLL]
+        configuration: [Debug, Release]
+        shared: [ON, OFF]
 
     steps:
     - uses: actions/checkout@v4
       with:
         submodules: recursive
 
+    - name: Setup artifact name
+      if: ${{ matrix.shared == 'ON' }}
+      run: echo "APPEND_NAME=DLL" >> ${GITHUB_ENV}
+
     - name: Download artifacts
       uses: actions/download-artifact@v4
       with:
+        name: ${{ matrix.configuration }}${{ env.APPEND_NAME }}_Linux
         path: HTTP
-        name: ${{ matrix.configuration }}_Linux
 
     - name: Get Google Tests
       uses: LazyPanda07/get-gtest@v1
@@ -184,18 +158,23 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        configuration: [Debug, DebugDLL, Release, ReleaseDLL, ProductionRelease, ProductionReleaseDLL]
+        configuration: [Debug, Release]
+        shared: [ON, OFF]
 
     steps:
     - uses: actions/checkout@v4
       with:
         submodules: recursive
 
+    - name: Setup artifact name
+      if: ${{ matrix.shared == 'ON' }}
+      run: echo "APPEND_NAME=DLL" >> ${GITHUB_ENV}
+
     - name: Download artifacts
       uses: actions/download-artifact@v4
       with:
+        name: ${{ matrix.configuration }}${{ env.APPEND_NAME }}_Linux
         path: HTTP
-        name: ${{ matrix.configuration }}_Linux
 
     - name: Get Google Tests
       uses: LazyPanda07/get-gtest@v1
@@ -244,7 +223,7 @@ jobs:
 
     - name: Create Linux zip
       if: ${{ env.CURRENT_BRANCH == 'master' }}
-      run: zip -r linux.zip ProductionRelease_Linux ProductionReleaseDLL_Linux
+      run: zip -r linux.zip Release_Linux ReleaseDLL_Linux
 
     - name: Publish Windows
       if: ${{ env.CURRENT_BRANCH == 'master' }}
