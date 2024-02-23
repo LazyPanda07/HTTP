@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.27.0)
 
 set(CMAKE_CXX_STANDARD 17)
+option(BUILD_SHARED_LIBS "" OFF)
 
 if (UNIX)
 	add_definitions(-D__LINUX__)
