@@ -1,22 +1,22 @@
 cmake_minimum_required(VERSION 3.27.0)
 
-project(Tests)
-
 set(CMAKE_INSTALL_PREFIX ${PROJECT_BINARY_DIR})
 set(CMAKE_CXX_STANDARD 20)
 
+project(Tests)
+
 if (UNIX)
-    set(DLL ${PROJECT_SOURCE_DIR}/../HTTP/libHTTP.so)
+    set(DLL ${PROJECT_SOURCE_DIR}/../HTTP/lib/libHTTP.so)
 	set(PATTERN_INSTALL *.so)
     add_definitions(-D__LINUX__)
 else ()
-    set(DLL ${PROJECT_SOURCE_DIR}/../HTTP/HTTP.dll)
+    set(DLL ${PROJECT_SOURCE_DIR}/../HTTP/dll/HTTP.dll)
 	set(PATTERN_INSTALL *.dll)
 endif (UNIX)
 
 if(EXISTS ${DLL})
     add_definitions(-DHTTP_DLL)
-    install(DIRECTORY ${PROJECT_SOURCE_DIR}/../HTTP/ DESTINATION bin FILES_MATCHING PATTERN "${PATTERN_INSTALL}")
+    install(DIRECTORY ${PROJECT_SOURCE_DIR}/../HTTP/ DESTINATION ${CMAKE_BINARY_DIR}/bin FILES_MATCHING PATTERN "${PATTERN_INSTALL}")
 endif()
 
 add_executable(
@@ -38,7 +38,7 @@ target_include_directories(
 target_link_directories(
 	${PROJECT_NAME} PUBLIC
 	${PROJECT_SOURCE_DIR}/gtest/lib/
-	${PROJECT_SOURCE_DIR}/../HTTP/
+	${PROJECT_SOURCE_DIR}/../HTTP/lib/
 )
 
 target_link_libraries(
@@ -49,4 +49,4 @@ target_link_libraries(
 	JSON
 )
 
-install(TARGETS ${PROJECT_NAME} DESTINATION bin)
+install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_BINARY_DIR}/bin)

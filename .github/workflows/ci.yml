@@ -10,27 +10,29 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        configuration: [Debug, DebugDLL, Release, ReleaseDLL, ProductionRelease, ProductionReleaseDLL]
+        configuration: [Debug, Release]
+        shared: [[ON, DLL], [OFF, ""]]
 
     steps:
     - uses: actions/checkout@v4
       with:
         submodules: recursive
 
-    - name: Add MSBuild to PATH
-      uses: microsoft/setup-msbuild@main
+    - name: Enable NMake
+      uses: ilammy/msvc-dev-cmd@v1.13.0
       
     - name: Build
-      run: msbuild /p:Configuration=${{ matrix.configuration }} /p:Platform=x64 HTTP.sln
-
-    - name: Copy JSON to HTTP
-      run: Copy-Item -Path .\bin\${{ matrix.configuration }}-x64\JSON\* -Destination .\bin\${{ matrix.configuration }}-x64\HTTP\ -Force
+      run: |
+          mkdir build
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=${{ matrix.configuration }} -DBUILD_SHARED_LIBS=${{ matrix.shared[0] }} ..
+          nmake install
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ matrix.configuration }}_Windows
-        path: bin/${{ matrix.configuration }}-x64/HTTP
+        name: ${{ matrix.configuration }}${{ matrix.shared[1] }}_Windows
+        path: build/install-dir
 
 
   linux-build:
@@ -38,29 +40,25 @@ jobs:
     strategy:
       matrix:
         configuration: [Debug, Release]
-        shared: [ON, OFF]
+        shared: [[ON, DLL], [OFF, ""]]
 
     steps:
     - uses: actions/checkout@v4
       with:
         submodules: recursive
 
-    - name: Setup artifact name
-      if: ${{ matrix.shared == 'ON' }}
-      run: echo "APPEND_NAME=DLL" >> ${GITHUB_ENV}
-        
     - name: Build
       run: |
           mkdir build
           cd build
-          cmake -DBUILD_SHARED_LIBS=${{ matrix.shared }} -DCMAKE_BUILD_TYPE=${{ matrix.configuration }} ..
+          cmake -DCMAKE_BUILD_TYPE=${{ matrix.configuration }} -DBUILD_SHARED_LIBS=${{ matrix.shared[0] }} ..
           make install -j $(nproc)
           
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ matrix.configuration }}${{ env.APPEND_NAME }}_Linux
-        path: build/bin
+        name: ${{ matrix.configuration }}${{ matrix.shared[1] }}_Linux
+        path: build/install-dir
 
   
   windows-tests:
@@ -68,39 +66,36 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        configuration: [Debug, DebugDLL, Release, ReleaseDLL, ProductionRelease, ProductionReleaseDLL]
+        configuration: [Debug, Release]
+        shared: [[ON, DLL], [OFF, ""]]
 
     steps:
     - uses: actions/checkout@v4
       with:
         submodules: recursive
 
-    - name: Add MSBuild to PATH
-      uses: microsoft/setup-msbuild@main
+    - name: Enable NMake
+      uses: ilammy/msvc-dev-cmd@v1.13.0
 
     - name: Download artifacts
       uses: actions/download-artifact@v4
       with:
-        name: ${{ matrix.configuration }}_Windows
+        name: ${{ matrix.configuration }}${{ matrix.shared[1] }}_Windows
         path: HTTP
-
-    - name: Setup build type
-      shell: pwsh
-      run: echo "BUILD_TYPE=$(if ("${{ matrix.configuration }}".Contains("Release")) { echo "Release" } else { echo "Debug" })" >> $Env:GITHUB_ENV
 
     - name: Get Google Tests
       uses: LazyPanda07/get-gtest@v1
       with:
         install-path: Tests/gtest
-        build-type: ${{ env.BUILD_TYPE }}
+        build-type: ${{ matrix.configuration }}
 
     - name: Build tests
       working-directory: ${{ github.workspace }}/Tests
       run: |
           mkdir build
           cd build
-          cmake ..
-          msbuild /p:Configuration=${{ env.BUILD_TYPE }} /p:Platform=x64 INSTALL.vcxproj
+          cmake -DCMAKE_BUILD_TYPE=${{ matrix.configuration }} ..
+          nmake install
 
     - name: Tests
       working-directory: ${{ github.workspace }}/Tests
@@ -115,21 +110,17 @@ jobs:
     strategy:
       matrix:
         configuration: [Debug, Release]
-        shared: [ON, OFF]
+        shared: [[ON, DLL], [OFF, ""]]
 
     steps:
     - uses: actions/checkout@v4
       with:
         submodules: recursive
 
-    - name: Setup artifact name
-      if: ${{ matrix.shared == 'ON' }}
-      run: echo "APPEND_NAME=DLL" >> ${GITHUB_ENV}
-
     - name: Download artifacts
       uses: actions/download-artifact@v4
       with:
-        name: ${{ matrix.configuration }}${{ env.APPEND_NAME }}_Linux
+        name: ${{ matrix.configuration }}${{ matri.shared[1] }}_Linux
         path: HTTP
 
     - name: Get Google Tests
@@ -149,8 +140,7 @@ jobs:
       working-directory: ${{ github.workspace }}/Tests
       run: |
         cd build/bin
-        export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$(pwd)
-        ./Tests
+        LD_LIBRARY_PATH=$(pwd):${LD_LIBRARY_PATH} ./Tests
 
 
   memory-leak-tests:
@@ -159,21 +149,17 @@ jobs:
     strategy:
       matrix:
         configuration: [Debug, Release]
-        shared: [ON, OFF]
+        shared: [[ON, DLL], [OFF, ""]]
 
     steps:
     - uses: actions/checkout@v4
       with:
         submodules: recursive
 
-    - name: Setup artifact name
-      if: ${{ matrix.shared == 'ON' }}
-      run: echo "APPEND_NAME=DLL" >> ${GITHUB_ENV}
-
     - name: Download artifacts
       uses: actions/download-artifact@v4
       with:
-        name: ${{ matrix.configuration }}${{ env.APPEND_NAME }}_Linux
+        name: ${{ matrix.configuration }}${{ matrix.shared[1] }}_Linux
         path: HTTP
 
     - name: Get Google Tests
