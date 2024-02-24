@@ -7,16 +7,18 @@ project(Tests)
 
 if (UNIX)
     set(DLL ${PROJECT_SOURCE_DIR}/../HTTP/lib/libHTTP.so)
+	set(COPY_PATH lib)
 	set(PATTERN_INSTALL *.so)
     add_definitions(-D__LINUX__)
 else ()
     set(DLL ${PROJECT_SOURCE_DIR}/../HTTP/dll/HTTP.dll)
+	set(COPY_PATH dll)
 	set(PATTERN_INSTALL *.dll)
 endif (UNIX)
 
 if(EXISTS ${DLL})
     add_definitions(-DHTTP_DLL)
-    install(DIRECTORY ${PROJECT_SOURCE_DIR}/../HTTP/ DESTINATION ${CMAKE_BINARY_DIR}/bin FILES_MATCHING PATTERN "${PATTERN_INSTALL}")
+    install(DIRECTORY ${PROJECT_SOURCE_DIR}/../HTTP/${COPY_PATH}/ DESTINATION ${CMAKE_BINARY_DIR}/bin FILES_MATCHING PATTERN "${PATTERN_INSTALL}")
 endif()
 
 add_executable(
