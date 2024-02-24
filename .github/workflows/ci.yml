@@ -25,7 +25,7 @@ jobs:
       run: |
           mkdir build
           cd build
-          cmake -DCMAKE_BUILD_TYPE=${{ matrix.configuration }} -DBUILD_SHARED_LIBS=${{ matrix.shared[0] }} ..
+          cmake -DCMAKE_BUILD_TYPE=${{ matrix.configuration }} -DBUILD_SHARED_LIBS=${{ matrix.shared[0] }} -G "NMake Makefiles" ..
           nmake install
 
     - name: Upload artifacts
@@ -94,7 +94,7 @@ jobs:
       run: |
           mkdir build
           cd build
-          cmake -DCMAKE_BUILD_TYPE=${{ matrix.configuration }} ..
+          cmake -DCMAKE_BUILD_TYPE=${{ matrix.configuration }} -G "NMake Makefiles" ..
           nmake install
 
     - name: Tests
