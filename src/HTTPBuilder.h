@@ -141,13 +141,13 @@ namespace web
 			_parameters = "/?";
 		}
 
-		if constexpr (utility::StringConversion<StringT>::value)
+		if constexpr (::utility::StringConversion<StringT>::value)
 		{
 			if constexpr (std::is_arithmetic_v<T>)
 			{
 				_parameters += static_cast<std::string>(name) + std::string("=") + std::to_string(value) + std::string("&");
 			}
-			else if constexpr (utility::StringConversion<T>::value)
+			else if constexpr (::utility::StringConversion<T>::value)
 			{
 				_parameters += static_cast<std::string>(name) + std::string("=") + static_cast<std::string>(value) + std::string("&");
 			}
@@ -167,7 +167,7 @@ namespace web
 	template<typename StringT, typename T, typename... Args>
 	HTTPBuilder& HTTPBuilder::headers(StringT&& name, T&& value, Args&&... args)
 	{
-		if constexpr (utility::StringConversion<StringT>::value)
+		if constexpr (::utility::StringConversion<StringT>::value)
 		{
 			if constexpr (sizeof...(args))
 			{
@@ -181,11 +181,11 @@ namespace web
 			{
 				_headers += static_cast<std::string>(name) + std::string(": ") + std::to_string(value) + std::string("\r\n");
 			}
-			else if constexpr (utility::StringConversion<std::remove_reference_t<T>>::value)
+			else if constexpr (::utility::StringConversion<std::remove_reference_t<T>>::value)
 			{
 				_headers += static_cast<std::string>(name) + std::string(": ") + static_cast<std::string>(value) + std::string("\r\n");
 			}
-			else if constexpr (utility::checkBegin<T>::value && utility::checkEnd<T>::value)
+			else if constexpr (::utility::checkBegin<T>::value && ::utility::checkEnd<T>::value)
 			{
 				_headers += static_cast<std::string>(name) + std::string(": ");
 
@@ -203,7 +203,7 @@ namespace web
 
 					_headers.insert(_headers.size(), "\r\n");
 				}
-				else if constexpr (utility::StringConversion<decltype(checkValueType)>::value)
+				else if constexpr (::utility::StringConversion<decltype(checkValueType)>::value)
 				{
 					for (auto&& i : value)
 					{
