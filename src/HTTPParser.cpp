@@ -159,6 +159,11 @@ namespace web
 			method = "GET";
 
 			break;
+
+		case 'T':
+			method = "TRACE";
+
+			break;
 		}
 
 		if (method.empty())
