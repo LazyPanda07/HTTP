@@ -37,6 +37,7 @@ namespace web
 		std::string parameters;
 		std::string body;
 		std::vector<std::string> chunks;
+		std::string rawData;
 
 	private:
 		void parseKeyValueParameter(std::string_view rawParameters);
@@ -79,6 +80,8 @@ namespace web
 		const std::vector<std::string>& getChunks() const;
 
 		const json::JSONParser& getJSON() const;
+		
+		const std::string& getRawData() const;
 
 		/// @brief Set HTTP to output stream
 		/// @param outputStream std::ostream subclass instance

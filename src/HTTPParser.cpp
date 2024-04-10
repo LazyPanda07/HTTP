@@ -112,6 +112,8 @@ namespace web
 		size_t nextString = HTTPMessage.find('\r');
 		string_view firstString(HTTPMessage.data(), nextString);
 
+		rawData = HTTPMessage;
+
 		switch (firstString[0])
 		{
 		case 'H':
@@ -328,6 +330,11 @@ namespace web
 	const json::JSONParser& HTTPParser::getJSON() const
 	{
 		return jsonParser;
+	}
+
+	const std::string& HTTPParser::getRawData() const
+	{
+		return rawData;
 	}
 
 	ostream& operator << (ostream& outputStream, const HTTPParser& parser)
