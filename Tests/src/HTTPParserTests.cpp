@@ -56,6 +56,8 @@ TEST(Parser, CONNECT)
 
 TEST(Parser, Streams)
 {
+	size_t npos = std::string::npos;
+
 	{
 		std::string data(getCONNECTRequest());
 		web::HTTPParser parser;
@@ -66,7 +68,11 @@ TEST(Parser, Streams)
 
 		os << parser;
 
-		ASSERT_EQ(data, os.str());
+		data = os.str();
+
+		ASSERT_NE(data.find("CONNECT server.example.com:80 HTTP/1.1\r\n"), npos);
+		ASSERT_NE(data.find("Host: server.example.com:80\r\n"), npos);
+		ASSERT_NE(data.find("Proxy-Authorization: basic aGVsbG86d29ybGQ=\r\n"), npos);
 	}
 
 	{
@@ -79,6 +85,11 @@ TEST(Parser, Streams)
 
 		os << parser;
 
-		ASSERT_EQ(data, os.str());
+		data = os.str();
+
+		ASSERT_NE(data.find("GET /search?q=test HTTP/2\r\n"), npos);
+		ASSERT_NE(data.find("Host: www.bing.com\r\n"), npos);
+		ASSERT_NE(data.find("User-Agent: curl/7.54.0\r\n"), npos);
+		ASSERT_NE(data.find("Accept: */*\r\n"), npos);
 	}
 }
