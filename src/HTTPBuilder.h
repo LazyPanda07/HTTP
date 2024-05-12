@@ -92,6 +92,9 @@ namespace web
 		template<typename StringT, typename T, typename... Args>
 		HTTPBuilder& parameters(StringT&& name, T&& value, Args&&... args);
 
+		template<typename... Args>
+		HTTPBuilder& parameters(std::string_view route, Args&&... args);
+
 		/// @brief Set parameters
 		/// @param parameters 
 		/// @return Self
@@ -161,7 +164,24 @@ namespace web
 			throw std::logic_error("Bad type of StringT, it must be converted to string");
 		}
 
-		return parameters(std::forward<Args>(args)...);
+		return this->parameters(std::forward<Args>(args)...);
+	}
+
+	template<typename... Args>
+	HTTPBuilder& HTTPBuilder::parameters(std::string_view route, Args&&... args)
+	{
+		if (route.starts_with('/'))
+		{
+			_parameters = route;
+		}
+		else
+		{
+			_parameters = "/";
+
+			_parameters += route;
+		}
+
+		return this->parameters(std::forward<Args>(args)...);
 	}
 
 	template<typename StringT, typename T, typename... Args>

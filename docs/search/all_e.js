@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['parameters_0',['parameters',['../classweb_1_1_h_t_t_p_builder.html#a0f069fd29b28828df515631a43d77ce3',1,'web::HTTPBuilder::parameters(StringT &amp;&amp;name, T &amp;&amp;value, Args &amp;&amp;... args)'],['../classweb_1_1_h_t_t_p_builder.html#a377d10b5f77b03a58f0e416987ce8cef',1,'web::HTTPBuilder::parameters(const std::string &amp;parameters)']]],
+  ['parameters_0',['parameters',['../classweb_1_1_h_t_t_p_builder.html#a0f069fd29b28828df515631a43d77ce3',1,'web::HTTPBuilder::parameters(StringT &amp;&amp;name, T &amp;&amp;value, Args &amp;&amp;... args)'],['../classweb_1_1_h_t_t_p_builder.html#a7a08420ba0ee12dd09f1fa4b6d773106',1,'web::HTTPBuilder::parameters(std::string_view route, Args &amp;&amp;... args)'],['../classweb_1_1_h_t_t_p_builder.html#a377d10b5f77b03a58f0e416987ce8cef',1,'web::HTTPBuilder::parameters(const std::string &amp;parameters)']]],
   ['parse_1',['parse',['../classweb_1_1_h_t_t_p_parser.html#a3d7d744fde526e32b4119aec9806a51c',1,'web::HTTPParser']]],
   ['partialcontent_2',['partialContent',['../namespaceweb.html#a5a849da4ada867d4591d74f812c24e10af59a31225b7c18d18ab9cf35b3c96312',1,'web']]],
   ['patchrequest_3',['patchRequest',['../classweb_1_1_h_t_t_p_builder.html#adf7b27de98a3dbae317e92d9547375ae',1,'web::HTTPBuilder']]],

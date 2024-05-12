@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.6.0</span>
+   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.7.0</span>
    </div>
   </td>
  </tr>
@@ -306,7 +306,7 @@ $(document).ready(function(){initNavTree('_h_t_t_p_parser_8cpp_source.html','');
 <div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        }</div>
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>        <span class="keywordflow">else</span></div>
 <div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>        {</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>            parameters = string(firstString.begin() + firstString.find(<span class="charliteral">&#39; &#39;</span>), firstString.begin() + firstString.rfind(<span class="charliteral">&#39; &#39;</span>));</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>            parameters = string(firstString.begin() + firstString.find(<span class="charliteral">&#39; &#39;</span>) + 1, firstString.begin() + firstString.rfind(<span class="charliteral">&#39; &#39;</span>));</div>
 <div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
 <div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>            httpVersion = string(firstString.begin() + firstString.find(<span class="stringliteral">&quot;HTTP&quot;</span>), firstString.end());</div>
 <div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>        }</div>
@@ -510,50 +510,53 @@ $(document).ready(function(){initNavTree('_h_t_t_p_parser_8cpp_source.html','');
 <div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span> </div>
 <div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [header, value] : parser.headers)</div>
 <div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>        {</div>
-<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>            result.</div>
-<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>                append(header + <span class="stringliteral">&quot;: &quot;</span> + value).</div>
-<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>                append(<a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>);</div>
-<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>        }</div>
-<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span> </div>
-<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>        <span class="keywordflow">if</span> (parser.body.size())</div>
-<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>        {</div>
-<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>            result.</div>
-<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>                append(<a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>).</div>
-<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>                append(parser.body);</div>
-<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>        }</div>
-<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (parser.chunks.size())</div>
-<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span>        {</div>
-<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span>            result += <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>;</div>
-<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span> </div>
-<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; chunk : parser.chunks)</div>
-<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>            {</div>
-<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>                result.</div>
-<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>                    append((ostringstream() &lt;&lt; hex &lt;&lt; chunk.size() &lt;&lt; <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>).str()).</div>
-<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>                    append(chunk).</div>
-<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>                    append(<a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>);</div>
-<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>            }</div>
-<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span> </div>
-<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>            result.</div>
-<div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span>                append(<span class="stringliteral">&quot;0&quot;</span>).</div>
-<div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span>                append(<a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#a815cb58afd4c980c29aa7a5e6637148a">HTTPParser::crlfcrlf</a>);</div>
-<div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span>        }</div>
-<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span> </div>
-<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span>        <span class="keywordflow">return</span> outputStream &lt;&lt; result;</div>
-<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>    }</div>
-</div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>            result += format(<span class="stringliteral">&quot;{}: {}{}&quot;</span>, header, value, <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>);</div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>        }</div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span> </div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>        <span class="keywordflow">if</span> (parser.body.size())</div>
+<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>        {</div>
+<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>            result += format(<span class="stringliteral">&quot;{}{}&quot;</span>, <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>, parser.body);</div>
+<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>        }</div>
+<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (parser.chunks.size())</div>
+<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>        {</div>
+<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>            result += <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>;</div>
+<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span> </div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; chunk : parser.chunks)</div>
+<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span>            {</div>
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span>                result += format(<span class="stringliteral">&quot;{}{}{}&quot;</span>, (ostringstream() &lt;&lt; hex &lt;&lt; chunk.size() &lt;&lt; <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>).str(), chunk, <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>);</div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>            }</div>
+<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span> </div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>            result += format(<span class="stringliteral">&quot;0{}&quot;</span>, <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#a815cb58afd4c980c29aa7a5e6637148a">HTTPParser::crlfcrlf</a>);</div>
+<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>        }</div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span> </div>
+<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>        <span class="keywordflow">if</span> (!result.ends_with(<a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#a815cb58afd4c980c29aa7a5e6637148a">HTTPParser::crlfcrlf</a>))</div>
+<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>        {</div>
+<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>            <span class="keywordflow">if</span> (result.ends_with(<a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>))</div>
+<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>            {</div>
+<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>                result += <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>;</div>
+<div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span>            }</div>
+<div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span>            <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span>            {</div>
+<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span>                result += <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#a815cb58afd4c980c29aa7a5e6637148a">HTTPParser::crlfcrlf</a>;</div>
+<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span>            }</div>
+<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>        }</div>
 <div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span> </div>
-<div class="foldopen" id="foldopen00410" data-start="{" data-end="}">
-<div class="line"><a id="l00410" name="l00410"></a><span class="lineno"><a class="line" href="namespaceweb.html#a8c7ebd54c78fa4783eb1f2439a0670c6">  410</a></span>    istream&amp; <a class="code hl_function" href="namespaceweb.html#a8c7ebd54c78fa4783eb1f2439a0670c6">operator &gt;&gt; </a>(istream&amp; inputStream, <a class="code hl_class" href="classweb_1_1_h_t_t_p_parser.html">HTTPParser</a>&amp; parser)</div>
-<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span>    {</div>
-<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span>        istreambuf_iterator&lt;char&gt; it(inputStream);</div>
-<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>        <span class="keywordtype">string</span> httpMessage(it, {});</div>
-<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span> </div>
-<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span>        parser.<a class="code hl_function" href="classweb_1_1_h_t_t_p_parser.html#a3d7d744fde526e32b4119aec9806a51c">parse</a>(httpMessage);</div>
-<div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span> </div>
-<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span>        <span class="keywordflow">return</span> inputStream;</div>
-<div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span>    }</div>
+<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>        <span class="keywordflow">return</span> outputStream &lt;&lt; result;</div>
+<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span>    }</div>
 </div>
-<div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span>}</div>
+<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span> </div>
+<div class="foldopen" id="foldopen00413" data-start="{" data-end="}">
+<div class="line"><a id="l00413" name="l00413"></a><span class="lineno"><a class="line" href="namespaceweb.html#a8c7ebd54c78fa4783eb1f2439a0670c6">  413</a></span>    istream&amp; <a class="code hl_function" href="namespaceweb.html#a8c7ebd54c78fa4783eb1f2439a0670c6">operator &gt;&gt; </a>(istream&amp; inputStream, <a class="code hl_class" href="classweb_1_1_h_t_t_p_parser.html">HTTPParser</a>&amp; parser)</div>
+<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span>    {</div>
+<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span>        istreambuf_iterator&lt;char&gt; it(inputStream);</div>
+<div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span>        <span class="keywordtype">string</span> httpMessage(it, {});</div>
+<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span> </div>
+<div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span>        parser.<a class="code hl_function" href="classweb_1_1_h_t_t_p_parser.html#a3d7d744fde526e32b4119aec9806a51c">parse</a>(httpMessage);</div>
+<div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span> </div>
+<div class="line"><a id="l00420" name="l00420"></a><span class="lineno">  420</span>        <span class="keywordflow">return</span> inputStream;</div>
+<div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span>    }</div>
+</div>
+<div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span>}</div>
 <div class="ttc" id="a_h_t_t_p_parser_8cpp_html_ad0786f4e2ae6df433f30d873acdd7aa4"><div class="ttname"><a href="_h_t_t_p_parser_8cpp.html#ad0786f4e2ae6df433f30d873acdd7aa4">responseCodeSize</a></div><div class="ttdeci">constexpr int responseCodeSize</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_parser_8cpp_source.html#l00012">HTTPParser.cpp:12</a></div></div>
 <div class="ttc" id="a_h_t_t_p_parser_8h_html"><div class="ttname"><a href="_h_t_t_p_parser_8h.html">HTTPParser.h</a></div></div>
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_parser_html"><div class="ttname"><a href="classweb_1_1_h_t_t_p_parser.html">web::HTTPParser</a></div><div class="ttdoc">HTTP parser.</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_parser_8h_source.html#l00011">HTTPParser.h:12</a></div></div>
@@ -581,11 +584,11 @@ $(document).ready(function(){initNavTree('_h_t_t_p_parser_8cpp_source.html','');
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_parser_html_ae3aede810e331598ba9d124b7c9c0b44"><div class="ttname"><a href="classweb_1_1_h_t_t_p_parser.html#ae3aede810e331598ba9d124b7c9c0b44">web::HTTPParser::getJSON</a></div><div class="ttdeci">const json::JSONParser &amp; getJSON() const</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_parser_8cpp_source.html#l00343">HTTPParser.cpp:343</a></div></div>
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_parser_html_af01968ae611b7867288dee2cbe5124ea"><div class="ttname"><a href="classweb_1_1_h_t_t_p_parser.html#af01968ae611b7867288dee2cbe5124ea">web::HTTPParser::getResponseMessage</a></div><div class="ttdeci">const std::string &amp; getResponseMessage() const</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_parser_8cpp_source.html#l00323">HTTPParser.cpp:323</a></div></div>
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_parser_html_af939415b8573b36c0843d71b58368f58"><div class="ttname"><a href="classweb_1_1_h_t_t_p_parser.html#af939415b8573b36c0843d71b58368f58">web::HTTPParser::contentLengthHeader</a></div><div class="ttdeci">static const std::string contentLengthHeader</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_parser_8h_source.html#l00020">HTTPParser.h:20</a></div></div>
-<div class="ttc" id="anamespaceweb_html"><div class="ttname"><a href="namespaceweb.html">web</a></div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8cpp_source.html#l00010">HTTPBuilder.cpp:11</a></div></div>
+<div class="ttc" id="anamespaceweb_html"><div class="ttname"><a href="namespaceweb.html">web</a></div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8cpp_source.html#l00012">HTTPBuilder.cpp:13</a></div></div>
 <div class="ttc" id="anamespaceweb_html_a2a14d700dc792135c09e94a3783c43e3"><div class="ttname"><a href="namespaceweb.html#a2a14d700dc792135c09e94a3783c43e3">web::HeadersMap</a></div><div class="ttdeci">std::unordered_map&lt; std::string, std::string, insensitiveStringHash, insensitiveStringEqual &gt; HeadersMap</div><div class="ttdoc">Case insensitive unordered_map.</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_utility_8h_source.html#l00124">HTTPUtility.h:124</a></div></div>
-<div class="ttc" id="anamespaceweb_html_a4153873787950c6777ebf6c9e9463d5d"><div class="ttname"><a href="namespaceweb.html#a4153873787950c6777ebf6c9e9463d5d">web::operator&lt;&lt;</a></div><div class="ttdeci">ostream &amp; operator&lt;&lt;(ostream &amp;outputStream, const HTTPBuilder &amp;builder)</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8cpp_source.html#l00313">HTTPBuilder.cpp:313</a></div></div>
+<div class="ttc" id="anamespaceweb_html_a4153873787950c6777ebf6c9e9463d5d"><div class="ttname"><a href="namespaceweb.html#a4153873787950c6777ebf6c9e9463d5d">web::operator&lt;&lt;</a></div><div class="ttdeci">ostream &amp; operator&lt;&lt;(ostream &amp;outputStream, const HTTPBuilder &amp;builder)</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8cpp_source.html#l00315">HTTPBuilder.cpp:315</a></div></div>
 <div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10">web::responseCodes</a></div><div class="ttdeci">responseCodes</div><div class="ttdoc">Response codes.</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_utility_8h_source.html#l00023">HTTPUtility.h:24</a></div></div>
-<div class="ttc" id="anamespaceweb_html_a8c7ebd54c78fa4783eb1f2439a0670c6"><div class="ttname"><a href="namespaceweb.html#a8c7ebd54c78fa4783eb1f2439a0670c6">web::operator&gt;&gt;</a></div><div class="ttdeci">istream &amp; operator&gt;&gt;(istream &amp;inputStream, HTTPParser &amp;parser)</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_parser_8cpp_source.html#l00410">HTTPParser.cpp:410</a></div></div>
+<div class="ttc" id="anamespaceweb_html_a8c7ebd54c78fa4783eb1f2439a0670c6"><div class="ttname"><a href="namespaceweb.html#a8c7ebd54c78fa4783eb1f2439a0670c6">web::operator&gt;&gt;</a></div><div class="ttdeci">istream &amp; operator&gt;&gt;(istream &amp;inputStream, HTTPParser &amp;parser)</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_parser_8cpp_source.html#l00413">HTTPParser.cpp:413</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
