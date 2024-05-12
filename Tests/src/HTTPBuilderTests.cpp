@@ -19,11 +19,11 @@ TEST(Builder, GET)
 
 	ASSERT_EQ(getRequest.size(), getGetRequest().size());
 
-	ASSERT_TRUE(getRequest.find("GET /search?q=test HTTP/2") != npos);
-	ASSERT_TRUE(getRequest.find("Host: www.bing.com") != npos);
-	ASSERT_TRUE(getRequest.find("User-Agent: curl/7.54.0") != npos);
-	ASSERT_TRUE(getRequest.find("Accept: */*") != npos);
-	ASSERT_TRUE(getRequest.find("\r\n\r\n") != npos);
+	ASSERT_NE(getRequest.find("GET /search?q=test HTTP/2"), npos);
+	ASSERT_NE(getRequest.find("Host: www.bing.com"), npos);
+	ASSERT_NE(getRequest.find("User-Agent: curl/7.54.0"), npos);
+	ASSERT_NE(getRequest.find("Accept: */*"), npos);
+	ASSERT_NE(getRequest.find("\r\n\r\n"), npos);
 }
 
 TEST(Builder, POST)
@@ -50,12 +50,49 @@ TEST(Builder, POST)
 
 	ASSERT_EQ(postRequest.size(), getPostRequest().size());
 
-	ASSERT_TRUE(postRequest.find("Host: httpbin.org") != npos);
-	ASSERT_TRUE(postRequest.find("Connection: close") != npos);
-	ASSERT_TRUE(postRequest.find("Accept: */*") != npos);
-	ASSERT_TRUE(postRequest.find("User-Agent: Mozilla/4.0 (compatible; esp8266 Lua; Windows NT 5.1)") != npos);
-	ASSERT_TRUE(postRequest.find("User-Agent: Mozilla/4.0 (compatible; esp8266 Lua; Windows NT 5.1)") != npos);
-	ASSERT_TRUE(postRequest.find("Content-Length: 96") != npos);
-	ASSERT_TRUE(postRequest.find("Content-Type: application/json") != npos);
-	ASSERT_TRUE(postRequest.find(getPostRequestJSON()) != npos);
+	ASSERT_NE(postRequest.find("Host: httpbin.org"), npos);
+	ASSERT_NE(postRequest.find("Connection: close"), npos);
+	ASSERT_NE(postRequest.find("Accept: */*"), npos);
+	ASSERT_NE(postRequest.find("User-Agent: Mozilla/4.0 (compatible; esp8266 Lua; Windows NT 5.1)"), npos);
+	ASSERT_NE(postRequest.find("User-Agent: Mozilla/4.0 (compatible; esp8266 Lua; Windows NT 5.1)"), npos);
+	ASSERT_NE(postRequest.find("Content-Length: 96"), npos);
+	ASSERT_NE(postRequest.find("Content-Type: application/json"), npos);
+	ASSERT_NE(postRequest.find(getPostRequestJSON()), npos);
+}
+
+TEST(Builder, CONNECT)
+{
+	std::string connectRequest = web::HTTPBuilder("HTTP/1.1").
+		connectRequest().
+		parameters("server.example.com:80").
+		headers
+		(
+			"Host", "server.example.com:80",
+			"Proxy-Authorization", "basic aGVsbG86d29ybGQ="
+		).
+		build();
+	size_t npos = std::string::npos;
+
+	ASSERT_NE(connectRequest.find("CONNECT server.example.com:80 HTTP/1.1"), npos);
+	ASSERT_NE(connectRequest.find("Host: server.example.com:80"), npos);
+	ASSERT_NE(connectRequest.find("Proxy-Authorization: basic aGVsbG86d29ybGQ="), npos);
+}
+
+TEST(Builder, Streams)
+{
+	web::HTTPBuilder builder = web::HTTPBuilder("HTTP/2")
+		.getRequest()
+		.parameters("search?").parameters("q", "test")
+		.headers
+		(
+			"Host", "www.bing.com",
+			"User-Agent", "curl/7.54.0",
+			"Accept", "*/*"
+		);
+	std::string getRequest = builder.build();
+	std::ostringstream os;
+
+	os << builder;
+
+	ASSERT_EQ(getRequest, os.str());
 }

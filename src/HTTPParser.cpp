@@ -1,8 +1,11 @@
 #include "HTTPParser.h"
 
 #include <iterator>
+#include <format>
 
+#ifndef __LINUX__
 #pragma warning(disable: 26800)
+#endif
 
 using namespace std;
 
@@ -178,8 +181,7 @@ namespace web
 
 			response.first = static_cast<responseCodes>(stoi(responseCode));
 		}
-
-		if (method.size())
+		else if (method != "CONNECT")
 		{
 			size_t startParameters = firstString.find('/') + 1;
 			size_t endParameters = firstString.find(' ', startParameters);
@@ -193,6 +195,12 @@ namespace web
 			{
 				this->parseKeyValueParameter(firstString.substr(queryStart + 1));
 			}
+		}
+		else
+		{
+			parameters = string(firstString.begin() + firstString.find(' '), firstString.begin() + firstString.rfind(' '));
+
+			httpVersion = string(firstString.begin() + firstString.find("HTTP"), firstString.end());
 		}
 
 		while (true)
@@ -348,13 +356,20 @@ namespace web
 
 		if (parser.method.size())
 		{
-			result += parser.method + " /" + parser.parameters + ' ' + parser.httpVersion;
+			if (parser.method != "CONNECT")
+			{
+				result += format("{} /{} {}", parser.method, parser.parameters, parser.httpVersion);
+			}
+			else
+			{
+				result += format("{} {} {}", parser.method, parser.parameters, parser.httpVersion);
+			}
 		}
 		else
 		{
 			const auto& [code, message] = parser.getFullResponse();
 
-			result += parser.httpVersion + ' ' + to_string(static_cast<int>(code)) + ' ' + message;
+			result += format("{} {} {}", parser.httpVersion, static_cast<int>(code), message);
 		}
 
 		result += HTTPParser::crlf;

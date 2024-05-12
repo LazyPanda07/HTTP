@@ -50,3 +50,12 @@ std::string getHTTPResponse()
 		"X-Frame-Options: DENY\r\n"
 		"\r\n";
 }
+
+std::string getCONNECTRequest()
+{
+	return
+		"CONNECT server.example.com:80 HTTP/1.1\r\n"
+		"Host: server.example.com:80\r\n"
+		"Proxy-Authorization: basic aGVsbG86d29ybGQ=\r\n"
+		"\r\n";
+}

@@ -1,8 +1,8 @@
 var classweb_1_1_h_t_t_p_builder =
 [
-    [ "HTTPBuilder", "classweb_1_1_h_t_t_p_builder.html#a4ea22e72c26c6ce97ee7150275c2c4ad", null ],
-    [ "HTTPBuilder", "classweb_1_1_h_t_t_p_builder.html#a6f509022179cb887304dea74a7807713", null ],
-    [ "HTTPBuilder", "classweb_1_1_h_t_t_p_builder.html#ad1f212163d7ca91778541cd64bff0128", null ],
+    [ "HTTPBuilder", "classweb_1_1_h_t_t_p_builder.html#aa2a246f805935f000f82d609a9a67d69", null ],
+    [ "HTTPBuilder", "classweb_1_1_h_t_t_p_builder.html#a58a5d80d5a6eb5f393d5770e3d4ba8e0", null ],
+    [ "HTTPBuilder", "classweb_1_1_h_t_t_p_builder.html#a7c2c2af0e5694933641d6e6da1723bc1", null ],
     [ "~HTTPBuilder", "classweb_1_1_h_t_t_p_builder.html#aca01b380901b29179c8f1a5f58db1c84", null ],
     [ "build", "classweb_1_1_h_t_t_p_builder.html#a41737295e41fac6daeab903bdd730fd9", null ],
     [ "build", "classweb_1_1_h_t_t_p_builder.html#a409f633e2c0791749584a3dfe4ff7597", null ],
@@ -15,8 +15,8 @@ var classweb_1_1_h_t_t_p_builder =
     [ "headers", "classweb_1_1_h_t_t_p_builder.html#a5922eb4df1fb698cf9f54ad28975a018", null ],
     [ "headRequest", "classweb_1_1_h_t_t_p_builder.html#abc6c80e8a5e8254e4ef21fa0b7f3d4c6", null ],
     [ "HTTPVersion", "classweb_1_1_h_t_t_p_builder.html#aff45e3515687de798e5f00a2e6deca26", null ],
-    [ "operator=", "classweb_1_1_h_t_t_p_builder.html#a238d958afdb9ecf18d31aa3047cd5878", null ],
-    [ "operator=", "classweb_1_1_h_t_t_p_builder.html#aa0ab84a4716d0ba85f60bb7103d26929", null ],
+    [ "operator=", "classweb_1_1_h_t_t_p_builder.html#abe53e4a70c274fd599566ac864f52455", null ],
+    [ "operator=", "classweb_1_1_h_t_t_p_builder.html#abd23ff2f9306e1b1b95d5b1eaf5d65ce", null ],
     [ "optionsRequest", "classweb_1_1_h_t_t_p_builder.html#a82bd8cae588f89ddd3691c1e46d3e011", null ],
     [ "parameters", "classweb_1_1_h_t_t_p_builder.html#a377d10b5f77b03a58f0e416987ce8cef", null ],
     [ "parameters", "classweb_1_1_h_t_t_p_builder.html#a0f069fd29b28828df515631a43d77ce3", null ],

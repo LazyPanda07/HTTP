@@ -42,3 +42,43 @@ TEST(Parser, Response)
 	ASSERT_EQ(headers.at("Server"), "Apache");
 	ASSERT_EQ(headers.at("X-Frame-Options"), "DENY");
 }
+
+TEST(Parser, CONNECT)
+{
+	web::HTTPParser parser(getCONNECTRequest());
+	const web::HeadersMap& headers = parser.getHeaders();
+
+	ASSERT_EQ(parser.getParameters(), "server.example.com:80");
+
+	ASSERT_EQ(headers.at("Host"), "server.example.com:80");
+	ASSERT_EQ(headers.at("Proxy-Authorization"), "basic aGVsbG86d29ybGQ=");
+}
+
+TEST(Parser, Streams)
+{
+	{
+		std::string data(getCONNECTRequest());
+		web::HTTPParser parser;
+		std::ostringstream os;
+		std::istringstream is(data);
+
+		is >> parser;
+
+		os << parser;
+
+		ASSERT_EQ(data, os.str());
+	}
+
+	{
+		std::string data(getGetRequest());
+		web::HTTPParser parser;
+		std::ostringstream os;
+		std::istringstream is(data);
+
+		is >> parser;
+
+		os << parser;
+
+		ASSERT_EQ(data, os.str());
+	}
+}

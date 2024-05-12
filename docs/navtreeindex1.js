@@ -69,12 +69,12 @@ var NAVTREEINDEX1 =
 "namespaceweb.html#a8c7ebd54c78fa4783eb1f2439a0670c6":[0,0,1,10],
 "namespaceweb.html#af614ac9fe667a0a1ddc96af7c8768914":[0,0,1,8],
 "pages.html":[],
-"structweb_1_1insensitive_string_equal.html":[0,0,1,2],
 "structweb_1_1insensitive_string_equal.html":[1,0,1,2],
+"structweb_1_1insensitive_string_equal.html":[0,0,1,2],
 "structweb_1_1insensitive_string_equal.html#a060180332c480e814fb7e26c29f7be12":[1,0,1,2,0],
 "structweb_1_1insensitive_string_equal.html#a060180332c480e814fb7e26c29f7be12":[0,0,1,2,0],
 "structweb_1_1insensitive_string_hash.html":[1,0,1,3],
 "structweb_1_1insensitive_string_hash.html":[0,0,1,3],
-"structweb_1_1insensitive_string_hash.html#a80a1adb661558ddf16711850b405e77b":[1,0,1,3,0],
-"structweb_1_1insensitive_string_hash.html#a80a1adb661558ddf16711850b405e77b":[0,0,1,3,0]
+"structweb_1_1insensitive_string_hash.html#a80a1adb661558ddf16711850b405e77b":[0,0,1,3,0],
+"structweb_1_1insensitive_string_hash.html#a80a1adb661558ddf16711850b405e77b":[1,0,1,3,0]
 };

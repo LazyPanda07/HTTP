@@ -35,15 +35,15 @@ namespace web
 		static std::string getChunk(const std::string& chunk);
 
 	public:
-		HTTPBuilder(const std::string& fullHTTPVersion = "HTTP/1.1");
+		HTTPBuilder(std::string_view fullHTTPVersion = "HTTP/1.1");
 
-		HTTPBuilder(const HTTPBuilder& other);
+		HTTPBuilder(const HTTPBuilder& other) = default;
 
-		HTTPBuilder(HTTPBuilder&& other) noexcept;
+		HTTPBuilder(HTTPBuilder&& other) noexcept = default;
 
-		HTTPBuilder& operator = (const HTTPBuilder& other);
+		HTTPBuilder& operator = (const HTTPBuilder& other) = default;
 
-		HTTPBuilder& operator = (HTTPBuilder&& other) noexcept;
+		HTTPBuilder& operator = (HTTPBuilder&& other) noexcept = default;
 
 		/// @brief Set GET request
 		/// @return Self

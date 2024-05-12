@@ -3,6 +3,7 @@
 #include <array>
 #include <unordered_map>
 #include <algorithm>
+#include <format>
 
 using namespace std;
 
@@ -115,44 +116,10 @@ namespace web
 		return result.str();
 	}
 
-	HTTPBuilder::HTTPBuilder(const string& fullHTTPVersion) :
+	HTTPBuilder::HTTPBuilder(string_view fullHTTPVersion) :
 		_HTTPVersion(fullHTTPVersion)
 	{
 
-	}
-
-	HTTPBuilder::HTTPBuilder(const HTTPBuilder& other)
-	{
-		(*this) = other;
-	}
-
-	HTTPBuilder::HTTPBuilder(HTTPBuilder&& other) noexcept
-	{
-		(*this) = move(other);
-	}
-
-	HTTPBuilder& HTTPBuilder::operator = (const HTTPBuilder& other)
-	{
-		method = other.method;
-		_parameters = other._parameters;
-		_responseCode = other._responseCode;
-		_headers = other._headers;
-		_HTTPVersion = other._HTTPVersion;
-		_chunks = other._chunks;
-
-		return *this;
-	}
-
-	HTTPBuilder& HTTPBuilder::operator = (HTTPBuilder&& other) noexcept
-	{
-		method = move(other.method);
-		_parameters = move(other._parameters);
-		_responseCode = move(other._responseCode);
-		_headers = move(other._headers);
-		_HTTPVersion = move(other._HTTPVersion);
-		_chunks = move(other._chunks);
-
-		return *this;
 	}
 
 	HTTPBuilder& HTTPBuilder::getRequest()
@@ -220,7 +187,7 @@ namespace web
 
 	HTTPBuilder& HTTPBuilder::parameters(const string& parameters)
 	{
-		if (_parameters.empty())
+		if (_parameters.empty() && method != "CONNECT")
 		{
 			_parameters = '/';
 		}
@@ -291,25 +258,25 @@ namespace web
 			buildHeaders["Transfer-Encoding"] = "chunked";
 		}
 
-		if (method.empty()) // response 
+		if (method.empty())
 		{
 			result = string(_HTTPVersion) + " " + _responseCode + "\r\n" + _headers;
 		}
-		else // request
+		else
 		{
 			result = method + ' ';
 
-			if (_parameters.empty())
+			if (_parameters.empty() && method != "CONNECT")
 			{
 				result += "/";
 			}
 
-			result += _parameters + ' ' + _HTTPVersion + "\r\n" + _headers;
+			result += format("{} {}\r\n{}", _parameters, _HTTPVersion, _headers);
 		}
 
 		for (const auto& [header, value] : buildHeaders)
 		{
-			result += header + ": " + value + "\r\n";
+			result += format("{}: {}\r\n", header, value);
 		}
 
 		result += "\r\n";
