@@ -93,7 +93,7 @@ namespace web
 		HTTPBuilder& parameters(StringT&& name, T&& value, Args&&... args);
 
 		template<typename... Args>
-		HTTPBuilder& parameters(std::string_view route, Args&&... args);
+		HTTPBuilder& parametersWithRoute(std::string_view route, Args&&... args);
 
 		/// @brief Set parameters
 		/// @param parameters 
@@ -168,7 +168,7 @@ namespace web
 	}
 
 	template<typename... Args>
-	HTTPBuilder& HTTPBuilder::parameters(std::string_view route, Args&&... args)
+	HTTPBuilder& HTTPBuilder::parametersWithRoute(std::string_view route, Args&&... args)
 	{
 		if (route.starts_with('/'))
 		{

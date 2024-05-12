@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.7.0</span>
+   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.7.1</span>
    </div>
   </td>
  </tr>
@@ -146,9 +146,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0f069fd29b28828df515631a43d77ce3"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classweb_1_1_h_t_t_p_builder.html#a0f069fd29b28828df515631a43d77ce3">parameters</a> (StringT &amp;&amp;name, T &amp;&amp;value, Args &amp;&amp;... args)</td></tr>
 <tr class="memdesc:a0f069fd29b28828df515631a43d77ce3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Append key - value parameters.  <br /></td></tr>
 <tr class="separator:a0f069fd29b28828df515631a43d77ce3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a08420ba0ee12dd09f1fa4b6d773106" id="r_a7a08420ba0ee12dd09f1fa4b6d773106"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
-<tr class="memitem:a7a08420ba0ee12dd09f1fa4b6d773106"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classweb_1_1_h_t_t_p_builder.html#a7a08420ba0ee12dd09f1fa4b6d773106">parameters</a> (std::string_view route, Args &amp;&amp;... args)</td></tr>
-<tr class="separator:a7a08420ba0ee12dd09f1fa4b6d773106"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a790eff30f008d4b49cf9d47c1bfcc836" id="r_a790eff30f008d4b49cf9d47c1bfcc836"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
+<tr class="memitem:a790eff30f008d4b49cf9d47c1bfcc836"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classweb_1_1_h_t_t_p_builder.html#a790eff30f008d4b49cf9d47c1bfcc836">parametersWithRoute</a> (std::string_view route, Args &amp;&amp;... args)</td></tr>
+<tr class="separator:a790eff30f008d4b49cf9d47c1bfcc836"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a377d10b5f77b03a58f0e416987ce8cef" id="r_a377d10b5f77b03a58f0e416987ce8cef"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classweb_1_1_h_t_t_p_builder.html#a377d10b5f77b03a58f0e416987ce8cef">parameters</a> (const std::string &amp;parameters)</td></tr>
 <tr class="memdesc:a377d10b5f77b03a58f0e416987ce8cef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set parameters.  <br /></td></tr>
 <tr class="separator:a377d10b5f77b03a58f0e416987ce8cef"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -722,7 +722,7 @@ template&lt;typename StringT , typename T , typename... Args&gt; </div>
 </div>
 </div>
 <a id="a377d10b5f77b03a58f0e416987ce8cef" name="a377d10b5f77b03a58f0e416987ce8cef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a377d10b5f77b03a58f0e416987ce8cef">&#9670;&#160;</a></span>parameters() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a377d10b5f77b03a58f0e416987ce8cef">&#9670;&#160;</a></span>parameters() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -748,40 +748,8 @@ template&lt;typename StringT , typename T , typename... Args&gt; </div>
 
 </div>
 </div>
-<a id="a7a08420ba0ee12dd09f1fa4b6d773106" name="a7a08420ba0ee12dd09f1fa4b6d773106"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a08420ba0ee12dd09f1fa4b6d773106">&#9670;&#160;</a></span>parameters() <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename... Args&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a> &amp; web::HTTPBuilder::parameters </td>
-          <td>(</td>
-          <td class="paramtype">std::string_view&#160;</td>
-          <td class="paramname"><em>route</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Args &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>args</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8h_source.html#l00171">171</a> of file <a class="el" href="_h_t_t_p_builder_8h_source.html">HTTPBuilder.h</a>.</p>
-
-</div>
-</div>
 <a id="a0f069fd29b28828df515631a43d77ce3" name="a0f069fd29b28828df515631a43d77ce3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f069fd29b28828df515631a43d77ce3">&#9670;&#160;</a></span>parameters() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f069fd29b28828df515631a43d77ce3">&#9670;&#160;</a></span>parameters() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -834,6 +802,38 @@ template&lt;typename StringT , typename T , typename... Args&gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>Self </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8h_source.html#l00140">140</a> of file <a class="el" href="_h_t_t_p_builder_8h_source.html">HTTPBuilder.h</a>.</p>
+
+</div>
+</div>
+<a id="a790eff30f008d4b49cf9d47c1bfcc836" name="a790eff30f008d4b49cf9d47c1bfcc836"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a790eff30f008d4b49cf9d47c1bfcc836">&#9670;&#160;</a></span>parametersWithRoute()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename... Args&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a> &amp; web::HTTPBuilder::parametersWithRoute </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>route</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8h_source.html#l00171">171</a> of file <a class="el" href="_h_t_t_p_builder_8h_source.html">HTTPBuilder.h</a>.</p>
 
 </div>
 </div>

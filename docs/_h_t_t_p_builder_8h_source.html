@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.7.0</span>
+   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.7.1</span>
    </div>
   </td>
  </tr>
@@ -160,7 +160,7 @@ $(document).ready(function(){initNavTree('_h_t_t_p_builder_8h_source.html',''); 
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; parameters(StringT&amp;&amp; name, T&amp;&amp; value, Args&amp;&amp;... args);</div>
 <div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
 <div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Args&gt;</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; parameters(std::string_view route, Args&amp;&amp;... args);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; parametersWithRoute(std::string_view route, Args&amp;&amp;... args);</div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#a377d10b5f77b03a58f0e416987ce8cef">  101</a></span>        <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a377d10b5f77b03a58f0e416987ce8cef">parameters</a>(<span class="keyword">const</span> std::string&amp; parameters);</div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
@@ -224,7 +224,7 @@ $(document).ready(function(){initNavTree('_h_t_t_p_builder_8h_source.html',''); 
 <div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Args&gt;</div>
 <div class="foldopen" id="foldopen00171" data-start="{" data-end="}">
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#a7a08420ba0ee12dd09f1fa4b6d773106">  171</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; HTTPBuilder::parameters(std::string_view route, Args&amp;&amp;... args)</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#a790eff30f008d4b49cf9d47c1bfcc836">  171</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a790eff30f008d4b49cf9d47c1bfcc836">HTTPBuilder::parametersWithRoute</a>(std::string_view route, Args&amp;&amp;... args)</div>
 <div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    {</div>
 <div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        <span class="keywordflow">if</span> (route.starts_with(<span class="charliteral">&#39;/&#39;</span>))</div>
 <div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        {</div>
@@ -330,6 +330,7 @@ $(document).ready(function(){initNavTree('_h_t_t_p_builder_8h_source.html',''); 
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a58a5d80d5a6eb5f393d5770e3d4ba8e0"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a58a5d80d5a6eb5f393d5770e3d4ba8e0">web::HTTPBuilder::HTTPBuilder</a></div><div class="ttdeci">HTTPBuilder(const HTTPBuilder &amp;other)=default</div></div>
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a5922eb4df1fb698cf9f54ad28975a018"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a5922eb4df1fb698cf9f54ad28975a018">web::HTTPBuilder::headers</a></div><div class="ttdeci">HTTPBuilder &amp; headers(StringT &amp;&amp;name, T &amp;&amp;value, Args &amp;&amp;... args)</div><div class="ttdoc">Append header - value.</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8h_source.html#l00188">HTTPBuilder.h:188</a></div></div>
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a5f70a36c6ff04c54419e0557fe176c7a"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a5f70a36c6ff04c54419e0557fe176c7a">web::HTTPBuilder::responseCode</a></div><div class="ttdeci">HTTPBuilder &amp; responseCode(int code, const std::string &amp;responseMessage)</div></div>
+<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a790eff30f008d4b49cf9d47c1bfcc836"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a790eff30f008d4b49cf9d47c1bfcc836">web::HTTPBuilder::parametersWithRoute</a></div><div class="ttdeci">HTTPBuilder &amp; parametersWithRoute(std::string_view route, Args &amp;&amp;... args)</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8h_source.html#l00171">HTTPBuilder.h:171</a></div></div>
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a7c2c2af0e5694933641d6e6da1723bc1"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a7c2c2af0e5694933641d6e6da1723bc1">web::HTTPBuilder::HTTPBuilder</a></div><div class="ttdeci">HTTPBuilder(HTTPBuilder &amp;&amp;other) noexcept=default</div></div>
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_aa2a246f805935f000f82d609a9a67d69"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#aa2a246f805935f000f82d609a9a67d69">web::HTTPBuilder::HTTPBuilder</a></div><div class="ttdeci">HTTPBuilder(std::string_view fullHTTPVersion=&quot;HTTP/1.1&quot;)</div></div>
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_aca01b380901b29179c8f1a5f58db1c84"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#aca01b380901b29179c8f1a5f58db1c84">web::HTTPBuilder::~HTTPBuilder</a></div><div class="ttdeci">~HTTPBuilder()=default</div></div>
