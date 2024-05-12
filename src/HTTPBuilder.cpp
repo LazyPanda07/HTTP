@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <format>
 
+#include "HTTPParser.h"
+
 using namespace std;
 
 namespace web
@@ -276,7 +278,7 @@ namespace web
 
 		for (const auto& [header, value] : buildHeaders)
 		{
-			result += format("{}: {}\r\n", header, value);
+			result += format("{}: {}{}", header, value, HTTPParser::crlf);
 		}
 
 		result += "\r\n";

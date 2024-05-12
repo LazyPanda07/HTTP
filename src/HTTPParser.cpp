@@ -198,7 +198,7 @@ namespace web
 		}
 		else
 		{
-			parameters = string(firstString.begin() + firstString.find(' '), firstString.begin() + firstString.rfind(' '));
+			parameters = string(firstString.begin() + firstString.find(' ') + 1, firstString.begin() + firstString.rfind(' '));
 
 			httpVersion = string(firstString.begin() + firstString.find("HTTP"), firstString.end());
 		}
@@ -376,16 +376,12 @@ namespace web
 
 		for (const auto& [header, value] : parser.headers)
 		{
-			result.
-				append(header + ": " + value).
-				append(HTTPParser::crlf);
+			result += format("{}: {}{}", header, value, HTTPParser::crlf);
 		}
 
 		if (parser.body.size())
 		{
-			result.
-				append(HTTPParser::crlf).
-				append(parser.body);
+			result += format("{}{}", HTTPParser::crlf, parser.body);
 		}
 		else if (parser.chunks.size())
 		{
@@ -393,15 +389,22 @@ namespace web
 
 			for (const auto& chunk : parser.chunks)
 			{
-				result.
-					append((ostringstream() << hex << chunk.size() << HTTPParser::crlf).str()).
-					append(chunk).
-					append(HTTPParser::crlf);
+				result += format("{}{}{}", (ostringstream() << hex << chunk.size() << HTTPParser::crlf).str(), chunk, HTTPParser::crlf);
 			}
 
-			result.
-				append("0").
-				append(HTTPParser::crlfcrlf);
+			result += format("0{}", HTTPParser::crlfcrlf);
+		}
+
+		if (!result.ends_with(HTTPParser::crlfcrlf))
+		{
+			if (result.ends_with(HTTPParser::crlf))
+			{
+				result += HTTPParser::crlf;
+			}
+			else
+			{
+				result += HTTPParser::crlfcrlf;
+			}
 		}
 
 		return outputStream << result;
