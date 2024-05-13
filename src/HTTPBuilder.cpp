@@ -209,7 +209,7 @@ namespace web
 				_parameters = format
 				(
 					"{}{}",
-					string_view(parameters.begin(), parameters.begin() + queryStart),
+					string_view(parameters.begin(), parameters.begin() + queryStart + 1),
 					string_view(parameters.begin() + queryStart + 1, parameters.end())
 				);
 			}

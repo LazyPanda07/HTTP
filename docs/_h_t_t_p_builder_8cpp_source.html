@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.8.0</span>
+   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.8.2</span>
    </div>
   </td>
  </tr>
@@ -324,180 +324,179 @@ $(document).ready(function(){initNavTree('_h_t_t_p_builder_8cpp_source.html','')
 <div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
 <div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; HTTPBuilder::parameters(string_view parameters)</div>
 <div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    {</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>        <span class="keywordflow">if</span> (parameters.starts_with(<span class="charliteral">&#39;/&#39;</span>))</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>        <span class="keywordflow">if</span> (method != <span class="stringliteral">&quot;CONNECT&quot;</span>)</div>
 <div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>        {</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>            parameters = string_view(parameters.begin() + 1, parameters.end());</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>        }</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span> </div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>        <span class="keywordflow">if</span> (method != <span class="stringliteral">&quot;CONNECT&quot;</span>)</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        {</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>            <span class="keywordtype">bool</span> hasQuestionMark = <span class="keyword">static_cast&lt;</span><span class="keywordtype">bool</span><span class="keyword">&gt;</span>(ranges::count(parameters, <span class="charliteral">&#39;?&#39;</span>));</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>            _parameters = <a class="code hl_function" href="namespaceweb.html#a8a69377fcbe29bdb4639d1dff611b73b">web::encodeUrl</a>(parameters);</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>            <span class="keywordflow">if</span> (hasQuestionMark)</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>            {</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>                <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">size_t</span> encodedQuestionMarkSize = 3;</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>                _parameters.replace(_parameters.find(<span class="stringliteral">&quot;%3F&quot;</span>), encodedQuestionMarkSize, <span class="stringliteral">&quot;?&quot;</span>);</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>            }</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span> </div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>            <span class="keywordflow">if</span> (!_parameters.starts_with(<span class="charliteral">&#39;/&#39;</span>))</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>            {</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>                _parameters.insert(_parameters.begin(), <span class="charliteral">&#39;/&#39;</span>);</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>            }</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>        }</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>        <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>        {</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>            _parameters = parameters;</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>        }</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    }</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span> </div>
-<div class="foldopen" id="foldopen00235" data-start="{" data-end="}">
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#ad56bf0ca62c2a8ab42c9b47adf6603d8">  235</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#ad56bf0ca62c2a8ab42c9b47adf6603d8">HTTPBuilder::responseCode</a>(<a class="code hl_enumeration" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10">responseCodes</a> code)</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    {</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        _responseCode = to_string(<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(code)) + <span class="charliteral">&#39; &#39;</span> + responseMessage.at(code);</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span> </div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    }</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>            <span class="keywordflow">if</span> (<span class="keywordtype">size_t</span> queryStart = parameters.find(<span class="charliteral">&#39;?&#39;</span>); queryStart != string::npos)</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>            {</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>                _parameters = format</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>                (</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>                    <span class="stringliteral">&quot;{}{}&quot;</span>,</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>                    string_view(parameters.begin(), parameters.begin() + queryStart + 1),</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>                    string_view(parameters.begin() + queryStart + 1, parameters.end())</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>                );</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>            }</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>            <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>            {</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>                _parameters = parameters;</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>            }</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>            <span class="keywordflow">if</span> (!_parameters.starts_with(<span class="charliteral">&#39;/&#39;</span>))</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>            {</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>                _parameters.insert(_parameters.begin(), <span class="charliteral">&#39;/&#39;</span>);</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>            }</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>        }</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>        <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>        {</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>            _parameters = parameters;</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>        }</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span> </div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    }</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span> </div>
+<div class="foldopen" id="foldopen00234" data-start="{" data-end="}">
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#ad56bf0ca62c2a8ab42c9b47adf6603d8">  234</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#ad56bf0ca62c2a8ab42c9b47adf6603d8">HTTPBuilder::responseCode</a>(<a class="code hl_enumeration" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10">responseCodes</a> code)</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    {</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>        _responseCode = to_string(<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(code)) + <span class="charliteral">&#39; &#39;</span> + responseMessage.at(code);</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    }</div>
 </div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span> </div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#ad56bf0ca62c2a8ab42c9b47adf6603d8">HTTPBuilder::responseCode</a>(<span class="keywordtype">int</span> code, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; responseMessage)</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    {</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>        _responseCode = to_string(code) + <span class="charliteral">&#39; &#39;</span> + responseMessage;</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    }</div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span> </div>
-<div class="foldopen" id="foldopen00249" data-start="{" data-end="}">
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#aff45e3515687de798e5f00a2e6deca26">  249</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aff45e3515687de798e5f00a2e6deca26">HTTPBuilder::HTTPVersion</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; HTTPVersion)</div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    {</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aff45e3515687de798e5f00a2e6deca26">HTTPVersion</a>.find(<span class="stringliteral">&quot;HTTP&quot;</span>) == string::npos)</div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>        {</div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>            _HTTPVersion = <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aff45e3515687de798e5f00a2e6deca26">HTTPVersion</a>;</div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>        }</div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>        <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>        {</div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>            _HTTPVersion = <span class="stringliteral">&quot;HTTP/&quot;</span> + <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aff45e3515687de798e5f00a2e6deca26">HTTPVersion</a>;</div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        }</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span> </div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    }</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span> </div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#ad56bf0ca62c2a8ab42c9b47adf6603d8">HTTPBuilder::responseCode</a>(<span class="keywordtype">int</span> code, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; responseMessage)</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    {</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>        _responseCode = to_string(code) + <span class="charliteral">&#39; &#39;</span> + responseMessage;</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    }</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
+<div class="foldopen" id="foldopen00248" data-start="{" data-end="}">
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#aff45e3515687de798e5f00a2e6deca26">  248</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aff45e3515687de798e5f00a2e6deca26">HTTPBuilder::HTTPVersion</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; HTTPVersion)</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>    {</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aff45e3515687de798e5f00a2e6deca26">HTTPVersion</a>.find(<span class="stringliteral">&quot;HTTP&quot;</span>) == string::npos)</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>        {</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>            _HTTPVersion = <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aff45e3515687de798e5f00a2e6deca26">HTTPVersion</a>;</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>        }</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>        <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>        {</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>            _HTTPVersion = <span class="stringliteral">&quot;HTTP/&quot;</span> + <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aff45e3515687de798e5f00a2e6deca26">HTTPVersion</a>;</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>        }</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span> </div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    }</div>
 </div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span> </div>
-<div class="foldopen" id="foldopen00263" data-start="{" data-end="}">
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">  263</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">HTTPBuilder::chunks</a>(<span class="keyword">const</span> vector&lt;string&gt;&amp; chunks)</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    {</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>        copy(<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">chunks</a>.begin(), <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">chunks</a>.end(), back_inserter(_chunks));</div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span> </div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    }</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span> </div>
+<div class="foldopen" id="foldopen00262" data-start="{" data-end="}">
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">  262</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">HTTPBuilder::chunks</a>(<span class="keyword">const</span> vector&lt;string&gt;&amp; chunks)</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    {</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>        copy(<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">chunks</a>.begin(), <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">chunks</a>.end(), back_inserter(_chunks));</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    }</div>
 </div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
-<div class="foldopen" id="foldopen00270" data-start="{" data-end="}">
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#aeb8419f4b9c26390151fea8762d2accf">  270</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aeb8419f4b9c26390151fea8762d2accf">HTTPBuilder::chunk</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; chunk)</div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    {</div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>        _chunks.push_back(<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aeb8419f4b9c26390151fea8762d2accf">chunk</a>);</div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span> </div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    }</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span> </div>
+<div class="foldopen" id="foldopen00269" data-start="{" data-end="}">
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#aeb8419f4b9c26390151fea8762d2accf">  269</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aeb8419f4b9c26390151fea8762d2accf">HTTPBuilder::chunk</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; chunk)</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    {</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>        _chunks.push_back(<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aeb8419f4b9c26390151fea8762d2accf">chunk</a>);</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span> </div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    }</div>
 </div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span> </div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>    <span class="keywordtype">string</span> <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a409f633e2c0791749584a3dfe4ff7597">HTTPBuilder::build</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; data, <span class="keyword">const</span> unordered_map&lt;string, string&gt;&amp; additionalHeaders)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        <span class="keywordtype">string</span> result;</div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>        unordered_map&lt;string, string&gt; buildHeaders(additionalHeaders);</div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span> </div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>        <span class="keywordflow">if</span> (data.size())</div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>        {</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>            buildHeaders[<span class="stringliteral">&quot;Content-Length&quot;</span>] = to_string(data.size());</div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>        }</div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (_chunks.size())</div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>        {</div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>            buildHeaders[<span class="stringliteral">&quot;Transfer-Encoding&quot;</span>] = <span class="stringliteral">&quot;chunked&quot;</span>;</div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>        }</div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span> </div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>        <span class="keywordflow">if</span> (method.empty())</div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>        {</div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>            result = string(_HTTPVersion) + <span class="stringliteral">&quot; &quot;</span> + _responseCode + <span class="stringliteral">&quot;\r\n&quot;</span> + _headers;</div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>        }</div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>        <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>        {</div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>            result = method + <span class="charliteral">&#39; &#39;</span>;</div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span> </div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>            <span class="keywordflow">if</span> (_parameters.empty() &amp;&amp; method != <span class="stringliteral">&quot;CONNECT&quot;</span>)</div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>            {</div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>                result += <span class="stringliteral">&quot;/&quot;</span>;</div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>            }</div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span> </div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>            result += format(<span class="stringliteral">&quot;{} {}\r\n{}&quot;</span>, _parameters, _HTTPVersion, _headers);</div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>        }</div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span> </div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [header, value] : buildHeaders)</div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>        {</div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>            result += format(<span class="stringliteral">&quot;{}: {}{}&quot;</span>, header, value, <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>);</div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>        }</div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span> </div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>        result += <span class="stringliteral">&quot;\r\n&quot;</span>;</div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span> </div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>        <span class="keywordflow">if</span> (data.size())</div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>        {</div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>            result += data;</div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>        }</div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (_chunks.size())</div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>        {</div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>            result += <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aea40d4d071837f9d1a8e75cc2b2557b9">HTTPBuilder::getChunks</a>(_chunks);</div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>        }</div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span> </div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>        <span class="keywordflow">return</span> result;</div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>    }</div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span> </div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>    <span class="keywordtype">string</span> <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a409f633e2c0791749584a3dfe4ff7597">HTTPBuilder::build</a>(<span class="keyword">const</span> json::JSONBuilder&amp; builder, unordered_map&lt;string, string&gt; additionalHeaders)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>        additionalHeaders[<span class="stringliteral">&quot;Content-Type&quot;</span>] = <span class="stringliteral">&quot;application/json&quot;</span>;</div>
-<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span> </div>
-<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>        <span class="keywordflow">return</span> this-&gt;<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a409f633e2c0791749584a3dfe4ff7597">build</a>(builder.build(), additionalHeaders);</div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>    }</div>
-<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span> </div>
-<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>    <span class="keywordtype">string</span> <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a409f633e2c0791749584a3dfe4ff7597">HTTPBuilder::build</a>(<span class="keyword">const</span> unordered_map&lt;string, string&gt;&amp; urlEncoded, unordered_map&lt;string, string&gt; additionalHeaders)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>        <span class="keywordtype">string</span> body;</div>
-<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span> </div>
-<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [key, value] : urlEncoded)</div>
-<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>        {</div>
-<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>            body += format(<span class="stringliteral">&quot;{}={}&amp;&quot;</span>, <a class="code hl_function" href="namespaceweb.html#a8a69377fcbe29bdb4639d1dff611b73b">web::encodeUrl</a>(key), <a class="code hl_function" href="namespaceweb.html#a8a69377fcbe29bdb4639d1dff611b73b">web::encodeUrl</a>(value));</div>
-<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>        }</div>
-<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span> </div>
-<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>        body.pop_back(); <span class="comment">// remove last &amp;</span></div>
-<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span> </div>
-<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>        additionalHeaders[<span class="stringliteral">&quot;Content-Type&quot;</span>] = <span class="stringliteral">&quot;application/x-www-form-urlencoded&quot;</span>;</div>
-<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span> </div>
-<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>        <span class="keywordflow">return</span> this-&gt;<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a409f633e2c0791749584a3dfe4ff7597">build</a>(body, additionalHeaders);</div>
-<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>    }</div>
-<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span> </div>
-<div class="foldopen" id="foldopen00349" data-start="{" data-end="}">
-<div class="line"><a id="l00349" name="l00349"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#a19dfb77f3d55960e96ebaa93fa8b5ab1">  349</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a19dfb77f3d55960e96ebaa93fa8b5ab1">HTTPBuilder::clear</a>()</div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>    {</div>
-<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>        method = _parameters = _responseCode = _headers = <span class="stringliteral">&quot;&quot;</span>;</div>
-<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span> </div>
-<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>    }</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span> </div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    <span class="keywordtype">string</span> <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a409f633e2c0791749584a3dfe4ff7597">HTTPBuilder::build</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; data, <span class="keyword">const</span> unordered_map&lt;string, string&gt;&amp; additionalHeaders)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>        <span class="keywordtype">string</span> result;</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        unordered_map&lt;string, string&gt; buildHeaders(additionalHeaders);</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span> </div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>        <span class="keywordflow">if</span> (data.size())</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>        {</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>            buildHeaders[<span class="stringliteral">&quot;Content-Length&quot;</span>] = to_string(data.size());</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>        }</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (_chunks.size())</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>        {</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>            buildHeaders[<span class="stringliteral">&quot;Transfer-Encoding&quot;</span>] = <span class="stringliteral">&quot;chunked&quot;</span>;</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>        }</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span> </div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>        <span class="keywordflow">if</span> (method.empty())</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>        {</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>            result = string(_HTTPVersion) + <span class="stringliteral">&quot; &quot;</span> + _responseCode + <span class="stringliteral">&quot;\r\n&quot;</span> + _headers;</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>        }</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>        <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>        {</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>            result = method + <span class="charliteral">&#39; &#39;</span>;</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span> </div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>            <span class="keywordflow">if</span> (_parameters.empty() &amp;&amp; method != <span class="stringliteral">&quot;CONNECT&quot;</span>)</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>            {</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>                result += <span class="stringliteral">&quot;/&quot;</span>;</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>            }</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span> </div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>            result += format(<span class="stringliteral">&quot;{} {}\r\n{}&quot;</span>, _parameters, _HTTPVersion, _headers);</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>        }</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span> </div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [header, value] : buildHeaders)</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>        {</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>            result += format(<span class="stringliteral">&quot;{}: {}{}&quot;</span>, header, value, <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>);</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>        }</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span> </div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>        result += <span class="stringliteral">&quot;\r\n&quot;</span>;</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span> </div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>        <span class="keywordflow">if</span> (data.size())</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>        {</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>            result += data;</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>        }</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (_chunks.size())</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>        {</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>            result += <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aea40d4d071837f9d1a8e75cc2b2557b9">HTTPBuilder::getChunks</a>(_chunks);</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>        }</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span> </div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>        <span class="keywordflow">return</span> result;</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    }</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span> </div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>    <span class="keywordtype">string</span> <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a409f633e2c0791749584a3dfe4ff7597">HTTPBuilder::build</a>(<span class="keyword">const</span> json::JSONBuilder&amp; builder, unordered_map&lt;string, string&gt; additionalHeaders)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>        additionalHeaders[<span class="stringliteral">&quot;Content-Type&quot;</span>] = <span class="stringliteral">&quot;application/json&quot;</span>;</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span> </div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>        <span class="keywordflow">return</span> this-&gt;<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a409f633e2c0791749584a3dfe4ff7597">build</a>(builder.build(), additionalHeaders);</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>    }</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span> </div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>    <span class="keywordtype">string</span> <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a409f633e2c0791749584a3dfe4ff7597">HTTPBuilder::build</a>(<span class="keyword">const</span> unordered_map&lt;string, string&gt;&amp; urlEncoded, unordered_map&lt;string, string&gt; additionalHeaders)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>        <span class="keywordtype">string</span> body;</div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span> </div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [key, value] : urlEncoded)</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>        {</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>            body += format(<span class="stringliteral">&quot;{}={}&amp;&quot;</span>, <a class="code hl_function" href="namespaceweb.html#a8a69377fcbe29bdb4639d1dff611b73b">web::encodeUrl</a>(key), <a class="code hl_function" href="namespaceweb.html#a8a69377fcbe29bdb4639d1dff611b73b">web::encodeUrl</a>(value));</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>        }</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span> </div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>        body.pop_back(); <span class="comment">// remove last &amp;</span></div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span> </div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>        additionalHeaders[<span class="stringliteral">&quot;Content-Type&quot;</span>] = <span class="stringliteral">&quot;application/x-www-form-urlencoded&quot;</span>;</div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span> </div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>        <span class="keywordflow">return</span> this-&gt;<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a409f633e2c0791749584a3dfe4ff7597">build</a>(body, additionalHeaders);</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>    }</div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span> </div>
+<div class="foldopen" id="foldopen00348" data-start="{" data-end="}">
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#a19dfb77f3d55960e96ebaa93fa8b5ab1">  348</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a19dfb77f3d55960e96ebaa93fa8b5ab1">HTTPBuilder::clear</a>()</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>    {</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>        method = _parameters = _responseCode = _headers = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span> </div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>    }</div>
 </div>
-<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span> </div>
-<div class="foldopen" id="foldopen00356" data-start="{" data-end="}">
-<div class="line"><a id="l00356" name="l00356"></a><span class="lineno"><a class="line" href="namespaceweb.html#a4153873787950c6777ebf6c9e9463d5d">  356</a></span>    ostream&amp; <a class="code hl_function" href="namespaceweb.html#a4153873787950c6777ebf6c9e9463d5d">operator &lt;&lt; </a>(ostream&amp; outputStream, <span class="keyword">const</span> <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; builder)</div>
-<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>    {</div>
-<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>        <span class="keywordflow">return</span> outputStream &lt;&lt; builder.<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a409f633e2c0791749584a3dfe4ff7597">build</a>();</div>
-<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>    }</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span> </div>
+<div class="foldopen" id="foldopen00355" data-start="{" data-end="}">
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno"><a class="line" href="namespaceweb.html#a4153873787950c6777ebf6c9e9463d5d">  355</a></span>    ostream&amp; <a class="code hl_function" href="namespaceweb.html#a4153873787950c6777ebf6c9e9463d5d">operator &lt;&lt; </a>(ostream&amp; outputStream, <span class="keyword">const</span> <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; builder)</div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>    {</div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>        <span class="keywordflow">return</span> outputStream &lt;&lt; builder.<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a409f633e2c0791749584a3dfe4ff7597">build</a>();</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>    }</div>
 </div>
-<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>}</div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>}</div>
 </div>
 <div class="ttc" id="a_h_t_t_p_builder_8h_html"><div class="ttname"><a href="_h_t_t_p_builder_8h.html">HTTPBuilder.h</a></div></div>
 <div class="ttc" id="a_h_t_t_p_parser_8h_html"><div class="ttname"><a href="_h_t_t_p_parser_8h.html">HTTPParser.h</a></div></div>
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html">web::HTTPBuilder</a></div><div class="ttdoc">HTTP builder.</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8h_source.html#l00014">HTTPBuilder.h:15</a></div></div>
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a14c42de41843c21ab3ec8486146f73ae"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a14c42de41843c21ab3ec8486146f73ae">web::HTTPBuilder::traceRequest</a></div><div class="ttdeci">HTTPBuilder &amp; traceRequest()</div><div class="ttdoc">Set TRACE request.</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8cpp_source.html#l00189">HTTPBuilder.cpp:189</a></div></div>
-<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a19dfb77f3d55960e96ebaa93fa8b5ab1"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a19dfb77f3d55960e96ebaa93fa8b5ab1">web::HTTPBuilder::clear</a></div><div class="ttdeci">HTTPBuilder &amp; clear()</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8cpp_source.html#l00349">HTTPBuilder.cpp:349</a></div></div>
+<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a19dfb77f3d55960e96ebaa93fa8b5ab1"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a19dfb77f3d55960e96ebaa93fa8b5ab1">web::HTTPBuilder::clear</a></div><div class="ttdeci">HTTPBuilder &amp; clear()</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8cpp_source.html#l00348">HTTPBuilder.cpp:348</a></div></div>
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a409f633e2c0791749584a3dfe4ff7597"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a409f633e2c0791749584a3dfe4ff7597">web::HTTPBuilder::build</a></div><div class="ttdeci">std::string build(const std::string &amp;data=&quot;&quot;, const std::unordered_map&lt; std::string, std::string &gt; &amp;additionalHeaders={}) const</div></div>
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a591e293f2f3981636ac24fe456804025"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a591e293f2f3981636ac24fe456804025">web::HTTPBuilder::getRequest</a></div><div class="ttdeci">HTTPBuilder &amp; getRequest()</div><div class="ttdoc">Set GET request.</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8cpp_source.html#l00140">HTTPBuilder.cpp:140</a></div></div>
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a709dce20561ed12f27af9c3f2675699d"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a709dce20561ed12f27af9c3f2675699d">web::HTTPBuilder::connectRequest</a></div><div class="ttdeci">HTTPBuilder &amp; connectRequest()</div><div class="ttdoc">Set CONNECT request.</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8cpp_source.html#l00182">HTTPBuilder.cpp:182</a></div></div>
@@ -507,16 +506,16 @@ $(document).ready(function(){initNavTree('_h_t_t_p_builder_8cpp_source.html','')
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_ab50bb5ba9275aec7d721f9014508f4d8"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#ab50bb5ba9275aec7d721f9014508f4d8">web::HTTPBuilder::getChunk</a></div><div class="ttdeci">static std::string getChunk(const std::string &amp;chunk)</div><div class="ttdoc">Make HTTP parsed chunk.</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8cpp_source.html#l00120">HTTPBuilder.cpp:120</a></div></div>
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_abc6c80e8a5e8254e4ef21fa0b7f3d4c6"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#abc6c80e8a5e8254e4ef21fa0b7f3d4c6">web::HTTPBuilder::headRequest</a></div><div class="ttdeci">HTTPBuilder &amp; headRequest()</div><div class="ttdoc">Set HEAD request.</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8cpp_source.html#l00161">HTTPBuilder.cpp:161</a></div></div>
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_ad14c8e1760febead134f7ff6aae93de6"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#ad14c8e1760febead134f7ff6aae93de6">web::HTTPBuilder::putRequest</a></div><div class="ttdeci">HTTPBuilder &amp; putRequest()</div><div class="ttdoc">Set PUT request.</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8cpp_source.html#l00154">HTTPBuilder.cpp:154</a></div></div>
-<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_ad56bf0ca62c2a8ab42c9b47adf6603d8"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#ad56bf0ca62c2a8ab42c9b47adf6603d8">web::HTTPBuilder::responseCode</a></div><div class="ttdeci">HTTPBuilder &amp; responseCode(responseCodes code)</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8cpp_source.html#l00235">HTTPBuilder.cpp:235</a></div></div>
+<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_ad56bf0ca62c2a8ab42c9b47adf6603d8"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#ad56bf0ca62c2a8ab42c9b47adf6603d8">web::HTTPBuilder::responseCode</a></div><div class="ttdeci">HTTPBuilder &amp; responseCode(responseCodes code)</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8cpp_source.html#l00234">HTTPBuilder.cpp:234</a></div></div>
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_adf7b27de98a3dbae317e92d9547375ae"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#adf7b27de98a3dbae317e92d9547375ae">web::HTTPBuilder::patchRequest</a></div><div class="ttdeci">HTTPBuilder &amp; patchRequest()</div><div class="ttdoc">Set PATCH request.</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8cpp_source.html#l00196">HTTPBuilder.cpp:196</a></div></div>
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_aea40d4d071837f9d1a8e75cc2b2557b9"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#aea40d4d071837f9d1a8e75cc2b2557b9">web::HTTPBuilder::getChunks</a></div><div class="ttdeci">static std::string getChunks(const std::vector&lt; std::string &gt; &amp;chunks)</div><div class="ttdoc">Make HTTP parsed data with zero chunk.</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8cpp_source.html#l00106">HTTPBuilder.cpp:106</a></div></div>
-<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_aeb8419f4b9c26390151fea8762d2accf"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#aeb8419f4b9c26390151fea8762d2accf">web::HTTPBuilder::chunk</a></div><div class="ttdeci">HTTPBuilder &amp; chunk(const std::string &amp;chunk)</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8cpp_source.html#l00270">HTTPBuilder.cpp:270</a></div></div>
+<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_aeb8419f4b9c26390151fea8762d2accf"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#aeb8419f4b9c26390151fea8762d2accf">web::HTTPBuilder::chunk</a></div><div class="ttdeci">HTTPBuilder &amp; chunk(const std::string &amp;chunk)</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8cpp_source.html#l00269">HTTPBuilder.cpp:269</a></div></div>
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_af89af347f10292209346086aa017e05d"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#af89af347f10292209346086aa017e05d">web::HTTPBuilder::deleteRequest</a></div><div class="ttdeci">HTTPBuilder &amp; deleteRequest()</div><div class="ttdoc">Set DELETE request.</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8cpp_source.html#l00175">HTTPBuilder.cpp:175</a></div></div>
-<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_afd3068a645e67600ca32703dad62e759"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">web::HTTPBuilder::chunks</a></div><div class="ttdeci">HTTPBuilder &amp; chunks(const std::vector&lt; std::string &gt; &amp;chunks)</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8cpp_source.html#l00263">HTTPBuilder.cpp:263</a></div></div>
-<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_aff45e3515687de798e5f00a2e6deca26"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#aff45e3515687de798e5f00a2e6deca26">web::HTTPBuilder::HTTPVersion</a></div><div class="ttdeci">HTTPBuilder &amp; HTTPVersion(const std::string &amp;httpVersion)</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8cpp_source.html#l00249">HTTPBuilder.cpp:249</a></div></div>
+<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_afd3068a645e67600ca32703dad62e759"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">web::HTTPBuilder::chunks</a></div><div class="ttdeci">HTTPBuilder &amp; chunks(const std::vector&lt; std::string &gt; &amp;chunks)</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8cpp_source.html#l00262">HTTPBuilder.cpp:262</a></div></div>
+<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_aff45e3515687de798e5f00a2e6deca26"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#aff45e3515687de798e5f00a2e6deca26">web::HTTPBuilder::HTTPVersion</a></div><div class="ttdeci">HTTPBuilder &amp; HTTPVersion(const std::string &amp;httpVersion)</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8cpp_source.html#l00248">HTTPBuilder.cpp:248</a></div></div>
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_parser_html_aa7ec9d48dd4ecbfd959655d3a2409792"><div class="ttname"><a href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">web::HTTPParser::crlf</a></div><div class="ttdeci">static constexpr std::string_view crlf</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_parser_8h_source.html#l00026">HTTPParser.h:26</a></div></div>
 <div class="ttc" id="anamespaceweb_html"><div class="ttname"><a href="namespaceweb.html">web</a></div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8cpp_source.html#l00097">HTTPBuilder.cpp:98</a></div></div>
-<div class="ttc" id="anamespaceweb_html_a4153873787950c6777ebf6c9e9463d5d"><div class="ttname"><a href="namespaceweb.html#a4153873787950c6777ebf6c9e9463d5d">web::operator&lt;&lt;</a></div><div class="ttdeci">ostream &amp; operator&lt;&lt;(ostream &amp;outputStream, const HTTPBuilder &amp;builder)</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8cpp_source.html#l00356">HTTPBuilder.cpp:356</a></div></div>
+<div class="ttc" id="anamespaceweb_html_a4153873787950c6777ebf6c9e9463d5d"><div class="ttname"><a href="namespaceweb.html#a4153873787950c6777ebf6c9e9463d5d">web::operator&lt;&lt;</a></div><div class="ttdeci">ostream &amp; operator&lt;&lt;(ostream &amp;outputStream, const HTTPBuilder &amp;builder)</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8cpp_source.html#l00355">HTTPBuilder.cpp:355</a></div></div>
 <div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10">web::responseCodes</a></div><div class="ttdeci">responseCodes</div><div class="ttdoc">Response codes.</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_utility_8h_source.html#l00023">HTTPUtility.h:24</a></div></div>
 <div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a01ff10c76757be1a185dcfbc95cfb3cb"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a01ff10c76757be1a185dcfbc95cfb3cb">web::responseCodes::networkAuthenticationRequired</a></div><div class="ttdeci">@ networkAuthenticationRequired</div></div>
 <div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a036c4283fc4ecb1686f44462f75208e5"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a036c4283fc4ecb1686f44462f75208e5">web::responseCodes::HTTPVersionNotSupported</a></div><div class="ttdeci">@ HTTPVersionNotSupported</div></div>
