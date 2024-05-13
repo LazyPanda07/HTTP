@@ -22,7 +22,6 @@ namespace web
 
 	void HTTPParser::parseKeyValueParameter(string_view rawParameters)
 	{
-		size_t nextKeyValuePair = 0;
 		string key;
 		string value;
 		bool equal = false;
@@ -32,7 +31,7 @@ namespace web
 			rawParameters.remove_suffix(httpVersion.size());
 		}
 
-		for (; nextKeyValuePair < rawParameters.size(); nextKeyValuePair++)
+		for (size_t nextKeyValuePair = 0; nextKeyValuePair < rawParameters.size(); nextKeyValuePair++)
 		{
 			if (rawParameters[nextKeyValuePair] == '&')
 			{
@@ -183,8 +182,22 @@ namespace web
 		}
 		else if (method != "CONNECT")
 		{
-			size_t startParameters = firstString.find('/') + 1;
+			size_t startParameters = firstString.find('/');
+
+			if (startParameters == string::npos)
+			{
+				throw runtime_error("Can't find /");
+			}
+
+			startParameters++;
+
 			size_t endParameters = firstString.find(' ', startParameters);
+
+			if (endParameters == string::npos)
+			{
+				throw runtime_error("Can't find end of paramters");
+			}
+
 			size_t queryStart = firstString.find('?');
 
 			parameters = string(firstString.begin() + startParameters, firstString.begin() + endParameters);
@@ -193,7 +206,7 @@ namespace web
 
 			if (queryStart != string::npos)
 			{
-				this->parseKeyValueParameter(firstString.substr(queryStart + 1));
+				this->parseKeyValueParameter(string_view(firstString.data() + queryStart + 1, firstString.data() + endParameters));
 			}
 		}
 		else

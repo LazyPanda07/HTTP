@@ -93,3 +93,10 @@ TEST(Parser, Streams)
 		ASSERT_NE(data.find("Accept: */*\r\n"), npos);
 	}
 }
+
+TEST(Parser, Parameters)
+{
+	web::HTTPParser parser(getGetRequest());
+
+	ASSERT_EQ(parser.getKeyValueParameters().at("q"), "test");
+}
