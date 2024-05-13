@@ -181,6 +181,11 @@ namespace web
 			_parameters += route;
 		}
 
+		if (!route.ends_with('?'))
+		{
+			_parameters += '?';
+		}
+
 		return this->parameters(std::forward<Args>(args)...);
 	}
 
