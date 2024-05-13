@@ -202,21 +202,20 @@ namespace web
 
 	HTTPBuilder& HTTPBuilder::parameters(string_view parameters)
 	{
-		if (parameters.starts_with('/'))
-		{
-			parameters = string_view(parameters.begin() + 1, parameters.end());
-		}
-
 		if (method != "CONNECT")
 		{
-			bool hasQuestionMark = static_cast<bool>(ranges::count(parameters, '?'));
-			_parameters = web::encodeUrl(parameters);
-
-			if (hasQuestionMark)
+			if (size_t queryStart = parameters.find('?'); queryStart != string::npos)
 			{
-				static constexpr size_t encodedQuestionMarkSize = 3;
-
-				_parameters.replace(_parameters.find("%3F"), encodedQuestionMarkSize, "?");
+				_parameters = format
+				(
+					"{}{}",
+					string_view(parameters.begin(), parameters.begin() + queryStart),
+					string_view(parameters.begin() + queryStart + 1, parameters.end())
+				);
+			}
+			else
+			{
+				_parameters = parameters;
 			}
 
 			if (!_parameters.starts_with('/'))
