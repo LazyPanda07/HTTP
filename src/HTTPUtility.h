@@ -106,6 +106,20 @@ namespace web
 	*/
 	HTTP_API_FUNCTION std::string getHTTPLibraryVersion();
 
+	/**
+	 * @brief Encode data to application/x-www-form-urlencoded format
+	 * @param data 
+	 * @return 
+	 */
+	HTTP_API_FUNCTION std::string encodeUrl(std::string_view data);
+
+	/**
+	 * @brief Decode data from application/x-www-form-urlencoded format
+	 * @param data
+	 * @return
+	 */
+	HTTP_API_FUNCTION std::string decodeUrl(std::string_view data);
+
 	/// @brief Custom hashing for headers with case insensitive
 	struct HTTP_API insensitiveStringHash
 	{

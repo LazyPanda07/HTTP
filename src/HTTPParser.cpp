@@ -31,9 +31,11 @@ namespace web
 			rawParameters.remove_suffix(httpVersion.size());
 		}
 
-		for (size_t nextKeyValuePair = 0; nextKeyValuePair < rawParameters.size(); nextKeyValuePair++)
+		string decodedParameters = web::decodeUrl(rawParameters);
+
+		for (size_t nextKeyValuePair = 0; nextKeyValuePair < decodedParameters.size(); nextKeyValuePair++)
 		{
-			if (rawParameters[nextKeyValuePair] == '&')
+			if (decodedParameters[nextKeyValuePair] == '&')
 			{
 				equal = false;
 
@@ -44,7 +46,7 @@ namespace web
 
 			if (!equal)
 			{
-				equal = rawParameters[nextKeyValuePair] == '=';
+				equal = decodedParameters[nextKeyValuePair] == '=';
 
 				if (equal)
 				{
@@ -52,7 +54,7 @@ namespace web
 				}
 			}
 
-			equal ? value += rawParameters[nextKeyValuePair] : key += rawParameters[nextKeyValuePair];
+			equal ? value += decodedParameters[nextKeyValuePair] : key += decodedParameters[nextKeyValuePair];
 		}
 
 		keyValueParameters[move(key)] = move(value);
@@ -66,46 +68,6 @@ namespace web
 	HTTPParser::HTTPParser(const vector<char>& HTTPMessage)
 	{
 		this->parse(string_view(HTTPMessage.data(), HTTPMessage.size()));
-	}
-
-	HTTPParser::HTTPParser(const HTTPParser& other)
-	{
-		(*this) = other;
-	}
-
-	HTTPParser::HTTPParser(HTTPParser&& other) noexcept
-	{
-		(*this) = move(other);
-	}
-
-	HTTPParser& HTTPParser::operator = (const HTTPParser& other)
-	{
-		headers = other.headers;
-		keyValueParameters = other.keyValueParameters;
-		response = other.response;
-		method = other.method;
-		httpVersion = other.httpVersion;
-		parameters = other.parameters;
-		body = other.body;
-		chunks = other.chunks;
-		jsonParser = other.jsonParser;
-
-		return *this;
-	}
-
-	HTTPParser& HTTPParser::operator = (HTTPParser&& other) noexcept
-	{
-		headers = move(other.headers);
-		keyValueParameters = move(other.keyValueParameters);
-		response = move(other.response);
-		method = move(other.method);
-		httpVersion = move(other.httpVersion);
-		parameters = move(other.parameters);
-		body = move(other.body);
-		chunks = move(other.chunks);
-		jsonParser = move(other.jsonParser);
-
-		return *this;
 	}
 
 	void HTTPParser::parse(string_view HTTPMessage)
@@ -194,7 +156,7 @@ namespace web
 			size_t endParameters = firstString.rfind(' ');
 			size_t queryStart = firstString.find('?');
 
-			parameters = string(firstString.begin() + startParameters, firstString.begin() + endParameters);
+			parameters = web::decodeUrl(string_view(firstString.begin() + startParameters, firstString.begin() + endParameters));
 
 			httpVersion = string(firstString.begin() + firstString.find("HTTP"), firstString.end());
 

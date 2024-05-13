@@ -273,7 +273,7 @@ namespace web
 				result += "/";
 			}
 
-			result += format("{} {}\r\n{}", _parameters, _HTTPVersion, _headers);
+			result += format("{} {}\r\n{}", web::encodeUrl(_parameters), _HTTPVersion, _headers);
 		}
 
 		for (const auto& [header, value] : buildHeaders)
@@ -295,14 +295,27 @@ namespace web
 		return result;
 	}
 
-	string HTTPBuilder::build(const json::JSONBuilder& builder, const unordered_map<string, string>& additionalHeaders) const
+	string HTTPBuilder::build(const json::JSONBuilder& builder, unordered_map<string, string> additionalHeaders) const
 	{
-		string json = builder.build();
-		unordered_map<string, string> contentTypeHeader(additionalHeaders);
+		additionalHeaders["Content-Type"] = "application/json";
 
-		contentTypeHeader["Content-Type"] = "application/json";
+		return this->build(builder.build(), additionalHeaders);
+	}
 
-		return this->build(json, contentTypeHeader);
+	string HTTPBuilder::build(const unordered_map<string, string>& urlEncoded, unordered_map<string, string> additionalHeaders) const
+	{
+		string body;
+
+		for (const auto& [key, value] : urlEncoded)
+		{
+			body += format("{}={}&", web::encodeUrl(key), web::encodeUrl(value));
+		}
+
+		body.pop_back(); // remove last &
+
+		additionalHeaders["Content-Type"] = "application/x-www-form-urlencoded";
+
+		return this->build(body, additionalHeaders);
 	}
 
 	HTTPBuilder& HTTPBuilder::clear()

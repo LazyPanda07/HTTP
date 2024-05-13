@@ -49,13 +49,13 @@ namespace web
 
 		HTTPParser(const std::vector<char>& HTTPMessage);
 
-		HTTPParser(const HTTPParser& other);
+		HTTPParser(const HTTPParser& other) = default;
 
-		HTTPParser(HTTPParser&& other) noexcept;
+		HTTPParser(HTTPParser&& other) noexcept = default;
 
-		HTTPParser& operator = (const HTTPParser& other);
+		HTTPParser& operator = (const HTTPParser& other) = default;
 
-		HTTPParser& operator = (HTTPParser&& other) noexcept;
+		HTTPParser& operator = (HTTPParser&& other) noexcept = default;
 
 		void parse(std::string_view HTTPMessage);
 

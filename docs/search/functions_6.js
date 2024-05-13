@@ -1,9 +1,8 @@
 var searchData=
 [
-  ['parameters_0',['parameters',['../classweb_1_1_h_t_t_p_builder.html#a0f069fd29b28828df515631a43d77ce3',1,'web::HTTPBuilder::parameters(StringT &amp;&amp;name, T &amp;&amp;value, Args &amp;&amp;... args)'],['../classweb_1_1_h_t_t_p_builder.html#a377d10b5f77b03a58f0e416987ce8cef',1,'web::HTTPBuilder::parameters(const std::string &amp;parameters)']]],
-  ['parameterswithroute_1',['parametersWithRoute',['../classweb_1_1_h_t_t_p_builder.html#a790eff30f008d4b49cf9d47c1bfcc836',1,'web::HTTPBuilder']]],
-  ['parse_2',['parse',['../classweb_1_1_h_t_t_p_parser.html#a3d7d744fde526e32b4119aec9806a51c',1,'web::HTTPParser']]],
-  ['patchrequest_3',['patchRequest',['../classweb_1_1_h_t_t_p_builder.html#adf7b27de98a3dbae317e92d9547375ae',1,'web::HTTPBuilder']]],
-  ['postrequest_4',['postRequest',['../classweb_1_1_h_t_t_p_builder.html#a87cfd31d04b3b97e242503e9ca888e9d',1,'web::HTTPBuilder']]],
-  ['putrequest_5',['putRequest',['../classweb_1_1_h_t_t_p_builder.html#ad14c8e1760febead134f7ff6aae93de6',1,'web::HTTPBuilder']]]
+  ['operator_28_29_0',['operator()',['../structweb_1_1insensitive_string_hash.html#a80a1adb661558ddf16711850b405e77b',1,'web::insensitiveStringHash::operator()()'],['../structweb_1_1insensitive_string_equal.html#a060180332c480e814fb7e26c29f7be12',1,'web::insensitiveStringEqual::operator()()']]],
+  ['operator_3c_3c_1',['operator&lt;&lt;',['../namespaceweb.html#a4153873787950c6777ebf6c9e9463d5d',1,'web::operator&lt;&lt;(ostream &amp;outputStream, const HTTPBuilder &amp;builder)'],['../namespaceweb.html#af614ac9fe667a0a1ddc96af7c8768914',1,'web::operator&lt;&lt;(ostream &amp;outputStream, const HTTPParser &amp;parser)'],['../namespaceweb.html#a40f47277f16e9523a56a79f80ece0301',1,'web::operator&lt;&lt;(std::ostream &amp;stream, responseCodes responseCode)']]],
+  ['operator_3d_2',['operator=',['../classweb_1_1_h_t_t_p_builder.html#abe53e4a70c274fd599566ac864f52455',1,'web::HTTPBuilder::operator=(const HTTPBuilder &amp;other)=default'],['../classweb_1_1_h_t_t_p_builder.html#abd23ff2f9306e1b1b95d5b1eaf5d65ce',1,'web::HTTPBuilder::operator=(HTTPBuilder &amp;&amp;other) noexcept=default'],['../classweb_1_1_h_t_t_p_parser.html#a3b1d10d25c50ca1dd73e4db30b688471',1,'web::HTTPParser::operator=(const HTTPParser &amp;other)=default'],['../classweb_1_1_h_t_t_p_parser.html#acd69d1a4ec3d7cf425258c51fc12ca0e',1,'web::HTTPParser::operator=(HTTPParser &amp;&amp;other) noexcept=default']]],
+  ['operator_3e_3e_3',['operator&gt;&gt;',['../namespaceweb.html#a8c7ebd54c78fa4783eb1f2439a0670c6',1,'web']]],
+  ['optionsrequest_4',['optionsRequest',['../classweb_1_1_h_t_t_p_builder.html#a82bd8cae588f89ddd3691c1e46d3e011',1,'web::HTTPBuilder']]]
 ];

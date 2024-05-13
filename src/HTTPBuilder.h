@@ -123,7 +123,9 @@ namespace web
 
 		std::string build(const std::string& data = "", const std::unordered_map<std::string, std::string>& additionalHeaders = {}) const;
 
-		std::string build(const json::JSONBuilder& builder, const std::unordered_map<std::string, std::string>& additionalHeaders = {}) const;
+		std::string build(const json::JSONBuilder& builder, std::unordered_map<std::string, std::string> additionalHeaders = {}) const;
+
+		std::string build(const std::unordered_map<std::string, std::string>& urlEncoded, std::unordered_map<std::string, std::string> additionalHeaders = {}) const;
 
 		HTTPBuilder& clear();
 

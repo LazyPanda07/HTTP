@@ -78,6 +78,10 @@ var namespaceweb =
       [ "SSLHandshakeFailed", "namespaceweb.html#a5a849da4ada867d4591d74f812c24e10aae62edfee054b11b0709d4399a93647b", null ],
       [ "invalidSSLCertificate", "namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a2111f1f632e355ecb74a721d527bfd35", null ]
     ] ],
+    [ "decodeUrl", "namespaceweb.html#a743d4f14251a2e0958d69f398248bd95", null ],
+    [ "decodeUrl", "namespaceweb.html#a8611bf1ff37c7206558cf3711c0456ff", null ],
+    [ "encodeUrl", "namespaceweb.html#ae13dbc43eb6ced4f0b3320ac69d0c1f0", null ],
+    [ "encodeUrl", "namespaceweb.html#a8a69377fcbe29bdb4639d1dff611b73b", null ],
     [ "getHTTPLibraryVersion", "namespaceweb.html#a685cf5dfca5455d008ef53523a0d8a72", null ],
     [ "operator<<", "namespaceweb.html#a4153873787950c6777ebf6c9e9463d5d", null ],
     [ "operator<<", "namespaceweb.html#af614ac9fe667a0a1ddc96af7c8768914", null ],

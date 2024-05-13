@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.7.2</span>
+   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.8.0</span>
    </div>
   </td>
  </tr>
@@ -226,8 +226,18 @@ Functions</h2></td></tr>
 <tr class="memitem:a685cf5dfca5455d008ef53523a0d8a72" id="r_a685cf5dfca5455d008ef53523a0d8a72"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceweb.html#a685cf5dfca5455d008ef53523a0d8a72">getHTTPLibraryVersion</a> ()</td></tr>
 <tr class="memdesc:a685cf5dfca5455d008ef53523a0d8a72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get version of HTTP library.  <br /></td></tr>
 <tr class="separator:a685cf5dfca5455d008ef53523a0d8a72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a69377fcbe29bdb4639d1dff611b73b" id="r_a8a69377fcbe29bdb4639d1dff611b73b"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceweb.html#a8a69377fcbe29bdb4639d1dff611b73b">encodeUrl</a> (string_view data)</td></tr>
+<tr class="separator:a8a69377fcbe29bdb4639d1dff611b73b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8611bf1ff37c7206558cf3711c0456ff" id="r_a8611bf1ff37c7206558cf3711c0456ff"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceweb.html#a8611bf1ff37c7206558cf3711c0456ff">decodeUrl</a> (string_view data)</td></tr>
+<tr class="separator:a8611bf1ff37c7206558cf3711c0456ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40f47277f16e9523a56a79f80ece0301" id="r_a40f47277f16e9523a56a79f80ece0301"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceweb.html#a40f47277f16e9523a56a79f80ece0301">operator&lt;&lt;</a> (std::ostream &amp;stream, <a class="el" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10">responseCodes</a> responseCode)</td></tr>
 <tr class="separator:a40f47277f16e9523a56a79f80ece0301"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae13dbc43eb6ced4f0b3320ac69d0c1f0" id="r_ae13dbc43eb6ced4f0b3320ac69d0c1f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_h_t_t_p_utility_8h.html#a6aeefad739ebde09c2e39ad3981a00f7">HTTP_API_FUNCTION</a> std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceweb.html#ae13dbc43eb6ced4f0b3320ac69d0c1f0">encodeUrl</a> (std::string_view data)</td></tr>
+<tr class="memdesc:ae13dbc43eb6ced4f0b3320ac69d0c1f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encode data to application/x-www-form-urlencoded format.  <br /></td></tr>
+<tr class="separator:ae13dbc43eb6ced4f0b3320ac69d0c1f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a743d4f14251a2e0958d69f398248bd95" id="r_a743d4f14251a2e0958d69f398248bd95"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_h_t_t_p_utility_8h.html#a6aeefad739ebde09c2e39ad3981a00f7">HTTP_API_FUNCTION</a> std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceweb.html#a743d4f14251a2e0958d69f398248bd95">decodeUrl</a> (std::string_view data)</td></tr>
+<tr class="memdesc:a743d4f14251a2e0958d69f398248bd95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decode data from application/x-www-form-urlencoded format.  <br /></td></tr>
+<tr class="separator:a743d4f14251a2e0958d69f398248bd95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="a2a14d700dc792135c09e94a3783c43e3" name="a2a14d700dc792135c09e94a3783c43e3"></a>
@@ -244,7 +254,7 @@ Functions</h2></td></tr>
 
 <p>Case insensitive unordered_map. </p>
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_utility_8h_source.html#l00124">124</a> of file <a class="el" href="_h_t_t_p_utility_8h_source.html">HTTPUtility.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_utility_8h_source.html#l00138">138</a> of file <a class="el" href="_h_t_t_p_utility_8h_source.html">HTTPUtility.h</a>.</p>
 
 </div>
 </div>
@@ -349,6 +359,100 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a743d4f14251a2e0958d69f398248bd95" name="a743d4f14251a2e0958d69f398248bd95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a743d4f14251a2e0958d69f398248bd95">&#9670;&#160;</a></span>decodeUrl() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_h_t_t_p_utility_8h.html#a6aeefad739ebde09c2e39ad3981a00f7">HTTP_API_FUNCTION</a> std::string web::decodeUrl </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Decode data from application/x-www-form-urlencoded format. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+<a id="a8611bf1ff37c7206558cf3711c0456ff" name="a8611bf1ff37c7206558cf3711c0456ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8611bf1ff37c7206558cf3711c0456ff">&#9670;&#160;</a></span>decodeUrl() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string web::decodeUrl </td>
+          <td>(</td>
+          <td class="paramtype">string_view&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_utility_8cpp_source.html#l00041">41</a> of file <a class="el" href="_h_t_t_p_utility_8cpp_source.html">HTTPUtility.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae13dbc43eb6ced4f0b3320ac69d0c1f0" name="ae13dbc43eb6ced4f0b3320ac69d0c1f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae13dbc43eb6ced4f0b3320ac69d0c1f0">&#9670;&#160;</a></span>encodeUrl() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_h_t_t_p_utility_8h.html#a6aeefad739ebde09c2e39ad3981a00f7">HTTP_API_FUNCTION</a> std::string web::encodeUrl </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Encode data to application/x-www-form-urlencoded format. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+<a id="a8a69377fcbe29bdb4639d1dff611b73b" name="a8a69377fcbe29bdb4639d1dff611b73b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a69377fcbe29bdb4639d1dff611b73b">&#9670;&#160;</a></span>encodeUrl() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string web::encodeUrl </td>
+          <td>(</td>
+          <td class="paramtype">string_view&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_utility_8cpp_source.html#l00022">22</a> of file <a class="el" href="_h_t_t_p_utility_8cpp_source.html">HTTPUtility.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a685cf5dfca5455d008ef53523a0d8a72" name="a685cf5dfca5455d008ef53523a0d8a72"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a685cf5dfca5455d008ef53523a0d8a72">&#9670;&#160;</a></span>getHTTPLibraryVersion()</h2>
 
@@ -367,7 +471,7 @@ Functions</h2></td></tr>
 <p>Get version of HTTP library. </p>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_utility_8cpp_source.html#l00009">9</a> of file <a class="el" href="_h_t_t_p_utility_8cpp_source.html">HTTPUtility.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_utility_8cpp_source.html#l00015">15</a> of file <a class="el" href="_h_t_t_p_utility_8cpp_source.html">HTTPUtility.cpp</a>.</p>
 
 </div>
 </div>
@@ -397,7 +501,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00315">315</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00328">328</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
 
 </div>
 </div>
@@ -427,7 +531,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_parser_8cpp_source.html#l00353">353</a> of file <a class="el" href="_h_t_t_p_parser_8cpp_source.html">HTTPParser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_parser_8cpp_source.html#l00322">322</a> of file <a class="el" href="_h_t_t_p_parser_8cpp_source.html">HTTPParser.cpp</a>.</p>
 
 </div>
 </div>
@@ -495,7 +599,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_parser_8cpp_source.html#l00413">413</a> of file <a class="el" href="_h_t_t_p_parser_8cpp_source.html">HTTPParser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_parser_8cpp_source.html#l00382">382</a> of file <a class="el" href="_h_t_t_p_parser_8cpp_source.html">HTTPParser.cpp</a>.</p>
 
 </div>
 </div>
