@@ -191,13 +191,7 @@ namespace web
 
 			startParameters++;
 
-			size_t endParameters = firstString.find(' ', startParameters);
-
-			if (endParameters == string::npos)
-			{
-				throw runtime_error("Can't find end of paramters");
-			}
-
+			size_t endParameters = firstString.rfind(' ');
 			size_t queryStart = firstString.find('?');
 
 			parameters = string(firstString.begin() + startParameters, firstString.begin() + endParameters);
