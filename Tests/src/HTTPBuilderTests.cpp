@@ -15,7 +15,7 @@ TEST(Builder, GET)
 			"User-Agent", "curl/7.54.0",
 			"Accept", "*/*"
 		).build();
-	size_t npos = std::string::npos;
+	static constexpr size_t npos = std::string::npos;
 
 	ASSERT_EQ(getRequest.size(), getGetRequest().size());
 
@@ -46,7 +46,7 @@ TEST(Builder, POST)
 			"User-Agent", "Mozilla/4.0 (compatible; esp8266 Lua; Windows NT 5.1)"
 		)
 		.build(json);
-	size_t npos = std::string::npos;
+	static constexpr size_t npos = std::string::npos;
 
 	ASSERT_EQ(postRequest.size(), getPostRequest().size());
 
@@ -62,7 +62,7 @@ TEST(Builder, POST)
 
 TEST(Builder, CONNECT)
 {
-	std::string connectRequest = web::HTTPBuilder("HTTP/1.1").
+	std::string connectRequest = web::HTTPBuilder().
 		connectRequest().
 		parameters("server.example.com:80").
 		headers
@@ -71,7 +71,7 @@ TEST(Builder, CONNECT)
 			"Proxy-Authorization", "basic aGVsbG86d29ybGQ="
 		).
 		build();
-	size_t npos = std::string::npos;
+	static constexpr size_t npos = std::string::npos;
 
 	ASSERT_NE(connectRequest.find("CONNECT server.example.com:80 HTTP/1.1"), npos);
 	ASSERT_NE(connectRequest.find("Host: server.example.com:80"), npos);
@@ -95,4 +95,9 @@ TEST(Builder, Streams)
 	os << builder;
 
 	ASSERT_EQ(getRequest, os.str());
+}
+
+TEST(Builder, WrongHTTPVersion)
+{
+	ASSERT_THROW(web::HTTPBuilder("HTTP.1/0"), std::runtime_error);
 }

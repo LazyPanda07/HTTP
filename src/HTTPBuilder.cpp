@@ -2,6 +2,7 @@
 
 #include <array>
 #include <unordered_map>
+#include <unordered_set>
 #include <algorithm>
 #include <format>
 
@@ -9,83 +10,92 @@
 
 using namespace std;
 
+static const unordered_map<web::responseCodes, string> responseMessage =
+{
+	{ web::responseCodes::Continue, "Continue" },
+	{ web::responseCodes::switchingProtocols, "Switching Protocols" },
+	{ web::responseCodes::processing, "Processing" },
+	{ web::responseCodes::ok, "OK" },
+	{ web::responseCodes::created, "Created" },
+	{ web::responseCodes::accepted, "Accepted" },
+	{ web::responseCodes::nonAuthoritativeInformation, "Non-Authoritative Information" },
+	{ web::responseCodes::noContent, "No Content" },
+	{ web::responseCodes::resetContent, "Reset Content" },
+	{ web::responseCodes::partialContent, "Partial Content" },
+	{ web::responseCodes::multiStatus, "Multi-Status" },
+	{ web::responseCodes::alreadyReported, "Already Reported" },
+	{ web::responseCodes::IMUsed, "IM Used" },
+	{ web::responseCodes::multipleChoices, "Multiple Choices" },
+	{ web::responseCodes::movedPermanently, "Moved Permanently" },
+	{ web::responseCodes::found, "Found" },
+	{ web::responseCodes::seeOther, "See Other" },
+	{ web::responseCodes::notModified, "Not Modified" },
+	{ web::responseCodes::useProxy, "Use Proxy" },
+	{ web::responseCodes::temporaryRedirect, "Temporary Redirect" },
+	{ web::responseCodes::permanentRedirect, "Permanent Redirect" },
+	{ web::responseCodes::badRequest, "Bad Request" },
+	{ web::responseCodes::unauthorized, "Unauthorized" },
+	{ web::responseCodes::paymentRequired, "Payment Required" },
+	{ web::responseCodes::forbidden, "Forbidden" },
+	{ web::responseCodes::notFound, "Not Found" },
+	{ web::responseCodes::methodNotAllowed, "Method Not Allowed" },
+	{ web::responseCodes::notAcceptable, "Not Acceptable" },
+	{ web::responseCodes::proxyAuthenticationRequired, "Proxy Authentication Required" },
+	{ web::responseCodes::requestTimeout, "Request Timeout" },
+	{ web::responseCodes::conflict, "Conflict" },
+	{ web::responseCodes::gone, "Gone" },
+	{ web::responseCodes::lengthRequired, "Length Required" },
+	{ web::responseCodes::preconditionFailed, "Precondition Failed" },
+	{ web::responseCodes::payloadTooLarge, "Payload Too Large" },
+	{ web::responseCodes::URITooLong, "URI Tool Long" },
+	{ web::responseCodes::unsupportedMediaType, "Unsupported Media Type" },
+	{ web::responseCodes::rangeNotSatisfiable, "Range Not Satisfiable" },
+	{ web::responseCodes::expectationFailed, "Expectation Failed" },
+	{ web::responseCodes::iamATeapot, "I am teapot" },
+	{ web::responseCodes::authenticationTimeout, "Authentication Timeout" },
+	{ web::responseCodes::misdirectedRequest, "Misdirected Request" },
+	{ web::responseCodes::unprocessableEntity, "Unprocessable Entity" },
+	{ web::responseCodes::locked, "Locked" },
+	{ web::responseCodes::failedDependency, "Failed Dependency" },
+	{ web::responseCodes::upgradeRequired, "Upgrade Required" },
+	{ web::responseCodes::preconditionRequired, "Precondition Required" },
+	{ web::responseCodes::tooManyRequests, "Too Many Requests" },
+	{ web::responseCodes::requestHeaderFieldsTooLarge, "Request Header Fields Too Large" },
+	{ web::responseCodes::retryWith, "Retry With" },
+	{ web::responseCodes::unavailableForLegalReasons, "Unavailable For Legal Reasons" },
+	{ web::responseCodes::clientClosedRequest, "Client Closed Request" },
+	{ web::responseCodes::internalServerError, "Internal Server Error" },
+	{ web::responseCodes::notImplemented, "Not Implemented" },
+	{ web::responseCodes::badGateway, "Bad Gateway" },
+	{ web::responseCodes::serviceUnavailable, "Service Unavailable" },
+	{ web::responseCodes::gatewayTimeout, "Gateway Timeout" },
+	{ web::responseCodes::HTTPVersionNotSupported, "HTTP Version Not Supported" },
+	{ web::responseCodes::variantAlsoNegotiates, "Variant Also Negotiates" },
+	{ web::responseCodes::insufficientStorage, "Insufficient Storage" },
+	{ web::responseCodes::loopDetected, "Loop Detected" },
+	{ web::responseCodes::bandwidthLimitExceeded, "Bandwidth Limit Exceeded" },
+	{ web::responseCodes::notExtended, "Not Extended" },
+	{ web::responseCodes::networkAuthenticationRequired, "Network Authentication Required" },
+	{ web::responseCodes::unknownError, "Unknown Error" },
+	{ web::responseCodes::webServerIsDown, "Web Server Is Down" },
+	{ web::responseCodes::connectionTimedOut, "Connection Timed Out" },
+	{ web::responseCodes::originIsUnreachable, "Origin Is Unreachable" },
+	{ web::responseCodes::aTimeoutOccurred, "A Timeout Occurred" },
+	{ web::responseCodes::SSLHandshakeFailed, "SSL Handshake Failed" },
+	{ web::responseCodes::invalidSSLCertificate, "Invalid SSL Certificate" }
+};
+
+static const unordered_set<string_view> availableHTTPVersions =
+{
+	"HTTP/0.9",
+	"HTTP/1.0",
+	"HTTP/1.1",
+	"HTTP/2",
+	"HTTP/3"
+};
+
 namespace web
 {
-	static const unordered_map<responseCodes, string> responseMessage =
-	{
-		{ responseCodes::Continue, "Continue" },
-		{ responseCodes::switchingProtocols, "Switching Protocols" },
-		{ responseCodes::processing, "Processing" },
-		{ responseCodes::ok, "OK" },
-		{ responseCodes::created, "Created" },
-		{ responseCodes::accepted, "Accepted" },
-		{ responseCodes::nonAuthoritativeInformation, "Non-Authoritative Information" },
-		{ responseCodes::noContent, "No Content" },
-		{ responseCodes::resetContent, "Reset Content" },
-		{ responseCodes::partialContent, "Partial Content" },
-		{ responseCodes::multiStatus, "Multi-Status" },
-		{ responseCodes::alreadyReported, "Already Reported" },
-		{ responseCodes::IMUsed, "IM Used" },
-		{ responseCodes::multipleChoices, "Multiple Choices" },
-		{ responseCodes::movedPermanently, "Moved Permanently" },
-		{ responseCodes::found, "Found" },
-		{ responseCodes::seeOther, "See Other" },
-		{ responseCodes::notModified, "Not Modified" },
-		{ responseCodes::useProxy, "Use Proxy" },
-		{ responseCodes::temporaryRedirect, "Temporary Redirect" },
-		{ responseCodes::permanentRedirect, "Permanent Redirect" },
-		{ responseCodes::badRequest, "Bad Request" },
-		{ responseCodes::unauthorized, "Unauthorized" },
-		{ responseCodes::paymentRequired, "Payment Required" },
-		{ responseCodes::forbidden, "Forbidden" },
-		{ responseCodes::notFound, "Not Found" },
-		{ responseCodes::methodNotAllowed, "Method Not Allowed" },
-		{ responseCodes::notAcceptable, "Not Acceptable" },
-		{ responseCodes::proxyAuthenticationRequired, "Proxy Authentication Required" },
-		{ responseCodes::requestTimeout, "Request Timeout" },
-		{ responseCodes::conflict, "Conflict" },
-		{ responseCodes::gone, "Gone" },
-		{ responseCodes::lengthRequired, "Length Required" },
-		{ responseCodes::preconditionFailed, "Precondition Failed" },
-		{ responseCodes::payloadTooLarge, "Payload Too Large" },
-		{ responseCodes::URITooLong, "URI Tool Long" },
-		{ responseCodes::unsupportedMediaType, "Unsupported Media Type" },
-		{ responseCodes::rangeNotSatisfiable, "Range Not Satisfiable" },
-		{ responseCodes::expectationFailed, "Expectation Failed" },
-		{ responseCodes::iamATeapot, "I am teapot" },
-		{ responseCodes::authenticationTimeout, "Authentication Timeout" },
-		{ responseCodes::misdirectedRequest, "Misdirected Request" },
-		{ responseCodes::unprocessableEntity, "Unprocessable Entity" },
-		{ responseCodes::locked, "Locked" },
-		{ responseCodes::failedDependency, "Failed Dependency" },
-		{ responseCodes::upgradeRequired, "Upgrade Required" },
-		{ responseCodes::preconditionRequired, "Precondition Required" },
-		{ responseCodes::tooManyRequests, "Too Many Requests" },
-		{ responseCodes::requestHeaderFieldsTooLarge, "Request Header Fields Too Large" },
-		{ responseCodes::retryWith, "Retry With" },
-		{ responseCodes::unavailableForLegalReasons, "Unavailable For Legal Reasons" },
-		{ responseCodes::clientClosedRequest, "Client Closed Request" },
-		{ responseCodes::internalServerError, "Internal Server Error" },
-		{ responseCodes::notImplemented, "Not Implemented" },
-		{ responseCodes::badGateway, "Bad Gateway" },
-		{ responseCodes::serviceUnavailable, "Service Unavailable" },
-		{ responseCodes::gatewayTimeout, "Gateway Timeout" },
-		{ responseCodes::HTTPVersionNotSupported, "HTTP Version Not Supported" },
-		{ responseCodes::variantAlsoNegotiates, "Variant Also Negotiates" },
-		{ responseCodes::insufficientStorage, "Insufficient Storage" },
-		{ responseCodes::loopDetected, "Loop Detected" },
-		{ responseCodes::bandwidthLimitExceeded, "Bandwidth Limit Exceeded" },
-		{ responseCodes::notExtended, "Not Extended" },
-		{ responseCodes::networkAuthenticationRequired, "Network Authentication Required" },
-		{ responseCodes::unknownError, "Unknown Error" },
-		{ responseCodes::webServerIsDown, "Web Server Is Down" },
-		{ responseCodes::connectionTimedOut, "Connection Timed Out" },
-		{ responseCodes::originIsUnreachable, "Origin Is Unreachable" },
-		{ responseCodes::aTimeoutOccurred, "A Timeout Occurred" },
-		{ responseCodes::SSLHandshakeFailed, "SSL Handshake Failed" },
-		{ responseCodes::invalidSSLCertificate, "Invalid SSL Certificate" }
-	};
-
 	HTTPBuilder& HTTPBuilder::parameters()
 	{
 		_parameters.pop_back();
@@ -121,7 +131,10 @@ namespace web
 	HTTPBuilder::HTTPBuilder(string_view fullHTTPVersion) :
 		_HTTPVersion(fullHTTPVersion)
 	{
-
+		if (auto it = availableHTTPVersions.find(fullHTTPVersion); it == availableHTTPVersions.end())
+		{
+			throw runtime_error("Wrong HTTP version");
+		}
 	}
 
 	HTTPBuilder& HTTPBuilder::getRequest()
@@ -187,19 +200,34 @@ namespace web
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::parameters(const string& parameters)
+	HTTPBuilder& HTTPBuilder::parameters(string_view parameters)
 	{
-		if (_parameters.empty() && method != "CONNECT")
+		if (parameters.starts_with('/'))
 		{
-			_parameters = '/';
+			parameters = string_view(parameters.begin() + 1, parameters.end());
 		}
 
-		if (parameters.empty())
+		if (method != "CONNECT")
 		{
-			return *this;
-		}
+			bool hasQuestionMark = static_cast<bool>(ranges::count(parameters, '?'));
+			_parameters = web::encodeUrl(parameters);
 
-		_parameters += parameters;
+			if (hasQuestionMark)
+			{
+				static constexpr size_t encodedQuestionMarkSize = 3;
+
+				_parameters.replace(_parameters.find("%3F"), encodedQuestionMarkSize, "?");
+			}
+
+			if (!_parameters.starts_with('/'))
+			{
+				_parameters.insert(_parameters.begin(), '/');
+			}
+		}
+		else
+		{
+			_parameters = parameters;
+		}
 
 		return *this;
 	}
@@ -273,7 +301,7 @@ namespace web
 				result += "/";
 			}
 
-			result += format("{} {}\r\n{}", web::encodeUrl(_parameters), _HTTPVersion, _headers);
+			result += format("{} {}\r\n{}", _parameters, _HTTPVersion, _headers);
 		}
 
 		for (const auto& [header, value] : buildHeaders)

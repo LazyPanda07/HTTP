@@ -2,6 +2,7 @@
 
 #include <string>
 #include <stdexcept>
+#include <format>
 
 #include "HTTPUtility.h"
 #include "CheckAtCompileTime.h"
@@ -98,7 +99,7 @@ namespace web
 		/// @brief Set parameters
 		/// @param parameters 
 		/// @return Self
-		HTTPBuilder& parameters(const std::string& parameters);
+		HTTPBuilder& parameters(std::string_view parameters);
 
 		HTTPBuilder& responseCode(responseCodes code);
 
@@ -141,29 +142,28 @@ namespace web
 	template<typename StringT, typename T, typename... Args>
 	HTTPBuilder& HTTPBuilder::parameters(StringT&& name, T&& value, Args&&... args)
 	{
+		static_assert(std::is_convertible_v<decltype(name), std::string_view>, "Wrong StringT type");
+
 		if (_parameters.empty())
 		{
 			_parameters = "/?";
 		}
 
-		if constexpr (::utility::StringConversion<StringT>::value)
+		if constexpr (std::is_arithmetic_v<T>)
 		{
-			if constexpr (std::is_arithmetic_v<T>)
-			{
-				_parameters += static_cast<std::string>(name) + std::string("=") + std::to_string(value) + std::string("&");
-			}
-			else if constexpr (::utility::StringConversion<T>::value)
-			{
-				_parameters += static_cast<std::string>(name) + std::string("=") + static_cast<std::string>(value) + std::string("&");
-			}
-			else
-			{
-				throw std::logic_error("Bad type of T, it must be converted to string or arithmetic type");
-			}
+			_parameters += std::format("{}={}&", web::encodeUrl(static_cast<std::string_view>(name)), std::to_string(value));
+		}
+		else if constexpr (std::is_convertible_v<decltype(value), std::string_view>)
+		{
+			_parameters += std::format("{}={}&", web::encodeUrl(static_cast<std::string_view>(name)), web::encodeUrl(static_cast<std::string_view>(value)));
+		}
+		else if constexpr (std::is_convertible_v<decltype(value), std::string>)
+		{
+			_parameters += std::format("{}={}&", web::encodeUrl(static_cast<std::string_view>(name)), web::encodeUrl(static_cast<std::string>(value)));
 		}
 		else
 		{
-			throw std::logic_error("Bad type of StringT, it must be converted to string");
+			throw std::logic_error("Bad type of T, it must be converted to string or arithmetic type");
 		}
 
 		return this->parameters(std::forward<Args>(args)...);
