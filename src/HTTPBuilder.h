@@ -27,13 +27,14 @@ namespace web
 	public:
 		/// @brief Make HTTP parsed data with zero chunk
 		/// @param chunks Data to convert
+		/// @param preCalculateSize Pre allocate result string size(requires additional pass)
 		/// @return 
-		static std::string getChunks(const std::vector<std::string>& chunks);
+		static std::string getChunks(const std::vector<std::string>& chunks, bool preCalculateSize = false);
 
 		/// @brief Make HTTP parsed chunk
 		/// @param chunk 
 		/// @return 
-		static std::string getChunk(const std::string& chunk);
+		static std::string getChunk(std::string_view chunk);
 
 	public:
 		HTTPBuilder(std::string_view fullHTTPVersion = "HTTP/1.1");
@@ -103,9 +104,9 @@ namespace web
 
 		HTTPBuilder& responseCode(responseCodes code);
 
-		HTTPBuilder& responseCode(int code, const std::string& responseMessage);
+		HTTPBuilder& responseCode(int code, std::string_view responseMessage);
 
-		HTTPBuilder& HTTPVersion(const std::string& httpVersion);
+		HTTPBuilder& HTTPVersion(std::string_view httpVersion);
 
 		/// @brief Append header - value
 		/// @tparam StringT 
@@ -120,9 +121,9 @@ namespace web
 
 		HTTPBuilder& chunks(const std::vector<std::string>& chunks);
 
-		HTTPBuilder& chunk(const std::string& chunk);
+		HTTPBuilder& chunk(std::string_view chunk);
 
-		std::string build(const std::string& data = "", const std::unordered_map<std::string, std::string>& additionalHeaders = {}) const;
+		std::string build(std::string_view data = "", const std::unordered_map<std::string, std::string>& additionalHeaders = {}) const;
 
 		std::string build(const json::JSONBuilder& builder, std::unordered_map<std::string, std::string> additionalHeaders = {}) const;
 

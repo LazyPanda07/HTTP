@@ -2,8 +2,8 @@ var searchData=
 [
   ['gatewaytimeout_0',['gatewayTimeout',['../namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a26c46008029b3afe7689954d16357525',1,'web']]],
   ['getbody_1',['getBody',['../classweb_1_1_h_t_t_p_parser.html#a3ce3002fab2ee44364f97acdf2d6bbf8',1,'web::HTTPParser']]],
-  ['getchunk_2',['getChunk',['../classweb_1_1_h_t_t_p_builder.html#ab50bb5ba9275aec7d721f9014508f4d8',1,'web::HTTPBuilder']]],
-  ['getchunks_3',['getchunks',['../classweb_1_1_h_t_t_p_builder.html#aea40d4d071837f9d1a8e75cc2b2557b9',1,'web::HTTPBuilder::getChunks()'],['../classweb_1_1_h_t_t_p_parser.html#acc7530257a546562a1df73773d6b698f',1,'web::HTTPParser::getChunks() const']]],
+  ['getchunk_2',['getChunk',['../classweb_1_1_h_t_t_p_builder.html#a3beada01ecda3d1e4aca6e027617a19e',1,'web::HTTPBuilder']]],
+  ['getchunks_3',['getchunks',['../classweb_1_1_h_t_t_p_builder.html#a800c71e6f77688032c8d290655f5129a',1,'web::HTTPBuilder::getChunks()'],['../classweb_1_1_h_t_t_p_parser.html#acc7530257a546562a1df73773d6b698f',1,'web::HTTPParser::getChunks() const']]],
   ['getfullresponse_4',['getFullResponse',['../classweb_1_1_h_t_t_p_parser.html#a0c13284683cf3b283471a6959fc4731b',1,'web::HTTPParser']]],
   ['getheaders_5',['getHeaders',['../classweb_1_1_h_t_t_p_parser.html#aaabc8d96e88f3b172f491eb199b79293',1,'web::HTTPParser']]],
   ['gethttplibraryversion_6',['getHTTPLibraryVersion',['../namespaceweb.html#a685cf5dfca5455d008ef53523a0d8a72',1,'web']]],

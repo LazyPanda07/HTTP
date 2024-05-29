@@ -103,35 +103,43 @@ namespace web
 		return *this;
 	}
 
-	string HTTPBuilder::getChunks(const vector<string>& chunks)
+	string HTTPBuilder::getChunks(const vector<string>& chunks, bool preCalculateSize)
 	{
 		string result;
 
-		for (const auto& i : chunks)
+		if (preCalculateSize)
 		{
-			result += HTTPBuilder::getChunk(i);
+			size_t resultSize = 0;
+
+			for (const string& chunk : chunks)
+			{
+				resultSize += format("{:x}", chunk.size()).size() + HTTPParser::crlf.size() + chunk.size() + HTTPParser::crlf.size();
+			}
+
+			resultSize += 1 + HTTPParser::crlf.size();
+
+			result.reserve(resultSize);
 		}
 
-		result += "0\r\n\r\n";
+		for (const string& chunk : chunks)
+		{
+			result += HTTPBuilder::getChunk(chunk);
+		}
+
+		result += HTTPBuilder::getChunk({});
 
 		return result;
 	}
 
-	string HTTPBuilder::getChunk(const string& chunk)
+	string HTTPBuilder::getChunk(string_view chunk)
 	{
-		ostringstream result;
-
-		result << hex << chunk.size() << "\r\n";
-
-		result << chunk << "\r\n";
-
-		return result.str();
+		return (ostringstream() << hex << chunk.size() << HTTPParser::crlf << chunk << HTTPParser::crlf).str();
 	}
 
 	HTTPBuilder::HTTPBuilder(string_view fullHTTPVersion) :
 		_HTTPVersion(fullHTTPVersion)
 	{
-		if (auto it = availableHTTPVersions.find(fullHTTPVersion); it == availableHTTPVersions.end())
+		if (availableHTTPVersions.find(fullHTTPVersion) == availableHTTPVersions.end())
 		{
 			throw runtime_error("Wrong HTTP version");
 		}
@@ -238,14 +246,14 @@ namespace web
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::responseCode(int code, const string& responseMessage)
+	HTTPBuilder& HTTPBuilder::responseCode(int code, string_view responseMessage)
 	{
-		_responseCode = to_string(code) + ' ' + responseMessage;
+		_responseCode = format("{} {}", code, responseMessage);
 
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::HTTPVersion(const string& HTTPVersion)
+	HTTPBuilder& HTTPBuilder::HTTPVersion(string_view HTTPVersion)
 	{
 		if (HTTPVersion.find("HTTP") == string::npos)
 		{
@@ -253,7 +261,12 @@ namespace web
 		}
 		else
 		{
-			_HTTPVersion = "HTTP/" + HTTPVersion;
+			_HTTPVersion = format("HTTP/{}", HTTPVersion);
+		}
+
+		if (availableHTTPVersions.find(_HTTPVersion) == availableHTTPVersions.end())
+		{
+			throw runtime_error("Wrong HTTP version");
 		}
 
 		return *this;
@@ -266,14 +279,14 @@ namespace web
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::chunk(const string& chunk)
+	HTTPBuilder& HTTPBuilder::chunk(string_view chunk)
 	{
-		_chunks.push_back(chunk);
+		_chunks.emplace_back(chunk);
 
 		return *this;
 	}
 
-	string HTTPBuilder::build(const string& data, const unordered_map<string, string>& additionalHeaders) const
+	string HTTPBuilder::build(string_view data, const unordered_map<string, string>& additionalHeaders) const
 	{
 		string result;
 		unordered_map<string, string> buildHeaders(additionalHeaders);
@@ -289,7 +302,7 @@ namespace web
 
 		if (method.empty())
 		{
-			result = string(_HTTPVersion) + " " + _responseCode + "\r\n" + _headers;
+			result = format("{} {}{}{}", _HTTPVersion, _responseCode, HTTPParser::crlf, _headers);
 		}
 		else
 		{
@@ -300,7 +313,7 @@ namespace web
 				result += "/";
 			}
 
-			result += format("{} {}\r\n{}", _parameters, _HTTPVersion, _headers);
+			result += format("{} {}{}{}", _parameters, _HTTPVersion, HTTPParser::crlf, _headers);
 		}
 
 		for (const auto& [header, value] : buildHeaders)
@@ -308,7 +321,7 @@ namespace web
 			result += format("{}: {}{}", header, value, HTTPParser::crlf);
 		}
 
-		result += "\r\n";
+		result += HTTPParser::crlf;
 
 		if (data.size())
 		{
