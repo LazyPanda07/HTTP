@@ -103,29 +103,37 @@ namespace web
 		return *this;
 	}
 
-	string HTTPBuilder::getChunks(const vector<string>& chunks)
+	string HTTPBuilder::getChunks(const vector<string>& chunks, bool preCalculateSize)
 	{
 		string result;
 
-		for (const auto& i : chunks)
+		if (preCalculateSize)
 		{
-			result += HTTPBuilder::getChunk(i);
+			size_t resultSize = 0;
+
+			for (const string& chunk : chunks)
+			{
+				resultSize += format("{:x}", chunk.size()).size() + HTTPParser::crlf.size() + chunk.size() + HTTPParser::crlf.size();
+			}
+
+			resultSize += 1 + HTTPParser::crlf.size();
+
+			result.reserve(resultSize);
 		}
 
-		result += "0\r\n\r\n";
+		for (const string& chunk : chunks)
+		{
+			result += HTTPBuilder::getChunk(chunk);
+		}
+
+		result += HTTPBuilder::getChunk({});
 
 		return result;
 	}
 
-	string HTTPBuilder::getChunk(const string& chunk)
+	string HTTPBuilder::getChunk(string_view chunk)
 	{
-		ostringstream result;
-
-		result << hex << chunk.size() << "\r\n";
-
-		result << chunk << "\r\n";
-
-		return result.str();
+		return (ostringstream() << hex << chunk.size() << HTTPParser::crlf << chunk << HTTPParser::crlf).str();
 	}
 
 	HTTPBuilder::HTTPBuilder(string_view fullHTTPVersion) :
@@ -294,7 +302,7 @@ namespace web
 
 		if (method.empty())
 		{
-			result = format("{} {}\r\n{}", _HTTPVersion, _responseCode, _headers);
+			result = format("{} {}{}{}", _HTTPVersion, _responseCode, HTTPParser::crlf, _headers);
 		}
 		else
 		{
@@ -305,7 +313,7 @@ namespace web
 				result += "/";
 			}
 
-			result += format("{} {}\r\n{}", _parameters, _HTTPVersion, _headers);
+			result += format("{} {}{}{}", _parameters, _HTTPVersion, HTTPParser::crlf, _headers);
 		}
 
 		for (const auto& [header, value] : buildHeaders)
@@ -313,7 +321,7 @@ namespace web
 			result += format("{}: {}{}", header, value, HTTPParser::crlf);
 		}
 
-		result += "\r\n";
+		result += HTTPParser::crlf;
 
 		if (data.size())
 		{

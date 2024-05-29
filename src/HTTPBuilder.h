@@ -27,13 +27,14 @@ namespace web
 	public:
 		/// @brief Make HTTP parsed data with zero chunk
 		/// @param chunks Data to convert
+		/// @param preCalculateSize Pre allocate result string size(requires additional pass)
 		/// @return 
-		static std::string getChunks(const std::vector<std::string>& chunks);
+		static std::string getChunks(const std::vector<std::string>& chunks, bool preCalculateSize = false);
 
 		/// @brief Make HTTP parsed chunk
 		/// @param chunk 
 		/// @return 
-		static std::string getChunk(const std::string& chunk);
+		static std::string getChunk(std::string_view chunk);
 
 	public:
 		HTTPBuilder(std::string_view fullHTTPVersion = "HTTP/1.1");
