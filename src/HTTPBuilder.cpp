@@ -131,7 +131,7 @@ namespace web
 	HTTPBuilder::HTTPBuilder(string_view fullHTTPVersion) :
 		_HTTPVersion(fullHTTPVersion)
 	{
-		if (auto it = availableHTTPVersions.find(fullHTTPVersion); it == availableHTTPVersions.end())
+		if (availableHTTPVersions.find(fullHTTPVersion) == availableHTTPVersions.end())
 		{
 			throw runtime_error("Wrong HTTP version");
 		}
@@ -238,14 +238,14 @@ namespace web
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::responseCode(int code, const string& responseMessage)
+	HTTPBuilder& HTTPBuilder::responseCode(int code, string_view responseMessage)
 	{
-		_responseCode = to_string(code) + ' ' + responseMessage;
+		_responseCode = format("{} {}", code, responseMessage);
 
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::HTTPVersion(const string& HTTPVersion)
+	HTTPBuilder& HTTPBuilder::HTTPVersion(string_view HTTPVersion)
 	{
 		if (HTTPVersion.find("HTTP") == string::npos)
 		{
@@ -253,7 +253,12 @@ namespace web
 		}
 		else
 		{
-			_HTTPVersion = "HTTP/" + HTTPVersion;
+			_HTTPVersion = format("HTTP/{}", HTTPVersion);
+		}
+
+		if (availableHTTPVersions.find(_HTTPVersion) == availableHTTPVersions.end())
+		{
+			throw runtime_error("Wrong HTTP version");
 		}
 
 		return *this;
@@ -266,14 +271,14 @@ namespace web
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::chunk(const string& chunk)
+	HTTPBuilder& HTTPBuilder::chunk(string_view chunk)
 	{
-		_chunks.push_back(chunk);
+		_chunks.emplace_back(chunk);
 
 		return *this;
 	}
 
-	string HTTPBuilder::build(const string& data, const unordered_map<string, string>& additionalHeaders) const
+	string HTTPBuilder::build(string_view data, const unordered_map<string, string>& additionalHeaders) const
 	{
 		string result;
 		unordered_map<string, string> buildHeaders(additionalHeaders);
@@ -289,7 +294,7 @@ namespace web
 
 		if (method.empty())
 		{
-			result = string(_HTTPVersion) + " " + _responseCode + "\r\n" + _headers;
+			result = format("{} {}\r\n{}", _HTTPVersion, _responseCode, _headers);
 		}
 		else
 		{

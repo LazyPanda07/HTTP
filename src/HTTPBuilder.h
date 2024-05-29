@@ -103,9 +103,9 @@ namespace web
 
 		HTTPBuilder& responseCode(responseCodes code);
 
-		HTTPBuilder& responseCode(int code, const std::string& responseMessage);
+		HTTPBuilder& responseCode(int code, std::string_view responseMessage);
 
-		HTTPBuilder& HTTPVersion(const std::string& httpVersion);
+		HTTPBuilder& HTTPVersion(std::string_view httpVersion);
 
 		/// @brief Append header - value
 		/// @tparam StringT 
@@ -120,9 +120,9 @@ namespace web
 
 		HTTPBuilder& chunks(const std::vector<std::string>& chunks);
 
-		HTTPBuilder& chunk(const std::string& chunk);
+		HTTPBuilder& chunk(std::string_view chunk);
 
-		std::string build(const std::string& data = "", const std::unordered_map<std::string, std::string>& additionalHeaders = {}) const;
+		std::string build(std::string_view data = "", const std::unordered_map<std::string, std::string>& additionalHeaders = {}) const;
 
 		std::string build(const json::JSONBuilder& builder, std::unordered_map<std::string, std::string> additionalHeaders = {}) const;
 
