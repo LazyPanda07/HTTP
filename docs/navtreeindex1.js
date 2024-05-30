@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"namespaceweb.html#a2a14d700dc792135c09e94a3783c43e3":[0,0,1,4],
+"namespaceweb.html#a40f47277f16e9523a56a79f80ece0301":[0,0,1,13],
 "namespaceweb.html#a4153873787950c6777ebf6c9e9463d5d":[0,0,1,11],
 "namespaceweb.html#a5a849da4ada867d4591d74f812c24e10":[0,0,1,5],
 "namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a01ff10c76757be1a185dcfbc95cfb3cb":[0,0,1,5,63],
@@ -85,8 +87,8 @@ var NAVTREEINDEX1 =
 "structweb_1_1insensitive_string_equal.html":[1,0,1,2],
 "structweb_1_1insensitive_string_equal.html#a060180332c480e814fb7e26c29f7be12":[1,0,1,2,0],
 "structweb_1_1insensitive_string_equal.html#a060180332c480e814fb7e26c29f7be12":[0,0,1,2,0],
-"structweb_1_1insensitive_string_hash.html":[1,0,1,3],
 "structweb_1_1insensitive_string_hash.html":[0,0,1,3],
-"structweb_1_1insensitive_string_hash.html#a80a1adb661558ddf16711850b405e77b":[0,0,1,3,0],
-"structweb_1_1insensitive_string_hash.html#a80a1adb661558ddf16711850b405e77b":[1,0,1,3,0]
+"structweb_1_1insensitive_string_hash.html":[1,0,1,3],
+"structweb_1_1insensitive_string_hash.html#a80a1adb661558ddf16711850b405e77b":[1,0,1,3,0],
+"structweb_1_1insensitive_string_hash.html#a80a1adb661558ddf16711850b405e77b":[0,0,1,3,0]
 };

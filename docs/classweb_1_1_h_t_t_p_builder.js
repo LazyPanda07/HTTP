@@ -22,6 +22,7 @@ var classweb_1_1_h_t_t_p_builder =
     [ "parameters", "classweb_1_1_h_t_t_p_builder.html#a1f7726b5488e56310802796db06ee996", null ],
     [ "parameters", "classweb_1_1_h_t_t_p_builder.html#a0f069fd29b28828df515631a43d77ce3", null ],
     [ "parametersWithRoute", "classweb_1_1_h_t_t_p_builder.html#a790eff30f008d4b49cf9d47c1bfcc836", null ],
+    [ "partialChunks", "classweb_1_1_h_t_t_p_builder.html#a6a56049889fe57a51c22354a9c65de62", null ],
     [ "patchRequest", "classweb_1_1_h_t_t_p_builder.html#adf7b27de98a3dbae317e92d9547375ae", null ],
     [ "postRequest", "classweb_1_1_h_t_t_p_builder.html#a87cfd31d04b3b97e242503e9ca888e9d", null ],
     [ "putRequest", "classweb_1_1_h_t_t_p_builder.html#ad14c8e1760febead134f7ff6aae93de6", null ],
