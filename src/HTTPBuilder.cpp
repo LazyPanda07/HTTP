@@ -372,6 +372,8 @@ namespace web
 	HTTPBuilder& HTTPBuilder::partialChunks()
 	{
 		_partialChunks = true;
+
+		return *this;
 	}
 
 	ostream& operator << (ostream& outputStream, const HTTPBuilder& builder)
