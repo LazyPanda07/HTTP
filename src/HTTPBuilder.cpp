@@ -103,7 +103,7 @@ namespace web
 		return *this;
 	}
 
-	string HTTPBuilder::getChunks(const vector<string>& chunks, bool preCalculateSize)
+	string HTTPBuilder::getChunks(const vector<string>& chunks, bool partialChunks, bool preCalculateSize)
 	{
 		string result;
 
@@ -126,18 +126,22 @@ namespace web
 			result += HTTPBuilder::getChunk(chunk);
 		}
 
-		result += HTTPBuilder::getChunk({});
+		if (!partialChunks)
+		{
+			result += HTTPBuilder::getChunk({});
+		}
 
 		return result;
 	}
 
 	string HTTPBuilder::getChunk(string_view chunk)
 	{
-		return (ostringstream() << hex << chunk.size() << HTTPParser::crlf << chunk << HTTPParser::crlf).str();
+		return format("{:x}{}{}{}", chunk.size(), HTTPParser::crlf, chunk, HTTPParser::crlf);
 	}
 
 	HTTPBuilder::HTTPBuilder(string_view fullHTTPVersion) :
-		_HTTPVersion(fullHTTPVersion)
+		_HTTPVersion(fullHTTPVersion),
+		_partialChunks(false)
 	{
 		if (availableHTTPVersions.find(fullHTTPVersion) == availableHTTPVersions.end())
 		{
@@ -329,7 +333,7 @@ namespace web
 		}
 		else if (_chunks.size())
 		{
-			result += HTTPBuilder::getChunks(_chunks);
+			result += HTTPBuilder::getChunks(_chunks, _partialChunks);
 		}
 
 		return result;
@@ -363,6 +367,11 @@ namespace web
 		method = _parameters = _responseCode = _headers = "";
 
 		return *this;
+	}
+
+	HTTPBuilder& HTTPBuilder::partialChunks()
+	{
+		_partialChunks = true;
 	}
 
 	ostream& operator << (ostream& outputStream, const HTTPBuilder& builder)

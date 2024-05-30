@@ -23,13 +23,15 @@ namespace web
 		std::string _headers;
 		std::string _HTTPVersion;
 		std::vector<std::string> _chunks;
+		bool _partialChunks;
 
 	public:
 		/// @brief Make HTTP parsed data with zero chunk
 		/// @param chunks Data to convert
+		/// @param partialChunks If true does not append 0 at the end
 		/// @param preCalculateSize Pre allocate result string size(requires additional pass)
 		/// @return 
-		static std::string getChunks(const std::vector<std::string>& chunks, bool preCalculateSize = false);
+		static std::string getChunks(const std::vector<std::string>& chunks, bool partialChunks, bool preCalculateSize = false);
 
 		/// @brief Make HTTP parsed chunk
 		/// @param chunk 
@@ -130,6 +132,8 @@ namespace web
 		std::string build(const std::unordered_map<std::string, std::string>& urlEncoded, std::unordered_map<std::string, std::string> additionalHeaders = {}) const;
 
 		HTTPBuilder& clear();
+
+		HTTPBuilder& partialChunks();
 
 		/// @brief Set HTTP to output stream
 		/// @param outputStream std::ostream subclass instance

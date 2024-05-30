@@ -25,7 +25,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.8.4</span>
+   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.9.0</span>
    </div>
   </td>
  </tr>
@@ -174,14 +174,16 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a16a6058fa091f5d82365f4c7803062ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19dfb77f3d55960e96ebaa93fa8b5ab1" id="r_a19dfb77f3d55960e96ebaa93fa8b5ab1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classweb_1_1_h_t_t_p_builder.html#a19dfb77f3d55960e96ebaa93fa8b5ab1">clear</a> ()</td></tr>
 <tr class="separator:a19dfb77f3d55960e96ebaa93fa8b5ab1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a56049889fe57a51c22354a9c65de62" id="r_a6a56049889fe57a51c22354a9c65de62"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classweb_1_1_h_t_t_p_builder.html#a6a56049889fe57a51c22354a9c65de62">partialChunks</a> ()</td></tr>
+<tr class="separator:a6a56049889fe57a51c22354a9c65de62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca01b380901b29179c8f1a5f58db1c84" id="r_aca01b380901b29179c8f1a5f58db1c84"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classweb_1_1_h_t_t_p_builder.html#aca01b380901b29179c8f1a5f58db1c84">~HTTPBuilder</a> ()=default</td></tr>
 <tr class="separator:aca01b380901b29179c8f1a5f58db1c84"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a800c71e6f77688032c8d290655f5129a" id="r_a800c71e6f77688032c8d290655f5129a"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classweb_1_1_h_t_t_p_builder.html#a800c71e6f77688032c8d290655f5129a">getChunks</a> (const std::vector&lt; std::string &gt; &amp;<a class="el" href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">chunks</a>, bool preCalculateSize=false)</td></tr>
-<tr class="memdesc:a800c71e6f77688032c8d290655f5129a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make HTTP parsed data with zero chunk.  <br /></td></tr>
-<tr class="separator:a800c71e6f77688032c8d290655f5129a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf819054eeb04648ed52c74c48dfbcc1" id="r_aaf819054eeb04648ed52c74c48dfbcc1"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classweb_1_1_h_t_t_p_builder.html#aaf819054eeb04648ed52c74c48dfbcc1">getChunks</a> (const std::vector&lt; std::string &gt; &amp;<a class="el" href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">chunks</a>, bool <a class="el" href="classweb_1_1_h_t_t_p_builder.html#a6a56049889fe57a51c22354a9c65de62">partialChunks</a>, bool preCalculateSize=false)</td></tr>
+<tr class="memdesc:aaf819054eeb04648ed52c74c48dfbcc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make HTTP parsed data with zero chunk.  <br /></td></tr>
+<tr class="separator:aaf819054eeb04648ed52c74c48dfbcc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3beada01ecda3d1e4aca6e027617a19e" id="r_a3beada01ecda3d1e4aca6e027617a19e"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classweb_1_1_h_t_t_p_builder.html#a3beada01ecda3d1e4aca6e027617a19e">getChunk</a> (std::string_view <a class="el" href="classweb_1_1_h_t_t_p_builder.html#adb92e78bb1f0dd1f74deefdb0d7094c7">chunk</a>)</td></tr>
 <tr class="memdesc:a3beada01ecda3d1e4aca6e027617a19e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make HTTP parsed chunk.  <br /></td></tr>
 <tr class="separator:a3beada01ecda3d1e4aca6e027617a19e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -393,7 +395,7 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00282">282</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00286">286</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
 
 </div>
 </div>
@@ -413,7 +415,7 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00275">275</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00279">279</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
 
 </div>
 </div>
@@ -432,7 +434,7 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00361">361</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00365">365</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
 
 </div>
 </div>
@@ -454,7 +456,7 @@ Friends</h2></td></tr>
 <p>Set CONNECT request. </p>
 <dl class="section return"><dt>Returns</dt><dd>Self </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00190">190</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00194">194</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
 
 </div>
 </div>
@@ -476,7 +478,7 @@ Friends</h2></td></tr>
 <p>Set DELETE request. </p>
 <dl class="section return"><dt>Returns</dt><dd>Self </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00183">183</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00187">187</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
 
 </div>
 </div>
@@ -514,12 +516,12 @@ Friends</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd><br  />
  </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00134">134</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00137">137</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a800c71e6f77688032c8d290655f5129a" name="a800c71e6f77688032c8d290655f5129a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a800c71e6f77688032c8d290655f5129a">&#9670;&#160;</a></span>getChunks()</h2>
+<a id="aaf819054eeb04648ed52c74c48dfbcc1" name="aaf819054eeb04648ed52c74c48dfbcc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf819054eeb04648ed52c74c48dfbcc1">&#9670;&#160;</a></span>getChunks()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -532,6 +534,12 @@ Friends</h2></td></tr>
           <td>(</td>
           <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
           <td class="paramname"><em>chunks</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>partialChunks</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -556,6 +564,7 @@ Friends</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">chunks</td><td>Data to convert </td></tr>
+    <tr><td class="paramname">partialChunks</td><td>If true does not append 0 at the end </td></tr>
     <tr><td class="paramname">preCalculateSize</td><td>Pre allocate result string size(requires additional pass) </td></tr>
   </table>
   </dd>
@@ -585,7 +594,7 @@ Friends</h2></td></tr>
 <p>Set GET request. </p>
 <dl class="section return"><dt>Returns</dt><dd>Self </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00148">148</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00152">152</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
 
 </div>
 </div>
@@ -642,7 +651,7 @@ template&lt;typename StringT , typename T , typename... Args&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Self </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8h_source.html#l00196">196</a> of file <a class="el" href="_h_t_t_p_builder_8h_source.html">HTTPBuilder.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8h_source.html#l00200">200</a> of file <a class="el" href="_h_t_t_p_builder_8h_source.html">HTTPBuilder.h</a>.</p>
 
 </div>
 </div>
@@ -664,7 +673,7 @@ template&lt;typename StringT , typename T , typename... Args&gt; </div>
 <p>Set HEAD request. </p>
 <dl class="section return"><dt>Returns</dt><dd>Self </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00169">169</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00173">173</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
 
 </div>
 </div>
@@ -684,7 +693,7 @@ template&lt;typename StringT , typename T , typename... Args&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00256">256</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00260">260</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
 
 </div>
 </div>
@@ -758,7 +767,7 @@ template&lt;typename StringT , typename T , typename... Args&gt; </div>
 <p>Set OPTIONS request. </p>
 <dl class="section return"><dt>Returns</dt><dd>Self </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00176">176</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00180">180</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
 
 </div>
 </div>
@@ -842,7 +851,7 @@ template&lt;typename StringT , typename T , typename... Args&gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Self </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8h_source.html#l00144">144</a> of file <a class="el" href="_h_t_t_p_builder_8h_source.html">HTTPBuilder.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8h_source.html#l00148">148</a> of file <a class="el" href="_h_t_t_p_builder_8h_source.html">HTTPBuilder.h</a>.</p>
 
 </div>
 </div>
@@ -874,7 +883,26 @@ template&lt;typename... Args&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8h_source.html#l00174">174</a> of file <a class="el" href="_h_t_t_p_builder_8h_source.html">HTTPBuilder.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8h_source.html#l00178">178</a> of file <a class="el" href="_h_t_t_p_builder_8h_source.html">HTTPBuilder.h</a>.</p>
+
+</div>
+</div>
+<a id="a6a56049889fe57a51c22354a9c65de62" name="a6a56049889fe57a51c22354a9c65de62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a56049889fe57a51c22354a9c65de62">&#9670;&#160;</a></span>partialChunks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a> &amp; web::HTTPBuilder::partialChunks </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00372">372</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
 
 </div>
 </div>
@@ -896,7 +924,7 @@ template&lt;typename... Args&gt; </div>
 <p>Set PATCH request. </p>
 <dl class="section return"><dt>Returns</dt><dd>Self </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00204">204</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00208">208</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
 
 </div>
 </div>
@@ -918,7 +946,7 @@ template&lt;typename... Args&gt; </div>
 <p>Set POST request. </p>
 <dl class="section return"><dt>Returns</dt><dd>Self </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00155">155</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00159">159</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
 
 </div>
 </div>
@@ -940,7 +968,7 @@ template&lt;typename... Args&gt; </div>
 <p>Set PUT request. </p>
 <dl class="section return"><dt>Returns</dt><dd>Self </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00162">162</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00166">166</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
 
 </div>
 </div>
@@ -988,7 +1016,7 @@ template&lt;typename... Args&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00242">242</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00246">246</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
 
 </div>
 </div>
@@ -1010,7 +1038,7 @@ template&lt;typename... Args&gt; </div>
 <p>Set TRACE request. </p>
 <dl class="section return"><dt>Returns</dt><dd>Self </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00197">197</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_builder_8cpp_source.html#l00201">201</a> of file <a class="el" href="_h_t_t_p_builder_8cpp_source.html">HTTPBuilder.cpp</a>.</p>
 
 </div>
 </div>
