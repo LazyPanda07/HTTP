@@ -3,14 +3,14 @@ cmake_minimum_required(VERSION 3.27.0)
 set(CMAKE_INSTALL_PREFIX ${PROJECT_BINARY_DIR})
 set(CMAKE_CXX_STANDARD 20)
 
-find_package(GTest)
-
 if(NOT ${GTest_FOUND})
 	set(GTEST_BOTH_LIBRARIES gtest gtest_main)
 	set(GTEST_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/gtest/include/)
 endif()
 
 project(Tests)
+
+find_package(GTest)
 
 if (UNIX)
     set(DLL ${PROJECT_SOURCE_DIR}/../HTTP/lib/libHTTP.so)
