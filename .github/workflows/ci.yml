@@ -163,15 +163,10 @@ jobs:
       with:
         name: ${{ matrix.configuration }}${{ matrix.shared[1] }}_Linux
         path: HTTP
-
-    - name: Get Google Tests
-      uses: LazyPanda07/get-gtest@v1
-      with:
-        install-path: Tests/gtest
-
+        
     - name: Build tests
-      working-directory: ${{ github.workspace }}/Tests
       run: |
+          cd Tests
           mkdir build
           cd build 
           cmake -DCMAKE_BUILD_TYPE=Release ..

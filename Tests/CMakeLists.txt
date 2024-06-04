@@ -3,6 +3,13 @@ cmake_minimum_required(VERSION 3.27.0)
 set(CMAKE_INSTALL_PREFIX ${PROJECT_BINARY_DIR})
 set(CMAKE_CXX_STANDARD 20)
 
+find_package(GTest)
+
+if(NOT ${GTest_FOUND})
+	set(GTEST_BOTH_LIBRARIES gtest gtest_main)
+	set(GTEST_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/gtest/include/)
+endif()
+
 project(Tests)
 
 if (UNIX)
@@ -32,9 +39,9 @@ add_executable(
 target_include_directories(
 	${PROJECT_NAME} PUBLIC
 	${PROJECT_SOURCE_DIR}/include/
-	${PROJECT_SOURCE_DIR}/gtest/include/
 	${PROJECT_SOURCE_DIR}/../src/
 	${PROJECT_SOURCE_DIR}/../JSON/src/
+	${GTEST_INCLUDE_DIRS}
 )
 
 target_link_directories(
@@ -45,10 +52,9 @@ target_link_directories(
 
 target_link_libraries(
 	${PROJECT_NAME}
-	gtest
-	gtest_main
 	HTTP
 	JSON
+	${GTEST_BOTH_LIBRARIES}
 )
 
 install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_BINARY_DIR}/bin)
