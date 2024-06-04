@@ -145,7 +145,7 @@ jobs:
 
   memory-leak-tests:
     needs: [linux-build]
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     container:
       image: lazypanda07/ubuntu_cxx20:24.04
     strategy:
