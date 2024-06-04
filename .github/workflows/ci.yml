@@ -107,6 +107,8 @@ jobs:
   linux-tests:
     needs: [linux-build]
     runs-on: ubuntu-24.04
+    container:
+      image: lazypanda07/ubuntu_cxx20:24.04
     strategy:
       matrix:
         configuration: [Debug, Release]
@@ -122,11 +124,6 @@ jobs:
       with:
         name: ${{ matrix.configuration }}${{ matrix.shared[1] }}_Linux
         path: HTTP
-
-    - name: Get Google Tests
-      uses: LazyPanda07/get-gtest@v1
-      with:
-        install-path: Tests/gtest
 
     - name: Build tests
       working-directory: ${{ github.workspace }}/Tests
@@ -145,7 +142,9 @@ jobs:
 
   memory-leak-tests:
     needs: [linux-build]
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
+    container:
+      image: lazypanda07/ubuntu_cxx20:24.04
     strategy:
       matrix:
         configuration: [Debug, Release]
@@ -161,15 +160,10 @@ jobs:
       with:
         name: ${{ matrix.configuration }}${{ matrix.shared[1] }}_Linux
         path: HTTP
-
-    - name: Get Google Tests
-      uses: LazyPanda07/get-gtest@v1
-      with:
-        install-path: Tests/gtest
-
+        
     - name: Build tests
-      working-directory: ${{ github.workspace }}/Tests
       run: |
+          cd Tests
           mkdir build
           cd build 
           cmake -DCMAKE_BUILD_TYPE=Release ..
