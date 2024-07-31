@@ -14,7 +14,7 @@ namespace web
 {
 	string getHTTPLibraryVersion()
 	{
-		string version = "1.9.3";
+		string version = "1.9.4";
 
 		return version;
 	}
