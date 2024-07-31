@@ -36,7 +36,9 @@ jobs:
 
 
   linux-build:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
+    container:
+      image: lazypanda07/ubuntu_cxx20:24.04
     strategy:
       matrix:
         configuration: [Debug, Release]
@@ -106,7 +108,7 @@ jobs:
 
   linux-tests:
     needs: [linux-build]
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     container:
       image: lazypanda07/ubuntu_cxx20:24.04
     strategy:
@@ -179,7 +181,7 @@ jobs:
 
   publish:
     needs: [windows-tests, linux-tests, memory-leak-tests]
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
