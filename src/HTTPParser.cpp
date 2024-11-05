@@ -225,7 +225,7 @@ namespace web
 
 					if (isUTF8)
 					{
-						chunks.push_back(json::utility::toUTF8JSON(value, CP_UTF8));
+						chunks.emplace_back(json::utility::toUTF8JSON(value, CP_UTF8));
 					}
 					else
 					{
