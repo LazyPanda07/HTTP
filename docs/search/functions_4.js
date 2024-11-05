@@ -2,7 +2,7 @@ var searchData=
 [
   ['getbody_0',['getBody',['../classweb_1_1_h_t_t_p_parser.html#a3ce3002fab2ee44364f97acdf2d6bbf8',1,'web::HTTPParser']]],
   ['getchunk_1',['getChunk',['../classweb_1_1_h_t_t_p_builder.html#a3beada01ecda3d1e4aca6e027617a19e',1,'web::HTTPBuilder']]],
-  ['getchunks_2',['getchunks',['../classweb_1_1_h_t_t_p_builder.html#aaf819054eeb04648ed52c74c48dfbcc1',1,'web::HTTPBuilder::getChunks()'],['../classweb_1_1_h_t_t_p_parser.html#acc7530257a546562a1df73773d6b698f',1,'web::HTTPParser::getChunks() const']]],
+  ['getchunks_2',['getChunks',['../classweb_1_1_h_t_t_p_builder.html#aaf819054eeb04648ed52c74c48dfbcc1',1,'web::HTTPBuilder::getChunks()'],['../classweb_1_1_h_t_t_p_parser.html#acc7530257a546562a1df73773d6b698f',1,'web::HTTPParser::getChunks() const']]],
   ['getfullresponse_3',['getFullResponse',['../classweb_1_1_h_t_t_p_parser.html#a0c13284683cf3b283471a6959fc4731b',1,'web::HTTPParser']]],
   ['getheaders_4',['getHeaders',['../classweb_1_1_h_t_t_p_parser.html#aaabc8d96e88f3b172f491eb199b79293',1,'web::HTTPParser']]],
   ['gethttplibraryversion_5',['getHTTPLibraryVersion',['../namespaceweb.html#a685cf5dfca5455d008ef53523a0d8a72',1,'web']]],
