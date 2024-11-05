@@ -364,7 +364,10 @@ namespace web
 
 	HTTPBuilder& HTTPBuilder::clear()
 	{
-		method = _parameters = _responseCode = _headers = "";
+		method.clear();
+		_parameters.clear();
+		_responseCode.clear();
+		_headers.clear();
 
 		return *this;
 	}

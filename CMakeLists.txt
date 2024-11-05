@@ -12,7 +12,7 @@ if (${BUILD_SHARED_LIBS})
 	add_definitions(-DHTTP_DLL)
 endif ()
 
-project(HTTP)
+project(HTTP VERSION 1.9.6)
 
 add_library(
 	${PROJECT_NAME}
