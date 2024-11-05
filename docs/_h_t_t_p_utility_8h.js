@@ -4,7 +4,7 @@ var _h_t_t_p_utility_8h =
     [ "web::insensitiveStringEqual", "structweb_1_1insensitive_string_equal.html", "structweb_1_1insensitive_string_equal" ],
     [ "HTTP_API", "_h_t_t_p_utility_8h.html#acf879ba207cfe7e6b02da3fe19e29047", null ],
     [ "HTTP_API_FUNCTION", "_h_t_t_p_utility_8h.html#a6aeefad739ebde09c2e39ad3981a00f7", null ],
-    [ "HeadersMap", "_h_t_t_p_utility_8h.html#a2a14d700dc792135c09e94a3783c43e3", null ],
+    [ "HeadersMap", "_h_t_t_p_utility_8h.html#a362fe3559c5ab42a9a4b2ac5a19c4a2f", null ],
     [ "responseCodes", "_h_t_t_p_utility_8h.html#a5a849da4ada867d4591d74f812c24e10", [
       [ "Continue", "_h_t_t_p_utility_8h.html#a5a849da4ada867d4591d74f812c24e10aa0bfb8e59e6c13fc8d990781f77694fe", null ],
       [ "switchingProtocols", "_h_t_t_p_utility_8h.html#a5a849da4ada867d4591d74f812c24e10a819e18c183b1fd7865fa280aa4187e85", null ],
