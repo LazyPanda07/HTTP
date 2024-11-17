@@ -143,6 +143,8 @@ namespace web
 		size_t nextString = HTTPMessage.find('\r');
 		string_view firstString(HTTPMessage.data(), nextString);
 
+		chunksSize = 0;
+
 		rawData = HTTPMessage;
 
 		switch (firstString[0])
