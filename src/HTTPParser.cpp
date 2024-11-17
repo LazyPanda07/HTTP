@@ -3,6 +3,7 @@
 #include <iterator>
 #include <format>
 #include <algorithm>
+#include <functional>
 
 #ifndef __LINUX__
 #pragma warning(disable: 26800)
