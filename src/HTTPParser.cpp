@@ -2,6 +2,8 @@
 
 #include <iterator>
 #include <format>
+#include <algorithm>
+#include <functional>
 
 #ifndef __LINUX__
 #pragma warning(disable: 26800)
@@ -18,6 +20,17 @@ namespace web
 		char* data = const_cast<char*>(view.data());
 
 		setg(data, data, data + view.size());
+	}
+
+	string HTTPParser::mergeChunks() const
+	{
+		string result;
+
+		result.reserve(chunksSize);
+
+		ranges::for_each(chunks, [&result](const string& value) { result += value; });
+
+		return result;
 	}
 
 	void HTTPParser::parseKeyValueParameter(string_view rawParameters)
@@ -60,6 +73,60 @@ namespace web
 		keyValueParameters[move(key)] = move(value);
 	}
 
+	void HTTPParser::parseContentType()
+	{
+		if (auto it = headers.find(contentTypeHeader); it != headers.end())
+		{
+			if (it->second == urlEncoded)
+			{
+				this->parseKeyValueParameter(chunksSize ? this->mergeChunks() : body);
+			}
+			else if (it->second.find(jsonEncoded) != string::npos)
+			{
+				jsonParser.setJSONData(chunksSize ? this->mergeChunks() : body);
+			}
+		}
+	}
+
+	void HTTPParser::parseChunkEncoded(string_view HTTPMessage, bool isUTF8)
+	{
+		size_t chunksStart = HTTPMessage.find(crlfcrlf) + crlfcrlf.size();
+		size_t chunksEnd = HTTPMessage.rfind(crlfcrlf) + crlfcrlf.size();
+		readOnlyBuffer buffer(string_view(HTTPMessage.data() + chunksStart, chunksEnd - chunksStart));
+		istringstream chunksData;
+
+		static_cast<ios&>(chunksData).rdbuf(&buffer);
+
+		chunksSize = 0;
+
+		while (true)
+		{
+			string size;
+			string value;
+
+			getline(chunksData, size);
+
+			size.pop_back(); // \r symbol from \r\n
+
+			value.resize(stol(size, nullptr, 16));
+
+			if (value.empty())
+			{
+				return;
+			}
+
+			chunksData.read(value.data(), value.size());
+
+			chunksData.ignore(crlf.size());
+
+			string& chunk = isUTF8 ?
+				chunks.emplace_back(json::utility::toUTF8JSON(value, CP_UTF8)) :
+				chunks.emplace_back(move(value));
+
+			chunksSize += chunk.size();
+		}
+	}
+
 	HTTPParser::HTTPParser(const string& HTTPMessage)
 	{
 		this->parse(HTTPMessage);
@@ -75,6 +142,8 @@ namespace web
 		size_t prevString = 0;
 		size_t nextString = HTTPMessage.find('\r');
 		string_view firstString(HTTPMessage.data(), nextString);
+
+		chunksSize = 0;
 
 		rawData = HTTPMessage;
 
@@ -192,47 +261,19 @@ namespace web
 
 		bool isUTF8 = HTTPMessage.find(utf8Encoded) != string::npos;
 
-		if (auto transferEncoding = headers.find(transferEncodingHeader); transferEncoding != headers.end())
+		if (auto it = headers.find(transferEncodingHeader); it != headers.end())
 		{
-			if (transferEncoding->second == chunkEncoded)
+			static const unordered_map<string, void (HTTPParser::*)(string_view HTTPMessage, bool isUTF8)> parsers =
 			{
-				size_t chunksStart = HTTPMessage.find(crlfcrlf) + crlfcrlf.size();
-				size_t chunksEnd = HTTPMessage.rfind(crlfcrlf) + crlfcrlf.size();
-				readOnlyBuffer buffer(string_view(HTTPMessage.data() + chunksStart, chunksEnd - chunksStart));
-				istringstream chunksData;
+				{ chunkEncoded, &HTTPParser::parseChunkEncoded }
+			};
 
-				static_cast<ios&>(chunksData).rdbuf(&buffer);
-
-				while (true)
-				{
-					string size;
-					string value;
-
-					getline(chunksData, size);
-
-					size.pop_back(); // \r symbol from \r\n
-
-					value.resize(stol(size, nullptr, 16));
-
-					if (value.empty())
-					{
-						return;
-					}
-
-					chunksData.read(value.data(), value.size());
-
-					chunksData.ignore(crlf.size());
-
-					if (isUTF8)
-					{
-						chunks.emplace_back(json::utility::toUTF8JSON(value, CP_UTF8));
-					}
-					else
-					{
-						chunks.push_back(move(value));
-					}
-				}
+			if (!parsers.contains(it->second))
+			{
+				throw runtime_error("Not supported transfer encoding: " + it->second);
 			}
+
+			invoke(parsers.at(it->second), *this, HTTPMessage, isUTF8);
 		}
 		else if (headers.find(contentLengthHeader) != headers.end())
 		{
@@ -244,19 +285,9 @@ namespace web
 			{
 				body = string(HTTPMessage.begin() + HTTPMessage.find(crlfcrlf) + crlfcrlf.size(), HTTPMessage.end());
 			}
-
-			if (auto it = headers.find(contentTypeHeader); it != headers.end())
-			{
-				if (it->second == urlEncoded)
-				{
-					this->parseKeyValueParameter(body);
-				}
-				else if (it->second.find(jsonEncoded) != string::npos)
-				{
-					jsonParser.setJSONData(body);
-				}
-			}
 		}
+
+		this->parseContentType();
 	}
 
 	const string& HTTPParser::getMethod() const
@@ -314,7 +345,7 @@ namespace web
 		return jsonParser;
 	}
 
-	const std::string& HTTPParser::getRawData() const
+	const string& HTTPParser::getRawData() const
 	{
 		return rawData;
 	}

@@ -38,9 +38,18 @@ namespace web
 		std::string body;
 		std::vector<std::string> chunks;
 		std::string rawData;
+		size_t chunksSize;
+
+	private:
+		std::string mergeChunks() const;
 
 	private:
 		void parseKeyValueParameter(std::string_view rawParameters);
+
+		void parseContentType();
+
+	private:
+		void parseChunkEncoded(std::string_view HTTPMessage, bool isUTF8);
 
 	public:
 		HTTPParser() = default;
