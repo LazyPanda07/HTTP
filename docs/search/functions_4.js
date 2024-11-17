@@ -11,7 +11,7 @@ var searchData=
   ['getkeyvalueparameters_8',['getKeyValueParameters',['../classweb_1_1_h_t_t_p_parser.html#a8e8632ce5f2ad6c17beb4d7258d26c0e',1,'web::HTTPParser']]],
   ['getmethod_9',['getMethod',['../classweb_1_1_h_t_t_p_parser.html#a56a8fb9cfd6f339a19feb7375508871f',1,'web::HTTPParser']]],
   ['getparameters_10',['getParameters',['../classweb_1_1_h_t_t_p_parser.html#a0984b70490bfcae61da4dedfecd4fec2',1,'web::HTTPParser']]],
-  ['getrawdata_11',['getRawData',['../classweb_1_1_h_t_t_p_parser.html#ad0658cae905dc310336ac0c3d8485f40',1,'web::HTTPParser']]],
+  ['getrawdata_11',['getRawData',['../classweb_1_1_h_t_t_p_parser.html#ad6e995b5f7b22b7fc2b3ed0c06cd8971',1,'web::HTTPParser']]],
   ['getrequest_12',['getRequest',['../classweb_1_1_h_t_t_p_builder.html#a591e293f2f3981636ac24fe456804025',1,'web::HTTPBuilder']]],
   ['getresponsecode_13',['getResponseCode',['../classweb_1_1_h_t_t_p_parser.html#a1caadfa601095ced75894d767e676e1c',1,'web::HTTPParser']]],
   ['getresponsemessage_14',['getResponseMessage',['../classweb_1_1_h_t_t_p_parser.html#af01968ae611b7867288dee2cbe5124ea',1,'web::HTTPParser']]]
