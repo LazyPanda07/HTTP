@@ -4,6 +4,9 @@
 #include <format>
 #include <algorithm>
 #include <functional>
+#include <unordered_set>
+
+#include "HTTPParseException.h"
 
 #ifndef __LINUX__
 #pragma warning(disable: 26800)
@@ -11,7 +14,18 @@
 
 using namespace std;
 
-constexpr int responseCodeSize = 3;
+static const unordered_set<string> methods =
+{
+	"HEAD",
+	"PUT",
+	"POST",
+	"PATCH",
+	"OPTIONS",
+	"DELETE",
+	"CONNECT",
+	"GET",
+	"TRACE"
+};
 
 namespace web
 {
@@ -142,62 +156,20 @@ namespace web
 		size_t prevString = 0;
 		size_t nextString = HTTPMessage.find('\r');
 		string_view firstString(HTTPMessage.data(), nextString);
+		
+		if (string_view temp = firstString.substr(0, firstString.find(' ')); temp.find("HTTP") == string_view::npos)
+		{
+			method = temp;
+
+			if (methods.find(method) == methods.end())
+			{
+				throw exceptions::HTTPParseException(format("Wrong method: {}", method));
+			}
+		}
 
 		chunksSize = 0;
 
 		rawData = HTTPMessage;
-
-		switch (firstString[0])
-		{
-		case 'H':
-			if (firstString[1] == 'E')
-			{
-				method = "HEAD";
-			}
-
-			break;
-
-		case 'P':
-			if (firstString[1] == 'U')
-			{
-				method = "PUT";
-			}
-			else if (firstString[1] == 'O')
-			{
-				method = "POST";
-			}
-			else
-			{
-				method = "PATCH";
-			}
-
-			break;
-
-		case 'O':
-			method = "OPTIONS";
-
-			break;
-
-		case 'D':
-			method = "DELETE";
-
-			break;
-
-		case 'C':
-			method = "CONNECT";
-
-			break;
-
-		case 'G':
-			method = "GET";
-
-			break;
-
-		case 'T':
-			method = "TRACE";
-
-			break;
-		}
 
 		if (method.empty())
 		{
@@ -209,7 +181,7 @@ namespace web
 
 			data >> httpVersion >> responseCode >> response.second;
 
-			response.first = static_cast<responseCodes>(stoi(responseCode));
+			response.first = stoi(responseCode);
 		}
 		else if (method != "CONNECT")
 		{
@@ -217,7 +189,7 @@ namespace web
 
 			if (startParameters == string::npos)
 			{
-				throw runtime_error("Can't find /");
+				throw exceptions::HTTPParseException("Can't find /");
 			}
 
 			startParameters++;
@@ -256,7 +228,7 @@ namespace web
 			string header(next.begin(), next.begin() + next.find(':'));
 			string value(next.begin() + next.find(": ") + 2, next.end());
 
-			headers[move(header)] = move(value);
+			headers.try_emplace(move(header), move(value));
 		}
 
 		bool isUTF8 = HTTPMessage.find(utf8Encoded) != string::npos;
@@ -270,7 +242,7 @@ namespace web
 
 			if (!parsers.contains(it->second))
 			{
-				throw runtime_error("Not supported transfer encoding: " + it->second);
+				throw exceptions::HTTPParseException("Not supported transfer encoding: " + it->second);
 			}
 
 			invoke(parsers.at(it->second), *this, HTTPMessage, isUTF8);
@@ -310,12 +282,12 @@ namespace web
 		return keyValueParameters;
 	}
 
-	const pair<responseCodes, string>& HTTPParser::getFullResponse() const
+	const pair<int, string>& HTTPParser::getFullResponse() const
 	{
 		return response;
 	}
 
-	responseCodes HTTPParser::getResponseCode() const
+	int HTTPParser::getResponseCode() const
 	{
 		return response.first;
 	}

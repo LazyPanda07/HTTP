@@ -20,7 +20,7 @@
 namespace web
 {
 	/// @brief Response codes
-	enum class responseCodes
+	enum class ResponseCodes
 	{
 		Continue = 100,
 		switchingProtocols,
@@ -95,9 +95,26 @@ namespace web
 		invalidSSLCertificate
 	};
 
-	inline std::ostream& operator << (std::ostream& stream, responseCodes responseCode)
+	/**
+	 * @brief Output stream operator for ResponseCodes
+	 * @param stream 
+	 * @param responseCode 
+	 * @return 
+	 */
+	inline std::ostream& operator << (std::ostream& stream, ResponseCodes responseCode)
 	{
 		return stream << static_cast<int>(responseCode);
+	}
+
+	/**
+	 * @brief Compare operator for ResponseCodes
+	 * @param code 
+	 * @param otherCode 
+	 * @return 
+	 */
+	inline bool operator == (int code, ResponseCodes otherCode)
+	{
+		return code == static_cast<int>(otherCode);
 	}
 
 	/**
@@ -120,6 +137,17 @@ namespace web
 	 */
 	HTTP_API_FUNCTION std::string decodeUrl(std::string_view data);
 
+	/**
+	 * @brief Get response message from response code
+	 * @tparam T 
+	 * @param code 
+	 * @return 
+	 */
+	template<typename T> requires (std::same_as<T, ResponseCodes> || std::convertible_to<T, int>)
+	std::string getMessageFromCode(const T& code);
+
+	HTTP_API_FUNCTION std::string __getMessageFromCode(int code);
+
 	/// @brief Custom hashing for headers with case insensitive
 	struct HTTP_API insensitiveStringHash
 	{
@@ -136,4 +164,13 @@ namespace web
 	 * @brief Case insensitive unordered_map
 	*/
 	using HeadersMap = std::unordered_map<std::string, std::string, insensitiveStringHash, insensitiveStringEqual>;
+}
+
+namespace web
+{
+	template<typename T> requires (std::same_as<T, ResponseCodes> || std::convertible_to<T, int>)
+	std::string getMessageFromCode(const T& code)
+	{
+		return __getMessageFromCode(static_cast<int>(code));
+	}
 }

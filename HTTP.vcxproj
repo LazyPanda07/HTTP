@@ -274,12 +274,14 @@ COPY /Y $(SolutionDir)bin\$(Configuration)-$(Platform)\JSON\JSON.lib $(Outdir)</
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\HTTPBuilder.cpp" />
+    <ClCompile Include="src\HTTPParseException.cpp" />
     <ClCompile Include="src\HTTPParser.cpp" />
     <ClCompile Include="src\HTTPUtility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CheckAtCompileTime.h" />
     <ClInclude Include="src\HTTPBuilder.h" />
+    <ClInclude Include="src\HTTPParseException.h" />
     <ClInclude Include="src\HTTPParser.h" />
     <ClInclude Include="src\HTTPUtility.h" />
   </ItemGroup>

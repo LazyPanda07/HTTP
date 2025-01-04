@@ -31,7 +31,7 @@ TEST(Parser, Response)
 	const web::HeadersMap& headers = parser.getHeaders();
 
 	ASSERT_EQ(parser.getHTTPVersion(), 1.1);
-	ASSERT_EQ(parser.getResponseCode(), web::responseCodes::ok);
+	ASSERT_EQ(parser.getResponseCode(), web::ResponseCodes::ok);
 	ASSERT_EQ(parser.getResponseMessage(), "OK");
 	ASSERT_EQ(headers.at("Connection"), "Keep-Alive");
 	ASSERT_EQ(headers.at("Access-Control-Allow-Origin"), "*");

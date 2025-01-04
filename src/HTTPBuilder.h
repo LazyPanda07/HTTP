@@ -104,7 +104,7 @@ namespace web
 		/// @return Self
 		HTTPBuilder& parameters(std::string_view parameters);
 
-		HTTPBuilder& responseCode(responseCodes code);
+		HTTPBuilder& responseCode(ResponseCodes code);
 
 		HTTPBuilder& responseCode(int code, std::string_view responseMessage);
 
@@ -122,6 +122,8 @@ namespace web
 		HTTPBuilder& headers(StringT&& name, T&& value, Args&&... args);
 
 		HTTPBuilder& chunks(const std::vector<std::string>& chunks);
+
+		HTTPBuilder& chunks(std::vector<std::string>&& chunks);
 
 		HTTPBuilder& chunk(std::string_view chunk);
 

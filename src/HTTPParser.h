@@ -31,7 +31,7 @@ namespace web
 		std::unordered_map<std::string, std::string, insensitiveStringHash, insensitiveStringEqual> headers;
 		std::unordered_map<std::string, std::string> keyValueParameters;
 		json::JSONParser jsonParser;
-		std::pair<responseCodes, std::string> response;	// code - response message
+		std::pair<int, std::string> response;	// code - response message
 		std::string method;
 		std::string httpVersion;
 		std::string parameters;
@@ -76,9 +76,9 @@ namespace web
 
 		const std::unordered_map<std::string, std::string>& getKeyValueParameters() const;
 
-		const std::pair<responseCodes, std::string>& getFullResponse() const;
+		const std::pair<int, std::string>& getFullResponse() const;
 
-		responseCodes getResponseCode() const;
+		int getResponseCode() const;
 
 		const std::string& getResponseMessage() const;
 

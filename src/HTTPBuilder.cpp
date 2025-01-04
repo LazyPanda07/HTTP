@@ -10,81 +10,6 @@
 
 using namespace std;
 
-static const unordered_map<web::responseCodes, string> responseMessage =
-{
-	{ web::responseCodes::Continue, "Continue" },
-	{ web::responseCodes::switchingProtocols, "Switching Protocols" },
-	{ web::responseCodes::processing, "Processing" },
-	{ web::responseCodes::ok, "OK" },
-	{ web::responseCodes::created, "Created" },
-	{ web::responseCodes::accepted, "Accepted" },
-	{ web::responseCodes::nonAuthoritativeInformation, "Non-Authoritative Information" },
-	{ web::responseCodes::noContent, "No Content" },
-	{ web::responseCodes::resetContent, "Reset Content" },
-	{ web::responseCodes::partialContent, "Partial Content" },
-	{ web::responseCodes::multiStatus, "Multi-Status" },
-	{ web::responseCodes::alreadyReported, "Already Reported" },
-	{ web::responseCodes::IMUsed, "IM Used" },
-	{ web::responseCodes::multipleChoices, "Multiple Choices" },
-	{ web::responseCodes::movedPermanently, "Moved Permanently" },
-	{ web::responseCodes::found, "Found" },
-	{ web::responseCodes::seeOther, "See Other" },
-	{ web::responseCodes::notModified, "Not Modified" },
-	{ web::responseCodes::useProxy, "Use Proxy" },
-	{ web::responseCodes::temporaryRedirect, "Temporary Redirect" },
-	{ web::responseCodes::permanentRedirect, "Permanent Redirect" },
-	{ web::responseCodes::badRequest, "Bad Request" },
-	{ web::responseCodes::unauthorized, "Unauthorized" },
-	{ web::responseCodes::paymentRequired, "Payment Required" },
-	{ web::responseCodes::forbidden, "Forbidden" },
-	{ web::responseCodes::notFound, "Not Found" },
-	{ web::responseCodes::methodNotAllowed, "Method Not Allowed" },
-	{ web::responseCodes::notAcceptable, "Not Acceptable" },
-	{ web::responseCodes::proxyAuthenticationRequired, "Proxy Authentication Required" },
-	{ web::responseCodes::requestTimeout, "Request Timeout" },
-	{ web::responseCodes::conflict, "Conflict" },
-	{ web::responseCodes::gone, "Gone" },
-	{ web::responseCodes::lengthRequired, "Length Required" },
-	{ web::responseCodes::preconditionFailed, "Precondition Failed" },
-	{ web::responseCodes::payloadTooLarge, "Payload Too Large" },
-	{ web::responseCodes::URITooLong, "URI Tool Long" },
-	{ web::responseCodes::unsupportedMediaType, "Unsupported Media Type" },
-	{ web::responseCodes::rangeNotSatisfiable, "Range Not Satisfiable" },
-	{ web::responseCodes::expectationFailed, "Expectation Failed" },
-	{ web::responseCodes::iamATeapot, "I am teapot" },
-	{ web::responseCodes::authenticationTimeout, "Authentication Timeout" },
-	{ web::responseCodes::misdirectedRequest, "Misdirected Request" },
-	{ web::responseCodes::unprocessableEntity, "Unprocessable Entity" },
-	{ web::responseCodes::locked, "Locked" },
-	{ web::responseCodes::failedDependency, "Failed Dependency" },
-	{ web::responseCodes::upgradeRequired, "Upgrade Required" },
-	{ web::responseCodes::preconditionRequired, "Precondition Required" },
-	{ web::responseCodes::tooManyRequests, "Too Many Requests" },
-	{ web::responseCodes::requestHeaderFieldsTooLarge, "Request Header Fields Too Large" },
-	{ web::responseCodes::retryWith, "Retry With" },
-	{ web::responseCodes::unavailableForLegalReasons, "Unavailable For Legal Reasons" },
-	{ web::responseCodes::clientClosedRequest, "Client Closed Request" },
-	{ web::responseCodes::internalServerError, "Internal Server Error" },
-	{ web::responseCodes::notImplemented, "Not Implemented" },
-	{ web::responseCodes::badGateway, "Bad Gateway" },
-	{ web::responseCodes::serviceUnavailable, "Service Unavailable" },
-	{ web::responseCodes::gatewayTimeout, "Gateway Timeout" },
-	{ web::responseCodes::HTTPVersionNotSupported, "HTTP Version Not Supported" },
-	{ web::responseCodes::variantAlsoNegotiates, "Variant Also Negotiates" },
-	{ web::responseCodes::insufficientStorage, "Insufficient Storage" },
-	{ web::responseCodes::loopDetected, "Loop Detected" },
-	{ web::responseCodes::bandwidthLimitExceeded, "Bandwidth Limit Exceeded" },
-	{ web::responseCodes::notExtended, "Not Extended" },
-	{ web::responseCodes::networkAuthenticationRequired, "Network Authentication Required" },
-	{ web::responseCodes::unknownError, "Unknown Error" },
-	{ web::responseCodes::webServerIsDown, "Web Server Is Down" },
-	{ web::responseCodes::connectionTimedOut, "Connection Timed Out" },
-	{ web::responseCodes::originIsUnreachable, "Origin Is Unreachable" },
-	{ web::responseCodes::aTimeoutOccurred, "A Timeout Occurred" },
-	{ web::responseCodes::SSLHandshakeFailed, "SSL Handshake Failed" },
-	{ web::responseCodes::invalidSSLCertificate, "Invalid SSL Certificate" }
-};
-
 static const unordered_set<string_view> availableHTTPVersions =
 {
 	"HTTP/0.9",
@@ -243,13 +168,13 @@ namespace web
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::responseCode(responseCodes code)
+	HTTPBuilder& HTTPBuilder::responseCode(ResponseCodes code)
 	{
-		_responseCode = to_string(static_cast<int>(code)) + ' ' + responseMessage.at(code);
+		_responseCode = format("{} {}", static_cast<int>(code), getMessageFromCode(code));
 
 		return *this;
 	}
-
+	
 	HTTPBuilder& HTTPBuilder::responseCode(int code, string_view responseMessage)
 	{
 		_responseCode = format("{} {}", code, responseMessage);
@@ -278,7 +203,18 @@ namespace web
 
 	HTTPBuilder& HTTPBuilder::chunks(const vector<string>& chunks)
 	{
+		_chunks.reserve(chunks.size());
+
 		copy(chunks.begin(), chunks.end(), back_inserter(_chunks));
+
+		return *this;
+	}
+
+	HTTPBuilder& HTTPBuilder::chunks(vector<string>&& chunks)
+	{
+		_chunks.reserve(chunks.size());
+
+		move(chunks.begin(), chunks.end(), back_inserter(_chunks));
 
 		return *this;
 	}
