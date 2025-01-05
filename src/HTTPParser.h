@@ -1,6 +1,8 @@
 #pragma once
 
 #include <vector>
+#include <unordered_map>
+#include <functional>
 
 #include "HTTPUtility.h"
 #include "JSONParser.h"
@@ -16,6 +18,9 @@ namespace web
 			readOnlyBuffer(std::string_view view);
 		};
 
+	private:
+		static const std::unordered_map<std::string_view, std::function<void(HTTPParser&, std::string_view)>> contentTypeParsers;
+
 	public:
 		static inline const std::string contentLengthHeader = "Content-Length";
 		static inline const std::string contentTypeHeader = "Content-Type";
@@ -24,8 +29,12 @@ namespace web
 		static inline const std::string chunkEncoded = "chunked";
 		static inline constexpr std::string_view crlfcrlf = "\r\n\r\n";
 		static inline constexpr std::string_view crlf = "\r\n";
+
+	public:
 		static inline constexpr std::string_view urlEncoded = "application/x-www-form-urlencoded";
 		static inline constexpr std::string_view jsonEncoded = "application/json";
+		static inline constexpr std::string_view octetStreamEncoded = "application/octet-stream";
+		static inline constexpr std::string_view multipartEncoded = "multipart/form-data";
 
 	private:
 		std::unordered_map<std::string, std::string, insensitiveStringHash, insensitiveStringEqual> headers;

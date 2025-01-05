@@ -3,7 +3,6 @@
 #include <iterator>
 #include <format>
 #include <algorithm>
-#include <functional>
 #include <unordered_set>
 
 #include "HTTPParseException.h"
@@ -29,6 +28,12 @@ static const unordered_set<string> methods =
 
 namespace web
 {
+	const unordered_map<string_view, function<void(HTTPParser&, string_view)>> HTTPParser::contentTypeParsers =
+	{
+		{ HTTPParser::urlEncoded, [](HTTPParser& parser, string_view data) { parser.parseKeyValueParameter(data); }},
+		{ HTTPParser::jsonEncoded, [](HTTPParser& parser, string_view data) { parser.jsonParser.setJSONData(data); }},
+	};
+
 	HTTPParser::readOnlyBuffer::readOnlyBuffer(string_view view)
 	{
 		char* data = const_cast<char*>(view.data());
@@ -91,13 +96,14 @@ namespace web
 	{
 		if (auto it = headers.find(contentTypeHeader); it != headers.end())
 		{
-			if (it->second == urlEncoded)
+			for (const auto& [encodeType, parser] : contentTypeParsers)
 			{
-				this->parseKeyValueParameter(chunksSize ? this->mergeChunks() : body);
-			}
-			else if (it->second.find(jsonEncoded) != string::npos)
-			{
-				jsonParser.setJSONData(chunksSize ? this->mergeChunks() : body);
+				if (it->second.find(encodeType) != string::npos)
+				{
+					parser(*this, chunksSize ? this->mergeChunks() : body);
+
+					break;
+				}
 			}
 		}
 	}
@@ -235,17 +241,17 @@ namespace web
 
 		if (auto it = headers.find(transferEncodingHeader); it != headers.end())
 		{
-			static const unordered_map<string, void (HTTPParser::*)(string_view HTTPMessage, bool isUTF8)> parsers =
+			static const unordered_map<string, void (HTTPParser::*)(string_view HTTPMessage, bool isUTF8)> transferTypeParsers =
 			{
 				{ chunkEncoded, &HTTPParser::parseChunkEncoded }
 			};
 
-			if (!parsers.contains(it->second))
+			if (!transferTypeParsers.contains(it->second))
 			{
 				throw exceptions::HTTPParseException("Not supported transfer encoding: " + it->second);
 			}
 
-			invoke(parsers.at(it->second), *this, HTTPMessage, isUTF8);
+			invoke(transferTypeParsers.at(it->second), *this, HTTPMessage, isUTF8);
 		}
 		else if (headers.find(contentLengthHeader) != headers.end())
 		{
