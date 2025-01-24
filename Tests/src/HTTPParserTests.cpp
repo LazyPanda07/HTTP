@@ -107,6 +107,18 @@ TEST(Parser, Multipart)
 
 	for (const auto& multipart : parser.getMultiparts())
 	{
-		std::cout << multipart.getName() << ' ' << multipart.getFileName() << ' ' << multipart.getContentType() << ' ' << multipart.getData() << std::endl;
+		std::cout << multipart.getName() << ' ' << multipart.getData() << ' ';
+
+		if (const auto& fileName = multipart.getFileName(); fileName)
+		{
+			std::cout << *fileName << ' ';
+		}
+
+		if (const auto& contentType = multipart.getContentType(); contentType)
+		{
+			std::cout << *contentType << ' ';
+		}
+
+		std::cout << std::endl;
 	}
 }
