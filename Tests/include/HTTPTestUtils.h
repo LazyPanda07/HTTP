@@ -11,3 +11,5 @@ std::string getPostRequestJSON();
 std::string getHTTPResponse();
 
 std::string getCONNECTRequest();
+
+std::string getMultipartRequest();

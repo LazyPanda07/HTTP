@@ -186,25 +186,57 @@ namespace web
 
 	Multipart::Multipart(string_view data)
 	{
-		if (data.find("filename") != string_view::npos)
-		{
-			constexpr MultipartParser<string> parser(R"(Content-Disposition: form-data; name="{}")");
+		size_t firstStringEnd = data.find(HTTPParser::crlf);
 
-			parser.getValues(data.substr(0, data.find(web::HTTPParser::crlf)), name);
-		}
-		else
+		if (data.find("filename") != string_view::npos)
 		{
 			constexpr MultipartParser<string, optional<string>> parser(R"(Content-Disposition: form-data; name="{}"; filename="{}")");
 
-			parser.getValues(data, name, fileName);
+			parser.getValues(data.substr(0, firstStringEnd), name, fileName);
+		}
+		else
+		{
+			constexpr MultipartParser<string> parser(R"(Content-Disposition: form-data; name="{}")");
+
+			parser.getValues(data.substr(0, firstStringEnd), name);	
 		}
 
 		if (data.find("Content-Type:") != string_view::npos)
 		{
-			constexpr MultipartParser<optional<string>> parser("Content-Type: {}\r");
+			constexpr MultipartParser<optional<string>> parser("Content-Type: {}\r\n");
 
-			parser.getValues(data, contentType);
+			parser.getValues
+			(
+				string_view
+				(
+					data.begin() + firstStringEnd + HTTPParser::crlf.size(),
+					data.begin() + data.find(HTTPParser::crlf, firstStringEnd + HTTPParser::crlf.size())
+				),
+				contentType
+			);
 		}
+
+		this->data = data.substr(data.find(HTTPParser::crlfcrlf) + HTTPParser::crlfcrlf.size());
+	}
+
+	const string& Multipart::getName() const
+	{
+		return name;
+	}
+
+	const optional<string>& Multipart::getFileName() const
+	{
+		return fileName;
+	}
+
+	const optional<string>& Multipart::getContentType() const
+	{
+		return contentType;
+	}
+
+	const string& Multipart::getData() const
+	{
+		return data;
 	}
 
 	string __getMessageFromCode(int code)

@@ -4,7 +4,6 @@
 #include <unordered_map>
 #include <string>
 #include <optional>
-#include <vector>
 
 #ifdef HTTP_DLL
 #ifdef __LINUX__
@@ -171,10 +170,18 @@ namespace web
 		std::string name;
 		std::optional<std::string> fileName;
 		std::optional<std::string> contentType;
-		std::vector<char> data;
+		std::string data;
 
 	public:
 		Multipart(std::string_view data);
+
+		const std::string& getName() const;
+
+		const std::optional<std::string>& getFileName() const;
+
+		const std::optional<std::string>& getContentType() const;
+
+		const std::string& getData() const;
 
 		~Multipart() = default;
 	};

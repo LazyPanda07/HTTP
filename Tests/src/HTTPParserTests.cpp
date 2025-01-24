@@ -1,5 +1,7 @@
 #include "gtest/gtest.h"
 
+#include <iostream>
+
 #include "HTTPParser.h"
 
 #include "HTTPTestUtils.h"
@@ -97,4 +99,14 @@ TEST(Parser, Streams)
 TEST(Parser, Parameters)
 {
 	ASSERT_EQ(web::HTTPParser(getGetRequest()).getKeyValueParameters().at("q"), "test");
+}
+
+TEST(Parser, Multipart)
+{
+	web::HTTPParser parser(getMultipartRequest());
+
+	for (const auto& multipart : parser.getMultiparts())
+	{
+		std::cout << multipart.getName() << ' ' << multipart.getFileName() << ' ' << multipart.getContentType() << ' ' << multipart.getData() << std::endl;
+	}
 }
