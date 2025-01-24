@@ -105,16 +105,16 @@ TEST(Parser, Multipart)
 {
 	web::HTTPParser parser(getMultipartRequest());
 
-	for (const auto& multipart : parser.getMultiparts())
+	for (const web::Multipart& multipart : parser.getMultiparts())
 	{
 		std::cout << multipart.getName() << ' ' << multipart.getData() << ' ';
 
-		if (const auto& fileName = multipart.getFileName(); fileName)
+		if (const std::optional<std::string>& fileName = multipart.getFileName(); fileName)
 		{
 			std::cout << *fileName << ' ';
 		}
 
-		if (const auto& contentType = multipart.getContentType(); contentType)
+		if (const std::optional<std::string>& contentType = multipart.getContentType(); contentType)
 		{
 			std::cout << *contentType << ' ';
 		}
