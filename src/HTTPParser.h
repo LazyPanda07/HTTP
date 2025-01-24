@@ -33,11 +33,11 @@ namespace web
 	public:
 		static inline constexpr std::string_view urlEncoded = "application/x-www-form-urlencoded";
 		static inline constexpr std::string_view jsonEncoded = "application/json";
-		static inline constexpr std::string_view octetStreamEncoded = "application/octet-stream";
 		static inline constexpr std::string_view multipartEncoded = "multipart/form-data";
 
 	private:
-		std::unordered_map<std::string, std::string, insensitiveStringHash, insensitiveStringEqual> headers;
+		std::unordered_map<std::string, std::string, InsensitiveStringHash, InsensitiveStringEqual> headers;
+		std::vector<Multipart> multiparts;
 		std::unordered_map<std::string, std::string> keyValueParameters;
 		json::JSONParser jsonParser;
 		std::pair<int, std::string> response;	// code - response message
@@ -48,12 +48,15 @@ namespace web
 		std::vector<std::string> chunks;
 		std::string rawData;
 		size_t chunksSize;
+		bool parsed;
 
 	private:
 		std::string mergeChunks() const;
 
 	private:
 		void parseKeyValueParameter(std::string_view rawParameters);
+
+		void parseMultipart(std::string_view data);
 
 		void parseContentType();
 
@@ -101,10 +104,10 @@ namespace web
 		
 		const std::string& getRawData() const;
 
-		/// @brief Set HTTP to output stream
-		/// @param outputStream std::ostream subclass instance
-		/// @param parser const reference to HTTPParser instance
-		/// @return outputStream
+		const std::vector<Multipart>& getMultiparts() const;
+
+		operator bool() const;
+
 		friend HTTP_API std::ostream& operator << (std::ostream& outputStream, const HTTPParser& parser);
 
 		friend HTTP_API std::istream& operator >> (std::istream& inputStream, HTTPParser& parser);

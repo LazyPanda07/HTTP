@@ -4,6 +4,7 @@
 #include <format>
 #include <algorithm>
 #include <unordered_set>
+#include <functional>
 
 #include "HTTPParseException.h"
 
@@ -32,6 +33,7 @@ namespace web
 	{
 		{ HTTPParser::urlEncoded, [](HTTPParser& parser, string_view data) { parser.parseKeyValueParameter(data); }},
 		{ HTTPParser::jsonEncoded, [](HTTPParser& parser, string_view data) { parser.jsonParser.setJSONData(data); }},
+		{ HTTPParser::multipartEncoded, [](HTTPParser& parser, string_view data) { parser.parseMultipart(data); }},
 	};
 
 	HTTPParser::readOnlyBuffer::readOnlyBuffer(string_view view)
@@ -90,6 +92,29 @@ namespace web
 		}
 
 		keyValueParameters[move(key)] = move(value);
+	}
+	
+	void HTTPParser::parseMultipart(string_view data)
+	{
+		constexpr string_view boundaryText = "boundary=";
+
+		const string& contentType = headers["Content-Type"];
+		size_t index = contentType.find("boundaryText");
+		string boundary = format("--{}", string_view(contentType.begin() + index + boundaryText.size(), contentType.end()));
+
+		index = 0;
+		boyer_moore_horspool_searcher searcher(boundary.begin(), boundary.end());
+
+		string_view::const_iterator it = search(data.begin(), data.end(), searcher);
+
+		do
+		{
+			string_view::const_iterator next = search(it + 1, data.end(), searcher);
+
+			multiparts.emplace_back(string_view(it + boundary.size(), next));
+
+			it = search(next + 1, data.end(), searcher);
+		} while (it != data.end());
 	}
 
 	void HTTPParser::parseContentType()
@@ -159,6 +184,15 @@ namespace web
 
 	void HTTPParser::parse(string_view HTTPMessage)
 	{
+		if (HTTPMessage.empty())
+		{
+			parsed = false;
+
+			return;
+		}
+
+		parsed = true;
+
 		size_t prevString = 0;
 		size_t nextString = HTTPMessage.find('\r');
 		string_view firstString(HTTPMessage.data(), nextString);
@@ -231,8 +265,9 @@ namespace web
 				break;
 			}
 
-			string header(next.begin(), next.begin() + next.find(':'));
-			string value(next.begin() + next.find(": ") + 2, next.end());
+			size_t colonIndex = next.find(':');
+			string header(next.begin(), next.begin() + colonIndex);
+			string value(next.begin() + colonIndex + 2, next.end());
 
 			headers.try_emplace(move(header), move(value));
 		}
@@ -328,6 +363,16 @@ namespace web
 		return rawData;
 	}
 
+	const vector<Multipart>& HTTPParser::getMultiparts() const
+	{
+		return multiparts;
+	}
+
+	HTTPParser::operator bool() const
+	{
+		return parsed;
+	}
+
 	ostream& operator << (ostream& outputStream, const HTTPParser& parser)
 	{
 		string result;
@@ -393,7 +438,10 @@ namespace web
 		istreambuf_iterator<char> it(inputStream);
 		string httpMessage(it, {});
 
-		parser.parse(httpMessage);
+		if (httpMessage.size())
+		{
+			parser.parse(httpMessage);
+		}
 
 		return inputStream;
 	}

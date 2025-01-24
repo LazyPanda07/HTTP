@@ -3,6 +3,7 @@
 #include <ostream>
 #include <unordered_map>
 #include <string>
+#include <optional>
 
 #ifdef HTTP_DLL
 #ifdef __LINUX__
@@ -149,21 +150,38 @@ namespace web
 	HTTP_API_FUNCTION std::string __getMessageFromCode(int code);
 
 	/// @brief Custom hashing for headers with case insensitive
-	struct HTTP_API insensitiveStringHash
+	struct HTTP_API InsensitiveStringHash
 	{
 		size_t operator () (const std::string& value) const;
 	};
 
 	/// @brief Custom equal for headers
-	struct HTTP_API insensitiveStringEqual
+	struct HTTP_API InsensitiveStringEqual
 	{
 		bool operator () (const std::string& left, const std::string& right) const;
 	};
 
 	/**
+	 * @brief Defines each part of multipart/form-data
+	 */
+	class HTTP_API Multipart
+	{
+	private:
+		std::string name;
+		std::optional<std::string> fileName;
+		std::optional<std::string> contentType;
+		std::vector<char> data;
+
+	public:
+		Multipart(std::string_view data);
+
+		~Multipart() = default;
+	};
+
+	/**
 	 * @brief Case insensitive unordered_map
 	*/
-	using HeadersMap = std::unordered_map<std::string, std::string, insensitiveStringHash, insensitiveStringEqual>;
+	using HeadersMap = std::unordered_map<std::string, std::string, InsensitiveStringHash, InsensitiveStringEqual>;
 }
 
 namespace web

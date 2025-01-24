@@ -3,12 +3,103 @@
 #include <iostream>
 #include <algorithm>
 #include <optional>
+#include <charconv>
+#include <array>
+
+#include "HTTPParseException.h"
+#include "HTTPParser.h"
 
 using namespace std;
 
 static optional<string_view> encodeSymbol(char symbol);
 
 static optional<char> decodeSymbol(string_view symbol);
+
+template<typename T>
+struct Converter
+{
+	constexpr void convert(string_view data, T& result)
+	{
+		static_assert(false, "Wrong type");
+	}
+};
+
+template<>
+struct Converter<string>
+{
+	void convert(string_view data, string& result)
+	{
+		result = data;
+	}
+};
+
+template<>
+struct Converter<optional<string>>
+{
+	void convert(string_view data, optional<string>& result)
+	{
+		result = data;
+	}
+};
+
+template<typename... Args>
+class MultipartParser
+{
+private:
+	array<size_t, sizeof...(Args)> offsets;
+	array<char, sizeof...(Args)> nextCharacter;
+
+private:
+	template<size_t Index>
+	constexpr auto& getValue(Args&... args) const
+	{
+		return get<Index>(forward_as_tuple(args...));
+	}
+
+	template<size_t Index = 0>
+	constexpr void parseValue(string_view data, size_t offset, Args&... args) const
+	{
+		auto& value = this->getValue<Index>(args...);
+		string_view stringValue(data.begin() + offset + offsets[Index], data.begin() + data.find(nextCharacter[Index], offset + offsets[Index]));
+		Converter<remove_reference_t<decltype(value)>> converter;
+
+		converter.convert(stringValue, value);
+
+		if constexpr (Index + 1 != sizeof...(Args))
+		{
+			this->parseValue<Index + 1>(data, offset + stringValue.size(), args...);
+		}
+	}
+
+public:
+	constexpr MultipartParser(string_view format)
+	{
+		size_t offset = format.find("{}");
+		size_t index = 0;
+
+		while (offset != string_view::npos)
+		{
+#ifndef __LINUX__
+#pragma warning(push)
+#pragma warning(disable: 28020)
+#endif
+			offsets[index] = offset - 2 * index;
+#ifndef __LINUX__
+#pragma warning(pop)
+#endif
+			nextCharacter[index] = format[offset + 2];
+
+			offset = format.find("{}", offset + 1);
+
+			index++;
+		}
+	}
+
+	void getValues(string_view data, Args&... args) const
+	{
+		this->parseValue(data, 0, args...);
+	}
+};
 
 namespace web
 {
@@ -72,7 +163,7 @@ namespace web
 		return result;
 	}
 
-	size_t insensitiveStringHash::operator () (const string& value) const
+	size_t InsensitiveStringHash::operator () (const string& value) const
 	{
 		string tem;
 
@@ -83,7 +174,7 @@ namespace web
 		return hash<string>()(tem);
 	}
 
-	bool insensitiveStringEqual::operator () (const string& left, const string& right) const
+	bool InsensitiveStringEqual::operator () (const string& left, const string& right) const
 	{
 		return equal
 		(
@@ -91,6 +182,29 @@ namespace web
 			right.begin(), right.end(),
 			[](char first, char second) { return tolower(first) == tolower(second); }
 		);
+	}
+
+	Multipart::Multipart(string_view data)
+	{
+		if (data.find("filename") != string_view::npos)
+		{
+			constexpr MultipartParser<string> parser(R"(Content-Disposition: form-data; name="{}")");
+
+			parser.getValues(data.substr(0, data.find(web::HTTPParser::crlf)), name);
+		}
+		else
+		{
+			constexpr MultipartParser<string, optional<string>> parser(R"(Content-Disposition: form-data; name="{}"; filename="{}")");
+
+			parser.getValues(data, name, fileName);
+		}
+
+		if (data.find("Content-Type:") != string_view::npos)
+		{
+			constexpr MultipartParser<optional<string>> parser("Content-Type: {}\r");
+
+			parser.getValues(data, contentType);
+		}
 	}
 
 	string __getMessageFromCode(int code)
