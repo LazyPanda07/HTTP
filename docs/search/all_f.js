@@ -1,11 +1,18 @@
 var searchData=
 [
-  ['rangenotsatisfiable_0',['rangeNotSatisfiable',['../namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a1697b2cbede61df2d0cadfbfdc7c2c66',1,'web']]],
-  ['requestheaderfieldstoolarge_1',['requestHeaderFieldsTooLarge',['../namespaceweb.html#a5a849da4ada867d4591d74f812c24e10add6597c3950f90ef1d08525abcb27902',1,'web']]],
-  ['requesttimeout_2',['requestTimeout',['../namespaceweb.html#a5a849da4ada867d4591d74f812c24e10aac71c3b666d083bb2343b69e2feb8a45',1,'web']]],
-  ['resetcontent_3',['resetContent',['../namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a6642a5cdc7415448be4a4b81f160734b',1,'web']]],
-  ['responsecode_4',['responseCode',['../classweb_1_1_h_t_t_p_builder.html#ad56bf0ca62c2a8ab42c9b47adf6603d8',1,'web::HTTPBuilder::responseCode(responseCodes code)'],['../classweb_1_1_h_t_t_p_builder.html#a31acfce9675d34d9dbaa1ae3f0eae509',1,'web::HTTPBuilder::responseCode(int code, std::string_view responseMessage)']]],
-  ['responsecodes_5',['responseCodes',['../namespaceweb.html#a5a849da4ada867d4591d74f812c24e10',1,'web']]],
-  ['responsecodesize_6',['responseCodeSize',['../_h_t_t_p_parser_8cpp.html#ad0786f4e2ae6df433f30d873acdd7aa4',1,'HTTPParser.cpp']]],
-  ['retrywith_7',['retryWith',['../namespaceweb.html#a5a849da4ada867d4591d74f812c24e10acaa649a6b8f5c4db97a42cd5e742de50',1,'web']]]
+  ['parameters_0',['parameters',['../classweb_1_1_h_t_t_p_builder.html#a0f069fd29b28828df515631a43d77ce3',1,'web::HTTPBuilder::parameters(StringT &amp;&amp;name, T &amp;&amp;value, Args &amp;&amp;... args)'],['../classweb_1_1_h_t_t_p_builder.html#a1f7726b5488e56310802796db06ee996',1,'web::HTTPBuilder::parameters(std::string_view parameters)']]],
+  ['parameterswithroute_1',['parametersWithRoute',['../classweb_1_1_h_t_t_p_builder.html#a790eff30f008d4b49cf9d47c1bfcc836',1,'web::HTTPBuilder']]],
+  ['parse_2',['parse',['../classweb_1_1_h_t_t_p_parser.html#a3d7d744fde526e32b4119aec9806a51c',1,'web::HTTPParser']]],
+  ['partialchunks_3',['partialChunks',['../classweb_1_1_h_t_t_p_builder.html#a6a56049889fe57a51c22354a9c65de62',1,'web::HTTPBuilder']]],
+  ['partialcontent_4',['partialContent',['../namespaceweb.html#a18c14b1c70296b86cfef40579c0602e4af59a31225b7c18d18ab9cf35b3c96312',1,'web']]],
+  ['patchrequest_5',['patchRequest',['../classweb_1_1_h_t_t_p_builder.html#adf7b27de98a3dbae317e92d9547375ae',1,'web::HTTPBuilder']]],
+  ['payloadtoolarge_6',['payloadTooLarge',['../namespaceweb.html#a18c14b1c70296b86cfef40579c0602e4aedc8ae34e20cbe1a27ce47cd4e7d643d',1,'web']]],
+  ['paymentrequired_7',['paymentRequired',['../namespaceweb.html#a18c14b1c70296b86cfef40579c0602e4a362d736e16fb629b3bfcfaf43269a73f',1,'web']]],
+  ['permanentredirect_8',['permanentRedirect',['../namespaceweb.html#a18c14b1c70296b86cfef40579c0602e4aa6a132cd6d0630be4755daf45de51ef3',1,'web']]],
+  ['postrequest_9',['postRequest',['../classweb_1_1_h_t_t_p_builder.html#a87cfd31d04b3b97e242503e9ca888e9d',1,'web::HTTPBuilder']]],
+  ['preconditionfailed_10',['preconditionFailed',['../namespaceweb.html#a18c14b1c70296b86cfef40579c0602e4a58a89f73e9d046b5a86442310629f8e6',1,'web']]],
+  ['preconditionrequired_11',['preconditionRequired',['../namespaceweb.html#a18c14b1c70296b86cfef40579c0602e4a135848a06b644cc2967c13fe18135e56',1,'web']]],
+  ['processing_12',['processing',['../namespaceweb.html#a18c14b1c70296b86cfef40579c0602e4a4374990dedc873c6a9417a355a2ac4cf',1,'web']]],
+  ['proxyauthenticationrequired_13',['proxyAuthenticationRequired',['../namespaceweb.html#a18c14b1c70296b86cfef40579c0602e4a12075314ec809b91f81df74c05b88c7b',1,'web']]],
+  ['putrequest_14',['putRequest',['../classweb_1_1_h_t_t_p_builder.html#ad14c8e1760febead134f7ff6aae93de6',1,'web::HTTPBuilder']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['responsecodes_0',['responseCodes',['../namespaceweb.html#a5a849da4ada867d4591d74f812c24e10',1,'web']]]
+  ['responsecodes_0',['ResponseCodes',['../namespaceweb.html#a18c14b1c70296b86cfef40579c0602e4',1,'web']]]
 ];

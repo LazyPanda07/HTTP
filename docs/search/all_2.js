@@ -1,26 +1,7 @@
 var searchData=
 [
-  ['checkatcompiletime_2eh_0',['CheckAtCompileTime.h',['../_check_at_compile_time_8h.html',1,'']]],
-  ['checkbegin_1',['checkBegin',['../classutility_1_1check_begin.html',1,'utility']]],
-  ['checkdata_2',['checkData',['../classutility_1_1check_data.html',1,'utility']]],
-  ['checked_3',['checked',['../classutility_1_1check_initializer_list_constructor.html#a070abdd22f050a7035b2d26123572169',1,'utility::checkInitializerListConstructor::checked(int)'],['../classutility_1_1check_initializer_list_constructor.html#a1dace51c7ba5daebbd78cff171f8ce44',1,'utility::checkInitializerListConstructor::checked(...)']]],
-  ['checkend_4',['checkEnd',['../classutility_1_1check_end.html',1,'utility']]],
-  ['checkinitializerlistconstructor_5',['checkInitializerListConstructor',['../classutility_1_1check_initializer_list_constructor.html',1,'utility']]],
-  ['checkresize_6',['checkResize',['../classutility_1_1check_resize.html',1,'utility']]],
-  ['checksize_7',['checkSize',['../classutility_1_1check_size.html',1,'utility']]],
-  ['chunk_8',['chunk',['../classweb_1_1_h_t_t_p_builder.html#adb92e78bb1f0dd1f74deefdb0d7094c7',1,'web::HTTPBuilder']]],
-  ['chunkencoded_9',['chunkEncoded',['../classweb_1_1_h_t_t_p_parser.html#a352d4225145eb74fd00bbdeb895afd5a',1,'web::HTTPParser']]],
-  ['chunks_10',['chunks',['../classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759',1,'web::HTTPBuilder']]],
-  ['clear_11',['clear',['../classweb_1_1_h_t_t_p_builder.html#a19dfb77f3d55960e96ebaa93fa8b5ab1',1,'web::HTTPBuilder']]],
-  ['clientclosedrequest_12',['clientClosedRequest',['../namespaceweb.html#a5a849da4ada867d4591d74f812c24e10ad7b570d122c689ded384e359db3c1758',1,'web']]],
-  ['conflict_13',['conflict',['../namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a981f1875779561e79585a2ae43a196fb',1,'web']]],
-  ['connectiontimedout_14',['connectionTimedOut',['../namespaceweb.html#a5a849da4ada867d4591d74f812c24e10aa897205613aabcd6f89cb507f03045ed',1,'web']]],
-  ['connectrequest_15',['connectRequest',['../classweb_1_1_h_t_t_p_builder.html#a709dce20561ed12f27af9c3f2675699d',1,'web::HTTPBuilder']]],
-  ['contentlengthheader_16',['contentLengthHeader',['../classweb_1_1_h_t_t_p_parser.html#af939415b8573b36c0843d71b58368f58',1,'web::HTTPParser']]],
-  ['contenttypeheader_17',['contentTypeHeader',['../classweb_1_1_h_t_t_p_parser.html#ad782da4abb9921f02f4ac9c8b1a01868',1,'web::HTTPParser']]],
-  ['continue_18',['Continue',['../namespaceweb.html#a5a849da4ada867d4591d74f812c24e10aa0bfb8e59e6c13fc8d990781f77694fe',1,'web']]],
-  ['create_5fcheck_5fclass_19',['CREATE_CHECK_CLASS',['../_check_at_compile_time_8h.html#a04a1ed6b91f47880d53f3638afe74e6a',1,'CheckAtCompileTime.h']]],
-  ['created_20',['created',['../namespaceweb.html#a5a849da4ada867d4591d74f812c24e10ae2fa538867c3830a859a5b17ab24644b',1,'web']]],
-  ['crlf_21',['crlf',['../classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792',1,'web::HTTPParser']]],
-  ['crlfcrlf_22',['crlfcrlf',['../classweb_1_1_h_t_t_p_parser.html#a815cb58afd4c980c29aa7a5e6637148a',1,'web::HTTPParser']]]
+  ['badgateway_0',['badGateway',['../namespaceweb.html#a18c14b1c70296b86cfef40579c0602e4a18144303dbbe5f096515b62cc17c80ef',1,'web']]],
+  ['badrequest_1',['badRequest',['../namespaceweb.html#a18c14b1c70296b86cfef40579c0602e4a191e84728d0e7af5462fa798d83d29ba',1,'web']]],
+  ['bandwidthlimitexceeded_2',['bandwidthLimitExceeded',['../namespaceweb.html#a18c14b1c70296b86cfef40579c0602e4a5f141e54df6598e681e02c9af2477dee',1,'web']]],
+  ['build_3',['build',['../classweb_1_1_h_t_t_p_builder.html#aed43013dae64387f39313b9942b4712c',1,'web::HTTPBuilder::build(std::string_view data=&quot;&quot;, const std::unordered_map&lt; std::string, std::string &gt; &amp;additionalHeaders={}) const'],['../classweb_1_1_h_t_t_p_builder.html#aac887940b44107008f45fd905235a492',1,'web::HTTPBuilder::build(const json::JSONBuilder &amp;builder, std::unordered_map&lt; std::string, std::string &gt; additionalHeaders={}) const'],['../classweb_1_1_h_t_t_p_builder.html#a16a6058fa091f5d82365f4c7803062ce',1,'web::HTTPBuilder::build(const std::unordered_map&lt; std::string, std::string &gt; &amp;urlEncoded, std::unordered_map&lt; std::string, std::string &gt; additionalHeaders={}) const']]]
 ];

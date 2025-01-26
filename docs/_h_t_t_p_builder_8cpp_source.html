@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.9.7</span>
+   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.10.0</span>
    </div>
   </td>
  </tr>
@@ -111,516 +111,380 @@ $(function(){initNavTree('_h_t_t_p_builder_8cpp_source.html',''); initResizable(
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">using namespace </span>std;</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">static</span> <span class="keyword">const</span> unordered_map&lt;web::responseCodes, string&gt; responseMessage =</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">static</span> <span class="keyword">const</span> unordered_set&lt;string_view&gt; availableHTTPVersions =</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10aa0bfb8e59e6c13fc8d990781f77694fe">web::responseCodes::Continue</a>, <span class="stringliteral">&quot;Continue&quot;</span> },</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a819e18c183b1fd7865fa280aa4187e85">web::responseCodes::switchingProtocols</a>, <span class="stringliteral">&quot;Switching Protocols&quot;</span> },</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a4374990dedc873c6a9417a355a2ac4cf">web::responseCodes::processing</a>, <span class="stringliteral">&quot;Processing&quot;</span> },</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a444bcb3a3fcf8389296c49467f27e1d6">web::responseCodes::ok</a>, <span class="stringliteral">&quot;OK&quot;</span> },</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10ae2fa538867c3830a859a5b17ab24644b">web::responseCodes::created</a>, <span class="stringliteral">&quot;Created&quot;</span> },</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a3e4d891a5df3d6d0d7dd9432a1bc6470">web::responseCodes::accepted</a>, <span class="stringliteral">&quot;Accepted&quot;</span> },</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10af3185fa6995826bef6d79c7a907a364b">web::responseCodes::nonAuthoritativeInformation</a>, <span class="stringliteral">&quot;Non-Authoritative Information&quot;</span> },</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a3e160690c02cd55f8f39ee26d1eeec0a">web::responseCodes::noContent</a>, <span class="stringliteral">&quot;No Content&quot;</span> },</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a6642a5cdc7415448be4a4b81f160734b">web::responseCodes::resetContent</a>, <span class="stringliteral">&quot;Reset Content&quot;</span> },</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10af59a31225b7c18d18ab9cf35b3c96312">web::responseCodes::partialContent</a>, <span class="stringliteral">&quot;Partial Content&quot;</span> },</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a062f0fbe645b60ccdd0f50e073c332f9">web::responseCodes::multiStatus</a>, <span class="stringliteral">&quot;Multi-Status&quot;</span> },</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10ae09fa3186bdf9bec8fe03b2790ac4e6c">web::responseCodes::alreadyReported</a>, <span class="stringliteral">&quot;Already Reported&quot;</span> },</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10aa3abca599dedd534e63c999418d70f45">web::responseCodes::IMUsed</a>, <span class="stringliteral">&quot;IM Used&quot;</span> },</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a164f7afbdcfd5da47f98d43d588bb712">web::responseCodes::multipleChoices</a>, <span class="stringliteral">&quot;Multiple Choices&quot;</span> },</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a71eb4de33dca3d6e24495d8a6bc5abc3">web::responseCodes::movedPermanently</a>, <span class="stringliteral">&quot;Moved Permanently&quot;</span> },</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a6cfe61694ee1bb13ae719d47c2f80b7a">web::responseCodes::found</a>, <span class="stringliteral">&quot;Found&quot;</span> },</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10ad1789283579479af6742859ff9684ff6">web::responseCodes::seeOther</a>, <span class="stringliteral">&quot;See Other&quot;</span> },</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a1888a77d5b56d0c58a47b96713f6c7ee">web::responseCodes::notModified</a>, <span class="stringliteral">&quot;Not Modified&quot;</span> },</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a10940b062267bae0ca02911e9ece31f3">web::responseCodes::useProxy</a>, <span class="stringliteral">&quot;Use Proxy&quot;</span> },</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a62f1f1cac1e9f2410bbe509c6c63ed52">web::responseCodes::temporaryRedirect</a>, <span class="stringliteral">&quot;Temporary Redirect&quot;</span> },</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10aa6a132cd6d0630be4755daf45de51ef3">web::responseCodes::permanentRedirect</a>, <span class="stringliteral">&quot;Permanent Redirect&quot;</span> },</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a191e84728d0e7af5462fa798d83d29ba">web::responseCodes::badRequest</a>, <span class="stringliteral">&quot;Bad Request&quot;</span> },</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a36fd540552b3b1b34e8f0bd8897cbf1e">web::responseCodes::unauthorized</a>, <span class="stringliteral">&quot;Unauthorized&quot;</span> },</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a362d736e16fb629b3bfcfaf43269a73f">web::responseCodes::paymentRequired</a>, <span class="stringliteral">&quot;Payment Required&quot;</span> },</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a350f9d68221a0db19024ee40cfc3c7f8">web::responseCodes::forbidden</a>, <span class="stringliteral">&quot;Forbidden&quot;</span> },</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a5ccf4d5c325b7db68777f400f66fd1b1">web::responseCodes::notFound</a>, <span class="stringliteral">&quot;Not Found&quot;</span> },</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a30fa93586712759fe203157875ca80d6">web::responseCodes::methodNotAllowed</a>, <span class="stringliteral">&quot;Method Not Allowed&quot;</span> },</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10acbbb01b1868a342d020f7d6618ba513d">web::responseCodes::notAcceptable</a>, <span class="stringliteral">&quot;Not Acceptable&quot;</span> },</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a12075314ec809b91f81df74c05b88c7b">web::responseCodes::proxyAuthenticationRequired</a>, <span class="stringliteral">&quot;Proxy Authentication Required&quot;</span> },</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10aac71c3b666d083bb2343b69e2feb8a45">web::responseCodes::requestTimeout</a>, <span class="stringliteral">&quot;Request Timeout&quot;</span> },</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a981f1875779561e79585a2ae43a196fb">web::responseCodes::conflict</a>, <span class="stringliteral">&quot;Conflict&quot;</span> },</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a50c1f58be7f5e47e0f53d64c094783c2">web::responseCodes::gone</a>, <span class="stringliteral">&quot;Gone&quot;</span> },</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a73681929040abde417d9d68e1dc44703">web::responseCodes::lengthRequired</a>, <span class="stringliteral">&quot;Length Required&quot;</span> },</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a58a89f73e9d046b5a86442310629f8e6">web::responseCodes::preconditionFailed</a>, <span class="stringliteral">&quot;Precondition Failed&quot;</span> },</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10aedc8ae34e20cbe1a27ce47cd4e7d643d">web::responseCodes::payloadTooLarge</a>, <span class="stringliteral">&quot;Payload Too Large&quot;</span> },</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a49b33893beb20e48d9617f4934624adc">web::responseCodes::URITooLong</a>, <span class="stringliteral">&quot;URI Tool Long&quot;</span> },</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a23cd5b20a548d3ab831caeecc4449f5f">web::responseCodes::unsupportedMediaType</a>, <span class="stringliteral">&quot;Unsupported Media Type&quot;</span> },</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a1697b2cbede61df2d0cadfbfdc7c2c66">web::responseCodes::rangeNotSatisfiable</a>, <span class="stringliteral">&quot;Range Not Satisfiable&quot;</span> },</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10abfa16591a79cd887b12353cb073a4d5f">web::responseCodes::expectationFailed</a>, <span class="stringliteral">&quot;Expectation Failed&quot;</span> },</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10abfc1757293de18b2fe00362b0c177fed">web::responseCodes::iamATeapot</a>, <span class="stringliteral">&quot;I am teapot&quot;</span> },</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a0fb46f4c80d7624b2d7e2b6b927a8c82">web::responseCodes::authenticationTimeout</a>, <span class="stringliteral">&quot;Authentication Timeout&quot;</span> },</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10aa8d1b9298e372a77c2b5f34ba1ed3cc4">web::responseCodes::misdirectedRequest</a>, <span class="stringliteral">&quot;Misdirected Request&quot;</span> },</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a2cce08f0f98bf072d8267b551e26699b">web::responseCodes::unprocessableEntity</a>, <span class="stringliteral">&quot;Unprocessable Entity&quot;</span> },</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a4cef2f30ac7d33419d00c1d93a090095">web::responseCodes::locked</a>, <span class="stringliteral">&quot;Locked&quot;</span> },</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a3807a5e47c09ee5a140fcb237ad7bdae">web::responseCodes::failedDependency</a>, <span class="stringliteral">&quot;Failed Dependency&quot;</span> },</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a36b5d9c6328c795762eb00ebdc6c7e1d">web::responseCodes::upgradeRequired</a>, <span class="stringliteral">&quot;Upgrade Required&quot;</span> },</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a135848a06b644cc2967c13fe18135e56">web::responseCodes::preconditionRequired</a>, <span class="stringliteral">&quot;Precondition Required&quot;</span> },</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a2c57ce6aaa9ba12942df2814796053a3">web::responseCodes::tooManyRequests</a>, <span class="stringliteral">&quot;Too Many Requests&quot;</span> },</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10add6597c3950f90ef1d08525abcb27902">web::responseCodes::requestHeaderFieldsTooLarge</a>, <span class="stringliteral">&quot;Request Header Fields Too Large&quot;</span> },</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10acaa649a6b8f5c4db97a42cd5e742de50">web::responseCodes::retryWith</a>, <span class="stringliteral">&quot;Retry With&quot;</span> },</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a64d55fec02daaa07499ddec7819c569f">web::responseCodes::unavailableForLegalReasons</a>, <span class="stringliteral">&quot;Unavailable For Legal Reasons&quot;</span> },</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10ad7b570d122c689ded384e359db3c1758">web::responseCodes::clientClosedRequest</a>, <span class="stringliteral">&quot;Client Closed Request&quot;</span> },</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a86e8ec751602c7e504b927e4518a3473">web::responseCodes::internalServerError</a>, <span class="stringliteral">&quot;Internal Server Error&quot;</span> },</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a558e60239d9c9c3f63fef490b85009bb">web::responseCodes::notImplemented</a>, <span class="stringliteral">&quot;Not Implemented&quot;</span> },</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a18144303dbbe5f096515b62cc17c80ef">web::responseCodes::badGateway</a>, <span class="stringliteral">&quot;Bad Gateway&quot;</span> },</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10acd04c885934feb3ac024a9ceab46c4c5">web::responseCodes::serviceUnavailable</a>, <span class="stringliteral">&quot;Service Unavailable&quot;</span> },</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a26c46008029b3afe7689954d16357525">web::responseCodes::gatewayTimeout</a>, <span class="stringliteral">&quot;Gateway Timeout&quot;</span> },</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a036c4283fc4ecb1686f44462f75208e5">web::responseCodes::HTTPVersionNotSupported</a>, <span class="stringliteral">&quot;HTTP Version Not Supported&quot;</span> },</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a4d6e9e15b50de54aa187d3afe4ea9ce3">web::responseCodes::variantAlsoNegotiates</a>, <span class="stringliteral">&quot;Variant Also Negotiates&quot;</span> },</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10ad13d6c88f6a03588758c4946c469ed71">web::responseCodes::insufficientStorage</a>, <span class="stringliteral">&quot;Insufficient Storage&quot;</span> },</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a40cb9faecd70a06be4fc1d1d19ab8c93">web::responseCodes::loopDetected</a>, <span class="stringliteral">&quot;Loop Detected&quot;</span> },</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a5f141e54df6598e681e02c9af2477dee">web::responseCodes::bandwidthLimitExceeded</a>, <span class="stringliteral">&quot;Bandwidth Limit Exceeded&quot;</span> },</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a241c611f181c4d84b40d650b18b7e8c9">web::responseCodes::notExtended</a>, <span class="stringliteral">&quot;Not Extended&quot;</span> },</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a01ff10c76757be1a185dcfbc95cfb3cb">web::responseCodes::networkAuthenticationRequired</a>, <span class="stringliteral">&quot;Network Authentication Required&quot;</span> },</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10ab4bc835c54908cb7b11b9a023798cb22">web::responseCodes::unknownError</a>, <span class="stringliteral">&quot;Unknown Error&quot;</span> },</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a0a9ccee61d4d12831897809d3851a7b6">web::responseCodes::webServerIsDown</a>, <span class="stringliteral">&quot;Web Server Is Down&quot;</span> },</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10aa897205613aabcd6f89cb507f03045ed">web::responseCodes::connectionTimedOut</a>, <span class="stringliteral">&quot;Connection Timed Out&quot;</span> },</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a904acd04aaa080705471e86d6c6a0e55">web::responseCodes::originIsUnreachable</a>, <span class="stringliteral">&quot;Origin Is Unreachable&quot;</span> },</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10afe5d49b53fc5b3b0fc196c69a2a7e7ae">web::responseCodes::aTimeoutOccurred</a>, <span class="stringliteral">&quot;A Timeout Occurred&quot;</span> },</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10aae62edfee054b11b0709d4399a93647b">web::responseCodes::SSLHandshakeFailed</a>, <span class="stringliteral">&quot;SSL Handshake Failed&quot;</span> },</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    { <a class="code hl_enumvalue" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a2111f1f632e355ecb74a721d527bfd35">web::responseCodes::invalidSSLCertificate</a>, <span class="stringliteral">&quot;Invalid SSL Certificate&quot;</span> }</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>};</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="stringliteral">&quot;HTTP/0.9&quot;</span>,</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="stringliteral">&quot;HTTP/1.0&quot;</span>,</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="stringliteral">&quot;HTTP/1.1&quot;</span>,</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="stringliteral">&quot;HTTP/2&quot;</span>,</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="stringliteral">&quot;HTTP/3&quot;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>};</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="foldopen" id="foldopen00022" data-start="{" data-end="}">
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="namespaceweb.html">   22</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceweb.html">web</a></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>{</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; HTTPBuilder::parameters()</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        _parameters.pop_back();</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    }</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="foldopen" id="foldopen00031" data-start="{" data-end="}">
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#aaf819054eeb04648ed52c74c48dfbcc1">   31</a></span>    <span class="keywordtype">string</span> <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aaf819054eeb04648ed52c74c48dfbcc1">HTTPBuilder::getChunks</a>(<span class="keyword">const</span> vector&lt;string&gt;&amp; chunks, <span class="keywordtype">bool</span> partialChunks, <span class="keywordtype">bool</span> preCalculateSize)</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordtype">string</span> result;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordflow">if</span> (preCalculateSize)</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            <span class="keywordtype">size_t</span> resultSize = 0;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#adb92e78bb1f0dd1f74deefdb0d7094c7">chunk</a> : <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">chunks</a>)</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>                resultSize += format(<span class="stringliteral">&quot;{:x}&quot;</span>, <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#adb92e78bb1f0dd1f74deefdb0d7094c7">chunk</a>.size()).size() + <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>.size() + <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#adb92e78bb1f0dd1f74deefdb0d7094c7">chunk</a>.size() + <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>.size();</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            }</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            resultSize += 1 + <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>.size();</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            result.reserve(resultSize);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        }</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#adb92e78bb1f0dd1f74deefdb0d7094c7">chunk</a> : <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">chunks</a>)</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            result += <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a3beada01ecda3d1e4aca6e027617a19e">HTTPBuilder::getChunk</a>(<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#adb92e78bb1f0dd1f74deefdb0d7094c7">chunk</a>);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        }</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordflow">if</span> (!<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a6a56049889fe57a51c22354a9c65de62">partialChunks</a>)</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            result += <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a3beada01ecda3d1e4aca6e027617a19e">HTTPBuilder::getChunk</a>({});</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        }</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordflow">return</span> result;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    }</div>
+</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="foldopen" id="foldopen00062" data-start="{" data-end="}">
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#a3beada01ecda3d1e4aca6e027617a19e">   62</a></span>    <span class="keywordtype">string</span> <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a3beada01ecda3d1e4aca6e027617a19e">HTTPBuilder::getChunk</a>(string_view chunk)</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    {</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordflow">return</span> format(<span class="stringliteral">&quot;{:x}{}{}{}&quot;</span>, <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#adb92e78bb1f0dd1f74deefdb0d7094c7">chunk</a>.size(), <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>, <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#adb92e78bb1f0dd1f74deefdb0d7094c7">chunk</a>, <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    }</div>
+</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aa2a246f805935f000f82d609a9a67d69">HTTPBuilder::HTTPBuilder</a>(string_view fullHTTPVersion) :</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        _HTTPVersion(fullHTTPVersion),</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        _partialChunks(false)</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keywordflow">if</span> (availableHTTPVersions.find(fullHTTPVersion) == availableHTTPVersions.end())</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        {</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            throw runtime_error(<span class="stringliteral">&quot;Wrong HTTP version&quot;</span>);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        }</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    }</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="foldopen" id="foldopen00077" data-start="{" data-end="}">
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#a591e293f2f3981636ac24fe456804025">   77</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a591e293f2f3981636ac24fe456804025">HTTPBuilder::getRequest</a>()</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    {</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        method = <span class="stringliteral">&quot;GET&quot;</span>;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    }</div>
+</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="foldopen" id="foldopen00084" data-start="{" data-end="}">
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#a87cfd31d04b3b97e242503e9ca888e9d">   84</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a87cfd31d04b3b97e242503e9ca888e9d">HTTPBuilder::postRequest</a>()</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        method = <span class="stringliteral">&quot;POST&quot;</span>;</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keyword">static</span> <span class="keyword">const</span> unordered_set&lt;string_view&gt; availableHTTPVersions =</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>{</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="stringliteral">&quot;HTTP/0.9&quot;</span>,</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="stringliteral">&quot;HTTP/1.0&quot;</span>,</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="stringliteral">&quot;HTTP/1.1&quot;</span>,</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="stringliteral">&quot;HTTP/2&quot;</span>,</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="stringliteral">&quot;HTTP/3&quot;</span></div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>};</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="foldopen" id="foldopen00097" data-start="{" data-end="}">
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="namespaceweb.html">   97</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceweb.html">web</a></div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>{</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; HTTPBuilder::parameters()</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    {</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        _parameters.pop_back();</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    }</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
-<div class="foldopen" id="foldopen00106" data-start="{" data-end="}">
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#aaf819054eeb04648ed52c74c48dfbcc1">  106</a></span>    <span class="keywordtype">string</span> <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aaf819054eeb04648ed52c74c48dfbcc1">HTTPBuilder::getChunks</a>(<span class="keyword">const</span> vector&lt;string&gt;&amp; chunks, <span class="keywordtype">bool</span> partialChunks, <span class="keywordtype">bool</span> preCalculateSize)</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    {</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="keywordtype">string</span> result;</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <span class="keywordflow">if</span> (preCalculateSize)</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        {</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            <span class="keywordtype">size_t</span> resultSize = 0;</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#adb92e78bb1f0dd1f74deefdb0d7094c7">chunk</a> : <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">chunks</a>)</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            {</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>                resultSize += format(<span class="stringliteral">&quot;{:x}&quot;</span>, <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#adb92e78bb1f0dd1f74deefdb0d7094c7">chunk</a>.size()).size() + <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>.size() + <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#adb92e78bb1f0dd1f74deefdb0d7094c7">chunk</a>.size() + <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>.size();</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            }</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    }</div>
+</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="foldopen" id="foldopen00091" data-start="{" data-end="}">
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#ad14c8e1760febead134f7ff6aae93de6">   91</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#ad14c8e1760febead134f7ff6aae93de6">HTTPBuilder::putRequest</a>()</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    {</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        method = <span class="stringliteral">&quot;PUT&quot;</span>;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    }</div>
+</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="foldopen" id="foldopen00098" data-start="{" data-end="}">
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#abc6c80e8a5e8254e4ef21fa0b7f3d4c6">   98</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#abc6c80e8a5e8254e4ef21fa0b7f3d4c6">HTTPBuilder::headRequest</a>()</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    {</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        method = <span class="stringliteral">&quot;HEAD&quot;</span>;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    }</div>
+</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="foldopen" id="foldopen00105" data-start="{" data-end="}">
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#a82bd8cae588f89ddd3691c1e46d3e011">  105</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a82bd8cae588f89ddd3691c1e46d3e011">HTTPBuilder::optionsRequest</a>()</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        method = <span class="stringliteral">&quot;OPTIONS&quot;</span>;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    }</div>
+</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="foldopen" id="foldopen00112" data-start="{" data-end="}">
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#af89af347f10292209346086aa017e05d">  112</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#af89af347f10292209346086aa017e05d">HTTPBuilder::deleteRequest</a>()</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    {</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        method = <span class="stringliteral">&quot;DELETE&quot;</span>;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    }</div>
+</div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>            resultSize += 1 + <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>.size();</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>            result.reserve(resultSize);</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        }</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#adb92e78bb1f0dd1f74deefdb0d7094c7">chunk</a> : <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">chunks</a>)</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        {</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            result += <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a3beada01ecda3d1e4aca6e027617a19e">HTTPBuilder::getChunk</a>(<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#adb92e78bb1f0dd1f74deefdb0d7094c7">chunk</a>);</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        }</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="keywordflow">if</span> (!<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a6a56049889fe57a51c22354a9c65de62">partialChunks</a>)</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        {</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            result += <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a3beada01ecda3d1e4aca6e027617a19e">HTTPBuilder::getChunk</a>({});</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        }</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="keywordflow">return</span> result;</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    }</div>
+<div class="foldopen" id="foldopen00119" data-start="{" data-end="}">
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#a709dce20561ed12f27af9c3f2675699d">  119</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a709dce20561ed12f27af9c3f2675699d">HTTPBuilder::connectRequest</a>()</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    {</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        method = <span class="stringliteral">&quot;CONNECT&quot;</span>;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    }</div>
 </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="foldopen" id="foldopen00126" data-start="{" data-end="}">
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#a14c42de41843c21ab3ec8486146f73ae">  126</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a14c42de41843c21ab3ec8486146f73ae">HTTPBuilder::traceRequest</a>()</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    {</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        method = <span class="stringliteral">&quot;TRACE&quot;</span>;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    }</div>
+</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="foldopen" id="foldopen00133" data-start="{" data-end="}">
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#adf7b27de98a3dbae317e92d9547375ae">  133</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#adf7b27de98a3dbae317e92d9547375ae">HTTPBuilder::patchRequest</a>()</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    {</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        method = <span class="stringliteral">&quot;PATCH&quot;</span>;</div>
 <div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
-<div class="foldopen" id="foldopen00137" data-start="{" data-end="}">
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#a3beada01ecda3d1e4aca6e027617a19e">  137</a></span>    <span class="keywordtype">string</span> <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a3beada01ecda3d1e4aca6e027617a19e">HTTPBuilder::getChunk</a>(string_view chunk)</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    {</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        <span class="keywordflow">return</span> format(<span class="stringliteral">&quot;{:x}{}{}{}&quot;</span>, <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#adb92e78bb1f0dd1f74deefdb0d7094c7">chunk</a>.size(), <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>, <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#adb92e78bb1f0dd1f74deefdb0d7094c7">chunk</a>, <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>);</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    }</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    }</div>
 </div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aa2a246f805935f000f82d609a9a67d69">HTTPBuilder::HTTPBuilder</a>(string_view fullHTTPVersion) :</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        _HTTPVersion(fullHTTPVersion),</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        _partialChunks(false)</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    {</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        <span class="keywordflow">if</span> (availableHTTPVersions.find(fullHTTPVersion) == availableHTTPVersions.end())</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        {</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>            throw runtime_error(<span class="stringliteral">&quot;Wrong HTTP version&quot;</span>);</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        }</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    }</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
-<div class="foldopen" id="foldopen00152" data-start="{" data-end="}">
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#a591e293f2f3981636ac24fe456804025">  152</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a591e293f2f3981636ac24fe456804025">HTTPBuilder::getRequest</a>()</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    {</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        method = <span class="stringliteral">&quot;GET&quot;</span>;</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    }</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; HTTPBuilder::parameters(string_view parameters)</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    {</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        <span class="keywordflow">if</span> (method != <span class="stringliteral">&quot;CONNECT&quot;</span>)</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        {</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>            <span class="keywordflow">if</span> (<span class="keywordtype">size_t</span> queryStart = parameters.find(<span class="charliteral">&#39;?&#39;</span>); queryStart != string::npos)</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>            {</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>                _parameters = format</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>                (</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>                    <span class="stringliteral">&quot;{}{}&quot;</span>,</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>                    string_view(parameters.begin(), parameters.begin() + queryStart + 1),</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>                    string_view(parameters.begin() + queryStart + 1, parameters.end())</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>                );</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>            }</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>            <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>            {</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>                _parameters = parameters;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>            }</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>            <span class="keywordflow">if</span> (!_parameters.starts_with(<span class="charliteral">&#39;/&#39;</span>))</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            {</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>                _parameters.insert(_parameters.begin(), <span class="charliteral">&#39;/&#39;</span>);</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>            }</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        }</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        {</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>            _parameters = parameters;</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        }</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    }</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
+<div class="foldopen" id="foldopen00171" data-start="{" data-end="}">
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#ac6f146096af72bc85f747c282e290444">  171</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#ac6f146096af72bc85f747c282e290444">HTTPBuilder::responseCode</a>(<a class="code hl_enumeration" href="namespaceweb.html#a18c14b1c70296b86cfef40579c0602e4">ResponseCodes</a> code)</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    {</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        _responseCode = format(<span class="stringliteral">&quot;{} {}&quot;</span>, <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(code), <a class="code hl_function" href="namespaceweb.html#a3bc9e18daf1e2a897894ade00e6e1c88">getMessageFromCode</a>(code));</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    }</div>
 </div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
-<div class="foldopen" id="foldopen00159" data-start="{" data-end="}">
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#a87cfd31d04b3b97e242503e9ca888e9d">  159</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a87cfd31d04b3b97e242503e9ca888e9d">HTTPBuilder::postRequest</a>()</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    {</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        method = <span class="stringliteral">&quot;POST&quot;</span>;</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    }</div>
-</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
-<div class="foldopen" id="foldopen00166" data-start="{" data-end="}">
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#ad14c8e1760febead134f7ff6aae93de6">  166</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#ad14c8e1760febead134f7ff6aae93de6">HTTPBuilder::putRequest</a>()</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    {</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        method = <span class="stringliteral">&quot;PUT&quot;</span>;</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    }</div>
-</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
-<div class="foldopen" id="foldopen00173" data-start="{" data-end="}">
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#abc6c80e8a5e8254e4ef21fa0b7f3d4c6">  173</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#abc6c80e8a5e8254e4ef21fa0b7f3d4c6">HTTPBuilder::headRequest</a>()</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    {</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        method = <span class="stringliteral">&quot;HEAD&quot;</span>;</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    }</div>
-</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
-<div class="foldopen" id="foldopen00180" data-start="{" data-end="}">
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#a82bd8cae588f89ddd3691c1e46d3e011">  180</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a82bd8cae588f89ddd3691c1e46d3e011">HTTPBuilder::optionsRequest</a>()</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    {</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        method = <span class="stringliteral">&quot;OPTIONS&quot;</span>;</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    }</div>
-</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
-<div class="foldopen" id="foldopen00187" data-start="{" data-end="}">
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#af89af347f10292209346086aa017e05d">  187</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#af89af347f10292209346086aa017e05d">HTTPBuilder::deleteRequest</a>()</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    {</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        method = <span class="stringliteral">&quot;DELETE&quot;</span>;</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    }</div>
-</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
-<div class="foldopen" id="foldopen00194" data-start="{" data-end="}">
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#a709dce20561ed12f27af9c3f2675699d">  194</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a709dce20561ed12f27af9c3f2675699d">HTTPBuilder::connectRequest</a>()</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    {</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        method = <span class="stringliteral">&quot;CONNECT&quot;</span>;</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    }</div>
-</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    </div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#ac6f146096af72bc85f747c282e290444">HTTPBuilder::responseCode</a>(<span class="keywordtype">int</span> code, string_view responseMessage)</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    {</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        _responseCode = format(<span class="stringliteral">&quot;{} {}&quot;</span>, code, responseMessage);</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    }</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
+<div class="foldopen" id="foldopen00185" data-start="{" data-end="}">
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#ae97b87bd1987d2e5d87395ad64b589e4">  185</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#ae97b87bd1987d2e5d87395ad64b589e4">HTTPBuilder::HTTPVersion</a>(string_view HTTPVersion)</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    {</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#ae97b87bd1987d2e5d87395ad64b589e4">HTTPVersion</a>.find(<span class="stringliteral">&quot;HTTP&quot;</span>) == string::npos)</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        {</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>            _HTTPVersion = <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#ae97b87bd1987d2e5d87395ad64b589e4">HTTPVersion</a>;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>        }</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>        <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        {</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>            _HTTPVersion = format(<span class="stringliteral">&quot;HTTP/{}&quot;</span>, <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#ae97b87bd1987d2e5d87395ad64b589e4">HTTPVersion</a>);</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        }</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        <span class="keywordflow">if</span> (availableHTTPVersions.find(_HTTPVersion) == availableHTTPVersions.end())</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        {</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>            <span class="keywordflow">throw</span> runtime_error(<span class="stringliteral">&quot;Wrong HTTP version&quot;</span>);</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>        }</div>
 <div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
-<div class="foldopen" id="foldopen00201" data-start="{" data-end="}">
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#a14c42de41843c21ab3ec8486146f73ae">  201</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a14c42de41843c21ab3ec8486146f73ae">HTTPBuilder::traceRequest</a>()</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    {</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        method = <span class="stringliteral">&quot;TRACE&quot;</span>;</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    }</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    }</div>
 </div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">HTTPBuilder::chunks</a>(<span class="keyword">const</span> vector&lt;string&gt;&amp; chunks)</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    {</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>        _chunks.reserve(<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">chunks</a>.size());</div>
 <div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span> </div>
-<div class="foldopen" id="foldopen00208" data-start="{" data-end="}">
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#adf7b27de98a3dbae317e92d9547375ae">  208</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#adf7b27de98a3dbae317e92d9547375ae">HTTPBuilder::patchRequest</a>()</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    {</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>        method = <span class="stringliteral">&quot;PATCH&quot;</span>;</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span> </div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    }</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>        copy(<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">chunks</a>.begin(), <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">chunks</a>.end(), back_inserter(_chunks));</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span> </div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    }</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    HTTPBuilder&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">HTTPBuilder::chunks</a>(vector&lt;string&gt;&amp;&amp; chunks)</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    {</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        _chunks.reserve(<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">chunks</a>.size());</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span> </div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        move(<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">chunks</a>.begin(), <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">chunks</a>.end(), back_inserter(_chunks));</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    }</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span> </div>
+<div class="foldopen" id="foldopen00222" data-start="{" data-end="}">
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#adb92e78bb1f0dd1f74deefdb0d7094c7">  222</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#adb92e78bb1f0dd1f74deefdb0d7094c7">HTTPBuilder::chunk</a>(string_view chunk)</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    {</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>        _chunks.emplace_back(<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#adb92e78bb1f0dd1f74deefdb0d7094c7">chunk</a>);</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span> </div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    }</div>
 </div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; HTTPBuilder::parameters(string_view parameters)</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    {</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        <span class="keywordflow">if</span> (method != <span class="stringliteral">&quot;CONNECT&quot;</span>)</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>        {</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>            <span class="keywordflow">if</span> (<span class="keywordtype">size_t</span> queryStart = parameters.find(<span class="charliteral">&#39;?&#39;</span>); queryStart != string::npos)</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>            {</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>                _parameters = format</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>                (</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>                    <span class="stringliteral">&quot;{}{}&quot;</span>,</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>                    string_view(parameters.begin(), parameters.begin() + queryStart + 1),</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>                    string_view(parameters.begin() + queryStart + 1, parameters.end())</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>                );</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>            }</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>            <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>            {</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>                _parameters = parameters;</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>            }</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span> </div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>            <span class="keywordflow">if</span> (!_parameters.starts_with(<span class="charliteral">&#39;/&#39;</span>))</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>            {</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>                _parameters.insert(_parameters.begin(), <span class="charliteral">&#39;/&#39;</span>);</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>            }</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    <span class="keywordtype">string</span> <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aed43013dae64387f39313b9942b4712c">HTTPBuilder::build</a>(string_view data, <span class="keyword">const</span> unordered_map&lt;string, string&gt;&amp; additionalHeaders)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>        <span class="keywordtype">string</span> result;</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>        unordered_map&lt;string, string&gt; buildHeaders(additionalHeaders);</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span> </div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>        <span class="keywordflow">if</span> (data.size())</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>        {</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>            buildHeaders[<span class="stringliteral">&quot;Content-Length&quot;</span>] = to_string(data.size());</div>
 <div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        }</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>        <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (_chunks.size())</div>
 <div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>        {</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>            _parameters = parameters;</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>            buildHeaders[<span class="stringliteral">&quot;Transfer-Encoding&quot;</span>] = <span class="stringliteral">&quot;chunked&quot;</span>;</div>
 <div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>        }</div>
 <div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span> </div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    }</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
-<div class="foldopen" id="foldopen00246" data-start="{" data-end="}">
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#ad56bf0ca62c2a8ab42c9b47adf6603d8">  246</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#ad56bf0ca62c2a8ab42c9b47adf6603d8">HTTPBuilder::responseCode</a>(<a class="code hl_enumeration" href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10">responseCodes</a> code)</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    {</div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>        _responseCode = to_string(<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(code)) + <span class="charliteral">&#39; &#39;</span> + responseMessage.at(code);</div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span> </div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    }</div>
-</div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span> </div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#ad56bf0ca62c2a8ab42c9b47adf6603d8">HTTPBuilder::responseCode</a>(<span class="keywordtype">int</span> code, string_view responseMessage)</div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>    {</div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>        _responseCode = format(<span class="stringliteral">&quot;{} {}&quot;</span>, code, responseMessage);</div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span> </div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    }</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span> </div>
-<div class="foldopen" id="foldopen00260" data-start="{" data-end="}">
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#ae97b87bd1987d2e5d87395ad64b589e4">  260</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#ae97b87bd1987d2e5d87395ad64b589e4">HTTPBuilder::HTTPVersion</a>(string_view HTTPVersion)</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    {</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#ae97b87bd1987d2e5d87395ad64b589e4">HTTPVersion</a>.find(<span class="stringliteral">&quot;HTTP&quot;</span>) == string::npos)</div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>        {</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>            _HTTPVersion = <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#ae97b87bd1987d2e5d87395ad64b589e4">HTTPVersion</a>;</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>        }</div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>        <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>        <span class="keywordflow">if</span> (method.empty())</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>        {</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>            result = format(<span class="stringliteral">&quot;{} {}{}{}&quot;</span>, _HTTPVersion, _responseCode, <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>, _headers);</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>        }</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>        {</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>            result = method + <span class="charliteral">&#39; &#39;</span>;</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span> </div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>            <span class="keywordflow">if</span> (_parameters.empty() &amp;&amp; method != <span class="stringliteral">&quot;CONNECT&quot;</span>)</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>            {</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>                result += <span class="stringliteral">&quot;/&quot;</span>;</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>            }</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>            result += format(<span class="stringliteral">&quot;{} {}{}{}&quot;</span>, _parameters, _HTTPVersion, <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>, _headers);</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>        }</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span> </div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [header, value] : buildHeaders)</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>        {</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>            result += format(<span class="stringliteral">&quot;{}: {}{}&quot;</span>, header, value, <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>);</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>        }</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span> </div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>        result += <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>;</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>        <span class="keywordflow">if</span> (data.size())</div>
 <div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>        {</div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>            _HTTPVersion = format(<span class="stringliteral">&quot;HTTP/{}&quot;</span>, <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#ae97b87bd1987d2e5d87395ad64b589e4">HTTPVersion</a>);</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>            result += data;</div>
 <div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>        }</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>        <span class="keywordflow">if</span> (availableHTTPVersions.find(_HTTPVersion) == availableHTTPVersions.end())</div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>        {</div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>            <span class="keywordflow">throw</span> runtime_error(<span class="stringliteral">&quot;Wrong HTTP version&quot;</span>);</div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>        }</div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span> </div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>    }</div>
-</div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span> </div>
-<div class="foldopen" id="foldopen00279" data-start="{" data-end="}">
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">  279</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">HTTPBuilder::chunks</a>(<span class="keyword">const</span> vector&lt;string&gt;&amp; chunks)</div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    {</div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>        copy(<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">chunks</a>.begin(), <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">chunks</a>.end(), back_inserter(_chunks));</div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span> </div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>    }</div>
-</div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span> </div>
-<div class="foldopen" id="foldopen00286" data-start="{" data-end="}">
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#adb92e78bb1f0dd1f74deefdb0d7094c7">  286</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#adb92e78bb1f0dd1f74deefdb0d7094c7">HTTPBuilder::chunk</a>(string_view chunk)</div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>    {</div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>        _chunks.emplace_back(<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#adb92e78bb1f0dd1f74deefdb0d7094c7">chunk</a>);</div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span> </div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    }</div>
-</div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span> </div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>    <span class="keywordtype">string</span> <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aed43013dae64387f39313b9942b4712c">HTTPBuilder::build</a>(string_view data, <span class="keyword">const</span> unordered_map&lt;string, string&gt;&amp; additionalHeaders)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>        <span class="keywordtype">string</span> result;</div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>        unordered_map&lt;string, string&gt; buildHeaders(additionalHeaders);</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (_chunks.size())</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>        {</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>            result += <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aaf819054eeb04648ed52c74c48dfbcc1">HTTPBuilder::getChunks</a>(_chunks, _partialChunks);</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>        }</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span> </div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>        <span class="keywordflow">return</span> result;</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    }</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span> </div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    <span class="keywordtype">string</span> <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aed43013dae64387f39313b9942b4712c">HTTPBuilder::build</a>(<span class="keyword">const</span> json::JSONBuilder&amp; builder, unordered_map&lt;string, string&gt; additionalHeaders)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>        additionalHeaders[<span class="stringliteral">&quot;Content-Type&quot;</span>] = <span class="stringliteral">&quot;application/json&quot;</span>;</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span> </div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>        <span class="keywordflow">return</span> this-&gt;<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aed43013dae64387f39313b9942b4712c">build</a>(builder.build(), additionalHeaders);</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    }</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>    <span class="keywordtype">string</span> <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aed43013dae64387f39313b9942b4712c">HTTPBuilder::build</a>(<span class="keyword">const</span> unordered_map&lt;string, string&gt;&amp; urlEncoded, unordered_map&lt;string, string&gt; additionalHeaders)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>        <span class="keywordtype">string</span> body;</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span> </div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [key, value] : urlEncoded)</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>        {</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>            body += format(<span class="stringliteral">&quot;{}={}&amp;&quot;</span>, <a class="code hl_function" href="namespaceweb.html#a8a69377fcbe29bdb4639d1dff611b73b">web::encodeUrl</a>(key), <a class="code hl_function" href="namespaceweb.html#a8a69377fcbe29bdb4639d1dff611b73b">web::encodeUrl</a>(value));</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>        }</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span> </div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>        body.pop_back(); <span class="comment">// remove last &amp;</span></div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span> </div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>        additionalHeaders[<span class="stringliteral">&quot;Content-Type&quot;</span>] = <span class="stringliteral">&quot;application/x-www-form-urlencoded&quot;</span>;</div>
 <div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span> </div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>        <span class="keywordflow">if</span> (data.size())</div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>        {</div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>            buildHeaders[<span class="stringliteral">&quot;Content-Length&quot;</span>] = to_string(data.size());</div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>        }</div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (_chunks.size())</div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>        {</div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>            buildHeaders[<span class="stringliteral">&quot;Transfer-Encoding&quot;</span>] = <span class="stringliteral">&quot;chunked&quot;</span>;</div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>        }</div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span> </div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>        <span class="keywordflow">if</span> (method.empty())</div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>        {</div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>            result = format(<span class="stringliteral">&quot;{} {}{}{}&quot;</span>, _HTTPVersion, _responseCode, <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>, _headers);</div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>        }</div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>        <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>        {</div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>            result = method + <span class="charliteral">&#39; &#39;</span>;</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>        <span class="keywordflow">return</span> this-&gt;<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aed43013dae64387f39313b9942b4712c">build</a>(body, additionalHeaders);</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    }</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span> </div>
+<div class="foldopen" id="foldopen00301" data-start="{" data-end="}">
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#a19dfb77f3d55960e96ebaa93fa8b5ab1">  301</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a19dfb77f3d55960e96ebaa93fa8b5ab1">HTTPBuilder::clear</a>()</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    {</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>        method.clear();</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>        _parameters.clear();</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>        _responseCode.clear();</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>        _headers.clear();</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span> </div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>    }</div>
+</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span> </div>
+<div class="foldopen" id="foldopen00311" data-start="{" data-end="}">
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#a6a56049889fe57a51c22354a9c65de62">  311</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a6a56049889fe57a51c22354a9c65de62">HTTPBuilder::partialChunks</a>()</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>    {</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>        _partialChunks = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span> </div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>            <span class="keywordflow">if</span> (_parameters.empty() &amp;&amp; method != <span class="stringliteral">&quot;CONNECT&quot;</span>)</div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>            {</div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>                result += <span class="stringliteral">&quot;/&quot;</span>;</div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>            }</div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span> </div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>            result += format(<span class="stringliteral">&quot;{} {}{}{}&quot;</span>, _parameters, _HTTPVersion, <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>, _headers);</div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>        }</div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span> </div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [header, value] : buildHeaders)</div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>        {</div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>            result += format(<span class="stringliteral">&quot;{}: {}{}&quot;</span>, header, value, <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>);</div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>        }</div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span> </div>
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>        result += <a class="code hl_variable" href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">HTTPParser::crlf</a>;</div>
-<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span> </div>
-<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>        <span class="keywordflow">if</span> (data.size())</div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>        {</div>
-<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>            result += data;</div>
-<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>        }</div>
-<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (_chunks.size())</div>
-<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>        {</div>
-<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>            result += <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aaf819054eeb04648ed52c74c48dfbcc1">HTTPBuilder::getChunks</a>(_chunks, _partialChunks);</div>
-<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>        }</div>
-<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span> </div>
-<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>        <span class="keywordflow">return</span> result;</div>
-<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>    }</div>
-<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span> </div>
-<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>    <span class="keywordtype">string</span> <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aed43013dae64387f39313b9942b4712c">HTTPBuilder::build</a>(<span class="keyword">const</span> json::JSONBuilder&amp; builder, unordered_map&lt;string, string&gt; additionalHeaders)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>        additionalHeaders[<span class="stringliteral">&quot;Content-Type&quot;</span>] = <span class="stringliteral">&quot;application/json&quot;</span>;</div>
-<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span> </div>
-<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>        <span class="keywordflow">return</span> this-&gt;<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aed43013dae64387f39313b9942b4712c">build</a>(builder.build(), additionalHeaders);</div>
-<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>    }</div>
-<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span> </div>
-<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>    <span class="keywordtype">string</span> <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aed43013dae64387f39313b9942b4712c">HTTPBuilder::build</a>(<span class="keyword">const</span> unordered_map&lt;string, string&gt;&amp; urlEncoded, unordered_map&lt;string, string&gt; additionalHeaders)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>        <span class="keywordtype">string</span> body;</div>
-<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span> </div>
-<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [key, value] : urlEncoded)</div>
-<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>        {</div>
-<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>            body += format(<span class="stringliteral">&quot;{}={}&amp;&quot;</span>, <a class="code hl_function" href="namespaceweb.html#a8a69377fcbe29bdb4639d1dff611b73b">web::encodeUrl</a>(key), <a class="code hl_function" href="namespaceweb.html#a8a69377fcbe29bdb4639d1dff611b73b">web::encodeUrl</a>(value));</div>
-<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>        }</div>
-<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span> </div>
-<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>        body.pop_back(); <span class="comment">// remove last &amp;</span></div>
-<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span> </div>
-<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>        additionalHeaders[<span class="stringliteral">&quot;Content-Type&quot;</span>] = <span class="stringliteral">&quot;application/x-www-form-urlencoded&quot;</span>;</div>
-<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span> </div>
-<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>        <span class="keywordflow">return</span> this-&gt;<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aed43013dae64387f39313b9942b4712c">build</a>(body, additionalHeaders);</div>
-<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>    }</div>
-<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span> </div>
-<div class="foldopen" id="foldopen00365" data-start="{" data-end="}">
-<div class="line"><a id="l00365" name="l00365"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#a19dfb77f3d55960e96ebaa93fa8b5ab1">  365</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a19dfb77f3d55960e96ebaa93fa8b5ab1">HTTPBuilder::clear</a>()</div>
-<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>    {</div>
-<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>        method.clear();</div>
-<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>        _parameters.clear();</div>
-<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>        _responseCode.clear();</div>
-<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>        _headers.clear();</div>
-<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span> </div>
-<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>    }</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>    }</div>
 </div>
-<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span> </div>
-<div class="foldopen" id="foldopen00375" data-start="{" data-end="}">
-<div class="line"><a id="l00375" name="l00375"></a><span class="lineno"><a class="line" href="classweb_1_1_h_t_t_p_builder.html#a6a56049889fe57a51c22354a9c65de62">  375</a></span>    <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; <a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a6a56049889fe57a51c22354a9c65de62">HTTPBuilder::partialChunks</a>()</div>
-<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>    {</div>
-<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>        _partialChunks = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span> </div>
-<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>    }</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span> </div>
+<div class="foldopen" id="foldopen00318" data-start="{" data-end="}">
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno"><a class="line" href="namespaceweb.html#a4153873787950c6777ebf6c9e9463d5d">  318</a></span>    ostream&amp; <a class="code hl_function" href="namespaceweb.html#a4153873787950c6777ebf6c9e9463d5d">operator &lt;&lt; </a>(ostream&amp; outputStream, <span class="keyword">const</span> <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; builder)</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>    {</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>        <span class="keywordflow">return</span> outputStream &lt;&lt; builder.<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aed43013dae64387f39313b9942b4712c">build</a>();</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>    }</div>
 </div>
-<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span> </div>
-<div class="foldopen" id="foldopen00382" data-start="{" data-end="}">
-<div class="line"><a id="l00382" name="l00382"></a><span class="lineno"><a class="line" href="namespaceweb.html#a4153873787950c6777ebf6c9e9463d5d">  382</a></span>    ostream&amp; <a class="code hl_function" href="namespaceweb.html#a4153873787950c6777ebf6c9e9463d5d">operator &lt;&lt; </a>(ostream&amp; outputStream, <span class="keyword">const</span> <a class="code hl_class" href="classweb_1_1_h_t_t_p_builder.html">HTTPBuilder</a>&amp; builder)</div>
-<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>    {</div>
-<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>        <span class="keywordflow">return</span> outputStream &lt;&lt; builder.<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#aed43013dae64387f39313b9942b4712c">build</a>();</div>
-<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>    }</div>
-</div>
-<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>}</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>}</div>
 </div>
 <div class="ttc" id="a_h_t_t_p_builder_8h_html"><div class="ttname"><a href="_h_t_t_p_builder_8h.html">HTTPBuilder.h</a></div></div>
 <div class="ttc" id="a_h_t_t_p_parser_8h_html"><div class="ttname"><a href="_h_t_t_p_parser_8h.html">HTTPParser.h</a></div></div>
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html">web::HTTPBuilder</a></div><div class="ttdoc">HTTP builder.</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8h_source.html#l00014">HTTPBuilder.h:15</a></div></div>
-<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a14c42de41843c21ab3ec8486146f73ae"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a14c42de41843c21ab3ec8486146f73ae">web::HTTPBuilder::traceRequest</a></div><div class="ttdeci">HTTPBuilder &amp; traceRequest()</div><div class="ttdoc">Set TRACE request.</div><div class="ttdef"><b>Definition</b> <a href="#l00201">HTTPBuilder.cpp:201</a></div></div>
-<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a19dfb77f3d55960e96ebaa93fa8b5ab1"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a19dfb77f3d55960e96ebaa93fa8b5ab1">web::HTTPBuilder::clear</a></div><div class="ttdeci">HTTPBuilder &amp; clear()</div><div class="ttdef"><b>Definition</b> <a href="#l00365">HTTPBuilder.cpp:365</a></div></div>
-<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a3beada01ecda3d1e4aca6e027617a19e"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a3beada01ecda3d1e4aca6e027617a19e">web::HTTPBuilder::getChunk</a></div><div class="ttdeci">static std::string getChunk(std::string_view chunk)</div><div class="ttdoc">Make HTTP parsed chunk.</div><div class="ttdef"><b>Definition</b> <a href="#l00137">HTTPBuilder.cpp:137</a></div></div>
-<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a591e293f2f3981636ac24fe456804025"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a591e293f2f3981636ac24fe456804025">web::HTTPBuilder::getRequest</a></div><div class="ttdeci">HTTPBuilder &amp; getRequest()</div><div class="ttdoc">Set GET request.</div><div class="ttdef"><b>Definition</b> <a href="#l00152">HTTPBuilder.cpp:152</a></div></div>
-<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a6a56049889fe57a51c22354a9c65de62"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a6a56049889fe57a51c22354a9c65de62">web::HTTPBuilder::partialChunks</a></div><div class="ttdeci">HTTPBuilder &amp; partialChunks()</div><div class="ttdef"><b>Definition</b> <a href="#l00375">HTTPBuilder.cpp:375</a></div></div>
-<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a709dce20561ed12f27af9c3f2675699d"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a709dce20561ed12f27af9c3f2675699d">web::HTTPBuilder::connectRequest</a></div><div class="ttdeci">HTTPBuilder &amp; connectRequest()</div><div class="ttdoc">Set CONNECT request.</div><div class="ttdef"><b>Definition</b> <a href="#l00194">HTTPBuilder.cpp:194</a></div></div>
-<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a82bd8cae588f89ddd3691c1e46d3e011"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a82bd8cae588f89ddd3691c1e46d3e011">web::HTTPBuilder::optionsRequest</a></div><div class="ttdeci">HTTPBuilder &amp; optionsRequest()</div><div class="ttdoc">Set OPTIONS request.</div><div class="ttdef"><b>Definition</b> <a href="#l00180">HTTPBuilder.cpp:180</a></div></div>
-<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a87cfd31d04b3b97e242503e9ca888e9d"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a87cfd31d04b3b97e242503e9ca888e9d">web::HTTPBuilder::postRequest</a></div><div class="ttdeci">HTTPBuilder &amp; postRequest()</div><div class="ttdoc">Set POST request.</div><div class="ttdef"><b>Definition</b> <a href="#l00159">HTTPBuilder.cpp:159</a></div></div>
+<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a14c42de41843c21ab3ec8486146f73ae"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a14c42de41843c21ab3ec8486146f73ae">web::HTTPBuilder::traceRequest</a></div><div class="ttdeci">HTTPBuilder &amp; traceRequest()</div><div class="ttdoc">Set TRACE request.</div><div class="ttdef"><b>Definition</b> <a href="#l00126">HTTPBuilder.cpp:126</a></div></div>
+<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a19dfb77f3d55960e96ebaa93fa8b5ab1"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a19dfb77f3d55960e96ebaa93fa8b5ab1">web::HTTPBuilder::clear</a></div><div class="ttdeci">HTTPBuilder &amp; clear()</div><div class="ttdef"><b>Definition</b> <a href="#l00301">HTTPBuilder.cpp:301</a></div></div>
+<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a3beada01ecda3d1e4aca6e027617a19e"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a3beada01ecda3d1e4aca6e027617a19e">web::HTTPBuilder::getChunk</a></div><div class="ttdeci">static std::string getChunk(std::string_view chunk)</div><div class="ttdoc">Make HTTP parsed chunk.</div><div class="ttdef"><b>Definition</b> <a href="#l00062">HTTPBuilder.cpp:62</a></div></div>
+<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a591e293f2f3981636ac24fe456804025"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a591e293f2f3981636ac24fe456804025">web::HTTPBuilder::getRequest</a></div><div class="ttdeci">HTTPBuilder &amp; getRequest()</div><div class="ttdoc">Set GET request.</div><div class="ttdef"><b>Definition</b> <a href="#l00077">HTTPBuilder.cpp:77</a></div></div>
+<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a6a56049889fe57a51c22354a9c65de62"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a6a56049889fe57a51c22354a9c65de62">web::HTTPBuilder::partialChunks</a></div><div class="ttdeci">HTTPBuilder &amp; partialChunks()</div><div class="ttdef"><b>Definition</b> <a href="#l00311">HTTPBuilder.cpp:311</a></div></div>
+<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a709dce20561ed12f27af9c3f2675699d"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a709dce20561ed12f27af9c3f2675699d">web::HTTPBuilder::connectRequest</a></div><div class="ttdeci">HTTPBuilder &amp; connectRequest()</div><div class="ttdoc">Set CONNECT request.</div><div class="ttdef"><b>Definition</b> <a href="#l00119">HTTPBuilder.cpp:119</a></div></div>
+<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a82bd8cae588f89ddd3691c1e46d3e011"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a82bd8cae588f89ddd3691c1e46d3e011">web::HTTPBuilder::optionsRequest</a></div><div class="ttdeci">HTTPBuilder &amp; optionsRequest()</div><div class="ttdoc">Set OPTIONS request.</div><div class="ttdef"><b>Definition</b> <a href="#l00105">HTTPBuilder.cpp:105</a></div></div>
+<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a87cfd31d04b3b97e242503e9ca888e9d"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a87cfd31d04b3b97e242503e9ca888e9d">web::HTTPBuilder::postRequest</a></div><div class="ttdeci">HTTPBuilder &amp; postRequest()</div><div class="ttdoc">Set POST request.</div><div class="ttdef"><b>Definition</b> <a href="#l00084">HTTPBuilder.cpp:84</a></div></div>
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_aa2a246f805935f000f82d609a9a67d69"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#aa2a246f805935f000f82d609a9a67d69">web::HTTPBuilder::HTTPBuilder</a></div><div class="ttdeci">HTTPBuilder(std::string_view fullHTTPVersion=&quot;HTTP/1.1&quot;)</div></div>
-<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_aaf819054eeb04648ed52c74c48dfbcc1"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#aaf819054eeb04648ed52c74c48dfbcc1">web::HTTPBuilder::getChunks</a></div><div class="ttdeci">static std::string getChunks(const std::vector&lt; std::string &gt; &amp;chunks, bool partialChunks, bool preCalculateSize=false)</div><div class="ttdoc">Make HTTP parsed data with zero chunk.</div><div class="ttdef"><b>Definition</b> <a href="#l00106">HTTPBuilder.cpp:106</a></div></div>
-<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_abc6c80e8a5e8254e4ef21fa0b7f3d4c6"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#abc6c80e8a5e8254e4ef21fa0b7f3d4c6">web::HTTPBuilder::headRequest</a></div><div class="ttdeci">HTTPBuilder &amp; headRequest()</div><div class="ttdoc">Set HEAD request.</div><div class="ttdef"><b>Definition</b> <a href="#l00173">HTTPBuilder.cpp:173</a></div></div>
-<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_ad14c8e1760febead134f7ff6aae93de6"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#ad14c8e1760febead134f7ff6aae93de6">web::HTTPBuilder::putRequest</a></div><div class="ttdeci">HTTPBuilder &amp; putRequest()</div><div class="ttdoc">Set PUT request.</div><div class="ttdef"><b>Definition</b> <a href="#l00166">HTTPBuilder.cpp:166</a></div></div>
-<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_ad56bf0ca62c2a8ab42c9b47adf6603d8"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#ad56bf0ca62c2a8ab42c9b47adf6603d8">web::HTTPBuilder::responseCode</a></div><div class="ttdeci">HTTPBuilder &amp; responseCode(responseCodes code)</div><div class="ttdef"><b>Definition</b> <a href="#l00246">HTTPBuilder.cpp:246</a></div></div>
-<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_adb92e78bb1f0dd1f74deefdb0d7094c7"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#adb92e78bb1f0dd1f74deefdb0d7094c7">web::HTTPBuilder::chunk</a></div><div class="ttdeci">HTTPBuilder &amp; chunk(std::string_view chunk)</div><div class="ttdef"><b>Definition</b> <a href="#l00286">HTTPBuilder.cpp:286</a></div></div>
-<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_adf7b27de98a3dbae317e92d9547375ae"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#adf7b27de98a3dbae317e92d9547375ae">web::HTTPBuilder::patchRequest</a></div><div class="ttdeci">HTTPBuilder &amp; patchRequest()</div><div class="ttdoc">Set PATCH request.</div><div class="ttdef"><b>Definition</b> <a href="#l00208">HTTPBuilder.cpp:208</a></div></div>
-<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_ae97b87bd1987d2e5d87395ad64b589e4"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#ae97b87bd1987d2e5d87395ad64b589e4">web::HTTPBuilder::HTTPVersion</a></div><div class="ttdeci">HTTPBuilder &amp; HTTPVersion(std::string_view httpVersion)</div><div class="ttdef"><b>Definition</b> <a href="#l00260">HTTPBuilder.cpp:260</a></div></div>
+<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_aaf819054eeb04648ed52c74c48dfbcc1"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#aaf819054eeb04648ed52c74c48dfbcc1">web::HTTPBuilder::getChunks</a></div><div class="ttdeci">static std::string getChunks(const std::vector&lt; std::string &gt; &amp;chunks, bool partialChunks, bool preCalculateSize=false)</div><div class="ttdoc">Make HTTP parsed data with zero chunk.</div><div class="ttdef"><b>Definition</b> <a href="#l00031">HTTPBuilder.cpp:31</a></div></div>
+<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_abc6c80e8a5e8254e4ef21fa0b7f3d4c6"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#abc6c80e8a5e8254e4ef21fa0b7f3d4c6">web::HTTPBuilder::headRequest</a></div><div class="ttdeci">HTTPBuilder &amp; headRequest()</div><div class="ttdoc">Set HEAD request.</div><div class="ttdef"><b>Definition</b> <a href="#l00098">HTTPBuilder.cpp:98</a></div></div>
+<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_ac6f146096af72bc85f747c282e290444"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#ac6f146096af72bc85f747c282e290444">web::HTTPBuilder::responseCode</a></div><div class="ttdeci">HTTPBuilder &amp; responseCode(ResponseCodes code)</div><div class="ttdef"><b>Definition</b> <a href="#l00171">HTTPBuilder.cpp:171</a></div></div>
+<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_ad14c8e1760febead134f7ff6aae93de6"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#ad14c8e1760febead134f7ff6aae93de6">web::HTTPBuilder::putRequest</a></div><div class="ttdeci">HTTPBuilder &amp; putRequest()</div><div class="ttdoc">Set PUT request.</div><div class="ttdef"><b>Definition</b> <a href="#l00091">HTTPBuilder.cpp:91</a></div></div>
+<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_adb92e78bb1f0dd1f74deefdb0d7094c7"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#adb92e78bb1f0dd1f74deefdb0d7094c7">web::HTTPBuilder::chunk</a></div><div class="ttdeci">HTTPBuilder &amp; chunk(std::string_view chunk)</div><div class="ttdef"><b>Definition</b> <a href="#l00222">HTTPBuilder.cpp:222</a></div></div>
+<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_adf7b27de98a3dbae317e92d9547375ae"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#adf7b27de98a3dbae317e92d9547375ae">web::HTTPBuilder::patchRequest</a></div><div class="ttdeci">HTTPBuilder &amp; patchRequest()</div><div class="ttdoc">Set PATCH request.</div><div class="ttdef"><b>Definition</b> <a href="#l00133">HTTPBuilder.cpp:133</a></div></div>
+<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_ae97b87bd1987d2e5d87395ad64b589e4"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#ae97b87bd1987d2e5d87395ad64b589e4">web::HTTPBuilder::HTTPVersion</a></div><div class="ttdeci">HTTPBuilder &amp; HTTPVersion(std::string_view httpVersion)</div><div class="ttdef"><b>Definition</b> <a href="#l00185">HTTPBuilder.cpp:185</a></div></div>
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_aed43013dae64387f39313b9942b4712c"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#aed43013dae64387f39313b9942b4712c">web::HTTPBuilder::build</a></div><div class="ttdeci">std::string build(std::string_view data=&quot;&quot;, const std::unordered_map&lt; std::string, std::string &gt; &amp;additionalHeaders={}) const</div></div>
-<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_af89af347f10292209346086aa017e05d"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#af89af347f10292209346086aa017e05d">web::HTTPBuilder::deleteRequest</a></div><div class="ttdeci">HTTPBuilder &amp; deleteRequest()</div><div class="ttdoc">Set DELETE request.</div><div class="ttdef"><b>Definition</b> <a href="#l00187">HTTPBuilder.cpp:187</a></div></div>
-<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_afd3068a645e67600ca32703dad62e759"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">web::HTTPBuilder::chunks</a></div><div class="ttdeci">HTTPBuilder &amp; chunks(const std::vector&lt; std::string &gt; &amp;chunks)</div><div class="ttdef"><b>Definition</b> <a href="#l00279">HTTPBuilder.cpp:279</a></div></div>
-<div class="ttc" id="aclassweb_1_1_h_t_t_p_parser_html_aa7ec9d48dd4ecbfd959655d3a2409792"><div class="ttname"><a href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">web::HTTPParser::crlf</a></div><div class="ttdeci">static constexpr std::string_view crlf</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_parser_8h_source.html#l00026">HTTPParser.h:26</a></div></div>
-<div class="ttc" id="anamespaceweb_html"><div class="ttname"><a href="namespaceweb.html">web</a></div><div class="ttdef"><b>Definition</b> <a href="#l00097">HTTPBuilder.cpp:98</a></div></div>
-<div class="ttc" id="anamespaceweb_html_a4153873787950c6777ebf6c9e9463d5d"><div class="ttname"><a href="namespaceweb.html#a4153873787950c6777ebf6c9e9463d5d">web::operator&lt;&lt;</a></div><div class="ttdeci">ostream &amp; operator&lt;&lt;(ostream &amp;outputStream, const HTTPBuilder &amp;builder)</div><div class="ttdef"><b>Definition</b> <a href="#l00382">HTTPBuilder.cpp:382</a></div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10">web::responseCodes</a></div><div class="ttdeci">responseCodes</div><div class="ttdoc">Response codes.</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_utility_8h_source.html#l00023">HTTPUtility.h:24</a></div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a01ff10c76757be1a185dcfbc95cfb3cb"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a01ff10c76757be1a185dcfbc95cfb3cb">web::responseCodes::networkAuthenticationRequired</a></div><div class="ttdeci">@ networkAuthenticationRequired</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a036c4283fc4ecb1686f44462f75208e5"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a036c4283fc4ecb1686f44462f75208e5">web::responseCodes::HTTPVersionNotSupported</a></div><div class="ttdeci">@ HTTPVersionNotSupported</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a062f0fbe645b60ccdd0f50e073c332f9"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a062f0fbe645b60ccdd0f50e073c332f9">web::responseCodes::multiStatus</a></div><div class="ttdeci">@ multiStatus</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a0a9ccee61d4d12831897809d3851a7b6"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a0a9ccee61d4d12831897809d3851a7b6">web::responseCodes::webServerIsDown</a></div><div class="ttdeci">@ webServerIsDown</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a0fb46f4c80d7624b2d7e2b6b927a8c82"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a0fb46f4c80d7624b2d7e2b6b927a8c82">web::responseCodes::authenticationTimeout</a></div><div class="ttdeci">@ authenticationTimeout</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a10940b062267bae0ca02911e9ece31f3"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a10940b062267bae0ca02911e9ece31f3">web::responseCodes::useProxy</a></div><div class="ttdeci">@ useProxy</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a12075314ec809b91f81df74c05b88c7b"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a12075314ec809b91f81df74c05b88c7b">web::responseCodes::proxyAuthenticationRequired</a></div><div class="ttdeci">@ proxyAuthenticationRequired</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a135848a06b644cc2967c13fe18135e56"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a135848a06b644cc2967c13fe18135e56">web::responseCodes::preconditionRequired</a></div><div class="ttdeci">@ preconditionRequired</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a164f7afbdcfd5da47f98d43d588bb712"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a164f7afbdcfd5da47f98d43d588bb712">web::responseCodes::multipleChoices</a></div><div class="ttdeci">@ multipleChoices</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a1697b2cbede61df2d0cadfbfdc7c2c66"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a1697b2cbede61df2d0cadfbfdc7c2c66">web::responseCodes::rangeNotSatisfiable</a></div><div class="ttdeci">@ rangeNotSatisfiable</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a18144303dbbe5f096515b62cc17c80ef"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a18144303dbbe5f096515b62cc17c80ef">web::responseCodes::badGateway</a></div><div class="ttdeci">@ badGateway</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a1888a77d5b56d0c58a47b96713f6c7ee"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a1888a77d5b56d0c58a47b96713f6c7ee">web::responseCodes::notModified</a></div><div class="ttdeci">@ notModified</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a191e84728d0e7af5462fa798d83d29ba"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a191e84728d0e7af5462fa798d83d29ba">web::responseCodes::badRequest</a></div><div class="ttdeci">@ badRequest</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a2111f1f632e355ecb74a721d527bfd35"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a2111f1f632e355ecb74a721d527bfd35">web::responseCodes::invalidSSLCertificate</a></div><div class="ttdeci">@ invalidSSLCertificate</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a23cd5b20a548d3ab831caeecc4449f5f"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a23cd5b20a548d3ab831caeecc4449f5f">web::responseCodes::unsupportedMediaType</a></div><div class="ttdeci">@ unsupportedMediaType</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a241c611f181c4d84b40d650b18b7e8c9"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a241c611f181c4d84b40d650b18b7e8c9">web::responseCodes::notExtended</a></div><div class="ttdeci">@ notExtended</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a26c46008029b3afe7689954d16357525"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a26c46008029b3afe7689954d16357525">web::responseCodes::gatewayTimeout</a></div><div class="ttdeci">@ gatewayTimeout</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a2c57ce6aaa9ba12942df2814796053a3"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a2c57ce6aaa9ba12942df2814796053a3">web::responseCodes::tooManyRequests</a></div><div class="ttdeci">@ tooManyRequests</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a2cce08f0f98bf072d8267b551e26699b"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a2cce08f0f98bf072d8267b551e26699b">web::responseCodes::unprocessableEntity</a></div><div class="ttdeci">@ unprocessableEntity</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a30fa93586712759fe203157875ca80d6"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a30fa93586712759fe203157875ca80d6">web::responseCodes::methodNotAllowed</a></div><div class="ttdeci">@ methodNotAllowed</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a350f9d68221a0db19024ee40cfc3c7f8"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a350f9d68221a0db19024ee40cfc3c7f8">web::responseCodes::forbidden</a></div><div class="ttdeci">@ forbidden</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a362d736e16fb629b3bfcfaf43269a73f"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a362d736e16fb629b3bfcfaf43269a73f">web::responseCodes::paymentRequired</a></div><div class="ttdeci">@ paymentRequired</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a36b5d9c6328c795762eb00ebdc6c7e1d"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a36b5d9c6328c795762eb00ebdc6c7e1d">web::responseCodes::upgradeRequired</a></div><div class="ttdeci">@ upgradeRequired</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a36fd540552b3b1b34e8f0bd8897cbf1e"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a36fd540552b3b1b34e8f0bd8897cbf1e">web::responseCodes::unauthorized</a></div><div class="ttdeci">@ unauthorized</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a3807a5e47c09ee5a140fcb237ad7bdae"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a3807a5e47c09ee5a140fcb237ad7bdae">web::responseCodes::failedDependency</a></div><div class="ttdeci">@ failedDependency</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a3e160690c02cd55f8f39ee26d1eeec0a"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a3e160690c02cd55f8f39ee26d1eeec0a">web::responseCodes::noContent</a></div><div class="ttdeci">@ noContent</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a3e4d891a5df3d6d0d7dd9432a1bc6470"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a3e4d891a5df3d6d0d7dd9432a1bc6470">web::responseCodes::accepted</a></div><div class="ttdeci">@ accepted</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a40cb9faecd70a06be4fc1d1d19ab8c93"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a40cb9faecd70a06be4fc1d1d19ab8c93">web::responseCodes::loopDetected</a></div><div class="ttdeci">@ loopDetected</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a4374990dedc873c6a9417a355a2ac4cf"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a4374990dedc873c6a9417a355a2ac4cf">web::responseCodes::processing</a></div><div class="ttdeci">@ processing</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a444bcb3a3fcf8389296c49467f27e1d6"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a444bcb3a3fcf8389296c49467f27e1d6">web::responseCodes::ok</a></div><div class="ttdeci">@ ok</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a49b33893beb20e48d9617f4934624adc"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a49b33893beb20e48d9617f4934624adc">web::responseCodes::URITooLong</a></div><div class="ttdeci">@ URITooLong</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a4cef2f30ac7d33419d00c1d93a090095"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a4cef2f30ac7d33419d00c1d93a090095">web::responseCodes::locked</a></div><div class="ttdeci">@ locked</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a4d6e9e15b50de54aa187d3afe4ea9ce3"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a4d6e9e15b50de54aa187d3afe4ea9ce3">web::responseCodes::variantAlsoNegotiates</a></div><div class="ttdeci">@ variantAlsoNegotiates</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a50c1f58be7f5e47e0f53d64c094783c2"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a50c1f58be7f5e47e0f53d64c094783c2">web::responseCodes::gone</a></div><div class="ttdeci">@ gone</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a558e60239d9c9c3f63fef490b85009bb"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a558e60239d9c9c3f63fef490b85009bb">web::responseCodes::notImplemented</a></div><div class="ttdeci">@ notImplemented</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a58a89f73e9d046b5a86442310629f8e6"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a58a89f73e9d046b5a86442310629f8e6">web::responseCodes::preconditionFailed</a></div><div class="ttdeci">@ preconditionFailed</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a5ccf4d5c325b7db68777f400f66fd1b1"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a5ccf4d5c325b7db68777f400f66fd1b1">web::responseCodes::notFound</a></div><div class="ttdeci">@ notFound</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a5f141e54df6598e681e02c9af2477dee"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a5f141e54df6598e681e02c9af2477dee">web::responseCodes::bandwidthLimitExceeded</a></div><div class="ttdeci">@ bandwidthLimitExceeded</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a62f1f1cac1e9f2410bbe509c6c63ed52"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a62f1f1cac1e9f2410bbe509c6c63ed52">web::responseCodes::temporaryRedirect</a></div><div class="ttdeci">@ temporaryRedirect</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a64d55fec02daaa07499ddec7819c569f"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a64d55fec02daaa07499ddec7819c569f">web::responseCodes::unavailableForLegalReasons</a></div><div class="ttdeci">@ unavailableForLegalReasons</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a6642a5cdc7415448be4a4b81f160734b"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a6642a5cdc7415448be4a4b81f160734b">web::responseCodes::resetContent</a></div><div class="ttdeci">@ resetContent</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a6cfe61694ee1bb13ae719d47c2f80b7a"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a6cfe61694ee1bb13ae719d47c2f80b7a">web::responseCodes::found</a></div><div class="ttdeci">@ found</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a71eb4de33dca3d6e24495d8a6bc5abc3"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a71eb4de33dca3d6e24495d8a6bc5abc3">web::responseCodes::movedPermanently</a></div><div class="ttdeci">@ movedPermanently</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a73681929040abde417d9d68e1dc44703"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a73681929040abde417d9d68e1dc44703">web::responseCodes::lengthRequired</a></div><div class="ttdeci">@ lengthRequired</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a819e18c183b1fd7865fa280aa4187e85"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a819e18c183b1fd7865fa280aa4187e85">web::responseCodes::switchingProtocols</a></div><div class="ttdeci">@ switchingProtocols</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a86e8ec751602c7e504b927e4518a3473"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a86e8ec751602c7e504b927e4518a3473">web::responseCodes::internalServerError</a></div><div class="ttdeci">@ internalServerError</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a904acd04aaa080705471e86d6c6a0e55"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a904acd04aaa080705471e86d6c6a0e55">web::responseCodes::originIsUnreachable</a></div><div class="ttdeci">@ originIsUnreachable</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10a981f1875779561e79585a2ae43a196fb"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a981f1875779561e79585a2ae43a196fb">web::responseCodes::conflict</a></div><div class="ttdeci">@ conflict</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10aa0bfb8e59e6c13fc8d990781f77694fe"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10aa0bfb8e59e6c13fc8d990781f77694fe">web::responseCodes::Continue</a></div><div class="ttdeci">@ Continue</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10aa3abca599dedd534e63c999418d70f45"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10aa3abca599dedd534e63c999418d70f45">web::responseCodes::IMUsed</a></div><div class="ttdeci">@ IMUsed</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10aa6a132cd6d0630be4755daf45de51ef3"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10aa6a132cd6d0630be4755daf45de51ef3">web::responseCodes::permanentRedirect</a></div><div class="ttdeci">@ permanentRedirect</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10aa897205613aabcd6f89cb507f03045ed"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10aa897205613aabcd6f89cb507f03045ed">web::responseCodes::connectionTimedOut</a></div><div class="ttdeci">@ connectionTimedOut</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10aa8d1b9298e372a77c2b5f34ba1ed3cc4"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10aa8d1b9298e372a77c2b5f34ba1ed3cc4">web::responseCodes::misdirectedRequest</a></div><div class="ttdeci">@ misdirectedRequest</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10aac71c3b666d083bb2343b69e2feb8a45"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10aac71c3b666d083bb2343b69e2feb8a45">web::responseCodes::requestTimeout</a></div><div class="ttdeci">@ requestTimeout</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10aae62edfee054b11b0709d4399a93647b"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10aae62edfee054b11b0709d4399a93647b">web::responseCodes::SSLHandshakeFailed</a></div><div class="ttdeci">@ SSLHandshakeFailed</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10ab4bc835c54908cb7b11b9a023798cb22"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10ab4bc835c54908cb7b11b9a023798cb22">web::responseCodes::unknownError</a></div><div class="ttdeci">@ unknownError</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10abfa16591a79cd887b12353cb073a4d5f"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10abfa16591a79cd887b12353cb073a4d5f">web::responseCodes::expectationFailed</a></div><div class="ttdeci">@ expectationFailed</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10abfc1757293de18b2fe00362b0c177fed"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10abfc1757293de18b2fe00362b0c177fed">web::responseCodes::iamATeapot</a></div><div class="ttdeci">@ iamATeapot</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10acaa649a6b8f5c4db97a42cd5e742de50"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10acaa649a6b8f5c4db97a42cd5e742de50">web::responseCodes::retryWith</a></div><div class="ttdeci">@ retryWith</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10acbbb01b1868a342d020f7d6618ba513d"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10acbbb01b1868a342d020f7d6618ba513d">web::responseCodes::notAcceptable</a></div><div class="ttdeci">@ notAcceptable</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10acd04c885934feb3ac024a9ceab46c4c5"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10acd04c885934feb3ac024a9ceab46c4c5">web::responseCodes::serviceUnavailable</a></div><div class="ttdeci">@ serviceUnavailable</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10ad13d6c88f6a03588758c4946c469ed71"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10ad13d6c88f6a03588758c4946c469ed71">web::responseCodes::insufficientStorage</a></div><div class="ttdeci">@ insufficientStorage</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10ad1789283579479af6742859ff9684ff6"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10ad1789283579479af6742859ff9684ff6">web::responseCodes::seeOther</a></div><div class="ttdeci">@ seeOther</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10ad7b570d122c689ded384e359db3c1758"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10ad7b570d122c689ded384e359db3c1758">web::responseCodes::clientClosedRequest</a></div><div class="ttdeci">@ clientClosedRequest</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10add6597c3950f90ef1d08525abcb27902"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10add6597c3950f90ef1d08525abcb27902">web::responseCodes::requestHeaderFieldsTooLarge</a></div><div class="ttdeci">@ requestHeaderFieldsTooLarge</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10ae09fa3186bdf9bec8fe03b2790ac4e6c"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10ae09fa3186bdf9bec8fe03b2790ac4e6c">web::responseCodes::alreadyReported</a></div><div class="ttdeci">@ alreadyReported</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10ae2fa538867c3830a859a5b17ab24644b"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10ae2fa538867c3830a859a5b17ab24644b">web::responseCodes::created</a></div><div class="ttdeci">@ created</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10aedc8ae34e20cbe1a27ce47cd4e7d643d"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10aedc8ae34e20cbe1a27ce47cd4e7d643d">web::responseCodes::payloadTooLarge</a></div><div class="ttdeci">@ payloadTooLarge</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10af3185fa6995826bef6d79c7a907a364b"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10af3185fa6995826bef6d79c7a907a364b">web::responseCodes::nonAuthoritativeInformation</a></div><div class="ttdeci">@ nonAuthoritativeInformation</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10af59a31225b7c18d18ab9cf35b3c96312"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10af59a31225b7c18d18ab9cf35b3c96312">web::responseCodes::partialContent</a></div><div class="ttdeci">@ partialContent</div></div>
-<div class="ttc" id="anamespaceweb_html_a5a849da4ada867d4591d74f812c24e10afe5d49b53fc5b3b0fc196c69a2a7e7ae"><div class="ttname"><a href="namespaceweb.html#a5a849da4ada867d4591d74f812c24e10afe5d49b53fc5b3b0fc196c69a2a7e7ae">web::responseCodes::aTimeoutOccurred</a></div><div class="ttdeci">@ aTimeoutOccurred</div></div>
-<div class="ttc" id="anamespaceweb_html_a8a69377fcbe29bdb4639d1dff611b73b"><div class="ttname"><a href="namespaceweb.html#a8a69377fcbe29bdb4639d1dff611b73b">web::encodeUrl</a></div><div class="ttdeci">string encodeUrl(string_view data)</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_utility_8cpp_source.html#l00022">HTTPUtility.cpp:22</a></div></div>
+<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_af89af347f10292209346086aa017e05d"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#af89af347f10292209346086aa017e05d">web::HTTPBuilder::deleteRequest</a></div><div class="ttdeci">HTTPBuilder &amp; deleteRequest()</div><div class="ttdoc">Set DELETE request.</div><div class="ttdef"><b>Definition</b> <a href="#l00112">HTTPBuilder.cpp:112</a></div></div>
+<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_afd3068a645e67600ca32703dad62e759"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#afd3068a645e67600ca32703dad62e759">web::HTTPBuilder::chunks</a></div><div class="ttdeci">HTTPBuilder &amp; chunks(const std::vector&lt; std::string &gt; &amp;chunks)</div></div>
+<div class="ttc" id="aclassweb_1_1_h_t_t_p_parser_html_aa7ec9d48dd4ecbfd959655d3a2409792"><div class="ttname"><a href="classweb_1_1_h_t_t_p_parser.html#aa7ec9d48dd4ecbfd959655d3a2409792">web::HTTPParser::crlf</a></div><div class="ttdeci">static constexpr std::string_view crlf</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_parser_8h_source.html#l00031">HTTPParser.h:31</a></div></div>
+<div class="ttc" id="anamespaceweb_html"><div class="ttname"><a href="namespaceweb.html">web</a></div><div class="ttdef"><b>Definition</b> <a href="#l00022">HTTPBuilder.cpp:23</a></div></div>
+<div class="ttc" id="anamespaceweb_html_a18c14b1c70296b86cfef40579c0602e4"><div class="ttname"><a href="namespaceweb.html#a18c14b1c70296b86cfef40579c0602e4">web::ResponseCodes</a></div><div class="ttdeci">ResponseCodes</div><div class="ttdoc">Response codes.</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_utility_8h_source.html#l00024">HTTPUtility.h:25</a></div></div>
+<div class="ttc" id="anamespaceweb_html_a3bc9e18daf1e2a897894ade00e6e1c88"><div class="ttname"><a href="namespaceweb.html#a3bc9e18daf1e2a897894ade00e6e1c88">web::getMessageFromCode</a></div><div class="ttdeci">std::string getMessageFromCode(const T &amp;code)</div><div class="ttdoc">Get response message from response code.</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_utility_8h_source.html#l00198">HTTPUtility.h:198</a></div></div>
+<div class="ttc" id="anamespaceweb_html_a4153873787950c6777ebf6c9e9463d5d"><div class="ttname"><a href="namespaceweb.html#a4153873787950c6777ebf6c9e9463d5d">web::operator&lt;&lt;</a></div><div class="ttdeci">ostream &amp; operator&lt;&lt;(ostream &amp;outputStream, const HTTPBuilder &amp;builder)</div><div class="ttdef"><b>Definition</b> <a href="#l00318">HTTPBuilder.cpp:318</a></div></div>
+<div class="ttc" id="anamespaceweb_html_a8a69377fcbe29bdb4639d1dff611b73b"><div class="ttname"><a href="namespaceweb.html#a8a69377fcbe29bdb4639d1dff611b73b">web::encodeUrl</a></div><div class="ttdeci">string encodeUrl(string_view data)</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_utility_8cpp_source.html#l00117">HTTPUtility.cpp:117</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
