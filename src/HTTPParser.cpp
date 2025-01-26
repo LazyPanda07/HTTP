@@ -99,7 +99,7 @@ namespace web
 		constexpr string_view boundaryText = "boundary=";
 
 		const string& contentType = headers["Content-Type"];
-		size_t index = contentType.find("boundaryText");
+		size_t index = contentType.find(boundaryText);
 		string boundary = format("--{}", string_view(contentType.begin() + index + boundaryText.size(), contentType.end()));
 
 		index = 0;
