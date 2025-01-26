@@ -101,20 +101,22 @@ namespace web
 		const string& contentType = headers["Content-Type"];
 		size_t index = contentType.find(boundaryText);
 		string boundary = format("--{}", string_view(contentType.begin() + index + boundaryText.size(), contentType.end()));
-
-		index = 0;
 		boyer_moore_horspool_searcher searcher(boundary.begin(), boundary.end());
+		string_view::const_iterator current = search(data.begin(), data.end(), searcher);
 
-		string_view::const_iterator it = search(data.begin(), data.end(), searcher);
-
-		do
+		while (true)
 		{
-			string_view::const_iterator next = search(it + 1, data.end(), searcher);
+			string_view::const_iterator next = search(current + 1, data.end(), searcher);
 
-			multiparts.emplace_back(string_view(it + boundary.size(), next));
+			if (next == data.end())
+			{
+				break;
+			}
 
-			it = search(next + 1, data.end(), searcher);
-		} while (it != data.end());
+			multiparts.emplace_back(string_view(current + boundary.size(), next));
+
+			current = search(next, data.end(), searcher);
+		}
 	}
 
 	void HTTPParser::parseContentType()

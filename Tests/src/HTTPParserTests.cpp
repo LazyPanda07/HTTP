@@ -105,20 +105,26 @@ TEST(Parser, Multipart)
 {
 	web::HTTPParser parser(getMultipartRequest());
 
-	for (const web::Multipart& multipart : parser.getMultiparts())
 	{
-		std::cout << multipart.getName() << ' ' << multipart.getData() << ' ';
+		const web::Multipart& part = parser.getMultiparts()[0];
 
-		if (const std::optional<std::string>& fileName = multipart.getFileName(); fileName)
-		{
-			std::cout << *fileName << ' ';
-		}
+		ASSERT_EQ(part.getName(), "field1");
+		ASSERT_EQ(part.getData(), "value1");
+	}
 
-		if (const std::optional<std::string>& contentType = multipart.getContentType(); contentType)
-		{
-			std::cout << *contentType << ' ';
-		}
+	{
+		const web::Multipart& part = parser.getMultiparts()[1];
 
-		std::cout << std::endl;
+		ASSERT_EQ(part.getName(), "field2");
+		ASSERT_EQ(part.getData(), "value2");
+	}
+
+	{
+		const web::Multipart& part = parser.getMultiparts()[2];
+
+		ASSERT_EQ(part.getName(), "file");
+		ASSERT_EQ(part.getFileName(), "example.txt");
+		ASSERT_EQ(part.getContentType(), "text/plain");
+		ASSERT_EQ(part.getData(), "This is the content of the file being uploaded.");
 	}
 }

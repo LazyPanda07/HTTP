@@ -5,6 +5,7 @@
 #include <optional>
 #include <charconv>
 #include <array>
+#include <cassert>
 
 #include "HTTPParseException.h"
 #include "HTTPParser.h"
@@ -60,8 +61,9 @@ private:
 	constexpr void parseValue(string_view data, size_t offset, Args&... args) const
 	{
 		auto& value = this->getValue<Index>(args...);
-		string_view stringValue(data.begin() + offset + offsets[Index], data.begin() + data.find(nextCharacter[Index], offset + offsets[Index]));
 		Converter<remove_reference_t<decltype(value)>> converter;
+		size_t stringValueIndex = data.find(nextCharacter[Index], offset + offsets[Index]);
+		string_view stringValue(data.begin() + offset + offsets[Index], (stringValueIndex == string_view::npos) ? data.end() : data.begin() + stringValueIndex);
 
 		converter.convert(stringValue, value);
 
@@ -87,7 +89,9 @@ public:
 #ifndef __LINUX__
 #pragma warning(pop)
 #endif
-			nextCharacter[index] = format[offset + 2];
+			format.size() > offset + 2 ?
+				nextCharacter[index] = format[offset + 2] :
+				nextCharacter[index] = '\0';
 
 			offset = format.find("{}", offset + 1);
 
@@ -151,7 +155,7 @@ namespace web
 
 					result += percentEncodedData;
 				}
-				
+
 				i += encodedSymbolSize - 1;
 			}
 			else
@@ -186,6 +190,11 @@ namespace web
 
 	Multipart::Multipart(string_view data)
 	{
+		if (data.starts_with(HTTPParser::crlf))
+		{
+			data = string_view(data.begin() + HTTPParser::crlf.size(), data.end());
+		}
+
 		size_t firstStringEnd = data.find(HTTPParser::crlf);
 
 		if (data.find("filename") != string_view::npos)
@@ -198,12 +207,12 @@ namespace web
 		{
 			constexpr MultipartParser<string> parser(R"(Content-Disposition: form-data; name="{}")");
 
-			parser.getValues(data.substr(0, firstStringEnd), name);	
+			parser.getValues(data.substr(0, firstStringEnd), name);
 		}
 
 		if (data.find("Content-Type:") != string_view::npos)
 		{
-			constexpr MultipartParser<optional<string>> parser("Content-Type: {}\r\n");
+			constexpr MultipartParser<optional<string>> parser("Content-Type: {}");
 
 			parser.getValues
 			(
@@ -216,7 +225,7 @@ namespace web
 			);
 		}
 
-		this->data = data.substr(data.find(HTTPParser::crlfcrlf) + HTTPParser::crlfcrlf.size());
+		this->data = string(data.begin() + data.find(HTTPParser::crlfcrlf) + HTTPParser::crlfcrlf.size(), data.end() - HTTPParser::crlf.size());
 	}
 
 	const string& Multipart::getName() const

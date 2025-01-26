@@ -62,24 +62,24 @@ std::string getCONNECTRequest()
 
 std::string getMultipartRequest()
 {
-	return 
+	return
 		"POST /upload HTTP/1.1\r\n"
 		"Host: example.com\r\n"
 		"Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW\r\n"
-		"Content-Length: 549\r\n\r\n"
-
+		"Content-Length: 549\r\n"
+		"\r\n"
 		"------WebKitFormBoundary7MA4YWxkTrZu0gW\r\n"
-		"Content-Disposition: form-data; name=\"field1\"\r\n\r\n"
-
+		"Content-Disposition: form-data; name=\"field1\"\r\n"
+		"\r\n"
 		"value1\r\n"
 		"------WebKitFormBoundary7MA4YWxkTrZu0gW\r\n"
-		"Content-Disposition: form-data; name=\"field2\"\r\n\r\n"
-
+		"Content-Disposition: form-data; name=\"field2\"\r\n"
+		"\r\n"
 		"value2\r\n"
 		"------WebKitFormBoundary7MA4YWxkTrZu0gW\r\n"
 		"Content-Disposition: form-data; name=\"file\"; filename=\"example.txt\"\r\n"
 		"Content-Type: text/plain\r\n"
-
+		"\r\n"
 		"This is the content of the file being uploaded.\r\n"
 		"------WebKitFormBoundary7MA4YWxkTrZu0gW--\r\n";
 }
