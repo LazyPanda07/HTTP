@@ -3,7 +3,10 @@
 #include <iterator>
 #include <format>
 #include <algorithm>
+#include <unordered_set>
 #include <functional>
+
+#include "HTTPParseException.h"
 
 #ifndef __LINUX__
 #pragma warning(disable: 26800)
@@ -11,10 +14,28 @@
 
 using namespace std;
 
-constexpr int responseCodeSize = 3;
+static const unordered_set<string> methods =
+{
+	"HEAD",
+	"PUT",
+	"POST",
+	"PATCH",
+	"OPTIONS",
+	"DELETE",
+	"CONNECT",
+	"GET",
+	"TRACE"
+};
 
 namespace web
 {
+	const unordered_map<string_view, function<void(HTTPParser&, string_view)>> HTTPParser::contentTypeParsers =
+	{
+		{ HTTPParser::urlEncoded, [](HTTPParser& parser, string_view data) { parser.parseKeyValueParameter(data); }},
+		{ HTTPParser::jsonEncoded, [](HTTPParser& parser, string_view data) { parser.jsonParser.setJSONData(data); }},
+		{ HTTPParser::multipartEncoded, [](HTTPParser& parser, string_view data) { parser.parseMultipart(data); }},
+	};
+
 	HTTPParser::readOnlyBuffer::readOnlyBuffer(string_view view)
 	{
 		char* data = const_cast<char*>(view.data());
@@ -72,18 +93,44 @@ namespace web
 
 		keyValueParameters[move(key)] = move(value);
 	}
+	
+	void HTTPParser::parseMultipart(string_view data)
+	{
+		constexpr string_view boundaryText = "boundary=";
+
+		const string& contentType = headers["Content-Type"];
+		size_t index = contentType.find(boundaryText);
+		string boundary = format("--{}", string_view(contentType.begin() + index + boundaryText.size(), contentType.end()));
+		boyer_moore_horspool_searcher searcher(boundary.begin(), boundary.end());
+		string_view::const_iterator current = search(data.begin(), data.end(), searcher);
+
+		while (true)
+		{
+			string_view::const_iterator next = search(current + 1, data.end(), searcher);
+
+			if (next == data.end())
+			{
+				break;
+			}
+
+			multiparts.emplace_back(string_view(current + boundary.size(), next));
+
+			current = search(next, data.end(), searcher);
+		}
+	}
 
 	void HTTPParser::parseContentType()
 	{
 		if (auto it = headers.find(contentTypeHeader); it != headers.end())
 		{
-			if (it->second == urlEncoded)
+			for (const auto& [encodeType, parser] : contentTypeParsers)
 			{
-				this->parseKeyValueParameter(chunksSize ? this->mergeChunks() : body);
-			}
-			else if (it->second.find(jsonEncoded) != string::npos)
-			{
-				jsonParser.setJSONData(chunksSize ? this->mergeChunks() : body);
+				if (it->second.find(encodeType) != string::npos)
+				{
+					parser(*this, chunksSize ? this->mergeChunks() : body);
+
+					break;
+				}
 			}
 		}
 	}
@@ -139,65 +186,32 @@ namespace web
 
 	void HTTPParser::parse(string_view HTTPMessage)
 	{
+		if (HTTPMessage.empty())
+		{
+			parsed = false;
+
+			return;
+		}
+
+		parsed = true;
+
 		size_t prevString = 0;
 		size_t nextString = HTTPMessage.find('\r');
 		string_view firstString(HTTPMessage.data(), nextString);
+		
+		if (string_view temp = firstString.substr(0, firstString.find(' ')); temp.find("HTTP") == string_view::npos)
+		{
+			method = temp;
+
+			if (methods.find(method) == methods.end())
+			{
+				throw exceptions::HTTPParseException(format("Wrong method: {}", method));
+			}
+		}
 
 		chunksSize = 0;
 
 		rawData = HTTPMessage;
-
-		switch (firstString[0])
-		{
-		case 'H':
-			if (firstString[1] == 'E')
-			{
-				method = "HEAD";
-			}
-
-			break;
-
-		case 'P':
-			if (firstString[1] == 'U')
-			{
-				method = "PUT";
-			}
-			else if (firstString[1] == 'O')
-			{
-				method = "POST";
-			}
-			else
-			{
-				method = "PATCH";
-			}
-
-			break;
-
-		case 'O':
-			method = "OPTIONS";
-
-			break;
-
-		case 'D':
-			method = "DELETE";
-
-			break;
-
-		case 'C':
-			method = "CONNECT";
-
-			break;
-
-		case 'G':
-			method = "GET";
-
-			break;
-
-		case 'T':
-			method = "TRACE";
-
-			break;
-		}
 
 		if (method.empty())
 		{
@@ -209,7 +223,7 @@ namespace web
 
 			data >> httpVersion >> responseCode >> response.second;
 
-			response.first = static_cast<responseCodes>(stoi(responseCode));
+			response.first = stoi(responseCode);
 		}
 		else if (method != "CONNECT")
 		{
@@ -217,7 +231,7 @@ namespace web
 
 			if (startParameters == string::npos)
 			{
-				throw runtime_error("Can't find /");
+				throw exceptions::HTTPParseException("Can't find /");
 			}
 
 			startParameters++;
@@ -253,27 +267,28 @@ namespace web
 				break;
 			}
 
-			string header(next.begin(), next.begin() + next.find(':'));
-			string value(next.begin() + next.find(": ") + 2, next.end());
+			size_t colonIndex = next.find(':');
+			string header(next.begin(), next.begin() + colonIndex);
+			string value(next.begin() + colonIndex + 2, next.end());
 
-			headers[move(header)] = move(value);
+			headers.try_emplace(move(header), move(value));
 		}
 
 		bool isUTF8 = HTTPMessage.find(utf8Encoded) != string::npos;
 
 		if (auto it = headers.find(transferEncodingHeader); it != headers.end())
 		{
-			static const unordered_map<string, void (HTTPParser::*)(string_view HTTPMessage, bool isUTF8)> parsers =
+			static const unordered_map<string, void (HTTPParser::*)(string_view HTTPMessage, bool isUTF8)> transferTypeParsers =
 			{
 				{ chunkEncoded, &HTTPParser::parseChunkEncoded }
 			};
 
-			if (!parsers.contains(it->second))
+			if (!transferTypeParsers.contains(it->second))
 			{
-				throw runtime_error("Not supported transfer encoding: " + it->second);
+				throw exceptions::HTTPParseException("Not supported transfer encoding: " + it->second);
 			}
 
-			invoke(parsers.at(it->second), *this, HTTPMessage, isUTF8);
+			invoke(transferTypeParsers.at(it->second), *this, HTTPMessage, isUTF8);
 		}
 		else if (headers.find(contentLengthHeader) != headers.end())
 		{
@@ -310,12 +325,12 @@ namespace web
 		return keyValueParameters;
 	}
 
-	const pair<responseCodes, string>& HTTPParser::getFullResponse() const
+	const pair<int, string>& HTTPParser::getFullResponse() const
 	{
 		return response;
 	}
 
-	responseCodes HTTPParser::getResponseCode() const
+	int HTTPParser::getResponseCode() const
 	{
 		return response.first;
 	}
@@ -348,6 +363,16 @@ namespace web
 	const string& HTTPParser::getRawData() const
 	{
 		return rawData;
+	}
+
+	const vector<Multipart>& HTTPParser::getMultiparts() const
+	{
+		return multiparts;
+	}
+
+	HTTPParser::operator bool() const
+	{
+		return parsed;
 	}
 
 	ostream& operator << (ostream& outputStream, const HTTPParser& parser)
@@ -415,7 +440,10 @@ namespace web
 		istreambuf_iterator<char> it(inputStream);
 		string httpMessage(it, {});
 
-		parser.parse(httpMessage);
+		if (httpMessage.size())
+		{
+			parser.parse(httpMessage);
+		}
 
 		return inputStream;
 	}

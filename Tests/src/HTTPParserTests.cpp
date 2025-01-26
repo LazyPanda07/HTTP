@@ -1,5 +1,7 @@
 #include "gtest/gtest.h"
 
+#include <iostream>
+
 #include "HTTPParser.h"
 
 #include "HTTPTestUtils.h"
@@ -31,7 +33,7 @@ TEST(Parser, Response)
 	const web::HeadersMap& headers = parser.getHeaders();
 
 	ASSERT_EQ(parser.getHTTPVersion(), 1.1);
-	ASSERT_EQ(parser.getResponseCode(), web::responseCodes::ok);
+	ASSERT_EQ(parser.getResponseCode(), web::ResponseCodes::ok);
 	ASSERT_EQ(parser.getResponseMessage(), "OK");
 	ASSERT_EQ(headers.at("Connection"), "Keep-Alive");
 	ASSERT_EQ(headers.at("Access-Control-Allow-Origin"), "*");
@@ -97,4 +99,32 @@ TEST(Parser, Streams)
 TEST(Parser, Parameters)
 {
 	ASSERT_EQ(web::HTTPParser(getGetRequest()).getKeyValueParameters().at("q"), "test");
+}
+
+TEST(Parser, Multipart)
+{
+	web::HTTPParser parser(getMultipartRequest());
+
+	{
+		const web::Multipart& part = parser.getMultiparts()[0];
+
+		ASSERT_EQ(part.getName(), "field1");
+		ASSERT_EQ(part.getData(), "value1");
+	}
+
+	{
+		const web::Multipart& part = parser.getMultiparts()[1];
+
+		ASSERT_EQ(part.getName(), "field2");
+		ASSERT_EQ(part.getData(), "value2");
+	}
+
+	{
+		const web::Multipart& part = parser.getMultiparts()[2];
+
+		ASSERT_EQ(part.getName(), "file");
+		ASSERT_EQ(part.getFileName(), "example.txt");
+		ASSERT_EQ(part.getContentType(), "text/plain");
+		ASSERT_EQ(part.getData(), "This is the content of the file being uploaded.");
+	}
 }

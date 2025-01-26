@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.9.7</span>
+   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.10.0</span>
    </div>
   </td>
  </tr>
@@ -97,6 +97,7 @@ $(function(){initNavTree('_h_t_t_p_utility_8cpp.html',''); initResizable(true); 
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">HTTPUtility.cpp File Reference</div></div>
@@ -106,9 +107,25 @@ $(function(){initNavTree('_h_t_t_p_utility_8cpp.html',''); initResizable(true); 
 <code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;charconv&gt;</code><br />
+<code>#include &lt;array&gt;</code><br />
+<code>#include &lt;cassert&gt;</code><br />
+<code>#include &quot;<a class="el" href="_h_t_t_p_parse_exception_8h_source.html">HTTPParseException.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_h_t_t_p_parser_8h_source.html">HTTPParser.h</a>&quot;</code><br />
 </div>
 <p><a href="_h_t_t_p_utility_8cpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_converter.html">Converter&lt; T &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_converter_3_01string_01_4.html">Converter&lt; string &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_converter_3_01optional_3_01string_01_4_01_4.html">Converter&lt; optional&lt; string &gt; &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_multipart_parser.html">MultipartParser&lt; Args &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceweb.html">web</a></td></tr>
@@ -123,6 +140,8 @@ Functions</h2></td></tr>
 <tr class="separator:a8a69377fcbe29bdb4639d1dff611b73b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8611bf1ff37c7206558cf3711c0456ff" id="r_a8611bf1ff37c7206558cf3711c0456ff"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceweb.html#a8611bf1ff37c7206558cf3711c0456ff">web::decodeUrl</a> (string_view data)</td></tr>
 <tr class="separator:a8611bf1ff37c7206558cf3711c0456ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d88586ff075565da93ad53d9a789766" id="r_a3d88586ff075565da93ad53d9a789766"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceweb.html#a3d88586ff075565da93ad53d9a789766">web::__getMessageFromCode</a> (int code)</td></tr>
+<tr class="separator:a3d88586ff075565da93ad53d9a789766"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

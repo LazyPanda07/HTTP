@@ -34,6 +34,7 @@ add_executable(
 	src/HTTPParserTests.cpp
 	src/HTTPBuilderTests.cpp
 	src/HTTPTestUtils.cpp
+	src/HTTPResponseTests.cpp
 )
 
 target_include_directories(

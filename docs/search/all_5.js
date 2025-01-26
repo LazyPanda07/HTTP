@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['faileddependency_0',['failedDependency',['../namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a3807a5e47c09ee5a140fcb237ad7bdae',1,'web']]],
-  ['forbidden_1',['forbidden',['../namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a350f9d68221a0db19024ee40cfc3c7f8',1,'web']]],
-  ['found_2',['found',['../namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a6cfe61694ee1bb13ae719d47c2f80b7a',1,'web']]]
+  ['encodeurl_0',['encodeUrl',['../namespaceweb.html#a8a69377fcbe29bdb4639d1dff611b73b',1,'web::encodeUrl(string_view data)'],['../namespaceweb.html#ae13dbc43eb6ced4f0b3320ac69d0c1f0',1,'web::encodeUrl(std::string_view data)']]],
+  ['expectationfailed_1',['expectationFailed',['../namespaceweb.html#a18c14b1c70296b86cfef40579c0602e4abfa16591a79cd887b12353cb073a4d5f',1,'web']]]
 ];

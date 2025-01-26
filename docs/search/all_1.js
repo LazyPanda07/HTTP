@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['badgateway_0',['badGateway',['../namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a18144303dbbe5f096515b62cc17c80ef',1,'web']]],
-  ['badrequest_1',['badRequest',['../namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a191e84728d0e7af5462fa798d83d29ba',1,'web']]],
-  ['bandwidthlimitexceeded_2',['bandwidthLimitExceeded',['../namespaceweb.html#a5a849da4ada867d4591d74f812c24e10a5f141e54df6598e681e02c9af2477dee',1,'web']]],
-  ['build_3',['build',['../classweb_1_1_h_t_t_p_builder.html#aed43013dae64387f39313b9942b4712c',1,'web::HTTPBuilder::build(std::string_view data=&quot;&quot;, const std::unordered_map&lt; std::string, std::string &gt; &amp;additionalHeaders={}) const'],['../classweb_1_1_h_t_t_p_builder.html#aac887940b44107008f45fd905235a492',1,'web::HTTPBuilder::build(const json::JSONBuilder &amp;builder, std::unordered_map&lt; std::string, std::string &gt; additionalHeaders={}) const'],['../classweb_1_1_h_t_t_p_builder.html#a16a6058fa091f5d82365f4c7803062ce',1,'web::HTTPBuilder::build(const std::unordered_map&lt; std::string, std::string &gt; &amp;urlEncoded, std::unordered_map&lt; std::string, std::string &gt; additionalHeaders={}) const']]]
+  ['accepted_0',['accepted',['../namespaceweb.html#a18c14b1c70296b86cfef40579c0602e4a3e4d891a5df3d6d0d7dd9432a1bc6470',1,'web']]],
+  ['alreadyreported_1',['alreadyReported',['../namespaceweb.html#a18c14b1c70296b86cfef40579c0602e4ae09fa3186bdf9bec8fe03b2790ac4e6c',1,'web']]],
+  ['atimeoutoccurred_2',['aTimeoutOccurred',['../namespaceweb.html#a18c14b1c70296b86cfef40579c0602e4afe5d49b53fc5b3b0fc196c69a2a7e7ae',1,'web']]],
+  ['authenticationtimeout_3',['authenticationTimeout',['../namespaceweb.html#a18c14b1c70296b86cfef40579c0602e4a0fb46f4c80d7624b2d7e2b6b927a8c82',1,'web']]]
 ];
