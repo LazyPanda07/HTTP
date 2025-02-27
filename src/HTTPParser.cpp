@@ -268,7 +268,7 @@ namespace web
 			}
 
 			size_t colonIndex = next.find(':');
-			size_t nonSpace = colonIndex + 1;
+			size_t nonSpace = colonIndex + 2;
 			string header(next.begin(), next.begin() + colonIndex);
 
 			while (isspace(next[nonSpace]))
