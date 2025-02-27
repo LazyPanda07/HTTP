@@ -128,3 +128,16 @@ TEST(Parser, Multipart)
 		ASSERT_EQ(part.getData(), "This is the content of the file being uploaded.");
 	}
 }
+
+TEST(Parser, RequestWithoutSpaces)
+{
+	web::HTTPParser parser(getPoseRequestWithoutSpaces());
+	const web::HeadersMap& headers = parser.getHeaders();
+
+	ASSERT_EQ(headers.at("Host"), "127.0.0.1:8080");
+	ASSERT_EQ(headers.at("User-Agent"), "curl/8.10.1");
+	ASSERT_EQ(headers.at("Accept"), "*/*");
+	ASSERT_EQ(headers.at("Content-Type"), "application/octet-stream");
+	ASSERT_EQ(headers.at("Content-Length"), "579959121");
+	ASSERT_EQ(headers.at("Expect"), "100-continue");
+}
