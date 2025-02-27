@@ -276,7 +276,7 @@ namespace web
 				nonSpace++;
 			}
 
-			string value(next.begin() + colonIndex, next.end());
+			string value(next.begin() + nonSpace, next.end());
 
 			headers.try_emplace(move(header), move(value));
 		}
