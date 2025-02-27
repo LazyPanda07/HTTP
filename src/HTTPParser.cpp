@@ -268,8 +268,15 @@ namespace web
 			}
 
 			size_t colonIndex = next.find(':');
+			size_t nonSpace = colonIndex + 1;
 			string header(next.begin(), next.begin() + colonIndex);
-			string value(next.begin() + colonIndex + 2, next.end());
+
+			while (isspace(next[nonSpace]))
+			{
+				nonSpace++;
+			}
+
+			string value(next.begin() + nonSpace, next.end());
 
 			headers.try_emplace(move(header), move(value));
 		}

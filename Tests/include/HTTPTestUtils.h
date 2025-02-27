@@ -6,6 +6,8 @@ std::string getGetRequest();
 
 std::string getPostRequest();
 
+std::string getPoseRequestWithoutSpaces();
+
 std::string getPostRequestJSON();
 
 std::string getHTTPResponse();

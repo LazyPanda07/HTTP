@@ -26,6 +26,19 @@ std::string getPostRequest()
 		getPostRequestJSON();
 }
 
+std::string getPoseRequestWithoutSpaces()
+{
+	return
+		"POST / HTTP/1.1\r\n"
+		"Host:127.0.0.1:8080\r\n"
+		"User-Agent:curl/8.10.1\r\n"
+		"Accept:*/*\r\n"
+		"Content-Type:application/octet-stream\r\n"
+		"Content-Length:579959121\r\n"
+		"Expect:100-continue\r\n"
+		"\r\n";
+}
+
 std::string getPostRequestJSON()
 {
 	return R"({
