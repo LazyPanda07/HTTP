@@ -228,6 +228,15 @@ namespace web
 		this->data = string(data.begin() + data.find(HTTPParser::crlfcrlf) + HTTPParser::crlfcrlf.size(), data.end() - HTTPParser::crlf.size());
 	}
 
+	Multipart::Multipart(string_view name, const optional<std::string>& fileName, const optional<std::string>& contentType, string&& data) :
+		name(name),
+		fileName(fileName),
+		contentType(contentType),
+		data(move(data))
+	{
+
+	}
+
 	const string& Multipart::getName() const
 	{
 		return name;

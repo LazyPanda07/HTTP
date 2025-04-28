@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.10.1</span>
+   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.11.0</span>
    </div>
   </td>
  </tr>
@@ -112,6 +112,8 @@ $(function(){initNavTree('classweb_1_1_multipart.html',''); initResizable(true);
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a454ecfafb4bb0dc8122c7a11a85810ab" id="r_a454ecfafb4bb0dc8122c7a11a85810ab"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a454ecfafb4bb0dc8122c7a11a85810ab">Multipart</a> (std::string_view data)</td></tr>
 <tr class="separator:a454ecfafb4bb0dc8122c7a11a85810ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5b26165c12cbb03d8d1cb4be43a609d" id="r_af5b26165c12cbb03d8d1cb4be43a609d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af5b26165c12cbb03d8d1cb4be43a609d">Multipart</a> (std::string_view name, const std::optional&lt; std::string &gt; &amp;fileName, const std::optional&lt; std::string &gt; &amp;contentType, std::string &amp;&amp;data)</td></tr>
+<tr class="separator:af5b26165c12cbb03d8d1cb4be43a609d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e474a57d16b6f3de9473e0a47d44f7a" id="r_a0e474a57d16b6f3de9473e0a47d44f7a"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e474a57d16b6f3de9473e0a47d44f7a">getName</a> () const</td></tr>
 <tr class="separator:a0e474a57d16b6f3de9473e0a47d44f7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a10d53f596666639edcb70d31fb2b919d" id="r_a10d53f596666639edcb70d31fb2b919d"><td class="memItemLeft" align="right" valign="top">const std::optional&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a10d53f596666639edcb70d31fb2b919d">getFileName</a> () const</td></tr>
@@ -129,7 +131,7 @@ Public Member Functions</h2></td></tr>
 <p class="definition">Definition at line <a class="el" href="_h_t_t_p_utility_8h_source.html#l00167">167</a> of file <a class="el" href="_h_t_t_p_utility_8h_source.html">HTTPUtility.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a454ecfafb4bb0dc8122c7a11a85810ab" name="a454ecfafb4bb0dc8122c7a11a85810ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a454ecfafb4bb0dc8122c7a11a85810ab">&#9670;&#160;</a></span>Multipart()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a454ecfafb4bb0dc8122c7a11a85810ab">&#9670;&#160;</a></span>Multipart() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -143,7 +145,36 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_utility_8cpp_source.html#l00191">191</a> of file <a class="el" href="_h_t_t_p_utility_8cpp_source.html">HTTPUtility.cpp</a>.</p>
+</div>
+</div>
+<a id="af5b26165c12cbb03d8d1cb4be43a609d" name="af5b26165c12cbb03d8d1cb4be43a609d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5b26165c12cbb03d8d1cb4be43a609d">&#9670;&#160;</a></span>Multipart() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">web::Multipart::Multipart </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>name</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::optional&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>fileName</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::optional&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>contentType</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>data</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -188,7 +219,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_utility_8cpp_source.html#l00241">241</a> of file <a class="el" href="_h_t_t_p_utility_8cpp_source.html">HTTPUtility.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_utility_8cpp_source.html#l00250">250</a> of file <a class="el" href="_h_t_t_p_utility_8cpp_source.html">HTTPUtility.cpp</a>.</p>
 
 </div>
 </div>
@@ -207,7 +238,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_utility_8cpp_source.html#l00246">246</a> of file <a class="el" href="_h_t_t_p_utility_8cpp_source.html">HTTPUtility.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_utility_8cpp_source.html#l00255">255</a> of file <a class="el" href="_h_t_t_p_utility_8cpp_source.html">HTTPUtility.cpp</a>.</p>
 
 </div>
 </div>
@@ -226,7 +257,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_utility_8cpp_source.html#l00236">236</a> of file <a class="el" href="_h_t_t_p_utility_8cpp_source.html">HTTPUtility.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_utility_8cpp_source.html#l00245">245</a> of file <a class="el" href="_h_t_t_p_utility_8cpp_source.html">HTTPUtility.cpp</a>.</p>
 
 </div>
 </div>
@@ -245,7 +276,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_utility_8cpp_source.html#l00231">231</a> of file <a class="el" href="_h_t_t_p_utility_8cpp_source.html">HTTPUtility.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_utility_8cpp_source.html#l00240">240</a> of file <a class="el" href="_h_t_t_p_utility_8cpp_source.html">HTTPUtility.cpp</a>.</p>
 
 </div>
 </div>

@@ -36,7 +36,7 @@ namespace web
 		{ HTTPParser::multipartEncoded, [](HTTPParser& parser, string_view data) { parser.parseMultipart(data); }},
 	};
 
-	HTTPParser::readOnlyBuffer::readOnlyBuffer(string_view view)
+	HTTPParser::ReadOnlyBuffer::ReadOnlyBuffer(string_view view)
 	{
 		char* data = const_cast<char*>(view.data());
 
@@ -139,7 +139,7 @@ namespace web
 	{
 		size_t chunksStart = HTTPMessage.find(crlfcrlf) + crlfcrlf.size();
 		size_t chunksEnd = HTTPMessage.rfind(crlfcrlf) + crlfcrlf.size();
-		readOnlyBuffer buffer(string_view(HTTPMessage.data() + chunksStart, chunksEnd - chunksStart));
+		ReadOnlyBuffer buffer(string_view(HTTPMessage.data() + chunksStart, chunksEnd - chunksStart));
 		istringstream chunksData;
 
 		static_cast<ios&>(chunksData).rdbuf(&buffer);
@@ -172,6 +172,13 @@ namespace web
 
 			chunksSize += chunk.size();
 		}
+	}
+
+	HTTPParser::HTTPParser() :
+		chunksSize(0),
+		parsed(false)
+	{
+
 	}
 
 	HTTPParser::HTTPParser(const string& HTTPMessage)
@@ -215,7 +222,7 @@ namespace web
 
 		if (method.empty())
 		{
-			readOnlyBuffer buffer(firstString);
+			ReadOnlyBuffer buffer(firstString);
 			istringstream data;
 			string responseCode;
 

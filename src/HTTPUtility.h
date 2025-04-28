@@ -175,6 +175,8 @@ namespace web
 	public:
 		Multipart(std::string_view data);
 
+		Multipart(std::string_view name, const std::optional<std::string>& fileName, const std::optional<std::string>& contentType, std::string&& data);
+
 		const std::string& getName() const;
 
 		const std::optional<std::string>& getFileName() const;
