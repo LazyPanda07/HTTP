@@ -109,7 +109,7 @@ namespace web
 {
 	string getHTTPLibraryVersion()
 	{
-		string version = "1.10.1";
+		string version = "1.11.0";
 
 		return version;
 	}
