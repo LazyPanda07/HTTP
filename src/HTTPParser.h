@@ -13,9 +13,9 @@ namespace web
 	class HTTP_API HTTPParser
 	{
 	private:
-		struct readOnlyBuffer : public std::streambuf
+		struct ReadOnlyBuffer : public std::streambuf
 		{
-			readOnlyBuffer(std::string_view view);
+			ReadOnlyBuffer(std::string_view view);
 		};
 
 	private:
@@ -64,7 +64,7 @@ namespace web
 		void parseChunkEncoded(std::string_view HTTPMessage, bool isUTF8);
 
 	public:
-		HTTPParser() = default;
+		HTTPParser();
 
 		HTTPParser(const std::string& HTTPMessage);
 
