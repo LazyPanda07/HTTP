@@ -12,7 +12,7 @@ if (${BUILD_SHARED_LIBS})
 	add_definitions(-DHTTP_DLL)
 endif ()
 
-project(HTTP VERSION 1.11.0)
+project(HTTP VERSION 1.12.0)
 
 add_library(
 	${PROJECT_NAME}
@@ -21,6 +21,10 @@ add_library(
 	src/HTTPUtility.cpp
 	src/HTTPParseException.cpp
 )
+
+if (DEFINED ENV{MARCH} AND NOT "$ENV{MARCH}" STREQUAL "")
+	target_compile_options(${PROJECT_NAME} PRIVATE -march=$ENV{MARCH})
+endif()	
 
 target_include_directories(
 	${PROJECT_NAME} PUBLIC
