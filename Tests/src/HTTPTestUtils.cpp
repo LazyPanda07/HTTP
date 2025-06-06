@@ -22,6 +22,7 @@ std::string getPostRequest()
 		"User-Agent: Mozilla/4.0 (compatible; esp8266 Lua; Windows NT 5.1)\r\n"
 		"Content-Length: 96\r\n"
 		"Content-Type: application/json\r\n"
+		"Empty-Header: \r\n"
 		"\r\n"s +
 		getPostRequestJSON();
 }

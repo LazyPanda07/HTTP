@@ -15,15 +15,14 @@ TEST(Builder, GET)
 			"User-Agent", "curl/7.54.0",
 			"Accept", "*/*"
 		).build();
-	static constexpr size_t npos = std::string::npos;
 
 	ASSERT_EQ(getRequest.size(), getGetRequest().size());
 
-	ASSERT_NE(getRequest.find("GET /search?q=test HTTP/2"), npos);
-	ASSERT_NE(getRequest.find("Host: www.bing.com"), npos);
-	ASSERT_NE(getRequest.find("User-Agent: curl/7.54.0"), npos);
-	ASSERT_NE(getRequest.find("Accept: */*"), npos);
-	ASSERT_NE(getRequest.find("\r\n\r\n"), npos);
+	ASSERT_NE(getRequest.find("GET /search?q=test HTTP/2"), std::string::npos);
+	ASSERT_NE(getRequest.find("Host: www.bing.com"), std::string::npos);
+	ASSERT_NE(getRequest.find("User-Agent: curl/7.54.0"), std::string::npos);
+	ASSERT_NE(getRequest.find("Accept: */*"), std::string::npos);
+	ASSERT_NE(getRequest.find("\r\n\r\n"), std::string::npos);
 }
 
 TEST(Builder, POST)
@@ -43,21 +42,21 @@ TEST(Builder, POST)
 			"Host", "httpbin.org",
 			"Connection", "close",
 			"Accept", "*/*",
-			"User-Agent", "Mozilla/4.0 (compatible; esp8266 Lua; Windows NT 5.1)"
+			"User-Agent", "Mozilla/4.0 (compatible; esp8266 Lua; Windows NT 5.1)",
+			"Empty-Header", ""
 		)
 		.build(json);
-	static constexpr size_t npos = std::string::npos;
 
 	ASSERT_EQ(postRequest.size(), getPostRequest().size());
 
-	ASSERT_NE(postRequest.find("Host: httpbin.org"), npos);
-	ASSERT_NE(postRequest.find("Connection: close"), npos);
-	ASSERT_NE(postRequest.find("Accept: */*"), npos);
-	ASSERT_NE(postRequest.find("User-Agent: Mozilla/4.0 (compatible; esp8266 Lua; Windows NT 5.1)"), npos);
-	ASSERT_NE(postRequest.find("User-Agent: Mozilla/4.0 (compatible; esp8266 Lua; Windows NT 5.1)"), npos);
-	ASSERT_NE(postRequest.find("Content-Length: 96"), npos);
-	ASSERT_NE(postRequest.find("Content-Type: application/json"), npos);
-	ASSERT_NE(postRequest.find(getPostRequestJSON()), npos);
+	ASSERT_NE(postRequest.find("Host: httpbin.org"), std::string::npos);
+	ASSERT_NE(postRequest.find("Connection: close"), std::string::npos);
+	ASSERT_NE(postRequest.find("Accept: */*"), std::string::npos);
+	ASSERT_NE(postRequest.find("User-Agent: Mozilla/4.0 (compatible; esp8266 Lua; Windows NT 5.1)"), std::string::npos);
+	ASSERT_NE(postRequest.find("User-Agent: Mozilla/4.0 (compatible; esp8266 Lua; Windows NT 5.1)"), std::string::npos);
+	ASSERT_NE(postRequest.find("Content-Length: 96"), std::string::npos);
+	ASSERT_NE(postRequest.find("Content-Type: application/json"), std::string::npos);
+	ASSERT_NE(postRequest.find(getPostRequestJSON()), std::string::npos);
 }
 
 TEST(Builder, CONNECT)
@@ -71,11 +70,10 @@ TEST(Builder, CONNECT)
 			"Proxy-Authorization", "basic aGVsbG86d29ybGQ="
 		).
 		build();
-	static constexpr size_t npos = std::string::npos;
-
-	ASSERT_NE(connectRequest.find("CONNECT server.example.com:80 HTTP/1.1"), npos);
-	ASSERT_NE(connectRequest.find("Host: server.example.com:80"), npos);
-	ASSERT_NE(connectRequest.find("Proxy-Authorization: basic aGVsbG86d29ybGQ="), npos);
+	
+	ASSERT_NE(connectRequest.find("CONNECT server.example.com:80 HTTP/1.1"), std::string::npos);
+	ASSERT_NE(connectRequest.find("Host: server.example.com:80"), std::string::npos);
+	ASSERT_NE(connectRequest.find("Proxy-Authorization: basic aGVsbG86d29ybGQ="), std::string::npos);
 }
 
 TEST(Builder, Streams)
