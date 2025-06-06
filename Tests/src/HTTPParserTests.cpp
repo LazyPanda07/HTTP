@@ -20,6 +20,7 @@ TEST(Parser, Request)
 	ASSERT_EQ(headers.at("Accept"), "*/*");
 	ASSERT_EQ(headers.at("User-Agent"), "Mozilla/4.0 (compatible; esp8266 Lua; Windows NT 5.1)");
 	ASSERT_EQ(headers.at("Content-Length"), "96");
+	ASSERT_EQ(headers.at("Empty-Header"), "");
 
 	ASSERT_EQ(jsonParser.getString("stringValue"), "qwe");
 	ASSERT_EQ(jsonParser.getInt("intValue"), 1500);
