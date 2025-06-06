@@ -59,7 +59,7 @@ TEST(Parser, CONNECT)
 
 TEST(Parser, Streams)
 {
-	static constexpr size_t npos = std::string::npos;
+	constexpr size_t npos = std::string::npos;
 
 	{
 		std::string data(getCONNECTRequest());

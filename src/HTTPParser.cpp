@@ -278,7 +278,7 @@ namespace web
 			size_t nonSpace = colonIndex + 1;
 			string header(next.begin(), next.begin() + colonIndex);
 
-			while (next.size() < nonSpace && isspace(next[nonSpace]))
+			while (next.size() > nonSpace && isspace(next[nonSpace]))
 			{
 				nonSpace++;
 			}
