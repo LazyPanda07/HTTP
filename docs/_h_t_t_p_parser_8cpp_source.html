@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.12.1</span>
+   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.12.2</span>
    </div>
   </td>
  </tr>
@@ -382,7 +382,7 @@ $(function(){initNavTree('_h_t_t_p_parser_8cpp_source.html',''); initResizable(t
 <div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>            <span class="keywordtype">size_t</span> nonSpace = colonIndex + 1;</div>
 <div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>            <span class="keywordtype">string</span> header(next.begin(), next.begin() + colonIndex);</div>
 <div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span> </div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>            <span class="keywordflow">while</span> (isspace(next[nonSpace]))</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>            <span class="keywordflow">while</span> (next.size() &gt; nonSpace &amp;&amp; isspace(next[nonSpace]))</div>
 <div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>            {</div>
 <div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>                nonSpace++;</div>
 <div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>            }</div>
