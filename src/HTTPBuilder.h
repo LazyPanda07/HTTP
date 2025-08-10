@@ -3,6 +3,7 @@
 #include <string>
 #include <stdexcept>
 #include <format>
+#include <concepts>
 
 #include "HTTPUtility.h"
 #include "CheckAtCompileTime.h"
@@ -13,9 +14,6 @@ namespace web
 	/// @brief HTTP builder
 	class HTTP_API HTTPBuilder
 	{
-	private:
-		HTTPBuilder& parameters();
-
 	private:
 		std::string method;
 		std::string _parameters;
@@ -94,7 +92,7 @@ namespace web
 		/// @param ...args 
 		/// @return Self
 		template<typename StringT, typename T, typename... Args>
-		HTTPBuilder& parameters(StringT&& name, T&& value, Args&&... args);
+		HTTPBuilder& queryParameters(StringT&& name, T&& value, Args&&... args);
 
 		template<typename... Args>
 		HTTPBuilder& parametersWithRoute(std::string_view route, Args&&... args);
@@ -147,7 +145,7 @@ namespace web
 	};
 
 	template<typename StringT, typename T, typename... Args>
-	HTTPBuilder& HTTPBuilder::parameters(StringT&& name, T&& value, Args&&... args)
+	HTTPBuilder& HTTPBuilder::queryParameters(StringT&& name, T&& value, Args&&... args)
 	{
 		static_assert(std::is_convertible_v<decltype(name), std::string_view>, "Wrong StringT type");
 
@@ -173,7 +171,14 @@ namespace web
 			throw std::logic_error("Bad type of T, it must be converted to string or arithmetic type");
 		}
 
-		return this->parameters(std::forward<Args>(args)...);
+		if constexpr (requires { std::invocable<decltype(&HTTPBuilder::queryParameters<Args...>), decltype(this), Args...>; })
+		{
+			return this->queryParameters(std::forward<Args>(args)...);
+		}
+
+		_parameters.pop_back(); // remove '&'
+
+		return *this;
 	}
 
 	template<typename... Args>

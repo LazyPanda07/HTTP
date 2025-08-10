@@ -21,13 +21,6 @@ static const unordered_set<string_view> availableHTTPVersions =
 
 namespace web
 {
-	HTTPBuilder& HTTPBuilder::parameters()
-	{
-		_parameters.pop_back();
-
-		return *this;
-	}
-
 	string HTTPBuilder::getChunks(const vector<string>& chunks, bool partialChunks, bool preCalculateSize)
 	{
 		string result;

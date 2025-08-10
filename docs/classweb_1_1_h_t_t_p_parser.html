@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.12.2</span>
+   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.13.0</span>
    </div>
   </td>
  </tr>
@@ -134,8 +134,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:adb1d053a0fa4582e1fb9784ea8f2538f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0984b70490bfcae61da4dedfecd4fec2" id="r_a0984b70490bfcae61da4dedfecd4fec2"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0984b70490bfcae61da4dedfecd4fec2">getParameters</a> () const</td></tr>
 <tr class="separator:a0984b70490bfcae61da4dedfecd4fec2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e8632ce5f2ad6c17beb4d7258d26c0e" id="r_a8e8632ce5f2ad6c17beb4d7258d26c0e"><td class="memItemLeft" align="right" valign="top">const std::unordered_map&lt; std::string, std::string &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8e8632ce5f2ad6c17beb4d7258d26c0e">getKeyValueParameters</a> () const</td></tr>
-<tr class="separator:a8e8632ce5f2ad6c17beb4d7258d26c0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a710e520849c02b90dc3369a3d93e1565" id="r_a710e520849c02b90dc3369a3d93e1565"><td class="memItemLeft" align="right" valign="top">const std::unordered_map&lt; std::string, std::string &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a710e520849c02b90dc3369a3d93e1565">getQueryParameters</a> () const</td></tr>
+<tr class="separator:a710e520849c02b90dc3369a3d93e1565"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab4305b3899c7ab8fad7a3056eb9846a6" id="r_ab4305b3899c7ab8fad7a3056eb9846a6"><td class="memItemLeft" align="right" valign="top">const std::pair&lt; int, std::string &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab4305b3899c7ab8fad7a3056eb9846a6">getFullResponse</a> () const</td></tr>
 <tr class="separator:ab4305b3899c7ab8fad7a3056eb9846a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a9cb158844a3e523d4f3a9f41b61d72" id="r_a5a9cb158844a3e523d4f3a9f41b61d72"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5a9cb158844a3e523d4f3a9f41b61d72">getResponseCode</a> () const</td></tr>
@@ -437,25 +437,6 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a8e8632ce5f2ad6c17beb4d7258d26c0e" name="a8e8632ce5f2ad6c17beb4d7258d26c0e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e8632ce5f2ad6c17beb4d7258d26c0e">&#9670;&#160;</a></span>getKeyValueParameters()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const unordered_map&lt; string, string &gt; &amp; web::HTTPParser::getKeyValueParameters </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_h_t_t_p_parser_8cpp_source.html#l00337">337</a> of file <a class="el" href="_h_t_t_p_parser_8cpp_source.html">HTTPParser.cpp</a>.</p>
-
-</div>
-</div>
 <a id="a56a8fb9cfd6f339a19feb7375508871f" name="a56a8fb9cfd6f339a19feb7375508871f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a56a8fb9cfd6f339a19feb7375508871f">&#9670;&#160;</a></span>getMethod()</h2>
 
@@ -510,6 +491,25 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="_h_t_t_p_parser_8cpp_source.html#l00332">332</a> of file <a class="el" href="_h_t_t_p_parser_8cpp_source.html">HTTPParser.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a710e520849c02b90dc3369a3d93e1565" name="a710e520849c02b90dc3369a3d93e1565"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a710e520849c02b90dc3369a3d93e1565">&#9670;&#160;</a></span>getQueryParameters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const unordered_map&lt; string, string &gt; &amp; web::HTTPParser::getQueryParameters </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_h_t_t_p_parser_8cpp_source.html#l00337">337</a> of file <a class="el" href="_h_t_t_p_parser_8cpp_source.html">HTTPParser.cpp</a>.</p>
 
 </div>
 </div>

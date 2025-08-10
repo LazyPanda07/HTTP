@@ -38,7 +38,7 @@ namespace web
 	private:
 		std::unordered_map<std::string, std::string, InsensitiveStringHash, InsensitiveStringEqual> headers;
 		std::vector<Multipart> multiparts;
-		std::unordered_map<std::string, std::string> keyValueParameters;
+		std::unordered_map<std::string, std::string> queryParameters;
 		json::JSONParser jsonParser;
 		std::pair<int, std::string> response;	// code - response message
 		std::string method;
@@ -54,7 +54,7 @@ namespace web
 		std::string mergeChunks() const;
 
 	private:
-		void parseKeyValueParameter(std::string_view rawParameters);
+		void parseQueryParameter(std::string_view rawParameters);
 
 		void parseMultipart(std::string_view data);
 
@@ -86,7 +86,7 @@ namespace web
 
 		const std::string& getParameters() const;
 
-		const std::unordered_map<std::string, std::string>& getKeyValueParameters() const;
+		const std::unordered_map<std::string, std::string>& getQueryParameters() const;
 
 		const std::pair<int, std::string>& getFullResponse() const;
 

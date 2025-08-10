@@ -8,7 +8,7 @@ TEST(Builder, GET)
 {
 	std::string getRequest = web::HTTPBuilder("HTTP/2")
 		.getRequest()
-		.parameters("search?").parameters("q", "test")
+		.parameters("search?").queryParameters("q", "test")
 		.headers
 		(
 			"Host", "www.bing.com",
@@ -16,7 +16,7 @@ TEST(Builder, GET)
 			"Accept", "*/*"
 		).build();
 
-	ASSERT_EQ(getRequest.size(), getGetRequest().size());
+	ASSERT_EQ(getRequest.size(), getGetRequest().size()) << getRequest << std::endl;
 
 	ASSERT_NE(getRequest.find("GET /search?q=test HTTP/2"), std::string::npos);
 	ASSERT_NE(getRequest.find("Host: www.bing.com"), std::string::npos);
@@ -80,7 +80,7 @@ TEST(Builder, Streams)
 {
 	web::HTTPBuilder builder = web::HTTPBuilder("HTTP/2")
 		.getRequest()
-		.parameters("search?").parameters("q", "test")
+		.parameters("search?").queryParameters("q", "test")
 		.headers
 		(
 			"Host", "www.bing.com",

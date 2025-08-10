@@ -99,7 +99,7 @@ TEST(Parser, Streams)
 
 TEST(Parser, Parameters)
 {
-	ASSERT_EQ(web::HTTPParser(getGetRequest()).getKeyValueParameters().at("q"), "test");
+	ASSERT_EQ(web::HTTPParser(getGetRequest()).getQueryParameters().at("q"), "test");
 }
 
 TEST(Parser, Multipart)

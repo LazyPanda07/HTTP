@@ -31,7 +31,7 @@ namespace web
 {
 	const unordered_map<string_view, function<void(HTTPParser&, string_view)>> HTTPParser::contentTypeParsers =
 	{
-		{ HTTPParser::urlEncoded, [](HTTPParser& parser, string_view data) { parser.parseKeyValueParameter(data); }},
+		{ HTTPParser::urlEncoded, [](HTTPParser& parser, string_view data) { parser.parseQueryParameter(data); }},
 		{ HTTPParser::jsonEncoded, [](HTTPParser& parser, string_view data) { parser.jsonParser.setJSONData(data); }},
 		{ HTTPParser::multipartEncoded, [](HTTPParser& parser, string_view data) { parser.parseMultipart(data); }},
 	};
@@ -54,7 +54,7 @@ namespace web
 		return result;
 	}
 
-	void HTTPParser::parseKeyValueParameter(string_view rawParameters)
+	void HTTPParser::parseQueryParameter(string_view rawParameters)
 	{
 		string key;
 		string value;
@@ -73,7 +73,7 @@ namespace web
 			{
 				equal = false;
 
-				keyValueParameters[move(key)] = move(value);
+				queryParameters.try_emplace(move(key), move(value));
 
 				continue;
 			}
@@ -91,7 +91,7 @@ namespace web
 			equal ? value += decodedParameters[nextKeyValuePair] : key += decodedParameters[nextKeyValuePair];
 		}
 
-		keyValueParameters[move(key)] = move(value);
+		queryParameters.try_emplace(move(key), move(value));
 	}
 	
 	void HTTPParser::parseMultipart(string_view data)
@@ -252,7 +252,7 @@ namespace web
 
 			if (queryStart != string::npos)
 			{
-				this->parseKeyValueParameter(string_view(firstString.data() + queryStart + 1, firstString.data() + endParameters));
+				this->parseQueryParameter(string_view(firstString.data() + queryStart + 1, firstString.data() + endParameters));
 			}
 		}
 		else
@@ -334,9 +334,9 @@ namespace web
 		return parameters;
 	}
 
-	const unordered_map<string, string>& HTTPParser::getKeyValueParameters() const
+	const unordered_map<string, string>& HTTPParser::getQueryParameters() const
 	{
-		return keyValueParameters;
+		return queryParameters;
 	}
 
 	const pair<int, string>& HTTPParser::getFullResponse() const
