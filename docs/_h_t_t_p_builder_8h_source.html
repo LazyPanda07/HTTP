@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.13.0</span>
+   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.13.1</span>
    </div>
   </td>
  </tr>
@@ -225,7 +225,7 @@ $(function(){initNavTree('_h_t_t_p_builder_8h_source.html',''); initResizable(tr
 <div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>            <span class="keywordflow">throw</span> std::logic_error(<span class="stringliteral">&quot;Bad type of T, it must be converted to string or arithmetic type&quot;</span>);</div>
 <div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>        }</div>
 <div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<span class="keyword">requires</span> { std::invocable&lt;<span class="keyword">decltype</span>(&amp;<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a5e254920ebacdddb1cf97bd12ab86f55">HTTPBuilder::queryParameters</a>), <span class="keyword">decltype</span>(<span class="keyword">this</span>), Args...&gt;; })</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<span class="keyword">requires</span> { std::invocable&lt;<span class="keyword">decltype</span>(&amp;<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a5e254920ebacdddb1cf97bd12ab86f55">HTTPBuilder::queryParameters</a>&lt;Args...&gt;), <span class="keyword">decltype</span>(<span class="keyword">this</span>), Args...&gt;; })</div>
 <div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        {</div>
 <div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>            <span class="keywordflow">return</span> this-&gt;<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a5e254920ebacdddb1cf97bd12ab86f55">queryParameters</a>(std::forward&lt;Args&gt;(args)...);</div>
 <div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        }</div>
@@ -256,7 +256,7 @@ $(function(){initNavTree('_h_t_t_p_builder_8h_source.html',''); initResizable(tr
 <div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>            _parameters += <span class="charliteral">&#39;?&#39;</span>;</div>
 <div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>        }</div>
 <div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        <span class="keywordflow">return</span> this-&gt;<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a1f7726b5488e56310802796db06ee996">parameters</a>(std::forward&lt;Args&gt;(args)...);</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        <span class="keywordflow">return</span> this-&gt;<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a5e254920ebacdddb1cf97bd12ab86f55">queryParameters</a>(std::forward&lt;Args&gt;(args)...);</div>
 <div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    }</div>
 </div>
 <div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span> </div>
@@ -344,7 +344,6 @@ $(function(){initNavTree('_h_t_t_p_builder_8h_source.html',''); initResizable(tr
 <div class="ttc" id="aclassutility_1_1check_end_html"><div class="ttname"><a href="classutility_1_1check_end.html">utility::checkEnd</a></div><div class="ttdef"><b>Definition</b> <a href="_check_at_compile_time_8h_source.html#l00049">CheckAtCompileTime.h:50</a></div></div>
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html">web::HTTPBuilder</a></div><div class="ttdoc">HTTP builder.</div><div class="ttdef"><b>Definition</b> <a href="#l00015">HTTPBuilder.h:16</a></div></div>
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a16a6058fa091f5d82365f4c7803062ce"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a16a6058fa091f5d82365f4c7803062ce">web::HTTPBuilder::build</a></div><div class="ttdeci">std::string build(const std::unordered_map&lt; std::string, std::string &gt; &amp;urlEncoded, std::unordered_map&lt; std::string, std::string &gt; additionalHeaders={}) const</div></div>
-<div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a1f7726b5488e56310802796db06ee996"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a1f7726b5488e56310802796db06ee996">web::HTTPBuilder::parameters</a></div><div class="ttdeci">HTTPBuilder &amp; parameters(std::string_view parameters)</div><div class="ttdoc">Set parameters.</div><div class="ttdef"><b>Definition</b> <a href="_h_t_t_p_builder_8cpp_source.html#l00133">HTTPBuilder.cpp:133</a></div></div>
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a31acfce9675d34d9dbaa1ae3f0eae509"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a31acfce9675d34d9dbaa1ae3f0eae509">web::HTTPBuilder::responseCode</a></div><div class="ttdeci">HTTPBuilder &amp; responseCode(int code, std::string_view responseMessage)</div></div>
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a58a5d80d5a6eb5f393d5770e3d4ba8e0"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a58a5d80d5a6eb5f393d5770e3d4ba8e0">web::HTTPBuilder::HTTPBuilder</a></div><div class="ttdeci">HTTPBuilder(const HTTPBuilder &amp;other)=default</div></div>
 <div class="ttc" id="aclassweb_1_1_h_t_t_p_builder_html_a5922eb4df1fb698cf9f54ad28975a018"><div class="ttname"><a href="classweb_1_1_h_t_t_p_builder.html#a5922eb4df1fb698cf9f54ad28975a018">web::HTTPBuilder::headers</a></div><div class="ttdeci">HTTPBuilder &amp; headers(StringT &amp;&amp;name, T &amp;&amp;value, Args &amp;&amp;... args)</div><div class="ttdoc">Append header - value.</div><div class="ttdef"><b>Definition</b> <a href="#l00207">HTTPBuilder.h:207</a></div></div>

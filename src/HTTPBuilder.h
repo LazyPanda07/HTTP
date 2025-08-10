@@ -200,7 +200,7 @@ namespace web
 			_parameters += '?';
 		}
 
-		return this->parameters(std::forward<Args>(args)...);
+		return this->queryParameters(std::forward<Args>(args)...);
 	}
 
 	template<typename StringT, typename T, typename... Args>
