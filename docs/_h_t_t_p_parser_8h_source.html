@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.12.2</span>
+   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.13.0</span>
    </div>
   </td>
  </tr>
@@ -139,7 +139,7 @@ $(function(){initNavTree('_h_t_t_p_parser_8h_source.html',''); initResizable(tru
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        std::unordered_map&lt;std::string, std::string, InsensitiveStringHash, InsensitiveStringEqual&gt; headers;</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        std::vector&lt;Multipart&gt; multiparts;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        std::unordered_map&lt;std::string, std::string&gt; keyValueParameters;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        std::unordered_map&lt;std::string, std::string&gt; queryParameters;</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        json::JSONParser jsonParser;</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        std::pair&lt;int, std::string&gt; response;   <span class="comment">// code - response message</span></div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        std::string method;</div>
@@ -155,7 +155,7 @@ $(function(){initNavTree('_h_t_t_p_parser_8h_source.html',''); initResizable(tru
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        std::string mergeChunks() <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keywordtype">void</span> parseKeyValueParameter(std::string_view rawParameters);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keywordtype">void</span> parseQueryParameter(std::string_view rawParameters);</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordtype">void</span> parseMultipart(std::string_view data);</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
@@ -187,7 +187,7 @@ $(function(){initNavTree('_h_t_t_p_parser_8h_source.html',''); initResizable(tru
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="keyword">const</span> std::string&amp; getParameters() <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="keyword">const</span> std::unordered_map&lt;std::string, std::string&gt;&amp; getKeyValueParameters() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="keyword">const</span> std::unordered_map&lt;std::string, std::string&gt;&amp; getQueryParameters() <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keyword">const</span> std::pair&lt;int, std::string&gt;&amp; getFullResponse() <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>

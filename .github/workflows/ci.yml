@@ -29,8 +29,9 @@ jobs:
       run: |
           mkdir build
           cd build
-          cmake -DCMAKE_BUILD_TYPE=${{ matrix.configuration }} -DBUILD_SHARED_LIBS=${{ matrix.shared[0] }} -G "NMake Makefiles" ..
-          nmake install
+          cmake -DCMAKE_BUILD_TYPE=${{ matrix.configuration }} -DBUILD_SHARED_LIBS=${{ matrix.shared[0] }} -G "Ninja" ..
+          cmake --build . -j
+          cmake --install .
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
@@ -128,8 +129,9 @@ jobs:
       run: |
           mkdir build
           cd build
-          cmake -DCMAKE_BUILD_TYPE=${{ matrix.configuration }} -G "NMake Makefiles" ..
-          nmake install
+          cmake -DCMAKE_BUILD_TYPE=${{ matrix.configuration }} -G "Ninja" ..
+          cmake --build . -j
+          cmake --install .
 
     - name: Tests
       working-directory: ${{ github.workspace }}/Tests
