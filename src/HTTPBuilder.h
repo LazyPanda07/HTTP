@@ -171,7 +171,7 @@ namespace web
 			throw std::logic_error("Bad type of T, it must be converted to string or arithmetic type");
 		}
 
-		if constexpr (requires { std::invocable<decltype(&HTTPBuilder::queryParameters<Args...>), decltype(this), Args...>; })
+		if constexpr (requires { requires std::invocable<decltype(&HTTPBuilder::queryParameters<Args...>), decltype(this), Args...>; })
 		{
 			return this->queryParameters(std::forward<Args>(args)...);
 		}
