@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.13.1</span>
+   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.13.2</span>
    </div>
   </td>
  </tr>
@@ -225,7 +225,7 @@ $(function(){initNavTree('_h_t_t_p_builder_8h_source.html',''); initResizable(tr
 <div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>            <span class="keywordflow">throw</span> std::logic_error(<span class="stringliteral">&quot;Bad type of T, it must be converted to string or arithmetic type&quot;</span>);</div>
 <div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>        }</div>
 <div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<span class="keyword">requires</span> { std::invocable&lt;<span class="keyword">decltype</span>(&amp;<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a5e254920ebacdddb1cf97bd12ab86f55">HTTPBuilder::queryParameters</a>&lt;Args...&gt;), <span class="keyword">decltype</span>(<span class="keyword">this</span>), Args...&gt;; })</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<span class="keyword">requires</span> { <span class="keyword">requires</span> std::invocable&lt;<span class="keyword">decltype</span>(&amp;<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a5e254920ebacdddb1cf97bd12ab86f55">HTTPBuilder::queryParameters</a>&lt;Args...&gt;), <span class="keyword">decltype</span>(<span class="keyword">this</span>), Args...&gt;; })</div>
 <div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        {</div>
 <div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>            <span class="keywordflow">return</span> this-&gt;<a class="code hl_function" href="classweb_1_1_h_t_t_p_builder.html#a5e254920ebacdddb1cf97bd12ab86f55">queryParameters</a>(std::forward&lt;Args&gt;(args)...);</div>
 <div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        }</div>
