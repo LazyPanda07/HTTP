@@ -36,10 +36,10 @@ endif()
 add_executable(
 	${PROJECT_NAME}
 	main.cpp
-	src/HTTPParserTests.cpp
-	src/HTTPBuilderTests.cpp
-	src/HTTPTestUtils.cpp
-	src/HTTPResponseTests.cpp
+	src/HttpParserTests.cpp
+	src/HttpBuilderTests.cpp
+	src/HttpTestUtils.cpp
+	src/HttpResponseTests.cpp
 )
 
 target_include_directories(
