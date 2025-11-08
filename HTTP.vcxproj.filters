@@ -15,33 +15,33 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\HTTPBuilder.cpp">
+    <ClCompile Include="src\HttpBuilder.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="src\HTTPParser.cpp">
+    <ClCompile Include="src\HttpParser.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="src\HTTPUtility.cpp">
+    <ClCompile Include="src\HttpUtility.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="src\HTTPParseException.cpp">
+    <ClCompile Include="src\HttpParseException.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\HTTPParser.h">
+    <ClInclude Include="include\HttpParser.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="include\CheckAtCompileTime.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="include\HTTPBuilder.h">
+    <ClInclude Include="include\HttpBuilder.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="include\HTTPUtility.h">
+    <ClInclude Include="include\HttpUtility.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="include\HTTPParseException.h">
+    <ClInclude Include="include\HttpParseException.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

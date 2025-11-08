@@ -273,17 +273,17 @@ COPY /Y $(SolutionDir)bin\$(Configuration)-$(Platform)\JSON\JSON.lib $(Outdir)</
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\HTTPBuilder.cpp" />
-    <ClCompile Include="src\HTTPParseException.cpp" />
-    <ClCompile Include="src\HTTPParser.cpp" />
-    <ClCompile Include="src\HTTPUtility.cpp" />
+    <ClCompile Include="src\HttpBuilder.cpp" />
+    <ClCompile Include="src\HttpParseException.cpp" />
+    <ClCompile Include="src\HttpParser.cpp" />
+    <ClCompile Include="src\HttpUtility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\CheckAtCompileTime.h" />
-    <ClInclude Include="include\HTTPBuilder.h" />
-    <ClInclude Include="include\HTTPParseException.h" />
-    <ClInclude Include="include\HTTPParser.h" />
-    <ClInclude Include="include\HTTPUtility.h" />
+    <ClInclude Include="include\HttpBuilder.h" />
+    <ClInclude Include="include\HttpParseException.h" />
+    <ClInclude Include="include\HttpParser.h" />
+    <ClInclude Include="include\HttpUtility.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="JSON\JSON.vcxproj">
