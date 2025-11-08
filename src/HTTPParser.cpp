@@ -27,21 +27,21 @@ static const std::unordered_set<std::string> methods =
 
 namespace web
 {
-	const std::unordered_map<std::string_view, std::function<void(HTTPParser&, std::string_view)>> HTTPParser::contentTypeParsers =
+	const std::unordered_map<std::string_view, std::function<void(HttpParser&, std::string_view)>> HttpParser::contentTypeParsers =
 	{
-		{ HTTPParser::urlEncoded, [](HTTPParser& parser, std::string_view data) { parser.parseQueryParameter(data); }},
-		{ HTTPParser::jsonEncoded, [](HTTPParser& parser, std::string_view data) { parser.jsonParser.setJSONData(data); }},
-		{ HTTPParser::multipartEncoded, [](HTTPParser& parser, std::string_view data) { parser.parseMultipart(data); }},
+		{ HttpParser::urlEncoded, [](HttpParser& parser, std::string_view data) { parser.parseQueryParameter(data); }},
+		{ HttpParser::jsonEncoded, [](HttpParser& parser, std::string_view data) { parser.jsonParser.setJSONData(data); }},
+		{ HttpParser::multipartEncoded, [](HttpParser& parser, std::string_view data) { parser.parseMultipart(data); }},
 	};
 
-	HTTPParser::ReadOnlyBuffer::ReadOnlyBuffer(std::string_view view)
+	HttpParser::ReadOnlyBuffer::ReadOnlyBuffer(std::string_view view)
 	{
 		char* data = const_cast<char*>(view.data());
 
 		setg(data, data, data + view.size());
 	}
 
-	std::string HTTPParser::mergeChunks() const
+	std::string HttpParser::mergeChunks() const
 	{
 		std::string result;
 
@@ -52,7 +52,7 @@ namespace web
 		return result;
 	}
 
-	void HTTPParser::parseQueryParameter(std::string_view rawParameters)
+	void HttpParser::parseQueryParameter(std::string_view rawParameters)
 	{
 		std::string key;
 		std::string value;
@@ -92,7 +92,7 @@ namespace web
 		queryParameters.try_emplace(move(key), move(value));
 	}
 	
-	void HTTPParser::parseMultipart(std::string_view data)
+	void HttpParser::parseMultipart(std::string_view data)
 	{
 		constexpr std::string_view boundaryText = "boundary=";
 
@@ -117,7 +117,7 @@ namespace web
 		}
 	}
 
-	void HTTPParser::parseContentType()
+	void HttpParser::parseContentType()
 	{
 		if (auto it = headers.find(contentTypeHeader); it != headers.end())
 		{
@@ -133,7 +133,7 @@ namespace web
 		}
 	}
 
-	void HTTPParser::parseChunkEncoded(std::string_view HTTPMessage, bool isUTF8)
+	void HttpParser::parseChunkEncoded(std::string_view HTTPMessage, bool isUTF8)
 	{
 		size_t chunksStart = HTTPMessage.find(crlfcrlf) + crlfcrlf.size();
 		size_t chunksEnd = HTTPMessage.rfind(crlfcrlf) + crlfcrlf.size();
@@ -172,24 +172,24 @@ namespace web
 		}
 	}
 
-	HTTPParser::HTTPParser() :
+	HttpParser::HttpParser() :
 		chunksSize(0),
 		parsed(false)
 	{
 
 	}
 
-	HTTPParser::HTTPParser(const std::string& HTTPMessage)
+	HttpParser::HttpParser(const std::string& HTTPMessage)
 	{
 		this->parse(HTTPMessage);
 	}
 
-	HTTPParser::HTTPParser(const std::vector<char>& HTTPMessage)
+	HttpParser::HttpParser(const std::vector<char>& HTTPMessage)
 	{
 		this->parse(std::string_view(HTTPMessage.data(), HTTPMessage.size()));
 	}
 
-	void HTTPParser::parse(std::string_view HTTPMessage)
+	void HttpParser::parse(std::string_view HTTPMessage)
 	{
 		if (HTTPMessage.empty())
 		{
@@ -210,7 +210,7 @@ namespace web
 
 			if (methods.find(method) == methods.end())
 			{
-				throw exceptions::HTTPParseException(format("Wrong method: {}", method));
+				throw exceptions::HttpParserException(format("Wrong method: {}", method));
 			}
 		}
 
@@ -236,7 +236,7 @@ namespace web
 
 			if (startParameters == std::string::npos)
 			{
-				throw exceptions::HTTPParseException("Can't find /");
+				throw exceptions::HttpParserException("Can't find /");
 			}
 
 			startParameters++;
@@ -288,14 +288,14 @@ namespace web
 
 		if (auto it = headers.find(transferEncodingHeader); it != headers.end())
 		{
-			static const std::unordered_map<std::string, void (HTTPParser::*)(std::string_view HTTPMessage, bool isUTF8)> transferTypeParsers =
+			static const std::unordered_map<std::string, void (HttpParser::*)(std::string_view HTTPMessage, bool isUTF8)> transferTypeParsers =
 			{
-				{ chunkEncoded, &HTTPParser::parseChunkEncoded }
+				{ chunkEncoded, &HttpParser::parseChunkEncoded }
 			};
 
 			if (!transferTypeParsers.contains(it->second))
 			{
-				throw exceptions::HTTPParseException("Not supported transfer encoding: " + it->second);
+				throw exceptions::HttpParserException("Not supported transfer encoding: " + it->second);
 			}
 
 			std::invoke(transferTypeParsers.at(it->second), *this, HTTPMessage, isUTF8);
@@ -315,77 +315,77 @@ namespace web
 		this->parseContentType();
 	}
 
-	const std::string& HTTPParser::getMethod() const
+	const std::string& HttpParser::getMethod() const
 	{
 		return method;
 	}
 
-	double HTTPParser::getHTTPVersion() const
+	double HttpParser::getHTTPVersion() const
 	{
 		return stod(httpVersion.substr(5));
 	}
 
-	const std::string& HTTPParser::getParameters() const
+	const std::string& HttpParser::getParameters() const
 	{
 		return parameters;
 	}
 
-	const std::unordered_map<std::string, std::string>& HTTPParser::getQueryParameters() const
+	const std::unordered_map<std::string, std::string>& HttpParser::getQueryParameters() const
 	{
 		return queryParameters;
 	}
 
-	const std::pair<int, std::string>& HTTPParser::getFullResponse() const
+	const std::pair<int, std::string>& HttpParser::getFullResponse() const
 	{
 		return response;
 	}
 
-	int HTTPParser::getResponseCode() const
+	int HttpParser::getResponseCode() const
 	{
 		return response.first;
 	}
 
-	const std::string& HTTPParser::getResponseMessage() const
+	const std::string& HttpParser::getResponseMessage() const
 	{
 		return response.second;
 	}
 
-	const HeadersMap& HTTPParser::getHeaders() const
+	const HeadersMap& HttpParser::getHeaders() const
 	{
 		return headers;
 	}
 
-	const std::string& HTTPParser::getBody() const
+	const std::string& HttpParser::getBody() const
 	{
 		return body;
 	}
 
-	const std::vector<std::string>& HTTPParser::getChunks() const
+	const std::vector<std::string>& HttpParser::getChunks() const
 	{
 		return chunks;
 	}
 
-	const json::JsonParser& HTTPParser::getJson() const
+	const json::JsonParser& HttpParser::getJson() const
 	{
 		return jsonParser;
 	}
 
-	const std::string& HTTPParser::getRawData() const
+	const std::string& HttpParser::getRawData() const
 	{
 		return rawData;
 	}
 
-	const std::vector<Multipart>& HTTPParser::getMultiparts() const
+	const std::vector<Multipart>& HttpParser::getMultiparts() const
 	{
 		return multiparts;
 	}
 
-	HTTPParser::operator bool() const
+	HttpParser::operator bool() const
 	{
 		return parsed;
 	}
 
-	std::ostream& operator << (std::ostream& outputStream, const HTTPParser& parser)
+	std::ostream& operator << (std::ostream& outputStream, const HttpParser& parser)
 	{
 		std::string result;
 
@@ -427,10 +427,10 @@ namespace web
 				result += std::format("{}{}{}", (std::ostringstream() << std::hex << chunk.size() << constants::crlf).str(), chunk, constants::crlf);
 			}
 
-			result += format("0{}", HTTPParser::crlfcrlf);
+			result += format("0{}", HttpParser::crlfcrlf);
 		}
 
-		if (!result.ends_with(HTTPParser::crlfcrlf))
+		if (!result.ends_with(HttpParser::crlfcrlf))
 		{
 			if (result.ends_with(constants::crlf))
 			{
@@ -438,14 +438,14 @@ namespace web
 			}
 			else
 			{
-				result += HTTPParser::crlfcrlf;
+				result += HttpParser::crlfcrlf;
 			}
 		}
 
 		return outputStream << result;
 	}
 
-	std::istream& operator >> (std::istream& inputStream, HTTPParser& parser)
+	std::istream& operator >> (std::istream& inputStream, HttpParser& parser)
 	{
 		std::istreambuf_iterator<char> it(inputStream);
 		std::string httpMessage(it, {});

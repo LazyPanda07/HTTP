@@ -12,7 +12,7 @@
 namespace web
 {
 	/// @brief HTTP builder
-	class HTTP_API HTTPBuilder
+	class HTTP_API HttpBuilder
 	{
 	public:
 		/// @brief Make HTTP parsed data with zero chunk
@@ -49,51 +49,51 @@ namespace web
 		bool _partialChunks;
 
 	public:
-		HTTPBuilder(std::string_view fullHTTPVersion = "HTTP/1.1");
+		HttpBuilder(std::string_view fullHTTPVersion = "HTTP/1.1");
 
-		HTTPBuilder(const HTTPBuilder& other) = default;
+		HttpBuilder(const HttpBuilder& other) = default;
 
-		HTTPBuilder(HTTPBuilder&& other) noexcept = default;
+		HttpBuilder(HttpBuilder&& other) noexcept = default;
 
-		HTTPBuilder& operator = (const HTTPBuilder& other) = default;
+		HttpBuilder& operator = (const HttpBuilder& other) = default;
 
-		HTTPBuilder& operator = (HTTPBuilder&& other) noexcept = default;
+		HttpBuilder& operator = (HttpBuilder&& other) noexcept = default;
 
 		/// @brief Set GET request
 		/// @return Self
-		HTTPBuilder& getRequest();
+		HttpBuilder& getRequest();
 
 		/// @brief Set POST request
 		/// @return Self
-		HTTPBuilder& postRequest();
+		HttpBuilder& postRequest();
 
 		/// @brief Set PUT request
 		/// @return Self
-		HTTPBuilder& putRequest();
+		HttpBuilder& putRequest();
 
 		/// @brief Set HEAD request
 		/// @return Self
-		HTTPBuilder& headRequest();
+		HttpBuilder& headRequest();
 
 		/// @brief Set OPTIONS request
 		/// @return Self
-		HTTPBuilder& optionsRequest();
+		HttpBuilder& optionsRequest();
 
 		/// @brief Set DELETE request
 		/// @return Self
-		HTTPBuilder& deleteRequest();
+		HttpBuilder& deleteRequest();
 
 		/// @brief Set CONNECT request
 		/// @return Self
-		HTTPBuilder& connectRequest();
+		HttpBuilder& connectRequest();
 
 		/// @brief Set TRACE request
 		/// @return Self
-		HTTPBuilder& traceRequest();
+		HttpBuilder& traceRequest();
 
 		/// @brief Set PATCH request
 		/// @return Self
-		HTTPBuilder& patchRequest();
+		HttpBuilder& patchRequest();
 
 		/// @brief Append key - value parameters
 		/// @tparam StringT 
@@ -104,31 +104,31 @@ namespace web
 		/// @param ...args 
 		/// @return Self
 		template<typename StringT, typename T, typename... Args>
-		HTTPBuilder& queryParameters(StringT&& name, T&& value, Args&&... args);
+		HttpBuilder& queryParameters(StringT&& name, T&& value, Args&&... args);
 
 		template<typename... Args>
-		HTTPBuilder& parametersWithRoute(std::string_view route, Args&&... args);
+		HttpBuilder& parametersWithRoute(std::string_view route, Args&&... args);
 
 		/// @brief Set parameters
 		/// @param parameters 
 		/// @return Self
-		HTTPBuilder& parameters(std::string_view parameters);
+		HttpBuilder& parameters(std::string_view parameters);
 
-		HTTPBuilder& responseCode(ResponseCodes code);
+		HttpBuilder& responseCode(ResponseCodes code);
 
-		HTTPBuilder& responseCode(int code, std::string_view responseMessage);
+		HttpBuilder& responseCode(int code, std::string_view responseMessage);
 
-		HTTPBuilder& HTTPVersion(std::string_view httpVersion);
+		HttpBuilder& HTTPVersion(std::string_view httpVersion);
 
-		HTTPBuilder& chunks(const std::vector<std::string>& chunks);
+		HttpBuilder& chunks(const std::vector<std::string>& chunks);
 
-		HTTPBuilder& chunks(std::vector<std::string>&& chunks);
+		HttpBuilder& chunks(std::vector<std::string>&& chunks);
 
-		HTTPBuilder& chunk(std::string_view chunk);
+		HttpBuilder& chunk(std::string_view chunk);
 
-		HTTPBuilder& clear();
+		HttpBuilder& clear();
 
-		HTTPBuilder& partialChunks();
+		HttpBuilder& partialChunks();
 
 		/// @brief Append header - value
 		/// @tparam StringT 
@@ -139,7 +139,7 @@ namespace web
 		/// @param ...args 
 		/// @return Self
 		template<typename StringT, typename T, typename... Args>
-		HTTPBuilder& headers(StringT&& name, T&& value, Args&&... args);
+		HttpBuilder& headers(StringT&& name, T&& value, Args&&... args);
 
 		template<concepts::HttpBuilderReturnType ReturnT = std::string>
 		ReturnT build(std::string_view data = "", const std::unordered_map<std::string, std::string>& additionalHeaders = {}) const;
@@ -154,16 +154,16 @@ namespace web
 		/// @param outputStream std::ostream subclass instance
 		/// @param parser const reference to HTTPBuilder instance
 		/// @return outputStream
-		friend HTTP_API std::ostream& operator << (std::ostream& outputStream, const HTTPBuilder& builder);
+		friend HTTP_API std::ostream& operator << (std::ostream& outputStream, const HttpBuilder& builder);
 
-		~HTTPBuilder() = default;
+		~HttpBuilder() = default;
 	};
 }
 
 namespace web
 {
 	template<typename KeyT, typename ValueT, typename... Args>
-	void HTTPBuilder::fillAdditionalHeaders(std::unordered_map<std::string, std::string>& additionalHeaders, KeyT&& key, ValueT&& value, Args&&... args)
+	void HttpBuilder::fillAdditionalHeaders(std::unordered_map<std::string, std::string>& additionalHeaders, KeyT&& key, ValueT&& value, Args&&... args)
 	{
 		static_assert(sizeof...(args) % 2 == 0);
 
@@ -171,12 +171,12 @@ namespace web
 
 		if constexpr (sizeof...(args))
 		{
-			HTTPBuilder::fillAdditionalHeaders(additionalHeaders, std::forward<Args>(args)...);
+			HttpBuilder::fillAdditionalHeaders(additionalHeaders, std::forward<Args>(args)...);
 		}
 	}
 
 	template<concepts::HttpBuilderReturnType T>
-	T HTTPBuilder::convert(std::string&& result)
+	T HttpBuilder::convert(std::string&& result)
 	{
 		if constexpr (std::same_as<T, std::string>)
 		{
@@ -191,7 +191,7 @@ namespace web
 	}
 
 	template<typename... AdditionalHeaders>
-	std::string HTTPBuilder::buildImplementation(std::string_view data, const std::unordered_map<std::string, std::string>& headers, AdditionalHeaders&&... keyValueAdditionalHeaders) const
+	std::string HttpBuilder::buildImplementation(std::string_view data, const std::unordered_map<std::string, std::string>& headers, AdditionalHeaders&&... keyValueAdditionalHeaders) const
 	{
 		std::string result;
 		std::unordered_map<std::string, std::string> additionalHeaders;
@@ -228,7 +228,7 @@ namespace web
 
 		if constexpr (sizeof...(keyValueAdditionalHeaders))
 		{
-			HTTPBuilder::fillAdditionalHeaders(additionalHeaders, std::forward<AdditionalHeaders>(keyValueAdditionalHeaders)...);
+			HttpBuilder::fillAdditionalHeaders(additionalHeaders, std::forward<AdditionalHeaders>(keyValueAdditionalHeaders)...);
 		}
 
 		for (const auto& [header, value] : additionalHeaders)
@@ -244,14 +244,14 @@ namespace web
 		}
 		else if (_chunks.size())
 		{
-			result += HTTPBuilder::getChunks(_chunks, _partialChunks);
+			result += HttpBuilder::getChunks(_chunks, _partialChunks);
 		}
 
 		return result;
 	}
 
 	template<typename StringT, typename T, typename... Args>
-	HTTPBuilder& HTTPBuilder::queryParameters(StringT&& name, T&& value, Args&&... args)
+	HttpBuilder& HttpBuilder::queryParameters(StringT&& name, T&& value, Args&&... args)
 	{
 		static_assert(std::is_convertible_v<decltype(name), std::string_view>, "Wrong StringT type");
 
@@ -277,7 +277,7 @@ namespace web
 			throw std::logic_error("Bad type of T, it must be converted to string or arithmetic type");
 		}
 
-		if constexpr (requires { requires std::invocable<decltype(&HTTPBuilder::queryParameters<Args...>), decltype(this), Args...>; })
+		if constexpr (requires { requires std::invocable<decltype(&HttpBuilder::queryParameters<Args...>), decltype(this), Args...>; })
 		{
 			return this->queryParameters(std::forward<Args>(args)...);
 		}
@@ -288,7 +288,7 @@ namespace web
 	}
 
 	template<typename... Args>
-	HTTPBuilder& HTTPBuilder::parametersWithRoute(std::string_view route, Args&&... args)
+	HttpBuilder& HttpBuilder::parametersWithRoute(std::string_view route, Args&&... args)
 	{
 		if (route.starts_with('/'))
 		{
@@ -310,7 +310,7 @@ namespace web
 	}
 
 	template<typename StringT, typename T, typename... Args>
-	HTTPBuilder& HTTPBuilder::headers(StringT&& name, T&& value, Args&&... args)
+	HttpBuilder& HttpBuilder::headers(StringT&& name, T&& value, Args&&... args)
 	{
 		if constexpr (::utility::StringConversion<StringT>::value)
 		{
@@ -384,19 +384,19 @@ namespace web
 	}
 
 	template<concepts::HttpBuilderReturnType ReturnT>
-	ReturnT HTTPBuilder::build(std::string_view data, const std::unordered_map<std::string, std::string>& additionalHeaders) const
+	ReturnT HttpBuilder::build(std::string_view data, const std::unordered_map<std::string, std::string>& additionalHeaders) const
 	{
-		return HTTPBuilder::convert<ReturnT>(this->buildImplementation(data, additionalHeaders));
+		return HttpBuilder::convert<ReturnT>(this->buildImplementation(data, additionalHeaders));
 	}
 
 	template<concepts::HttpBuilderReturnType ReturnT>
-	ReturnT HTTPBuilder::build(const json::JsonBuilder& builder, const std::unordered_map<std::string, std::string>& additionalHeaders) const
+	ReturnT HttpBuilder::build(const json::JsonBuilder& builder, const std::unordered_map<std::string, std::string>& additionalHeaders) const
 	{
-		return HTTPBuilder::convert<ReturnT>(this->buildImplementation(builder.build(), additionalHeaders, "Content-Type", "application/json"));
+		return HttpBuilder::convert<ReturnT>(this->buildImplementation(builder.build(), additionalHeaders, "Content-Type", "application/json"));
 	}
 
 	template<concepts::HttpBuilderReturnType ReturnT>
-	ReturnT HTTPBuilder::build(const std::unordered_map<std::string, std::string>& urlEncoded, const std::unordered_map<std::string, std::string>& additionalHeaders) const
+	ReturnT HttpBuilder::build(const std::unordered_map<std::string, std::string>& urlEncoded, const std::unordered_map<std::string, std::string>& additionalHeaders) const
 	{
 		std::string body;
 
@@ -410,6 +410,6 @@ namespace web
 			body.pop_back(); // remove last &
 		}
 
-		return HTTPBuilder::convert<ReturnT>(this->buildImplementation(body, additionalHeaders, "Content-Type", "application/x-www-form-urlencoded"));
+		return HttpBuilder::convert<ReturnT>(this->buildImplementation(body, additionalHeaders, "Content-Type", "application/x-www-form-urlencoded"));
 	}
 }

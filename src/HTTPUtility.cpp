@@ -223,7 +223,7 @@ namespace web
 			);
 		}
 
-		this->data = std::string(data.begin() + data.find(HTTPParser::crlfcrlf) + HTTPParser::crlfcrlf.size(), data.end() - constants::crlf.size());
+		this->data = std::string(data.begin() + data.find(HttpParser::crlfcrlf) + HttpParser::crlfcrlf.size(), data.end() - constants::crlf.size());
 	}
 
 	Multipart::Multipart(std::string_view name, const std::optional<std::string>& fileName, const std::optional<std::string>& contentType, std::string&& data) :

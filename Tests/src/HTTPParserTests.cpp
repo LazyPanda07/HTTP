@@ -2,13 +2,13 @@
 
 #include <iostream>
 
-#include "HTTPParser.h"
+#include "HttpParser.h"
 
 #include "HTTPTestUtils.h"
 
 TEST(Parser, Request)
 {
-	web::HTTPParser parser(getPostRequest());
+	web::HttpParser parser(getPostRequest());
 	const json::JsonParser& jsonParser = parser.getJson();
 	const web::HeadersMap& headers = parser.getHeaders();
 
@@ -30,7 +30,7 @@ TEST(Parser, Request)
 
 TEST(Parser, Response)
 {
-	web::HTTPParser parser(getHTTPResponse());
+	web::HttpParser parser(getHTTPResponse());
 	const web::HeadersMap& headers = parser.getHeaders();
 
 	ASSERT_EQ(parser.getHTTPVersion(), 1.1);
@@ -48,7 +48,7 @@ TEST(Parser, Response)
 
 TEST(Parser, CONNECT)
 {
-	web::HTTPParser parser(getCONNECTRequest());
+	web::HttpParser parser(getCONNECTRequest());
 	const web::HeadersMap& headers = parser.getHeaders();
 
 	ASSERT_EQ(parser.getParameters(), "server.example.com:80");
@@ -63,7 +63,7 @@ TEST(Parser, Streams)
 
 	{
 		std::string data(getCONNECTRequest());
-		web::HTTPParser parser;
+		web::HttpParser parser;
 		std::ostringstream os;
 		std::istringstream is(data);
 
@@ -80,7 +80,7 @@ TEST(Parser, Streams)
 
 	{
 		std::string data(getGetRequest());
-		web::HTTPParser parser;
+		web::HttpParser parser;
 		std::ostringstream os;
 		std::istringstream is(data);
 
@@ -99,12 +99,12 @@ TEST(Parser, Streams)
 
 TEST(Parser, Parameters)
 {
-	ASSERT_EQ(web::HTTPParser(getGetRequest()).getQueryParameters().at("q"), "test");
+	ASSERT_EQ(web::HttpParser(getGetRequest()).getQueryParameters().at("q"), "test");
 }
 
 TEST(Parser, Multipart)
 {
-	web::HTTPParser parser(getMultipartRequest());
+	web::HttpParser parser(getMultipartRequest());
 
 	{
 		const web::Multipart& part = parser.getMultiparts()[0];
@@ -132,7 +132,7 @@ TEST(Parser, Multipart)
 
 TEST(Parser, RequestWithoutSpaces)
 {
-	web::HTTPParser parser(getPoseRequestWithoutSpaces());
+	web::HttpParser parser(getPoseRequestWithoutSpaces());
 	const web::HeadersMap& headers = parser.getHeaders();
 
 	ASSERT_EQ(headers.at("Host"), "127.0.0.1:8080");

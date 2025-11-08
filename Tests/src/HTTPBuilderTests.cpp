@@ -1,13 +1,13 @@
 #include <gtest/gtest.h>
 
-#include "HTTPBuilder.h"
-#include "HTTPParser.h"
+#include "HttpBuilder.h"
+#include "HttpParser.h"
 
 #include "HTTPTestUtils.h"
 
 TEST(Builder, GET)
 {
-	std::string getRequest = web::HTTPBuilder()
+	std::string getRequest = web::HttpBuilder()
 		.getRequest()
 		.parameters("search?").queryParameters("q", "test")
 		.headers
@@ -35,7 +35,7 @@ TEST(Builder, POST)
 	json["doubleValue"] = 228.322;
 	json["nullValue"] = nullptr;
 
-	std::string postRequest = web::HTTPBuilder()
+	std::string postRequest = web::HttpBuilder()
 		.postRequest()
 		.parameters("post")
 		.headers
@@ -47,7 +47,7 @@ TEST(Builder, POST)
 			"Empty-Header", ""
 		)
 		.build(json);
-	json::JsonParser parser = web::HTTPParser(postRequest).getJson();
+	json::JsonParser parser = web::HttpParser(postRequest).getJson();
 
 	ASSERT_EQ(postRequest.size(), getPostRequest().size());
 
@@ -67,7 +67,7 @@ TEST(Builder, POST)
 
 TEST(Builder, CONNECT)
 {
-	std::string connectRequest = web::HTTPBuilder().
+	std::string connectRequest = web::HttpBuilder().
 		connectRequest().
 		parameters("server.example.com:80").
 		headers
@@ -84,7 +84,7 @@ TEST(Builder, CONNECT)
 
 TEST(Builder, Streams)
 {
-	web::HTTPBuilder builder = web::HTTPBuilder()
+	web::HttpBuilder builder = web::HttpBuilder()
 		.getRequest()
 		.parameters("search?").queryParameters("q", "test")
 		.headers
@@ -103,5 +103,5 @@ TEST(Builder, Streams)
 
 TEST(Builder, WrongHTTPVersion)
 {
-	ASSERT_THROW(web::HTTPBuilder("HTTP.1/0"), std::runtime_error);
+	ASSERT_THROW(web::HttpBuilder("HTTP.1/0"), std::runtime_error);
 }

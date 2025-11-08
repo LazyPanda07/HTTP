@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "HTTPUtility.h"
+#include "HttpUtility.h"
 
 TEST(ResponseCodes, GetMessageFromCode)
 {

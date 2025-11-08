@@ -17,7 +17,7 @@ static const std::unordered_set<std::string_view> availableHTTPVersions =
 
 namespace web
 {
-	std::string HTTPBuilder::getChunks(const std::vector<std::string>& chunks, bool partialChunks, bool preCalculateSize)
+	std::string HttpBuilder::getChunks(const std::vector<std::string>& chunks, bool partialChunks, bool preCalculateSize)
 	{
 		std::string result;
 
@@ -37,23 +37,23 @@ namespace web
 
 		for (const std::string& chunk : chunks)
 		{
-			result += HTTPBuilder::getChunk(chunk);
+			result += HttpBuilder::getChunk(chunk);
 		}
 
 		if (!partialChunks)
 		{
-			result += HTTPBuilder::getChunk({});
+			result += HttpBuilder::getChunk({});
 		}
 
 		return result;
 	}
 
-	std::string HTTPBuilder::getChunk(std::string_view chunk)
+	std::string HttpBuilder::getChunk(std::string_view chunk)
 	{
 		return std::format("{:x}{}{}{}", chunk.size(), constants::crlf, chunk, constants::crlf);
 	}
 
-	HTTPBuilder::HTTPBuilder(std::string_view fullHTTPVersion) :
+	HttpBuilder::HttpBuilder(std::string_view fullHTTPVersion) :
 		_HTTPVersion(fullHTTPVersion),
 		_partialChunks(false)
 	{
@@ -63,70 +63,70 @@ namespace web
 		}
 	}
 
-	HTTPBuilder& HTTPBuilder::getRequest()
+	HttpBuilder& HttpBuilder::getRequest()
 	{
 		method = "GET";
 
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::postRequest()
+	HttpBuilder& HttpBuilder::postRequest()
 	{
 		method = "POST";
 
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::putRequest()
+	HttpBuilder& HttpBuilder::putRequest()
 	{
 		method = "PUT";
 
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::headRequest()
+	HttpBuilder& HttpBuilder::headRequest()
 	{
 		method = "HEAD";
 
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::optionsRequest()
+	HttpBuilder& HttpBuilder::optionsRequest()
 	{
 		method = "OPTIONS";
 
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::deleteRequest()
+	HttpBuilder& HttpBuilder::deleteRequest()
 	{
 		method = "DELETE";
 
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::connectRequest()
+	HttpBuilder& HttpBuilder::connectRequest()
 	{
 		method = "CONNECT";
 
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::traceRequest()
+	HttpBuilder& HttpBuilder::traceRequest()
 	{
 		method = "TRACE";
 
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::patchRequest()
+	HttpBuilder& HttpBuilder::patchRequest()
 	{
 		method = "PATCH";
 
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::parameters(std::string_view parameters)
+	HttpBuilder& HttpBuilder::parameters(std::string_view parameters)
 	{
 		if (method != "CONNECT")
 		{
@@ -157,21 +157,21 @@ namespace web
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::responseCode(ResponseCodes code)
+	HttpBuilder& HttpBuilder::responseCode(ResponseCodes code)
 	{
 		_responseCode = format("{} {}", static_cast<int>(code), getMessageFromCode(code));
 
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::responseCode(int code, std::string_view responseMessage)
+	HttpBuilder& HttpBuilder::responseCode(int code, std::string_view responseMessage)
 	{
 		_responseCode = format("{} {}", code, responseMessage);
 
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::HTTPVersion(std::string_view HTTPVersion)
+	HttpBuilder& HttpBuilder::HTTPVersion(std::string_view HTTPVersion)
 	{
 		if (HTTPVersion.find("HTTP") == std::string::npos)
 		{
@@ -190,7 +190,7 @@ namespace web
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::chunks(const std::vector<std::string>& chunks)
+	HttpBuilder& HttpBuilder::chunks(const std::vector<std::string>& chunks)
 	{
 		_chunks.reserve(chunks.size());
 
@@ -199,7 +199,7 @@ namespace web
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::chunks(std::vector<std::string>&& chunks)
+	HttpBuilder& HttpBuilder::chunks(std::vector<std::string>&& chunks)
 	{
 		_chunks.reserve(chunks.size());
 
@@ -208,14 +208,14 @@ namespace web
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::chunk(std::string_view chunk)
+	HttpBuilder& HttpBuilder::chunk(std::string_view chunk)
 	{
 		_chunks.emplace_back(chunk);
 
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::clear()
+	HttpBuilder& HttpBuilder::clear()
 	{
 		method.clear();
 		_parameters.clear();
@@ -225,14 +225,14 @@ namespace web
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::partialChunks()
+	HttpBuilder& HttpBuilder::partialChunks()
 	{
 		_partialChunks = true;
 
 		return *this;
 	}
 
-	std::ostream& operator << (std::ostream& outputStream, const HTTPBuilder& builder)
+	std::ostream& operator << (std::ostream& outputStream, const HttpBuilder& builder)
 	{
 		return outputStream << builder.build();
 	}
