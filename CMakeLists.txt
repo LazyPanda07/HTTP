@@ -16,10 +16,10 @@ project(HTTP VERSION 1.14.0)
 
 add_library(
 	${PROJECT_NAME}
-	src/HTTPBuilder.cpp
-	src/HTTPParser.cpp
-	src/HTTPUtility.cpp
-	src/HTTPParseException.cpp
+	src/HttpBuilder.cpp
+	src/HttpParser.cpp
+	src/HttpUtility.cpp
+	src/HttpParseException.cpp
 )
 
 if (DEFINED ENV{MARCH} AND NOT "$ENV{MARCH}" STREQUAL "")
