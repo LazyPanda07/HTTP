@@ -1,10 +1,10 @@
-#include "HTTPParseException.h"
+#include "HttpParserException.h"
 
 using namespace std;
 
 namespace web::exceptions
 {
-	HTTPParseException::HTTPParseException(string_view message) :
+	HttpParserException::HttpParserException(string_view message) :
 		runtime_error(string(message.begin(), message.end()))
 	{
 		

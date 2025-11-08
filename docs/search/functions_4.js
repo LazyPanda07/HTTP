@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['encodeurl_0',['encodeUrl',['../namespaceweb.html#a8a69377fcbe29bdb4639d1dff611b73b',1,'web::encodeUrl(string_view data)'],['../namespaceweb.html#ae13dbc43eb6ced4f0b3320ac69d0c1f0',1,'web::encodeUrl(std::string_view data)']]]
+  ['gethttplibraryversion_0',['getHTTPLibraryVersion',['../namespaceweb.html#a66364f87809aeb45ca5b6f5aa0cd9dac',1,'web']]],
+  ['getvalues_1',['getValues',['../class_multipart_parser.html#a736301307684c2b9d5e5b946c5e0b554',1,'MultipartParser']]]
 ];

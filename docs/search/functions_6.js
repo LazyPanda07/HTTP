@@ -1,9 +1,5 @@
 var searchData=
 [
-  ['headers_0',['headers',['../classweb_1_1_h_t_t_p_builder.html#a5922eb4df1fb698cf9f54ad28975a018',1,'web::HTTPBuilder']]],
-  ['headrequest_1',['headRequest',['../classweb_1_1_h_t_t_p_builder.html#abc6c80e8a5e8254e4ef21fa0b7f3d4c6',1,'web::HTTPBuilder']]],
-  ['httpbuilder_2',['HTTPBuilder',['../classweb_1_1_h_t_t_p_builder.html#aa2a246f805935f000f82d609a9a67d69',1,'web::HTTPBuilder::HTTPBuilder(std::string_view fullHTTPVersion=&quot;HTTP/1.1&quot;)'],['../classweb_1_1_h_t_t_p_builder.html#a58a5d80d5a6eb5f393d5770e3d4ba8e0',1,'web::HTTPBuilder::HTTPBuilder(const HTTPBuilder &amp;other)=default'],['../classweb_1_1_h_t_t_p_builder.html#a7c2c2af0e5694933641d6e6da1723bc1',1,'web::HTTPBuilder::HTTPBuilder(HTTPBuilder &amp;&amp;other) noexcept=default']]],
-  ['httpparseexception_3',['HTTPParseException',['../classweb_1_1exceptions_1_1_h_t_t_p_parse_exception.html#a392e3014eb3cc4c6beee04fcfb473944',1,'web::exceptions::HTTPParseException']]],
-  ['httpparser_4',['HTTPParser',['../classweb_1_1_h_t_t_p_parser.html#a77888207279beafa77e4fae4ae1f1be0',1,'web::HTTPParser::HTTPParser()'],['../classweb_1_1_h_t_t_p_parser.html#a2f189bdb5055e3ecfa55fe461b9a7333',1,'web::HTTPParser::HTTPParser(const std::string &amp;HTTPMessage)'],['../classweb_1_1_h_t_t_p_parser.html#ac630e692911a03f84dc52792aa9af598',1,'web::HTTPParser::HTTPParser(const std::vector&lt; char &gt; &amp;HTTPMessage)'],['../classweb_1_1_h_t_t_p_parser.html#aedefb22a02d7181d92a4eeba9b588da5',1,'web::HTTPParser::HTTPParser(const HTTPParser &amp;other)=default'],['../classweb_1_1_h_t_t_p_parser.html#a9e12d2beb45552ffa2453adfd5eeeb1d',1,'web::HTTPParser::HTTPParser(HTTPParser &amp;&amp;other) noexcept=default']]],
-  ['httpversion_5',['HTTPVersion',['../classweb_1_1_h_t_t_p_builder.html#ae97b87bd1987d2e5d87395ad64b589e4',1,'web::HTTPBuilder']]]
+  ['operator_3c_3c_0',['operator&lt;&lt;',['../namespaceweb.html#a71c409153419a792e37137933f1c3a59',1,'web::operator&lt;&lt;(std::ostream &amp;outputStream, const HttpBuilder &amp;builder)'],['../namespaceweb.html#a9bf441dbcfdfc737a23df0e85be144d7',1,'web::operator&lt;&lt;(std::ostream &amp;outputStream, const HttpParser &amp;parser)']]],
+  ['operator_3e_3e_1',['operator&gt;&gt;',['../namespaceweb.html#a6e809120fbbba3d74fb228ccf8175b2e',1,'web']]]
 ];

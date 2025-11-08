@@ -1,15 +1,15 @@
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 
 #include <iostream>
 
-#include "HTTPParser.h"
+#include "HttpParser.h"
 
-#include "HTTPTestUtils.h"
+#include "HttpTestUtils.h"
 
 TEST(Parser, Request)
 {
-	web::HTTPParser parser(getPostRequest());
-	const json::JSONParser& jsonParser = parser.getJSON();
+	web::HttpParser parser(getPostRequest());
+	const json::JsonParser& jsonParser = parser.getJson();
 	const web::HeadersMap& headers = parser.getHeaders();
 
 	ASSERT_EQ(parser.getMethod(), "POST");
@@ -22,15 +22,15 @@ TEST(Parser, Request)
 	ASSERT_EQ(headers.at("Content-Length"), "96");
 	ASSERT_EQ(headers.at("Empty-Header"), "");
 
-	ASSERT_EQ(jsonParser.getString("stringValue"), "qwe");
-	ASSERT_EQ(jsonParser.getInt("intValue"), 1500);
-	ASSERT_EQ(jsonParser.getDouble("doubleValue"), 228.322);
-	ASSERT_EQ(jsonParser.getNull("nullValue"), nullptr);
+	ASSERT_EQ(jsonParser.get<std::string>("stringValue"), "qwe");
+	ASSERT_EQ(jsonParser.get<int>("intValue"), 1500);
+	ASSERT_EQ(jsonParser.get<double>("doubleValue"), 228.322);
+	ASSERT_EQ(jsonParser.get<std::nullptr_t>("nullValue"), nullptr);
 }
 
 TEST(Parser, Response)
 {
-	web::HTTPParser parser(getHTTPResponse());
+	web::HttpParser parser(getHTTPResponse());
 	const web::HeadersMap& headers = parser.getHeaders();
 
 	ASSERT_EQ(parser.getHTTPVersion(), 1.1);
@@ -48,7 +48,7 @@ TEST(Parser, Response)
 
 TEST(Parser, CONNECT)
 {
-	web::HTTPParser parser(getCONNECTRequest());
+	web::HttpParser parser(getCONNECTRequest());
 	const web::HeadersMap& headers = parser.getHeaders();
 
 	ASSERT_EQ(parser.getParameters(), "server.example.com:80");
@@ -63,7 +63,7 @@ TEST(Parser, Streams)
 
 	{
 		std::string data(getCONNECTRequest());
-		web::HTTPParser parser;
+		web::HttpParser parser;
 		std::ostringstream os;
 		std::istringstream is(data);
 
@@ -80,7 +80,7 @@ TEST(Parser, Streams)
 
 	{
 		std::string data(getGetRequest());
-		web::HTTPParser parser;
+		web::HttpParser parser;
 		std::ostringstream os;
 		std::istringstream is(data);
 
@@ -90,7 +90,7 @@ TEST(Parser, Streams)
 
 		data = os.str();
 
-		ASSERT_NE(data.find("GET /search?q=test HTTP/2\r\n"), npos);
+		ASSERT_NE(data.find("GET /search?q=test HTTP/1.1\r\n"), npos);
 		ASSERT_NE(data.find("Host: www.bing.com\r\n"), npos);
 		ASSERT_NE(data.find("User-Agent: curl/7.54.0\r\n"), npos);
 		ASSERT_NE(data.find("Accept: */*\r\n"), npos);
@@ -99,12 +99,12 @@ TEST(Parser, Streams)
 
 TEST(Parser, Parameters)
 {
-	ASSERT_EQ(web::HTTPParser(getGetRequest()).getQueryParameters().at("q"), "test");
+	ASSERT_EQ(web::HttpParser(getGetRequest()).getQueryParameters().at("q"), "test");
 }
 
 TEST(Parser, Multipart)
 {
-	web::HTTPParser parser(getMultipartRequest());
+	web::HttpParser parser(getMultipartRequest());
 
 	{
 		const web::Multipart& part = parser.getMultiparts()[0];
@@ -132,7 +132,7 @@ TEST(Parser, Multipart)
 
 TEST(Parser, RequestWithoutSpaces)
 {
-	web::HTTPParser parser(getPoseRequestWithoutSpaces());
+	web::HttpParser parser(getPoseRequestWithoutSpaces());
 	const web::HeadersMap& headers = parser.getHeaders();
 
 	ASSERT_EQ(headers.at("Host"), "127.0.0.1:8080");

@@ -4,13 +4,13 @@
 #include <unordered_map>
 #include <functional>
 
-#include "HTTPUtility.h"
-#include "JSONParser.h"
+#include "HttpUtility.h"
+#include "JsonParser.h"
 
 namespace web
 {
 	/// @brief HTTP parser
-	class HTTP_API HTTPParser
+	class HTTP_API HttpParser
 	{
 	private:
 		struct ReadOnlyBuffer : public std::streambuf
@@ -19,7 +19,7 @@ namespace web
 		};
 
 	private:
-		static const std::unordered_map<std::string_view, std::function<void(HTTPParser&, std::string_view)>> contentTypeParsers;
+		static const std::unordered_map<std::string_view, std::function<void(HttpParser&, std::string_view)>> contentTypeParsers;
 
 	public:
 		static inline const std::string contentLengthHeader = "Content-Length";
@@ -28,7 +28,6 @@ namespace web
 		static inline const std::string utf8Encoded = "charset=utf-8";
 		static inline const std::string chunkEncoded = "chunked";
 		static inline constexpr std::string_view crlfcrlf = "\r\n\r\n";
-		static inline constexpr std::string_view crlf = "\r\n";
 
 	public:
 		static inline constexpr std::string_view urlEncoded = "application/x-www-form-urlencoded";
@@ -39,7 +38,7 @@ namespace web
 		std::unordered_map<std::string, std::string, InsensitiveStringHash, InsensitiveStringEqual> headers;
 		std::vector<Multipart> multiparts;
 		std::unordered_map<std::string, std::string> queryParameters;
-		json::JSONParser jsonParser;
+		json::JsonParser jsonParser;
 		std::pair<int, std::string> response;	// code - response message
 		std::string method;
 		std::string httpVersion;
@@ -64,19 +63,19 @@ namespace web
 		void parseChunkEncoded(std::string_view HTTPMessage, bool isUTF8);
 
 	public:
-		HTTPParser();
+		HttpParser();
 
-		HTTPParser(const std::string& HTTPMessage);
+		HttpParser(const std::string& HTTPMessage);
 
-		HTTPParser(const std::vector<char>& HTTPMessage);
+		HttpParser(const std::vector<char>& HTTPMessage);
 
-		HTTPParser(const HTTPParser& other) = default;
+		HttpParser(const HttpParser& other) = default;
 
-		HTTPParser(HTTPParser&& other) noexcept = default;
+		HttpParser(HttpParser&& other) noexcept = default;
 
-		HTTPParser& operator = (const HTTPParser& other) = default;
+		HttpParser& operator = (const HttpParser& other) = default;
 
-		HTTPParser& operator = (HTTPParser&& other) noexcept = default;
+		HttpParser& operator = (HttpParser&& other) noexcept = default;
 
 		void parse(std::string_view HTTPMessage);
 
@@ -100,7 +99,7 @@ namespace web
 
 		const std::vector<std::string>& getChunks() const;
 
-		const json::JSONParser& getJSON() const;
+		const json::JsonParser& getJson() const;
 		
 		const std::string& getRawData() const;
 
@@ -108,10 +107,10 @@ namespace web
 
 		operator bool() const;
 
-		friend HTTP_API std::ostream& operator << (std::ostream& outputStream, const HTTPParser& parser);
+		friend HTTP_API std::ostream& operator << (std::ostream& outputStream, const HttpParser& parser);
 
-		friend HTTP_API std::istream& operator >> (std::istream& inputStream, HTTPParser& parser);
+		friend HTTP_API std::istream& operator >> (std::istream& inputStream, HttpParser& parser);
 
-		~HTTPParser() = default;
+		~HttpParser() = default;
 	};
 }

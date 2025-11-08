@@ -1,9 +1,9 @@
-#include "HTTPTestUtils.h"
+#include "HttpTestUtils.h"
 
 std::string getGetRequest()
 {
 	return
-		"GET /search?q=test HTTP/2\r\n"
+		"GET /search?q=test HTTP/1.1\r\n"
 		"Host: www.bing.com\r\n"
 		"User-Agent: curl/7.54.0\r\n"
 		"Accept: */*\r\n"

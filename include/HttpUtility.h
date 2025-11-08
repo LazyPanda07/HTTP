@@ -2,6 +2,7 @@
 
 #include <ostream>
 #include <unordered_map>
+#include <vector>
 #include <string>
 #include <optional>
 
@@ -98,36 +99,36 @@ namespace web
 
 	/**
 	 * @brief Output stream operator for ResponseCodes
-	 * @param stream 
-	 * @param responseCode 
-	 * @return 
+	 * @param stream
+	 * @param responseCode
+	 * @return
 	 */
-	inline std::ostream& operator << (std::ostream& stream, ResponseCodes responseCode)
+	inline std::ostream& operator <<(std::ostream& stream, ResponseCodes responseCode)
 	{
 		return stream << static_cast<int>(responseCode);
 	}
 
 	/**
 	 * @brief Compare operator for ResponseCodes
-	 * @param code 
-	 * @param otherCode 
-	 * @return 
+	 * @param code
+	 * @param otherCode
+	 * @return
 	 */
-	inline bool operator == (int code, ResponseCodes otherCode)
+	inline bool operator ==(int code, ResponseCodes otherCode)
 	{
 		return code == static_cast<int>(otherCode);
 	}
 
 	/**
 	 * @brief Get version of HTTP library
-	 * @return 
+	 * @return
 	*/
 	HTTP_API_FUNCTION std::string getHTTPLibraryVersion();
 
 	/**
 	 * @brief Encode data to application/x-www-form-urlencoded format
-	 * @param data 
-	 * @return 
+	 * @param data
+	 * @return
 	 */
 	HTTP_API_FUNCTION std::string encodeUrl(std::string_view data);
 
@@ -140,25 +141,25 @@ namespace web
 
 	/**
 	 * @brief Get response message from response code
-	 * @tparam T 
-	 * @param code 
-	 * @return 
+	 * @tparam T
+	 * @param code
+	 * @return
 	 */
-	template<typename T> requires (std::same_as<T, ResponseCodes> || std::convertible_to<T, int>)
-	std::string getMessageFromCode(const T& code);
+	template<typename T>
+	std::string getMessageFromCode(const T& code) requires (std::same_as<T, ResponseCodes> || std::convertible_to<T, int>);
 
 	HTTP_API_FUNCTION std::string __getMessageFromCode(int code);
 
 	/// @brief Custom hashing for headers with case insensitive
 	struct HTTP_API InsensitiveStringHash
 	{
-		size_t operator () (const std::string& value) const;
+		size_t operator ()(const std::string& value) const;
 	};
 
 	/// @brief Custom equal for headers
 	struct HTTP_API InsensitiveStringEqual
 	{
-		bool operator () (const std::string& left, const std::string& right) const;
+		bool operator ()(const std::string& left, const std::string& right) const;
 	};
 
 	/**
@@ -192,12 +193,23 @@ namespace web
 	 * @brief Case insensitive unordered_map
 	*/
 	using HeadersMap = std::unordered_map<std::string, std::string, InsensitiveStringHash, InsensitiveStringEqual>;
+
+	namespace concepts
+	{
+		template<typename T>
+		concept HttpBuilderReturnType = std::same_as<T, std::string> || std::same_as<T, std::vector<char>>;
+	}
+
+	namespace constants
+	{
+		inline constexpr std::string_view crlf = "\r\n";
+	}
 }
 
 namespace web
 {
-	template<typename T> requires (std::same_as<T, ResponseCodes> || std::convertible_to<T, int>)
-	std::string getMessageFromCode(const T& code)
+	template<typename T>
+	std::string getMessageFromCode(const T& code) requires (std::same_as<T, ResponseCodes> || std::convertible_to<T, int>)
 	{
 		return __getMessageFromCode(static_cast<int>(code));
 	}

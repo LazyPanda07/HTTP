@@ -1,4 +1,4 @@
-#include "HTTPUtility.h"
+#include "HttpUtility.h"
 
 #include <iostream>
 #include <algorithm>
@@ -7,37 +7,35 @@
 #include <array>
 #include <cassert>
 
-#include "HTTPParseException.h"
-#include "HTTPParser.h"
+#include "HttpParserException.h"
+#include "HttpParser.h"
 
-using namespace std;
+static std::optional<std::string_view> encodeSymbol(char symbol);
 
-static optional<string_view> encodeSymbol(char symbol);
-
-static optional<char> decodeSymbol(string_view symbol);
+static std::optional<char> decodeSymbol(std::string_view symbol);
 
 template<typename T>
 struct Converter
 {
-	constexpr void convert(string_view data, T& result)
+	constexpr void convert(std::string_view data, T& result)
 	{
 		static_assert(false, "Wrong type");
 	}
 };
 
 template<>
-struct Converter<string>
+struct Converter<std::string>
 {
-	void convert(string_view data, string& result)
+	void convert(std::string_view data, std::string& result)
 	{
 		result = data;
 	}
 };
 
 template<>
-struct Converter<optional<string>>
+struct Converter<std::optional<std::string>>
 {
-	void convert(string_view data, optional<string>& result)
+	void convert(std::string_view data, std::optional<std::string>& result)
 	{
 		result = data;
 	}
@@ -47,23 +45,23 @@ template<typename... Args>
 class MultipartParser
 {
 private:
-	array<size_t, sizeof...(Args)> offsets;
-	array<char, sizeof...(Args)> nextCharacter;
+	std::array<size_t, sizeof...(Args)> offsets;
+	std::array<char, sizeof...(Args)> nextCharacter;
 
 private:
 	template<size_t Index>
 	constexpr auto& getValue(Args&... args) const
 	{
-		return get<Index>(forward_as_tuple(args...));
+		return std::get<Index>(std::forward_as_tuple(args...));
 	}
 
 	template<size_t Index = 0>
-	constexpr void parseValue(string_view data, size_t offset, Args&... args) const
+	constexpr void parseValue(std::string_view data, size_t offset, Args&... args) const
 	{
 		auto& value = this->getValue<Index>(args...);
-		Converter<remove_reference_t<decltype(value)>> converter;
+		Converter<std::remove_reference_t<decltype(value)>> converter;
 		size_t stringValueIndex = data.find(nextCharacter[Index], offset + offsets[Index]);
-		string_view stringValue(data.begin() + offset + offsets[Index], (stringValueIndex == string_view::npos) ? data.end() : data.begin() + stringValueIndex);
+		std::string_view stringValue(data.begin() + offset + offsets[Index], (stringValueIndex == std::string_view::npos) ? data.end() : data.begin() + stringValueIndex);
 
 		converter.convert(stringValue, value);
 
@@ -74,12 +72,12 @@ private:
 	}
 
 public:
-	constexpr MultipartParser(string_view format)
+	constexpr MultipartParser(std::string_view format)
 	{
 		size_t offset = format.find("{}");
 		size_t index = 0;
 
-		while (offset != string_view::npos)
+		while (offset != std::string_view::npos)
 		{
 #ifndef __LINUX__
 #pragma warning(push)
@@ -99,7 +97,7 @@ public:
 		}
 	}
 
-	void getValues(string_view data, Args&... args) const
+	void getValues(std::string_view data, Args&... args) const
 	{
 		this->parseValue(data, 0, args...);
 	}
@@ -107,20 +105,20 @@ public:
 
 namespace web
 {
-	string getHTTPLibraryVersion()
+	std::string getHTTPLibraryVersion()
 	{
-		string version = "1.13.2";
+		std::string version = "1.14.0";
 
 		return version;
 	}
 
-	string encodeUrl(string_view data)
+	std::string encodeUrl(std::string_view data)
 	{
-		string result;
+		std::string result;
 
 		for (char symbol : data)
 		{
-			if (optional<string_view> encodedSymbol = encodeSymbol(symbol); encodedSymbol)
+			if (std::optional<std::string_view> encodedSymbol = encodeSymbol(symbol); encodedSymbol)
 			{
 				result += *encodedSymbol;
 			}
@@ -133,25 +131,25 @@ namespace web
 		return result;
 	}
 
-	string decodeUrl(string_view data)
+	std::string decodeUrl(std::string_view data)
 	{
 		static constexpr size_t encodedSymbolSize = 3;
 
-		string result;
+		std::string result;
 
 		for (size_t i = 0; i < data.size(); i++)
 		{
 			if (data[i] == '%')
 			{
-				string_view percentEncodedData(data.data() + i, encodedSymbolSize);
+				std::string_view percentEncodedData(data.data() + i, encodedSymbolSize);
 
-				if (optional<char> encodedSymbol = decodeSymbol(percentEncodedData); encodedSymbol)
+				if (std::optional<char> encodedSymbol = decodeSymbol(percentEncodedData); encodedSymbol)
 				{
 					result += *encodedSymbol;
 				}
 				else
 				{
-					cerr << "Unknown encoded symbol: " << percentEncodedData << endl;
+					std::cerr << "Unknown encoded symbol: " << percentEncodedData << std::endl;
 
 					result += percentEncodedData;
 				}
@@ -167,20 +165,20 @@ namespace web
 		return result;
 	}
 
-	size_t InsensitiveStringHash::operator () (const string& value) const
+	size_t InsensitiveStringHash::operator ()(const std::string& value) const
 	{
-		string tem;
+		std::string tem;
 
 		tem.reserve(value.size());
 
 		for_each(value.begin(), value.end(), [&tem](char c) { tem += tolower(c); });
 
-		return hash<string>()(tem);
+		return std::hash<std::string>()(tem);
 	}
 
-	bool InsensitiveStringEqual::operator () (const string& left, const string& right) const
+	bool InsensitiveStringEqual::operator ()(const std::string& left, const std::string& right) const
 	{
-		return equal
+		return std::equal
 		(
 			left.begin(), left.end(),
 			right.begin(), right.end(),
@@ -188,47 +186,47 @@ namespace web
 		);
 	}
 
-	Multipart::Multipart(string_view data)
+	Multipart::Multipart(std::string_view data)
 	{
-		if (data.starts_with(HTTPParser::crlf))
+		if (data.starts_with(constants::crlf))
 		{
-			data = string_view(data.begin() + HTTPParser::crlf.size(), data.end());
+			data = std::string_view(data.begin() + constants::crlf.size(), data.end());
 		}
 
-		size_t firstStringEnd = data.find(HTTPParser::crlf);
+		size_t firstStringEnd = data.find(constants::crlf);
 
-		if (data.find("filename") != string_view::npos)
+		if (data.find("filename") != std::string_view::npos)
 		{
-			constexpr MultipartParser<string, optional<string>> parser(R"(Content-Disposition: form-data; name="{}"; filename="{}")");
+			constexpr MultipartParser<std::string, std::optional<std::string>> parser(R"(Content-Disposition: form-data; name="{}"; filename="{}")");
 
 			parser.getValues(data.substr(0, firstStringEnd), name, fileName);
 		}
 		else
 		{
-			constexpr MultipartParser<string> parser(R"(Content-Disposition: form-data; name="{}")");
+			constexpr MultipartParser<std::string> parser(R"(Content-Disposition: form-data; name="{}")");
 
 			parser.getValues(data.substr(0, firstStringEnd), name);
 		}
 
-		if (data.find("Content-Type:") != string_view::npos)
+		if (data.find("Content-Type:") != std::string_view::npos)
 		{
-			constexpr MultipartParser<optional<string>> parser("Content-Type: {}");
+			constexpr MultipartParser<std::optional<std::string>> parser("Content-Type: {}");
 
 			parser.getValues
 			(
-				string_view
+				std::string_view
 				(
-					data.begin() + firstStringEnd + HTTPParser::crlf.size(),
-					data.begin() + data.find(HTTPParser::crlf, firstStringEnd + HTTPParser::crlf.size())
+					data.begin() + firstStringEnd + constants::crlf.size(),
+					data.begin() + data.find(constants::crlf, firstStringEnd + constants::crlf.size())
 				),
 				contentType
 			);
 		}
 
-		this->data = string(data.begin() + data.find(HTTPParser::crlfcrlf) + HTTPParser::crlfcrlf.size(), data.end() - HTTPParser::crlf.size());
+		this->data = std::string(data.begin() + data.find(HttpParser::crlfcrlf) + HttpParser::crlfcrlf.size(), data.end() - constants::crlf.size());
 	}
 
-	Multipart::Multipart(string_view name, const optional<std::string>& fileName, const optional<std::string>& contentType, string&& data) :
+	Multipart::Multipart(std::string_view name, const std::optional<std::string>& fileName, const std::optional<std::string>& contentType, std::string&& data) :
 		name(name),
 		fileName(fileName),
 		contentType(contentType),
@@ -237,29 +235,29 @@ namespace web
 
 	}
 
-	const string& Multipart::getName() const
+	const std::string& Multipart::getName() const
 	{
 		return name;
 	}
 
-	const optional<string>& Multipart::getFileName() const
+	const std::optional<std::string>& Multipart::getFileName() const
 	{
 		return fileName;
 	}
 
-	const optional<string>& Multipart::getContentType() const
+	const std::optional<std::string>& Multipart::getContentType() const
 	{
 		return contentType;
 	}
 
-	const string& Multipart::getData() const
+	const std::string& Multipart::getData() const
 	{
 		return data;
 	}
 
-	string __getMessageFromCode(int code)
+	std::string __getMessageFromCode(int code)
 	{
-		static const unordered_map<ResponseCodes, string> responseMessage =
+		static const std::unordered_map<ResponseCodes, std::string> responseMessage =
 		{
 			{ ResponseCodes::Continue, "Continue" },
 			{ ResponseCodes::switchingProtocols, "Switching Protocols" },
@@ -343,7 +341,7 @@ namespace web
 	}
 }
 
-optional<string_view> encodeSymbol(char symbol)
+std::optional<std::string_view> encodeSymbol(char symbol)
 {
 	switch (symbol)
 	{
@@ -411,13 +409,13 @@ optional<string_view> encodeSymbol(char symbol)
 		return "%5D";
 
 	default:
-		return optional<string_view>();
+		return std::optional<std::string_view>();
 	}
 }
 
-optional<char> decodeSymbol(string_view symbol)
+std::optional<char> decodeSymbol(std::string_view symbol)
 {
-	static const unordered_map<string_view, char> symbols =
+	static const std::unordered_map<std::string_view, char> symbols =
 	{
 		{ "%20", ' ' },
 		{ "%21", '!' },
@@ -444,5 +442,5 @@ optional<char> decodeSymbol(string_view symbol)
 
 	auto it = symbols.find(symbol);
 
-	return it != symbols.end() ? it->second : optional<char>();
+	return it != symbols.end() ? it->second : std::optional<char>();
 }

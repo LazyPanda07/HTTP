@@ -1,27 +1,5 @@
 var searchData=
 [
-  ['gatewaytimeout_0',['gatewayTimeout',['../namespaceweb.html#a18c14b1c70296b86cfef40579c0602e4a26c46008029b3afe7689954d16357525',1,'web']]],
-  ['getbody_1',['getBody',['../classweb_1_1_h_t_t_p_parser.html#a3ce3002fab2ee44364f97acdf2d6bbf8',1,'web::HTTPParser']]],
-  ['getchunk_2',['getChunk',['../classweb_1_1_h_t_t_p_builder.html#a3beada01ecda3d1e4aca6e027617a19e',1,'web::HTTPBuilder']]],
-  ['getchunks_3',['getChunks',['../classweb_1_1_h_t_t_p_builder.html#aaf819054eeb04648ed52c74c48dfbcc1',1,'web::HTTPBuilder::getChunks()'],['../classweb_1_1_h_t_t_p_parser.html#acc7530257a546562a1df73773d6b698f',1,'web::HTTPParser::getChunks()']]],
-  ['getcontenttype_4',['getContentType',['../classweb_1_1_multipart.html#ad6b258afa2b3ea5b966e86b59b0cf2d0',1,'web::Multipart']]],
-  ['getdata_5',['getData',['../classweb_1_1_multipart.html#a12b70301813d52ee58f545c2c6f0edb9',1,'web::Multipart']]],
-  ['getfilename_6',['getFileName',['../classweb_1_1_multipart.html#a10d53f596666639edcb70d31fb2b919d',1,'web::Multipart']]],
-  ['getfullresponse_7',['getFullResponse',['../classweb_1_1_h_t_t_p_parser.html#ab4305b3899c7ab8fad7a3056eb9846a6',1,'web::HTTPParser']]],
-  ['getheaders_8',['getHeaders',['../classweb_1_1_h_t_t_p_parser.html#aaabc8d96e88f3b172f491eb199b79293',1,'web::HTTPParser']]],
-  ['gethttplibraryversion_9',['getHTTPLibraryVersion',['../namespaceweb.html#a685cf5dfca5455d008ef53523a0d8a72',1,'web']]],
-  ['gethttpversion_10',['getHTTPVersion',['../classweb_1_1_h_t_t_p_parser.html#adb1d053a0fa4582e1fb9784ea8f2538f',1,'web::HTTPParser']]],
-  ['getjson_11',['getJSON',['../classweb_1_1_h_t_t_p_parser.html#ae3aede810e331598ba9d124b7c9c0b44',1,'web::HTTPParser']]],
-  ['getmessagefromcode_12',['getMessageFromCode',['../namespaceweb.html#a3bc9e18daf1e2a897894ade00e6e1c88',1,'web']]],
-  ['getmethod_13',['getMethod',['../classweb_1_1_h_t_t_p_parser.html#a56a8fb9cfd6f339a19feb7375508871f',1,'web::HTTPParser']]],
-  ['getmultiparts_14',['getMultiparts',['../classweb_1_1_h_t_t_p_parser.html#adf597e54f5975f0ce25fea83e14adc57',1,'web::HTTPParser']]],
-  ['getname_15',['getName',['../classweb_1_1_multipart.html#a0e474a57d16b6f3de9473e0a47d44f7a',1,'web::Multipart']]],
-  ['getparameters_16',['getParameters',['../classweb_1_1_h_t_t_p_parser.html#a0984b70490bfcae61da4dedfecd4fec2',1,'web::HTTPParser']]],
-  ['getqueryparameters_17',['getQueryParameters',['../classweb_1_1_h_t_t_p_parser.html#a710e520849c02b90dc3369a3d93e1565',1,'web::HTTPParser']]],
-  ['getrawdata_18',['getRawData',['../classweb_1_1_h_t_t_p_parser.html#ad6e995b5f7b22b7fc2b3ed0c06cd8971',1,'web::HTTPParser']]],
-  ['getrequest_19',['getRequest',['../classweb_1_1_h_t_t_p_builder.html#a591e293f2f3981636ac24fe456804025',1,'web::HTTPBuilder']]],
-  ['getresponsecode_20',['getResponseCode',['../classweb_1_1_h_t_t_p_parser.html#a5a9cb158844a3e523d4f3a9f41b61d72',1,'web::HTTPParser']]],
-  ['getresponsemessage_21',['getResponseMessage',['../classweb_1_1_h_t_t_p_parser.html#af01968ae611b7867288dee2cbe5124ea',1,'web::HTTPParser']]],
-  ['getvalues_22',['getValues',['../class_multipart_parser.html#af462be076356fd9d8bc0e3386275ed9d',1,'MultipartParser']]],
-  ['gone_23',['gone',['../namespaceweb.html#a18c14b1c70296b86cfef40579c0602e4a50c1f58be7f5e47e0f53d64c094783c2',1,'web']]]
+  ['operator_3c_3c_0',['operator&lt;&lt;',['../namespaceweb.html#a71c409153419a792e37137933f1c3a59',1,'web::operator&lt;&lt;(std::ostream &amp;outputStream, const HttpBuilder &amp;builder)'],['../namespaceweb.html#a9bf441dbcfdfc737a23df0e85be144d7',1,'web::operator&lt;&lt;(std::ostream &amp;outputStream, const HttpParser &amp;parser)']]],
+  ['operator_3e_3e_1',['operator&gt;&gt;',['../namespaceweb.html#a6e809120fbbba3d74fb228ccf8175b2e',1,'web']]]
 ];
