@@ -1,0 +1,144 @@
+#include <gtest/gtest.h>
+
+#include <iostream>
+
+#include "HttpParser.h"
+
+#include "HTTPTestUtils.h"
+
+TEST(Parser, Request)
+{
+	web::HttpParser parser(getPostRequest());
+	const json::JsonParser& jsonParser = parser.getJson();
+	const web::HeadersMap& headers = parser.getHeaders();
+
+	ASSERT_EQ(parser.getMethod(), "POST");
+	ASSERT_EQ(parser.getParameters(), "post");
+
+	ASSERT_EQ(headers.at("Host"), "httpbin.org");
+	ASSERT_EQ(headers.at("Connection"), "close");
+	ASSERT_EQ(headers.at("Accept"), "*/*");
+	ASSERT_EQ(headers.at("User-Agent"), "Mozilla/4.0 (compatible; esp8266 Lua; Windows NT 5.1)");
+	ASSERT_EQ(headers.at("Content-Length"), "96");
+	ASSERT_EQ(headers.at("Empty-Header"), "");
+
+	ASSERT_EQ(jsonParser.get<std::string>("stringValue"), "qwe");
+	ASSERT_EQ(jsonParser.get<int>("intValue"), 1500);
+	ASSERT_EQ(jsonParser.get<double>("doubleValue"), 228.322);
+	ASSERT_EQ(jsonParser.get<std::nullptr_t>("nullValue"), nullptr);
+}
+
+TEST(Parser, Response)
+{
+	web::HttpParser parser(getHTTPResponse());
+	const web::HeadersMap& headers = parser.getHeaders();
+
+	ASSERT_EQ(parser.getHTTPVersion(), 1.1);
+	ASSERT_EQ(parser.getResponseCode(), web::ResponseCodes::ok);
+	ASSERT_EQ(parser.getResponseMessage(), "OK");
+	ASSERT_EQ(headers.at("Connection"), "Keep-Alive");
+	ASSERT_EQ(headers.at("Access-Control-Allow-Origin"), "*");
+	ASSERT_EQ(headers.at("Content-Encoding"), "gzip");
+	ASSERT_EQ(headers.at("Content-Type"), "text/html; charset=utf-8");
+	ASSERT_EQ(headers.at("Date"), "Wed, 10 Aug, 2016 13:17:18 GMT");
+	ASSERT_EQ(headers.at("Keep-Alive"), "timeout=5, max=999");
+	ASSERT_EQ(headers.at("Server"), "Apache");
+	ASSERT_EQ(headers.at("X-Frame-Options"), "DENY");
+}
+
+TEST(Parser, CONNECT)
+{
+	web::HttpParser parser(getCONNECTRequest());
+	const web::HeadersMap& headers = parser.getHeaders();
+
+	ASSERT_EQ(parser.getParameters(), "server.example.com:80");
+
+	ASSERT_EQ(headers.at("Host"), "server.example.com:80");
+	ASSERT_EQ(headers.at("Proxy-Authorization"), "basic aGVsbG86d29ybGQ=");
+}
+
+TEST(Parser, Streams)
+{
+	constexpr size_t npos = std::string::npos;
+
+	{
+		std::string data(getCONNECTRequest());
+		web::HttpParser parser;
+		std::ostringstream os;
+		std::istringstream is(data);
+
+		is >> parser;
+
+		os << parser;
+
+		data = os.str();
+
+		ASSERT_NE(data.find("CONNECT server.example.com:80 HTTP/1.1\r\n"), npos);
+		ASSERT_NE(data.find("Host: server.example.com:80\r\n"), npos);
+		ASSERT_NE(data.find("Proxy-Authorization: basic aGVsbG86d29ybGQ=\r\n"), npos);
+	}
+
+	{
+		std::string data(getGetRequest());
+		web::HttpParser parser;
+		std::ostringstream os;
+		std::istringstream is(data);
+
+		is >> parser;
+
+		os << parser;
+
+		data = os.str();
+
+		ASSERT_NE(data.find("GET /search?q=test HTTP/1.1\r\n"), npos);
+		ASSERT_NE(data.find("Host: www.bing.com\r\n"), npos);
+		ASSERT_NE(data.find("User-Agent: curl/7.54.0\r\n"), npos);
+		ASSERT_NE(data.find("Accept: */*\r\n"), npos);
+	}
+}
+
+TEST(Parser, Parameters)
+{
+	ASSERT_EQ(web::HttpParser(getGetRequest()).getQueryParameters().at("q"), "test");
+}
+
+TEST(Parser, Multipart)
+{
+	web::HttpParser parser(getMultipartRequest());
+
+	{
+		const web::Multipart& part = parser.getMultiparts()[0];
+
+		ASSERT_EQ(part.getName(), "field1");
+		ASSERT_EQ(part.getData(), "value1");
+	}
+
+	{
+		const web::Multipart& part = parser.getMultiparts()[1];
+
+		ASSERT_EQ(part.getName(), "field2");
+		ASSERT_EQ(part.getData(), "value2");
+	}
+
+	{
+		const web::Multipart& part = parser.getMultiparts()[2];
+
+		ASSERT_EQ(part.getName(), "file");
+		ASSERT_EQ(part.getFileName(), "example.txt");
+		ASSERT_EQ(part.getContentType(), "text/plain");
+		ASSERT_EQ(part.getData(), "This is the content of the file being uploaded.");
+	}
+}
+
+TEST(Parser, RequestWithoutSpaces)
+{
+	web::HttpParser parser(getPoseRequestWithoutSpaces());
+	const web::HeadersMap& headers = parser.getHeaders();
+
+	ASSERT_EQ(headers.at("Host"), "127.0.0.1:8080");
+	ASSERT_EQ(headers.at("User-Agent"), "curl/8.10.1");
+	ASSERT_EQ(headers.at("Accept"), "*/*");
+	ASSERT_EQ(headers.at("Content-Type"), "application/octet-stream");
+	ASSERT_EQ(headers.at("Content-Length"), "579959121");
+	ASSERT_EQ(headers.at("Expect"), "100-continue");
+}
