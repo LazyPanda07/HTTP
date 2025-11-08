@@ -19,7 +19,7 @@ add_library(
 	src/HttpBuilder.cpp
 	src/HttpParser.cpp
 	src/HttpUtility.cpp
-	src/HttpParseException.cpp
+	src/HttpParserException.cpp
 )
 
 if (DEFINED ENV{MARCH} AND NOT "$ENV{MARCH}" STREQUAL "")

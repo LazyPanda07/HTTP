@@ -152,7 +152,7 @@ namespace web
 
 		/// @brief Set HTTP to output stream
 		/// @param outputStream std::ostream subclass instance
-		/// @param parser const reference to HTTPBuilder instance
+		/// @param parser const reference to HttpBuilder instance
 		/// @return outputStream
 		friend HTTP_API std::ostream& operator << (std::ostream& outputStream, const HttpBuilder& builder);
 

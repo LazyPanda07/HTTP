@@ -1,4 +1,4 @@
-#include "HTTPParser.h"
+#include "HttpParser.h"
 
 #include <iterator>
 #include <format>
@@ -6,7 +6,7 @@
 #include <unordered_set>
 #include <functional>
 
-#include "HTTPParseException.h"
+#include "HTTPParserException.h"
 
 #ifndef __LINUX__
 #pragma warning(disable: 26800)

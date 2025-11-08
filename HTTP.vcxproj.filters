@@ -24,7 +24,7 @@
     <ClCompile Include="src\HttpUtility.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="src\HttpParseException.cpp">
+    <ClCompile Include="src\HttpParserException.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,7 +41,7 @@
     <ClInclude Include="include\HttpUtility.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="include\HttpParseException.h">
+    <ClInclude Include="include\HttpParserException.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

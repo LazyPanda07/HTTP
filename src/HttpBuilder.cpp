@@ -1,4 +1,4 @@
-#include "HTTPBuilder.h"
+#include "HttpBuilder.h"
 
 #include <array>
 #include <unordered_map>
@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <format>
 
-#include "HTTPParser.h"
+#include "HttpParser.h"
 
 static const std::unordered_set<std::string_view> availableHTTPVersions =
 {

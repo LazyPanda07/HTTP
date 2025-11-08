@@ -1,4 +1,4 @@
-#include "HTTPUtility.h"
+#include "HttpUtility.h"
 
 #include <iostream>
 #include <algorithm>
@@ -7,8 +7,8 @@
 #include <array>
 #include <cassert>
 
-#include "HTTPParseException.h"
-#include "HTTPParser.h"
+#include "HTTPParserException.h"
+#include "HttpParser.h"
 
 static std::optional<std::string_view> encodeSymbol(char symbol);
 
