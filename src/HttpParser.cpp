@@ -6,7 +6,7 @@
 #include <unordered_set>
 #include <functional>
 
-#include "HTTPParserException.h"
+#include "HttpParserException.h"
 
 #ifndef __LINUX__
 #pragma warning(disable: 26800)

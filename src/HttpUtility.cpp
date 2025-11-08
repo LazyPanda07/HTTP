@@ -7,7 +7,7 @@
 #include <array>
 #include <cassert>
 
-#include "HTTPParserException.h"
+#include "HttpParserException.h"
 #include "HttpParser.h"
 
 static std::optional<std::string_view> encodeSymbol(char symbol);

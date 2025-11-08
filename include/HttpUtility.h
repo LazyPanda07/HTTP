@@ -197,10 +197,7 @@ namespace web
 	namespace concepts
 	{
 		template<typename T>
-		concept HttpBuilderReturnType = requires(const T & value)
-		{
-			std::same_as<T, std::string> || std::same_as<T, std::vector<char>>;
-		};
+		concept HttpBuilderReturnType = std::same_as<T, std::string> || std::same_as<T, std::vector<char>>;
 	}
 
 	namespace constants
