@@ -3,7 +3,7 @@
 #include "HttpBuilder.h"
 #include "HttpParser.h"
 
-#include "HTTPTestUtils.h"
+#include "HttpTestUtils.h"
 
 TEST(Builder, GET)
 {

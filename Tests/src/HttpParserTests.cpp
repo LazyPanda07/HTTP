@@ -4,7 +4,7 @@
 
 #include "HttpParser.h"
 
-#include "HTTPTestUtils.h"
+#include "HttpTestUtils.h"
 
 TEST(Parser, Request)
 {
