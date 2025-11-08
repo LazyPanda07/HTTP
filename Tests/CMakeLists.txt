@@ -1,16 +1,21 @@
 cmake_minimum_required(VERSION 3.27.0)
 
-set(CMAKE_INSTALL_PREFIX ${PROJECT_BINARY_DIR})
 set(CMAKE_CXX_STANDARD 20)
+set(GTEST_VERSION 1.17.0)
 
 project(Tests)
 
-find_package(GTest)
+include(FetchContent)
 
-if(NOT ${GTest_FOUND})
-	set(GTEST_BOTH_LIBRARIES gtest gtest_main)
-	set(GTEST_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/gtest/include/)
-endif()
+FetchContent_Declare(
+	gtest
+	GIT_REPOSITORY https://github.com/google/googletest
+	GIT_TAG v${GTEST_VERSION}
+)
+
+FetchContent_MakeAvailable(gtest)
+
+set(CMAKE_INSTALL_PREFIX ${PROJECT_BINARY_DIR})
 
 if (UNIX)
     set(DLL ${PROJECT_SOURCE_DIR}/../HTTP/lib/libHTTP.so)
@@ -38,24 +43,23 @@ add_executable(
 )
 
 target_include_directories(
-	${PROJECT_NAME} PUBLIC
-	${PROJECT_SOURCE_DIR}/include/
-	${PROJECT_SOURCE_DIR}/../src/
-	${PROJECT_SOURCE_DIR}/../JSON/src/
-	${GTEST_INCLUDE_DIRS}
+	${PROJECT_NAME} PRIVATE
+	include
+	${PROJECT_SOURCE_DIR}/../include
+	${PROJECT_SOURCE_DIR}/../JSON/include
 )
 
 target_link_directories(
 	${PROJECT_NAME} PUBLIC
-	${PROJECT_SOURCE_DIR}/gtest/lib/
-	${PROJECT_SOURCE_DIR}/../HTTP/lib/
+	${PROJECT_SOURCE_DIR}/../HTTP/lib
 )
 
 target_link_libraries(
 	${PROJECT_NAME}
 	HTTP
 	JSON
-	${GTEST_BOTH_LIBRARIES}
+	gtest
+	gtest_main
 )
 
 install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_BINARY_DIR}/bin)

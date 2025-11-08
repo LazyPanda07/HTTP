@@ -12,7 +12,7 @@ if (${BUILD_SHARED_LIBS})
 	add_definitions(-DHTTP_DLL)
 endif ()
 
-project(HTTP VERSION 1.13.2)
+project(HTTP VERSION 1.14.0)
 
 add_library(
 	${PROJECT_NAME}
@@ -26,17 +26,19 @@ if (DEFINED ENV{MARCH} AND NOT "$ENV{MARCH}" STREQUAL "")
 	target_compile_options(${PROJECT_NAME} PRIVATE -march=$ENV{MARCH})
 endif()	
 
+if (NOT TARGET JSON)
+	add_subdirectory(JSON)
+endif()
+
 target_include_directories(
 	${PROJECT_NAME} PUBLIC
-	JSON/src
+	include
 )
 
 target_link_libraries(
 	${PROJECT_NAME} PUBLIC
 	JSON
 )
-
-add_subdirectory(JSON)
 
 install(
 	TARGETS ${PROJECT_NAME}
@@ -45,4 +47,4 @@ install(
 	RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/dll
 )
 
-install(DIRECTORY src/ DESTINATION ${CMAKE_INSTALL_PREFIX}/include FILES_MATCHING PATTERN "*.h")
+install(DIRECTORY include DESTINATION .)

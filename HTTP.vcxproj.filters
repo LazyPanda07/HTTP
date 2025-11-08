@@ -29,19 +29,19 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\HTTPParser.h">
+    <ClInclude Include="include\HTTPParser.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="src\CheckAtCompileTime.h">
+    <ClInclude Include="include\CheckAtCompileTime.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="src\HTTPBuilder.h">
+    <ClInclude Include="include\HTTPBuilder.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="src\HTTPUtility.h">
+    <ClInclude Include="include\HTTPUtility.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="src\HTTPParseException.h">
+    <ClInclude Include="include\HTTPParseException.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

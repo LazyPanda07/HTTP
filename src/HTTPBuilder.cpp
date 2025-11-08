@@ -8,38 +8,34 @@
 
 #include "HTTPParser.h"
 
-using namespace std;
-
-static const unordered_set<string_view> availableHTTPVersions =
+static const std::unordered_set<std::string_view> availableHTTPVersions =
 {
 	"HTTP/0.9",
 	"HTTP/1.0",
-	"HTTP/1.1",
-	"HTTP/2",
-	"HTTP/3"
+	"HTTP/1.1"
 };
 
 namespace web
 {
-	string HTTPBuilder::getChunks(const vector<string>& chunks, bool partialChunks, bool preCalculateSize)
+	std::string HTTPBuilder::getChunks(const std::vector<std::string>& chunks, bool partialChunks, bool preCalculateSize)
 	{
-		string result;
+		std::string result;
 
 		if (preCalculateSize)
 		{
 			size_t resultSize = 0;
 
-			for (const string& chunk : chunks)
+			for (const std::string& chunk : chunks)
 			{
-				resultSize += format("{:x}", chunk.size()).size() + HTTPParser::crlf.size() + chunk.size() + HTTPParser::crlf.size();
+				resultSize += std::format("{:x}", chunk.size()).size() + constants::crlf.size() + chunk.size() + constants::crlf.size();
 			}
 
-			resultSize += 1 + HTTPParser::crlf.size();
+			resultSize += 1 + constants::crlf.size();
 
 			result.reserve(resultSize);
 		}
 
-		for (const string& chunk : chunks)
+		for (const std::string& chunk : chunks)
 		{
 			result += HTTPBuilder::getChunk(chunk);
 		}
@@ -52,18 +48,18 @@ namespace web
 		return result;
 	}
 
-	string HTTPBuilder::getChunk(string_view chunk)
+	std::string HTTPBuilder::getChunk(std::string_view chunk)
 	{
-		return format("{:x}{}{}{}", chunk.size(), HTTPParser::crlf, chunk, HTTPParser::crlf);
+		return std::format("{:x}{}{}{}", chunk.size(), constants::crlf, chunk, constants::crlf);
 	}
 
-	HTTPBuilder::HTTPBuilder(string_view fullHTTPVersion) :
+	HTTPBuilder::HTTPBuilder(std::string_view fullHTTPVersion) :
 		_HTTPVersion(fullHTTPVersion),
 		_partialChunks(false)
 	{
-		if (availableHTTPVersions.find(fullHTTPVersion) == availableHTTPVersions.end())
+		if (availableHTTPVersions.find(_HTTPVersion) == availableHTTPVersions.end())
 		{
-			throw runtime_error("Wrong HTTP version");
+			throw std::runtime_error(std::format("HTTP version: {} not supported", _HTTPVersion));
 		}
 	}
 
@@ -130,17 +126,17 @@ namespace web
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::parameters(string_view parameters)
+	HTTPBuilder& HTTPBuilder::parameters(std::string_view parameters)
 	{
 		if (method != "CONNECT")
 		{
-			if (size_t queryStart = parameters.find('?'); queryStart != string::npos)
+			if (size_t queryStart = parameters.find('?'); queryStart != std::string::npos)
 			{
-				_parameters = format
+				_parameters = std::format
 				(
 					"{}{}",
-					string_view(parameters.begin(), parameters.begin() + queryStart + 1),
-					string_view(parameters.begin() + queryStart + 1, parameters.end())
+					std::string_view(parameters.begin(), parameters.begin() + queryStart + 1),
+					std::string_view(parameters.begin() + queryStart + 1, parameters.end())
 				);
 			}
 			else
@@ -167,34 +163,34 @@ namespace web
 
 		return *this;
 	}
-	
-	HTTPBuilder& HTTPBuilder::responseCode(int code, string_view responseMessage)
+
+	HTTPBuilder& HTTPBuilder::responseCode(int code, std::string_view responseMessage)
 	{
 		_responseCode = format("{} {}", code, responseMessage);
 
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::HTTPVersion(string_view HTTPVersion)
+	HTTPBuilder& HTTPBuilder::HTTPVersion(std::string_view HTTPVersion)
 	{
-		if (HTTPVersion.find("HTTP") == string::npos)
+		if (HTTPVersion.find("HTTP") == std::string::npos)
 		{
 			_HTTPVersion = HTTPVersion;
 		}
 		else
 		{
-			_HTTPVersion = format("HTTP/{}", HTTPVersion);
+			_HTTPVersion = std::format("HTTP/{}", HTTPVersion);
 		}
 
 		if (availableHTTPVersions.find(_HTTPVersion) == availableHTTPVersions.end())
 		{
-			throw runtime_error("Wrong HTTP version");
+			throw std::runtime_error(std::format("HTTP version: {} not supported", _HTTPVersion));
 		}
 
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::chunks(const vector<string>& chunks)
+	HTTPBuilder& HTTPBuilder::chunks(const std::vector<std::string>& chunks)
 	{
 		_chunks.reserve(chunks.size());
 
@@ -203,7 +199,7 @@ namespace web
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::chunks(vector<string>&& chunks)
+	HTTPBuilder& HTTPBuilder::chunks(std::vector<std::string>&& chunks)
 	{
 		_chunks.reserve(chunks.size());
 
@@ -212,83 +208,11 @@ namespace web
 		return *this;
 	}
 
-	HTTPBuilder& HTTPBuilder::chunk(string_view chunk)
+	HTTPBuilder& HTTPBuilder::chunk(std::string_view chunk)
 	{
 		_chunks.emplace_back(chunk);
 
 		return *this;
-	}
-
-	string HTTPBuilder::build(string_view data, const unordered_map<string, string>& additionalHeaders) const
-	{
-		string result;
-		unordered_map<string, string> buildHeaders(additionalHeaders);
-
-		if (data.size())
-		{
-			buildHeaders["Content-Length"] = to_string(data.size());
-		}
-		else if (_chunks.size())
-		{
-			buildHeaders["Transfer-Encoding"] = "chunked";
-		}
-
-		if (method.empty())
-		{
-			result = format("{} {}{}{}", _HTTPVersion, _responseCode, HTTPParser::crlf, _headers);
-		}
-		else
-		{
-			result = method + ' ';
-
-			if (_parameters.empty() && method != "CONNECT")
-			{
-				result += "/";
-			}
-
-			result += format("{} {}{}{}", _parameters, _HTTPVersion, HTTPParser::crlf, _headers);
-		}
-
-		for (const auto& [header, value] : buildHeaders)
-		{
-			result += format("{}: {}{}", header, value, HTTPParser::crlf);
-		}
-
-		result += HTTPParser::crlf;
-
-		if (data.size())
-		{
-			result += data;
-		}
-		else if (_chunks.size())
-		{
-			result += HTTPBuilder::getChunks(_chunks, _partialChunks);
-		}
-
-		return result;
-	}
-
-	string HTTPBuilder::build(const json::JSONBuilder& builder, unordered_map<string, string> additionalHeaders) const
-	{
-		additionalHeaders["Content-Type"] = "application/json";
-
-		return this->build(builder.build(), additionalHeaders);
-	}
-
-	string HTTPBuilder::build(const unordered_map<string, string>& urlEncoded, unordered_map<string, string> additionalHeaders) const
-	{
-		string body;
-
-		for (const auto& [key, value] : urlEncoded)
-		{
-			body += format("{}={}&", web::encodeUrl(key), web::encodeUrl(value));
-		}
-
-		body.pop_back(); // remove last &
-
-		additionalHeaders["Content-Type"] = "application/x-www-form-urlencoded";
-
-		return this->build(body, additionalHeaders);
 	}
 
 	HTTPBuilder& HTTPBuilder::clear()
@@ -308,7 +232,7 @@ namespace web
 		return *this;
 	}
 
-	ostream& operator << (ostream& outputStream, const HTTPBuilder& builder)
+	std::ostream& operator << (std::ostream& outputStream, const HTTPBuilder& builder)
 	{
 		return outputStream << builder.build();
 	}

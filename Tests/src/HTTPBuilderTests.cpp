@@ -1,12 +1,13 @@
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 
 #include "HTTPBuilder.h"
+#include "HTTPParser.h"
 
 #include "HTTPTestUtils.h"
 
 TEST(Builder, GET)
 {
-	std::string getRequest = web::HTTPBuilder("HTTP/2")
+	std::string getRequest = web::HTTPBuilder()
 		.getRequest()
 		.parameters("search?").queryParameters("q", "test")
 		.headers
@@ -18,7 +19,7 @@ TEST(Builder, GET)
 
 	ASSERT_EQ(getRequest.size(), getGetRequest().size()) << getRequest << std::endl;
 
-	ASSERT_NE(getRequest.find("GET /search?q=test HTTP/2"), std::string::npos);
+	ASSERT_NE(getRequest.find("GET /search?q=test HTTP/1.1"), std::string::npos);
 	ASSERT_NE(getRequest.find("Host: www.bing.com"), std::string::npos);
 	ASSERT_NE(getRequest.find("User-Agent: curl/7.54.0"), std::string::npos);
 	ASSERT_NE(getRequest.find("Accept: */*"), std::string::npos);
@@ -27,7 +28,7 @@ TEST(Builder, GET)
 
 TEST(Builder, POST)
 {
-	json::JSONBuilder json(CP_UTF8);
+	json::JsonBuilder json(CP_UTF8);
 
 	json["stringValue"] = "qwe";
 	json["intValue"] = 1500LL;
@@ -46,6 +47,7 @@ TEST(Builder, POST)
 			"Empty-Header", ""
 		)
 		.build(json);
+	json::JsonParser parser = web::HTTPParser(postRequest).getJson();
 
 	ASSERT_EQ(postRequest.size(), getPostRequest().size());
 
@@ -56,7 +58,11 @@ TEST(Builder, POST)
 	ASSERT_NE(postRequest.find("User-Agent: Mozilla/4.0 (compatible; esp8266 Lua; Windows NT 5.1)"), std::string::npos);
 	ASSERT_NE(postRequest.find("Content-Length: 96"), std::string::npos);
 	ASSERT_NE(postRequest.find("Content-Type: application/json"), std::string::npos);
-	ASSERT_NE(postRequest.find(getPostRequestJSON()), std::string::npos);
+
+	ASSERT_EQ(parser.get<std::string>("stringValue"), "qwe");
+	ASSERT_EQ(parser.get<int>("intValue"), 1500);
+	ASSERT_EQ(parser.get<double>("doubleValue"), 228.322000);
+	ASSERT_EQ(parser.get<std::nullptr_t>("nullValue"), nullptr);
 }
 
 TEST(Builder, CONNECT)
@@ -78,7 +84,7 @@ TEST(Builder, CONNECT)
 
 TEST(Builder, Streams)
 {
-	web::HTTPBuilder builder = web::HTTPBuilder("HTTP/2")
+	web::HTTPBuilder builder = web::HTTPBuilder()
 		.getRequest()
 		.parameters("search?").queryParameters("q", "test")
 		.headers

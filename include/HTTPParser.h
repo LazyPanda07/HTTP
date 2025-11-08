@@ -5,7 +5,7 @@
 #include <functional>
 
 #include "HTTPUtility.h"
-#include "JSONParser.h"
+#include "JsonParser.h"
 
 namespace web
 {
@@ -28,7 +28,6 @@ namespace web
 		static inline const std::string utf8Encoded = "charset=utf-8";
 		static inline const std::string chunkEncoded = "chunked";
 		static inline constexpr std::string_view crlfcrlf = "\r\n\r\n";
-		static inline constexpr std::string_view crlf = "\r\n";
 
 	public:
 		static inline constexpr std::string_view urlEncoded = "application/x-www-form-urlencoded";
@@ -39,7 +38,7 @@ namespace web
 		std::unordered_map<std::string, std::string, InsensitiveStringHash, InsensitiveStringEqual> headers;
 		std::vector<Multipart> multiparts;
 		std::unordered_map<std::string, std::string> queryParameters;
-		json::JSONParser jsonParser;
+		json::JsonParser jsonParser;
 		std::pair<int, std::string> response;	// code - response message
 		std::string method;
 		std::string httpVersion;
@@ -100,7 +99,7 @@ namespace web
 
 		const std::vector<std::string>& getChunks() const;
 
-		const json::JSONParser& getJSON() const;
+		const json::JsonParser& getJson() const;
 		
 		const std::string& getRawData() const;
 

@@ -1,4 +1,4 @@
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 
 #include <iostream>
 
@@ -9,7 +9,7 @@
 TEST(Parser, Request)
 {
 	web::HTTPParser parser(getPostRequest());
-	const json::JSONParser& jsonParser = parser.getJSON();
+	const json::JsonParser& jsonParser = parser.getJson();
 	const web::HeadersMap& headers = parser.getHeaders();
 
 	ASSERT_EQ(parser.getMethod(), "POST");
@@ -22,10 +22,10 @@ TEST(Parser, Request)
 	ASSERT_EQ(headers.at("Content-Length"), "96");
 	ASSERT_EQ(headers.at("Empty-Header"), "");
 
-	ASSERT_EQ(jsonParser.getString("stringValue"), "qwe");
-	ASSERT_EQ(jsonParser.getInt("intValue"), 1500);
-	ASSERT_EQ(jsonParser.getDouble("doubleValue"), 228.322);
-	ASSERT_EQ(jsonParser.getNull("nullValue"), nullptr);
+	ASSERT_EQ(jsonParser.get<std::string>("stringValue"), "qwe");
+	ASSERT_EQ(jsonParser.get<int>("intValue"), 1500);
+	ASSERT_EQ(jsonParser.get<double>("doubleValue"), 228.322);
+	ASSERT_EQ(jsonParser.get<std::nullptr_t>("nullValue"), nullptr);
 }
 
 TEST(Parser, Response)
@@ -90,7 +90,7 @@ TEST(Parser, Streams)
 
 		data = os.str();
 
-		ASSERT_NE(data.find("GET /search?q=test HTTP/2\r\n"), npos);
+		ASSERT_NE(data.find("GET /search?q=test HTTP/1.1\r\n"), npos);
 		ASSERT_NE(data.find("Host: www.bing.com\r\n"), npos);
 		ASSERT_NE(data.find("User-Agent: curl/7.54.0\r\n"), npos);
 		ASSERT_NE(data.find("Accept: */*\r\n"), npos);
