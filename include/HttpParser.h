@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include <functional>
 
-#include "HTTPUtility.h"
+#include "HttpUtility.h"
 #include "JsonParser.h"
 
 namespace web
