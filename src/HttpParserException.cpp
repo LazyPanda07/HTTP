@@ -1,11 +1,9 @@
 #include "HttpParserException.h"
 
-using namespace std;
-
 namespace web::exceptions
 {
-	HttpParserException::HttpParserException(string_view message) :
-		runtime_error(string(message.begin(), message.end()))
+	HttpParserException::HttpParserException(std::string_view message) :
+		runtime_error(message.data())
 	{
 		
 	}

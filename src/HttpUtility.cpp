@@ -10,7 +10,7 @@
 #include "HttpParserException.h"
 #include "HttpParser.h"
 
-static std::optional<std::string_view> encodeSymbol(char symbol);
+static constexpr std::optional<std::string_view> encodeSymbol(char symbol);
 
 static std::optional<char> decodeSymbol(std::string_view symbol);
 
@@ -107,7 +107,7 @@ namespace web
 {
 	std::string getHTTPLibraryVersion()
 	{
-		std::string version = "1.15.7";
+		std::string version = "1.15.8";
 
 		return version;
 	}
@@ -171,7 +171,7 @@ namespace web
 
 		tem.reserve(value.size());
 
-		for_each(value.begin(), value.end(), [&tem](char c) { tem += tolower(c); });
+		std::for_each(value.begin(), value.end(), [&tem](char c) { tem += std::tolower(static_cast<uint8_t>(c)); });
 
 		return std::hash<std::string>()(tem);
 	}
@@ -182,7 +182,7 @@ namespace web
 		(
 			left.begin(), left.end(),
 			right.begin(), right.end(),
-			[](char first, char second) { return tolower(first) == tolower(second); }
+			[](char first, char second) { return std::tolower(static_cast<uint8_t>(first)) == std::tolower(static_cast<uint8_t>(second)); }
 		);
 	}
 
@@ -341,7 +341,7 @@ namespace web
 	}
 }
 
-std::optional<std::string_view> encodeSymbol(char symbol)
+constexpr std::optional<std::string_view> encodeSymbol(char symbol)
 {
 	switch (symbol)
 	{

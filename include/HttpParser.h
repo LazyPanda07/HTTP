@@ -60,14 +60,14 @@ namespace web
 		void parseContentType();
 
 	private:
-		void parseChunkEncoded(std::string_view HTTPMessage, bool isUTF8);
+		void parseChunkEncoded(std::string_view httpMessage, bool isUTF8);
 
 	public:
 		HttpParser();
 
-		HttpParser(const std::string& HTTPMessage);
+		HttpParser(const std::string& httpMessage);
 
-		HttpParser(const std::vector<char>& HTTPMessage);
+		HttpParser(const std::vector<char>& httpMessage);
 
 		HttpParser(const HttpParser& other) = default;
 
@@ -77,10 +77,18 @@ namespace web
 
 		HttpParser& operator = (HttpParser&& other) noexcept = default;
 
-		void parse(std::string_view HTTPMessage);
+		/**
+		 * @brief Parses an HTTP message from the given string view.
+		 * @param httpMessage A view of the HTTP message (request or response) to parse.
+		 */
+		void parse(std::string_view httpMessage);
 
 		const std::string& getMethod() const;
 
+		/**
+		 * @brief Returns the HTTP protocol version associated with this object. This is a const member function and does not modify object state.
+		 * @return The HTTP version as a double (for example, 1.1 for HTTP/1.1).
+		 */
 		double getHTTPVersion() const;
 
 		const std::string& getParameters() const;

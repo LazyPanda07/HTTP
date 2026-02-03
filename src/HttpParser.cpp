@@ -100,11 +100,11 @@ namespace web
 		size_t index = contentType.find(boundaryText);
 		std::string boundary = std::format("--{}", std::string_view(contentType.begin() + index + boundaryText.size(), contentType.end()));
 		std::boyer_moore_horspool_searcher searcher(boundary.begin(), boundary.end());
-		std::string_view::const_iterator current = search(data.begin(), data.end(), searcher);
+		std::string_view::const_iterator current = std::search(data.begin(), data.end(), searcher);
 
 		while (true)
 		{
-			std::string_view::const_iterator next = search(current + 1, data.end(), searcher);
+			std::string_view::const_iterator next = std::search(current + 1, data.end(), searcher);
 
 			if (next == data.end())
 			{
@@ -113,7 +113,7 @@ namespace web
 
 			multiparts.emplace_back(std::string_view(current + boundary.size(), next));
 
-			current = search(next, data.end(), searcher);
+			current = std::search(next, data.end(), searcher);
 		}
 	}
 
@@ -133,11 +133,11 @@ namespace web
 		}
 	}
 
-	void HttpParser::parseChunkEncoded(std::string_view HTTPMessage, bool isUTF8)
+	void HttpParser::parseChunkEncoded(std::string_view httpMessage, bool isUTF8)
 	{
-		size_t chunksStart = HTTPMessage.find(crlfcrlf) + crlfcrlf.size();
-		size_t chunksEnd = HTTPMessage.rfind(crlfcrlf) + crlfcrlf.size();
-		ReadOnlyBuffer buffer(std::string_view(HTTPMessage.data() + chunksStart, chunksEnd - chunksStart));
+		size_t chunksStart = httpMessage.find(crlfcrlf) + crlfcrlf.size();
+		size_t chunksEnd = httpMessage.rfind(crlfcrlf) + crlfcrlf.size();
+		ReadOnlyBuffer buffer(std::string_view(httpMessage.data() + chunksStart, chunksEnd - chunksStart));
 		std::istringstream chunksData;
 
 		static_cast<std::ios&>(chunksData).rdbuf(&buffer);
@@ -153,7 +153,7 @@ namespace web
 
 			size.pop_back(); // \r symbol from \r\n
 
-			value.resize(stol(size, nullptr, 16));
+			value.resize(std::stol(size, nullptr, 16));
 
 			if (value.empty())
 			{
@@ -179,19 +179,19 @@ namespace web
 
 	}
 
-	HttpParser::HttpParser(const std::string& HTTPMessage)
+	HttpParser::HttpParser(const std::string& httpMessage)
 	{
-		this->parse(HTTPMessage);
+		this->parse(httpMessage);
 	}
 
-	HttpParser::HttpParser(const std::vector<char>& HTTPMessage)
+	HttpParser::HttpParser(const std::vector<char>& httpMessage)
 	{
-		this->parse(std::string_view(HTTPMessage.data(), HTTPMessage.size()));
+		this->parse(std::string_view(httpMessage.data(), httpMessage.size()));
 	}
 
-	void HttpParser::parse(std::string_view HTTPMessage)
+	void HttpParser::parse(std::string_view httpMessage)
 	{
-		if (HTTPMessage.empty())
+		if (httpMessage.empty())
 		{
 			parsed = false;
 
@@ -201,8 +201,8 @@ namespace web
 		parsed = true;
 
 		size_t prevString = 0;
-		size_t nextString = HTTPMessage.find('\r');
-		std::string_view firstString(HTTPMessage.data(), nextString);
+		size_t nextString = httpMessage.find('\r');
+		std::string_view firstString(httpMessage.data(), nextString);
 		
 		if (std::string_view temp = firstString.substr(0, firstString.find(' ')); temp.find("HTTP") == std::string_view::npos)
 		{
@@ -210,13 +210,13 @@ namespace web
 
 			if (methods.find(method) == methods.end())
 			{
-				throw exceptions::HttpParserException(format("Wrong method: {}", method));
+				throw exceptions::HttpParserException(std::format("Wrong method: {}", method));
 			}
 		}
 
 		chunksSize = 0;
 
-		rawData = HTTPMessage;
+		rawData = httpMessage;
 
 		if (method.empty())
 		{
@@ -228,7 +228,7 @@ namespace web
 
 			data >> httpVersion >> responseCode >> response.second;
 
-			response.first = stoi(responseCode);
+			response.first = std::stoi(responseCode);
 		}
 		else if (method != "CONNECT")
 		{
@@ -261,9 +261,9 @@ namespace web
 		while (true)
 		{
 			prevString = nextString + constants::crlf.size();
-			nextString = HTTPMessage.find('\r', prevString);
+			nextString = httpMessage.find('\r', prevString);
 
-			std::string_view next(HTTPMessage.data() + prevString, nextString - prevString);
+			std::string_view next(httpMessage.data() + prevString, nextString - prevString);
 
 			if (prevString == nextString || nextString == std::string::npos)
 			{
@@ -284,11 +284,11 @@ namespace web
 			headers.try_emplace(std::move(header), std::move(value));
 		}
 
-		bool isUTF8 = HTTPMessage.find(utf8Encoded) != std::string::npos;
+		bool isUTF8 = httpMessage.find(utf8Encoded) != std::string::npos;
 
 		if (auto it = headers.find(transferEncodingHeader); it != headers.end())
 		{
-			static const std::unordered_map<std::string, void (HttpParser::*)(std::string_view HTTPMessage, bool isUTF8)> transferTypeParsers =
+			static const std::unordered_map<std::string, void (HttpParser::*)(std::string_view httpMessage, bool isUTF8)> transferTypeParsers =
 			{
 				{ chunkEncoded, &HttpParser::parseChunkEncoded }
 			};
@@ -298,17 +298,17 @@ namespace web
 				throw exceptions::HttpParserException("Not supported transfer encoding: " + it->second);
 			}
 
-			std::invoke(transferTypeParsers.at(it->second), *this, HTTPMessage, isUTF8);
+			std::invoke(transferTypeParsers.at(it->second), *this, httpMessage, isUTF8);
 		}
 		else if (headers.find(contentLengthHeader) != headers.end())
 		{
 			if (isUTF8)
 			{
-				body = json::utility::toUTF8JSON(std::string(HTTPMessage.begin() + HTTPMessage.find(crlfcrlf) + crlfcrlf.size(), HTTPMessage.end()), CP_UTF8);
+				body = json::utility::toUTF8JSON(std::string_view(httpMessage.begin() + httpMessage.find(crlfcrlf) + crlfcrlf.size(), httpMessage.end()), CP_UTF8);
 			}
 			else
 			{
-				body = std::string(HTTPMessage.begin() + HTTPMessage.find(crlfcrlf) + crlfcrlf.size(), HTTPMessage.end());
+				body = std::string(httpMessage.begin() + httpMessage.find(crlfcrlf) + crlfcrlf.size(), httpMessage.end());
 			}
 		}
 
@@ -322,7 +322,7 @@ namespace web
 
 	double HttpParser::getHTTPVersion() const
 	{
-		return stod(httpVersion.substr(5));
+		return std::stod(httpVersion.substr(5));
 	}
 
 	const std::string& HttpParser::getParameters() const
@@ -393,18 +393,18 @@ namespace web
 		{
 			if (parser.method != "CONNECT")
 			{
-				result += format("{} /{} {}", parser.method, parser.parameters, parser.httpVersion);
+				result += std::format("{} /{} {}", parser.method, parser.parameters, parser.httpVersion);
 			}
 			else
 			{
-				result += format("{} {} {}", parser.method, parser.parameters, parser.httpVersion);
+				result += std::format("{} {} {}", parser.method, parser.parameters, parser.httpVersion);
 			}
 		}
 		else
 		{
 			const auto& [code, message] = parser.getFullResponse();
 
-			result += format("{} {} {}", parser.httpVersion, static_cast<int>(code), message);
+			result += std::format("{} {} {}", parser.httpVersion, static_cast<int>(code), message);
 		}
 
 		result += constants::crlf;
@@ -427,7 +427,7 @@ namespace web
 				result += std::format("{}{}{}", (std::ostringstream() << std::hex << chunk.size() << constants::crlf).str(), chunk, constants::crlf);
 			}
 
-			result += format("0{}", HttpParser::crlfcrlf);
+			result += std::format("0{}", HttpParser::crlfcrlf);
 		}
 
 		if (!result.ends_with(HttpParser::crlfcrlf))
