@@ -114,20 +114,59 @@ namespace web
 		/// @return Self
 		HttpBuilder& parameters(std::string_view parameters);
 
+		/**
+		 * @brief Sets the HTTP response code on the builder.
+		 * @param code The response code to set (a value of type ResponseCodes).
+		 * @return A reference to the same HttpBuilder instance, allowing method chaining.
+		 */
 		HttpBuilder& responseCode(ResponseCodes code);
 
+		/**
+		 * @brief Sets the HTTP response status code and its reason/message on the builder.
+		 * @param code The HTTP status code to set (e.g., 200 for OK).
+		 * @param responseMessage The reason phrase or response message associated with the status code (provided as a std::string_view).
+		 * @return Reference to the same HttpBuilder instance, allowing method chaining.
+		 */
 		HttpBuilder& responseCode(int code, std::string_view responseMessage);
 
+		/**
+		 * @brief Sets the HTTP protocol version to use for the request being built.
+		 * @param httpVersion The HTTP version string to set (valid versions: HTTP/0.9, HTTP/1.0, HTTP/1.1).
+		 * @return Reference to the same HttpBuilder instance to allow method chaining.
+		 */
 		HttpBuilder& HTTPVersion(std::string_view httpVersion);
 
+		/**
+		 * @brief Sets the chunk data to include in the HTTP message.
+		 * @param chunks A vector of strings where each element is a chunk of data to include in the HTTP message.
+		 * @return A reference to the HttpBuilder instance, allowing method chaining.
+		 */
 		HttpBuilder& chunks(const std::vector<std::string>& chunks);
 
+		/**
+		 * @brief Sets the HTTP message chunks by taking ownership of the provided vector.
+		 * @param chunks An rvalue reference to a vector of string chunks; the vector is moved into the builder (ownership transferred).
+		 * @return A reference to this HttpBuilder instance to allow method chaining.
+		 */
 		HttpBuilder& chunks(std::vector<std::string>&& chunks);
 
+		/**
+		 * @brief Appends a data chunk to the HTTP message being built.
+		 * @param chunk A std::string_view referencing the data to append as a chunk.
+		 * @return A reference to the HttpBuilder instance, enabling method chaining.
+		 */
 		HttpBuilder& chunk(std::string_view chunk);
 
+		/**
+		 * @brief Clears the builder's internal state and allows method chaining.
+		 * @return A reference to the HttpBuilder (typically *this) after its internal state has been cleared, enabling chaining of calls.
+		 */
 		HttpBuilder& clear();
 
+		/**
+		 * @brief Enables partial chunking for HTTP message bodies on the builder, modifying the builder's configuration.
+		 * @return A reference to the HttpBuilder instance (allows method chaining).
+		 */
 		HttpBuilder& partialChunks();
 
 		/// @brief Append header - value
@@ -141,12 +180,33 @@ namespace web
 		template<typename StringT, typename T, typename... Args>
 		HttpBuilder& headers(StringT&& name, T&& value, Args&&... args);
 
+		/**
+		 * @brief Builds an HTTP message (request or response) and returns it in the requested type.
+		 * @tparam ReturnT The return type for the built HTTP message. Must satisfy concepts::HttpBuilderReturnType. Defaults to std::string.
+		 * @param data Optional message body or payload to include in the built HTTP message. Defaults to an empty string.
+		 * @param additionalHeaders Optional map of header names to values to include or override in the built HTTP message. Defaults to an empty map.
+		 * @return The constructed HTTP message represented as the specified ReturnT (by default a std::string).
+		 */
 		template<concepts::HttpBuilderReturnType ReturnT = std::string>
 		ReturnT build(std::string_view data = "", const std::unordered_map<std::string, std::string>& additionalHeaders = {}) const;
 
+		/**
+		 * @brief Builds an HTTP representation from a JSON builder, optionally including additional headers, and returns it as the specified type.
+		 * @tparam ReturnT The return type to produce for the built result; constrained by concepts::HttpBuilderReturnType. Defaults to std::string.
+		 * @param builder The json::JsonBuilder providing the content to convert into an HTTP representation.
+		 * @param additionalHeaders Optional map of header name/value pairs to include in the built HTTP output (defaults to empty).
+		 * @return The built HTTP representation of the builder, returned as type ReturnT (typically a string by default).
+		 */
 		template<concepts::HttpBuilderReturnType ReturnT = std::string>
 		ReturnT build(const json::JsonBuilder& builder, const std::unordered_map<std::string, std::string>& additionalHeaders = {}) const;
 
+		/**
+		 * @brief Builds an HTTP representation from URL-encoded parameters and optional additional headers.
+		 * @tparam ReturnT The return type produced by the builder. Must satisfy concepts::HttpBuilderReturnType; defaults to std::string.
+		 * @param urlEncoded A map of URL-encoded key-value pairs to include in the built HTTP representation.
+		 * @param additionalHeaders An optional map of additional HTTP headers to include. Defaults to an empty map.
+		 * @return The constructed HTTP representation as the specified ReturnT.
+		 */
 		template<concepts::HttpBuilderReturnType ReturnT = std::string>
 		ReturnT build(const std::unordered_map<std::string, std::string>& urlEncoded, const std::unordered_map<std::string, std::string>& additionalHeaders = {}) const;
 
@@ -207,7 +267,7 @@ namespace web
 
 		if (method.empty())
 		{
-			result = format("{} {}{}{}", _HTTPVersion, _responseCode, constants::crlf, _headers);
+			result = std::format("{} {}{}{}", _HTTPVersion, _responseCode, constants::crlf, _headers);
 		}
 		else
 		{
@@ -218,7 +278,7 @@ namespace web
 				result += "/";
 			}
 
-			result += format("{} {}{}{}", _parameters, _HTTPVersion, constants::crlf, _headers);
+			result += std::format("{} {}{}{}", _parameters, _HTTPVersion, constants::crlf, _headers);
 		}
 
 		for (const auto& [header, value] : headers)
@@ -253,7 +313,7 @@ namespace web
 	template<typename StringT, typename T, typename... Args>
 	HttpBuilder& HttpBuilder::queryParameters(StringT&& name, T&& value, Args&&... args)
 	{
-		static_assert(std::is_convertible_v<decltype(name), std::string_view>, "Wrong StringT type");
+		static_assert(std::convertible_to<decltype(name), std::string_view>, "Wrong StringT type");
 
 		if (_parameters.empty())
 		{
@@ -264,11 +324,11 @@ namespace web
 		{
 			_parameters += std::format("{}={}&", web::encodeUrl(static_cast<std::string_view>(name)), std::to_string(value));
 		}
-		else if constexpr (std::is_convertible_v<decltype(value), std::string_view>)
+		else if constexpr (std::convertible_to<decltype(value), std::string_view>)
 		{
 			_parameters += std::format("{}={}&", web::encodeUrl(static_cast<std::string_view>(name)), web::encodeUrl(static_cast<std::string_view>(value)));
 		}
-		else if constexpr (std::is_convertible_v<decltype(value), std::string>)
+		else if constexpr (std::convertible_to<decltype(value), std::string>)
 		{
 			_parameters += std::format("{}={}&", web::encodeUrl(static_cast<std::string_view>(name)), web::encodeUrl(static_cast<std::string>(value)));
 		}

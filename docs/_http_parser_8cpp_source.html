@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.15.7</span>
+   <div id="projectname">HTTP<span id="projectnumber">&#160;v1.15.8</span>
    </div>
   </td>
  </tr>
@@ -201,11 +201,11 @@ $(function(){initNavTree('_http_parser_8cpp_source.html',''); initResizable(true
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="keywordtype">size_t</span> index = contentType.find(boundaryText);</div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        std::string boundary = std::format(<span class="stringliteral">&quot;--{}&quot;</span>, std::string_view(contentType.begin() + index + boundaryText.size(), contentType.end()));</div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        std::boyer_moore_horspool_searcher searcher(boundary.begin(), boundary.end());</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        std::string_view::const_iterator current = search(data.begin(), data.end(), searcher);</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        std::string_view::const_iterator current = std::search(data.begin(), data.end(), searcher);</div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="keywordflow">while</span> (<span class="keyword">true</span>)</div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        {</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            std::string_view::const_iterator next = search(current + 1, data.end(), searcher);</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            std::string_view::const_iterator next = std::search(current + 1, data.end(), searcher);</div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>            <span class="keywordflow">if</span> (next == data.end())</div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>            {</div>
@@ -214,7 +214,7 @@ $(function(){initNavTree('_http_parser_8cpp_source.html',''); initResizable(true
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>            multiparts.emplace_back(std::string_view(current + boundary.size(), next));</div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>            current = search(next, data.end(), searcher);</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>            current = std::search(next, data.end(), searcher);</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        }</div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    }</div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
@@ -234,11 +234,11 @@ $(function(){initNavTree('_http_parser_8cpp_source.html',''); initResizable(true
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        }</div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    }</div>
 <div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="keywordtype">void</span> HttpParser::parseChunkEncoded(std::string_view HTTPMessage, <span class="keywordtype">bool</span> isUTF8)</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="keywordtype">void</span> HttpParser::parseChunkEncoded(std::string_view httpMessage, <span class="keywordtype">bool</span> isUTF8)</div>
 <div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    {</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        <span class="keywordtype">size_t</span> chunksStart = HTTPMessage.find(crlfcrlf) + crlfcrlf.size();</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        <span class="keywordtype">size_t</span> chunksEnd = HTTPMessage.rfind(crlfcrlf) + crlfcrlf.size();</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        ReadOnlyBuffer buffer(std::string_view(HTTPMessage.data() + chunksStart, chunksEnd - chunksStart));</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        <span class="keywordtype">size_t</span> chunksStart = httpMessage.find(crlfcrlf) + crlfcrlf.size();</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        <span class="keywordtype">size_t</span> chunksEnd = httpMessage.rfind(crlfcrlf) + crlfcrlf.size();</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        ReadOnlyBuffer buffer(std::string_view(httpMessage.data() + chunksStart, chunksEnd - chunksStart));</div>
 <div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        std::istringstream chunksData;</div>
 <div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
 <div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        <span class="keyword">static_cast&lt;</span>std::ios&amp;<span class="keyword">&gt;</span>(chunksData).rdbuf(&amp;buffer);</div>
@@ -254,7 +254,7 @@ $(function(){initNavTree('_http_parser_8cpp_source.html',''); initResizable(true
 <div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
 <div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>            size.pop_back(); <span class="comment">// \r symbol from \r\n</span></div>
 <div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>            value.resize(stol(size, <span class="keyword">nullptr</span>, 16));</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>            value.resize(std::stol(size, <span class="keyword">nullptr</span>, 16));</div>
 <div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>            <span class="keywordflow">if</span> (value.empty())</div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            {</div>
@@ -280,19 +280,19 @@ $(function(){initNavTree('_http_parser_8cpp_source.html',''); initResizable(true
 <div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
 <div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    }</div>
 <div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    HttpParser::HttpParser(<span class="keyword">const</span> std::string&amp; HTTPMessage)</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    HttpParser::HttpParser(<span class="keyword">const</span> std::string&amp; httpMessage)</div>
 <div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    {</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        this-&gt;parse(HTTPMessage);</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        this-&gt;parse(httpMessage);</div>
 <div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    }</div>
 <div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    HttpParser::HttpParser(<span class="keyword">const</span> std::vector&lt;char&gt;&amp; HTTPMessage)</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    HttpParser::HttpParser(<span class="keyword">const</span> std::vector&lt;char&gt;&amp; httpMessage)</div>
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    {</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        this-&gt;parse(std::string_view(HTTPMessage.data(), HTTPMessage.size()));</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        this-&gt;parse(std::string_view(httpMessage.data(), httpMessage.size()));</div>
 <div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    }</div>
 <div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    <span class="keywordtype">void</span> HttpParser::parse(std::string_view HTTPMessage)</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    <span class="keywordtype">void</span> HttpParser::parse(std::string_view httpMessage)</div>
 <div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    {</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        <span class="keywordflow">if</span> (HTTPMessage.empty())</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        <span class="keywordflow">if</span> (httpMessage.empty())</div>
 <div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        {</div>
 <div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>            parsed = <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
@@ -302,8 +302,8 @@ $(function(){initNavTree('_http_parser_8cpp_source.html',''); initResizable(true
 <div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>        parsed = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
 <div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        <span class="keywordtype">size_t</span> prevString = 0;</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>        <span class="keywordtype">size_t</span> nextString = HTTPMessage.find(<span class="charliteral">&#39;\r&#39;</span>);</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>        std::string_view firstString(HTTPMessage.data(), nextString);</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>        <span class="keywordtype">size_t</span> nextString = httpMessage.find(<span class="charliteral">&#39;\r&#39;</span>);</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>        std::string_view firstString(httpMessage.data(), nextString);</div>
 <div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>        </div>
 <div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>        <span class="keywordflow">if</span> (std::string_view temp = firstString.substr(0, firstString.find(<span class="charliteral">&#39; &#39;</span>)); temp.find(<span class="stringliteral">&quot;HTTP&quot;</span>) == std::string_view::npos)</div>
 <div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>        {</div>
@@ -311,13 +311,13 @@ $(function(){initNavTree('_http_parser_8cpp_source.html',''); initResizable(true
 <div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
 <div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>            <span class="keywordflow">if</span> (methods.find(method) == methods.end())</div>
 <div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>            {</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>                <span class="keywordflow">throw</span> exceptions::HttpParserException(format(<span class="stringliteral">&quot;Wrong method: {}&quot;</span>, method));</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>                <span class="keywordflow">throw</span> exceptions::HttpParserException(std::format(<span class="stringliteral">&quot;Wrong method: {}&quot;</span>, method));</div>
 <div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>            }</div>
 <div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        }</div>
 <div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span> </div>
 <div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        chunksSize = 0;</div>
 <div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>        rawData = HTTPMessage;</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>        rawData = httpMessage;</div>
 <div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
 <div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        <span class="keywordflow">if</span> (method.empty())</div>
 <div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>        {</div>
@@ -329,7 +329,7 @@ $(function(){initNavTree('_http_parser_8cpp_source.html',''); initResizable(true
 <div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
 <div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>            data &gt;&gt; httpVersion &gt;&gt; responseCode &gt;&gt; response.second;</div>
 <div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span> </div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>            response.first = stoi(responseCode);</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>            response.first = std::stoi(responseCode);</div>
 <div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>        }</div>
 <div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (method != <span class="stringliteral">&quot;CONNECT&quot;</span>)</div>
 <div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>        {</div>
@@ -362,9 +362,9 @@ $(function(){initNavTree('_http_parser_8cpp_source.html',''); initResizable(true
 <div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        <span class="keywordflow">while</span> (<span class="keyword">true</span>)</div>
 <div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>        {</div>
 <div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>            prevString = nextString + constants::crlf.size();</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>            nextString = HTTPMessage.find(<span class="charliteral">&#39;\r&#39;</span>, prevString);</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>            nextString = httpMessage.find(<span class="charliteral">&#39;\r&#39;</span>, prevString);</div>
 <div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>            std::string_view next(HTTPMessage.data() + prevString, nextString - prevString);</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>            std::string_view next(httpMessage.data() + prevString, nextString - prevString);</div>
 <div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
 <div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>            <span class="keywordflow">if</span> (prevString == nextString || nextString == std::string::npos)</div>
 <div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>            {</div>
@@ -385,11 +385,11 @@ $(function(){initNavTree('_http_parser_8cpp_source.html',''); initResizable(true
 <div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>            headers.try_emplace(std::move(header), std::move(value));</div>
 <div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>        }</div>
 <div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span> </div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>        <span class="keywordtype">bool</span> isUTF8 = HTTPMessage.find(utf8Encoded) != std::string::npos;</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>        <span class="keywordtype">bool</span> isUTF8 = httpMessage.find(utf8Encoded) != std::string::npos;</div>
 <div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span> </div>
 <div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>        <span class="keywordflow">if</span> (<span class="keyword">auto</span> it = headers.find(transferEncodingHeader); it != headers.end())</div>
 <div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>        {</div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>            <span class="keyword">static</span> <span class="keyword">const</span> std::unordered_map&lt;std::string, void (HttpParser::*)(std::string_view HTTPMessage, <span class="keywordtype">bool</span> isUTF8)&gt; transferTypeParsers =</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>            <span class="keyword">static</span> <span class="keyword">const</span> std::unordered_map&lt;std::string, void (HttpParser::*)(std::string_view httpMessage, <span class="keywordtype">bool</span> isUTF8)&gt; transferTypeParsers =</div>
 <div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>            {</div>
 <div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>                { chunkEncoded, &amp;HttpParser::parseChunkEncoded }</div>
 <div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>            };</div>
@@ -399,17 +399,17 @@ $(function(){initNavTree('_http_parser_8cpp_source.html',''); initResizable(true
 <div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>                <span class="keywordflow">throw</span> exceptions::HttpParserException(<span class="stringliteral">&quot;Not supported transfer encoding: &quot;</span> + it-&gt;second);</div>
 <div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>            }</div>
 <div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span> </div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>            std::invoke(transferTypeParsers.at(it-&gt;second), *<span class="keyword">this</span>, HTTPMessage, isUTF8);</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>            std::invoke(transferTypeParsers.at(it-&gt;second), *<span class="keyword">this</span>, httpMessage, isUTF8);</div>
 <div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>        }</div>
 <div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (headers.find(contentLengthHeader) != headers.end())</div>
 <div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>        {</div>
 <div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>            <span class="keywordflow">if</span> (isUTF8)</div>
 <div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>            {</div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>                body = json::utility::toUTF8JSON(std::string(HTTPMessage.begin() + HTTPMessage.find(crlfcrlf) + crlfcrlf.size(), HTTPMessage.end()), CP_UTF8);</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>                body = json::utility::toUTF8JSON(std::string_view(httpMessage.begin() + httpMessage.find(crlfcrlf) + crlfcrlf.size(), httpMessage.end()), CP_UTF8);</div>
 <div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>            }</div>
 <div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>            <span class="keywordflow">else</span></div>
 <div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>            {</div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>                body = std::string(HTTPMessage.begin() + HTTPMessage.find(crlfcrlf) + crlfcrlf.size(), HTTPMessage.end());</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>                body = std::string(httpMessage.begin() + httpMessage.find(crlfcrlf) + crlfcrlf.size(), httpMessage.end());</div>
 <div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>            }</div>
 <div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>        }</div>
 <div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span> </div>
@@ -423,7 +423,7 @@ $(function(){initNavTree('_http_parser_8cpp_source.html',''); initResizable(true
 <div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span> </div>
 <div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    <span class="keywordtype">double</span> HttpParser::getHTTPVersion()<span class="keyword"> const</span></div>
 <div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span><span class="keyword">    </span>{</div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>        <span class="keywordflow">return</span> stod(httpVersion.substr(5));</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>        <span class="keywordflow">return</span> std::stod(httpVersion.substr(5));</div>
 <div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>    }</div>
 <div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span> </div>
 <div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>    <span class="keyword">const</span> std::string&amp; HttpParser::getParameters()<span class="keyword"> const</span></div>
@@ -495,18 +495,18 @@ $(function(){initNavTree('_http_parser_8cpp_source.html',''); initResizable(true
 <div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>        {</div>
 <div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>            <span class="keywordflow">if</span> (parser.method != <span class="stringliteral">&quot;CONNECT&quot;</span>)</div>
 <div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>            {</div>
-<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>                result += format(<span class="stringliteral">&quot;{} /{} {}&quot;</span>, parser.method, parser.parameters, parser.httpVersion);</div>
+<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>                result += std::format(<span class="stringliteral">&quot;{} /{} {}&quot;</span>, parser.method, parser.parameters, parser.httpVersion);</div>
 <div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>            }</div>
 <div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>            <span class="keywordflow">else</span></div>
 <div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>            {</div>
-<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>                result += format(<span class="stringliteral">&quot;{} {} {}&quot;</span>, parser.method, parser.parameters, parser.httpVersion);</div>
+<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>                result += std::format(<span class="stringliteral">&quot;{} {} {}&quot;</span>, parser.method, parser.parameters, parser.httpVersion);</div>
 <div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>            }</div>
 <div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>        }</div>
 <div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span>        <span class="keywordflow">else</span></div>
 <div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span>        {</div>
 <div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span>            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; [code, message] = parser.getFullResponse();</div>
 <div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span> </div>
-<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span>            result += format(<span class="stringliteral">&quot;{} {} {}&quot;</span>, parser.httpVersion, <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(code), message);</div>
+<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span>            result += std::format(<span class="stringliteral">&quot;{} {} {}&quot;</span>, parser.httpVersion, <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(code), message);</div>
 <div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>        }</div>
 <div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span> </div>
 <div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>        result += constants::crlf;</div>
@@ -529,7 +529,7 @@ $(function(){initNavTree('_http_parser_8cpp_source.html',''); initResizable(true
 <div class="line"><a id="l00427" name="l00427"></a><span class="lineno">  427</span>                result += std::format(<span class="stringliteral">&quot;{}{}{}&quot;</span>, (std::ostringstream() &lt;&lt; std::hex &lt;&lt; chunk.size() &lt;&lt; constants::crlf).str(), chunk, constants::crlf);</div>
 <div class="line"><a id="l00428" name="l00428"></a><span class="lineno">  428</span>            }</div>
 <div class="line"><a id="l00429" name="l00429"></a><span class="lineno">  429</span> </div>
-<div class="line"><a id="l00430" name="l00430"></a><span class="lineno">  430</span>            result += format(<span class="stringliteral">&quot;0{}&quot;</span>, HttpParser::crlfcrlf);</div>
+<div class="line"><a id="l00430" name="l00430"></a><span class="lineno">  430</span>            result += std::format(<span class="stringliteral">&quot;0{}&quot;</span>, HttpParser::crlfcrlf);</div>
 <div class="line"><a id="l00431" name="l00431"></a><span class="lineno">  431</span>        }</div>
 <div class="line"><a id="l00432" name="l00432"></a><span class="lineno">  432</span> </div>
 <div class="line"><a id="l00433" name="l00433"></a><span class="lineno">  433</span>        <span class="keywordflow">if</span> (!result.ends_with(HttpParser::crlfcrlf))</div>
@@ -563,7 +563,7 @@ $(function(){initNavTree('_http_parser_8cpp_source.html',''); initResizable(true
 <div class="line"><a id="l00459" name="l00459"></a><span class="lineno">  459</span>    }</div>
 </div>
 <div class="line"><a id="l00460" name="l00460"></a><span class="lineno">  460</span>}</div>
-<div class="ttc" id="anamespaceweb_html"><div class="ttname"><a href="namespaceweb.html">web</a></div><div class="ttdef"><b>Definition</b> <a href="_http_builder_8cpp_source.html#l00018">HttpBuilder.cpp:19</a></div></div>
+<div class="ttc" id="anamespaceweb_html"><div class="ttname"><a href="namespaceweb.html">web</a></div><div class="ttdef"><b>Definition</b> <a href="_http_builder_8cpp_source.html#l00017">HttpBuilder.cpp:18</a></div></div>
 <div class="ttc" id="anamespaceweb_html_ac83233fbbb40118fb413d7dcaa633895"><div class="ttname"><a href="namespaceweb.html#ac83233fbbb40118fb413d7dcaa633895">web::decodeUrl</a></div><div class="ttdeci">std::string decodeUrl(std::string_view data)</div><div class="ttdef"><b>Definition</b> <a href="_http_utility_8cpp_source.html#l00134">HttpUtility.cpp:134</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
