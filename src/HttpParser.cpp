@@ -98,6 +98,12 @@ namespace web
 
 		const std::string& contentType = headers["Content-Type"];
 		size_t index = contentType.find(boundaryText);
+
+		if (index == std::string_view::npos)
+		{
+			throw std::runtime_error(std::format("Can't find {}", boundaryText));
+		}
+
 		std::string boundary = std::format("--{}", std::string_view(contentType.begin() + index + boundaryText.size(), contentType.end()));
 		std::boyer_moore_horspool_searcher searcher(boundary.begin(), boundary.end());
 		std::string_view::const_iterator current = std::search(data.begin(), data.end(), searcher);
@@ -135,8 +141,34 @@ namespace web
 
 	void HttpParser::parseChunkEncoded(std::string_view httpMessage, bool isUTF8)
 	{
-		size_t chunksStart = httpMessage.find(crlfcrlf) + crlfcrlf.size();
-		size_t chunksEnd = httpMessage.rfind(crlfcrlf) + crlfcrlf.size();
+		size_t chunksStart = httpMessage.find(crlfcrlf);
+
+		if (chunksStart == std::string_view::npos)
+		{
+			throw std::runtime_error(std::format("Can't find chunks start in {}", httpMessage));
+		}
+
+		chunksStart += crlfcrlf.size();
+
+		if (chunksStart >= httpMessage.size())
+		{
+			throw std::runtime_error(std::format("Wrong stat chunks format in {}", httpMessage));
+		}
+
+		size_t chunksEnd = httpMessage.rfind(crlfcrlf);
+
+		if (chunksEnd == std::string_view::npos)
+		{
+			throw std::runtime_error(std::format("Can't find chunks start in {}", httpMessage));
+		}
+
+		chunksEnd += crlfcrlf.size();
+
+		if (chunksEnd > httpMessage.size())
+		{
+			throw std::runtime_error(std::format("Wrong end chunks format in {}", httpMessage));
+		}
+
 		ReadOnlyBuffer buffer(std::string_view(httpMessage.data() + chunksStart, chunksEnd - chunksStart));
 		std::istringstream chunksData;
 
@@ -202,6 +234,12 @@ namespace web
 
 		size_t prevString = 0;
 		size_t nextString = httpMessage.find('\r');
+
+		if (nextString == std::string_view::npos)
+		{
+			throw std::runtime_error(std::format("Can't find next string: {}", httpMessage));
+		}
+
 		std::string_view firstString(httpMessage.data(), nextString);
 		
 		if (std::string_view temp = firstString.substr(0, firstString.find(' ')); temp.find("HTTP") == std::string_view::npos)
@@ -242,10 +280,28 @@ namespace web
 			startParameters++;
 
 			size_t endParameters = firstString.rfind(' ');
+
+			if (endParameters == std::string_view::npos)
+			{
+				throw std::runtime_error(std::format("Can't find end parameters in: {}", firstString));
+			}
+
 			size_t queryStart = firstString.find('?');
 
+			if (queryStart == std::string_view::npos)
+			{
+				throw std::runtime_error(std::format("Can't find query start in: {}", firstString));
+			}
+
+			size_t httpStartIndex = firstString.find("HTTP");
+
+			if (httpStartIndex == std::string_view::npos)
+			{
+				throw std::runtime_error(std::format("Can't find HTTP in: {}", firstString));
+			}
+
 			parameters = web::decodeUrl(std::string_view(firstString.begin() + startParameters, firstString.begin() + endParameters));
-			httpVersion = std::string(firstString.begin() + firstString.find("HTTP"), firstString.end());
+			httpVersion = std::string(firstString.begin() + httpStartIndex, firstString.end());
 
 			if (queryStart != std::string::npos)
 			{
@@ -254,8 +310,29 @@ namespace web
 		}
 		else
 		{
-			parameters = std::string(firstString.begin() + firstString.find(' ') + 1, firstString.begin() + firstString.rfind(' '));
-			httpVersion = std::string(firstString.begin() + firstString.find("HTTP"), firstString.end());
+			size_t space = firstString.find(' ');
+
+			if (space == std::string_view::npos)
+			{
+				throw std::runtime_error(std::format("Can't find first space in {}", firstString));
+			}
+
+			size_t lastSpace = firstString.rfind(' ');
+
+			if (lastSpace == std::string_view::npos)
+			{
+				throw std::runtime_error(std::format("Can't find first last space in {}", firstString));
+			}
+
+			size_t httpStartIndex = firstString.find("HTTP");
+
+			if (httpStartIndex == std::string_view::npos)
+			{
+				throw std::runtime_error(std::format("Can't find HTTP in: {}", firstString));
+			}
+
+			parameters = std::string(firstString.begin() + space + 1, firstString.begin() + lastSpace);
+			httpVersion = std::string(firstString.begin() + httpStartIndex, firstString.end());
 		}
 
 		while (true)
@@ -263,14 +340,20 @@ namespace web
 			prevString = nextString + constants::crlf.size();
 			nextString = httpMessage.find('\r', prevString);
 
-			std::string_view next(httpMessage.data() + prevString, nextString - prevString);
-
 			if (prevString == nextString || nextString == std::string::npos)
 			{
 				break;
 			}
 
+			std::string_view next(httpMessage.data() + prevString, nextString - prevString);
+
 			size_t colonIndex = next.find(':');
+
+			if (colonIndex == std::string_view::npos)
+			{
+				throw std::runtime_error(std::format("Can't find ':' while parsing headers in {}", next));
+			}
+
 			size_t nonSpace = colonIndex + 1;
 			std::string header(next.begin(), next.begin() + colonIndex);
 
