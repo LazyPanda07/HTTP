@@ -286,13 +286,6 @@ namespace web
 				throw std::runtime_error(std::format("Can't find end parameters in: {}", firstString));
 			}
 
-			size_t queryStart = firstString.find('?');
-
-			if (queryStart == std::string_view::npos)
-			{
-				throw std::runtime_error(std::format("Can't find query start in: {}", firstString));
-			}
-
 			size_t httpStartIndex = firstString.find("HTTP");
 
 			if (httpStartIndex == std::string_view::npos)
@@ -303,7 +296,7 @@ namespace web
 			parameters = web::decodeUrl(std::string_view(firstString.begin() + startParameters, firstString.begin() + endParameters));
 			httpVersion = std::string(firstString.begin() + httpStartIndex, firstString.end());
 
-			if (queryStart != std::string::npos)
+			if (size_t queryStart = firstString.find('?'); queryStart != std::string::npos)
 			{
 				this->parseQueryParameter(std::string_view(firstString.data() + queryStart + 1, firstString.data() + endParameters));
 			}
