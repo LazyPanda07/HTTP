@@ -107,7 +107,7 @@ namespace web
 {
 	std::string getHTTPLibraryVersion()
 	{
-		std::string version = "1.17.1";
+		std::string version = "1.17.2";
 
 		return version;
 	}

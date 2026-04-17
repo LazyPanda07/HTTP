@@ -392,9 +392,9 @@ namespace web
 
 			uint64_t bodySize = std::stoull(it->second);
 
-			if (bodyOffset + crlfcrlf.size() + bodySize != httpMessage.size())
+			if (bodyOffset + crlfcrlf.size() + bodySize > httpMessage.size())
 			{
-				throw std::runtime_error(std::format("Wrong Content-Length size: {}", bodySize));
+				throw std::runtime_error("Wrong HTTP body");
 			}
 
 			std::string_view bodyView(httpMessage.data() + bodyOffset + crlfcrlf.size(), bodySize);
