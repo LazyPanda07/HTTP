@@ -128,10 +128,8 @@ jobs:
           cmake --install .
 
     - name: Tests
-      working-directory: ${{ github.workspace }}/Tests
-      run: |
-          cd build/bin
-          .\Tests.exe
+      working-directory: ${{ github.workspace }}/Tests/build/bin
+      run: .\Tests.exe
 
 
   linux-tests:
@@ -165,10 +163,8 @@ jobs:
           cmake --install .
 
     - name: Tests
-      working-directory: ${{ github.workspace }}/Tests
-      run: |
-        cd build/bin
-        LD_LIBRARY_PATH=$(pwd):${LD_LIBRARY_PATH} ./Tests
+      working-directory: ${{ github.workspace }}/Tests/build/bin
+      run: LD_LIBRARY_PATH=$(pwd):${LD_LIBRARY_PATH} ./Tests
 
 
   linux-aarch64-tests:
@@ -200,10 +196,8 @@ jobs:
           cmake --install .
 
     - name: Tests
-      working-directory: ${{ github.workspace }}/Tests
-      run: |
-        cd build/bin
-        LD_LIBRARY_PATH=$(pwd):${LD_LIBRARY_PATH} ./Tests
+      working-directory: ${{ github.workspace }}/Tests/build/bin
+      run: LD_LIBRARY_PATH=$(pwd):${LD_LIBRARY_PATH} ./Tests
 
 
   memory-leak-tests:
