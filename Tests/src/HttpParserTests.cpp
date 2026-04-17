@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "HttpParser.h"
+#include "HttpBuilder.h"
 
 #include "HttpTestUtils.h"
 
@@ -48,7 +49,7 @@ TEST(Parser, Response)
 
 TEST(Parser, CONNECT)
 {
-	web::HttpParser parser(getCONNECTRequest());
+	web::HttpParser parser(getConnectRequest());
 	const web::HeadersMap& headers = parser.getHeaders();
 
 	ASSERT_EQ(parser.getParameters(), "server.example.com:80");
@@ -62,7 +63,7 @@ TEST(Parser, Streams)
 	constexpr size_t npos = std::string::npos;
 
 	{
-		std::string data(getCONNECTRequest());
+		std::string data(getConnectRequest());
 		web::HttpParser parser;
 		std::ostringstream os;
 		std::istringstream is(data);
@@ -132,13 +133,10 @@ TEST(Parser, Multipart)
 
 TEST(Parser, RequestWithoutSpaces)
 {
-	web::HttpParser parser(getPoseRequestWithoutSpaces());
+	web::HttpParser parser(getPostRequestWithoutSpaces());
 	const web::HeadersMap& headers = parser.getHeaders();
 
 	ASSERT_EQ(headers.at("Host"), "127.0.0.1:8080");
 	ASSERT_EQ(headers.at("User-Agent"), "curl/8.10.1");
 	ASSERT_EQ(headers.at("Accept"), "*/*");
-	ASSERT_EQ(headers.at("Content-Type"), "application/octet-stream");
-	ASSERT_EQ(headers.at("Content-Length"), "579959121");
-	ASSERT_EQ(headers.at("Expect"), "100-continue");
 }

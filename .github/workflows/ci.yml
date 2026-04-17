@@ -70,9 +70,7 @@ jobs:
 
 
   linux-aarch64-build:
-    runs-on: ubuntu-latest
-    container:
-      image: lazypanda07/ubuntu_cxx20:aarch64
+    runs-on: ubuntu-24.04-arm
     strategy:
       matrix:
         configuration: [Debug, Release]
@@ -130,10 +128,8 @@ jobs:
           cmake --install .
 
     - name: Tests
-      working-directory: ${{ github.workspace }}/Tests
-      run: |
-          cd build/bin
-          .\Tests.exe
+      working-directory: ${{ github.workspace }}/Tests/build/bin
+      run: .\Tests.exe
 
 
   linux-tests:
@@ -167,17 +163,13 @@ jobs:
           cmake --install .
 
     - name: Tests
-      working-directory: ${{ github.workspace }}/Tests
-      run: |
-        cd build/bin
-        LD_LIBRARY_PATH=$(pwd):${LD_LIBRARY_PATH} ./Tests
+      working-directory: ${{ github.workspace }}/Tests/build/bin
+      run: LD_LIBRARY_PATH=$(pwd):${LD_LIBRARY_PATH} ./Tests
 
 
   linux-aarch64-tests:
     needs: linux-aarch64-build
-    runs-on: ubuntu-latest
-    container:
-      image: lazypanda07/ubuntu_cxx20:aarch64
+    runs-on: ubuntu-24.04-arm
     strategy:
       matrix:
         configuration: [Debug, Release]
@@ -204,10 +196,8 @@ jobs:
           cmake --install .
 
     - name: Tests
-      working-directory: ${{ github.workspace }}/Tests
-      run: |
-        cd build/bin
-        LD_LIBRARY_PATH=$(pwd):${LD_LIBRARY_PATH} qemu-aarch64 ./Tests
+      working-directory: ${{ github.workspace }}/Tests/build/bin
+      run: LD_LIBRARY_PATH=$(pwd):${LD_LIBRARY_PATH} ./Tests
 
 
   memory-leak-tests:

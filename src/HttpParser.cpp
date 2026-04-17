@@ -376,15 +376,36 @@ namespace web
 
 			std::invoke(transferTypeParsers.at(it->second), *this, httpMessage, isUTF8);
 		}
-		else if (headers.find(contentLengthHeader) != headers.end())
+		else if (it = headers.find(contentLengthHeader); it != headers.end())
 		{
+			size_t bodyOffset = httpMessage.find(crlfcrlf);
+
+			if (bodyOffset == std::string_view::npos)
+			{
+				throw std::runtime_error("Can't find HTTP body");
+			}
+
+			if (bodyOffset + crlfcrlf.size() >= httpMessage.size())
+			{
+				throw std::runtime_error("Can't find HTTP body");
+			}
+
+			uint64_t bodySize = std::stoull(it->second);
+
+			if (bodyOffset + crlfcrlf.size() + bodySize != httpMessage.size())
+			{
+				throw std::runtime_error(std::format("Wrong Content-Length size: {}", bodySize));
+			}
+
+			std::string_view bodyView(httpMessage.data() + bodyOffset + crlfcrlf.size(), bodySize);
+
 			if (isUTF8)
 			{
-				body = json::utility::toUTF8JSON(std::string_view(httpMessage.begin() + httpMessage.find(crlfcrlf) + crlfcrlf.size(), httpMessage.end()), CP_UTF8);
+				body = json::utility::toUTF8JSON(bodyView, CP_UTF8);
 			}
 			else
 			{
-				body = std::string(httpMessage.begin() + httpMessage.find(crlfcrlf) + crlfcrlf.size(), httpMessage.end());
+				body = bodyView;
 			}
 		}
 
