@@ -378,29 +378,13 @@ namespace web
 		}
 		else if (it = headers.find(contentLengthHeader); it != headers.end())
 		{
-			size_t bodyOffset = httpMessage.find(crlfcrlf);
-
-			if (bodyOffset == std::string_view::npos)
-			{
-				throw std::runtime_error("Can't find HTTP body");
-			}
-
-			int64_t bodySize = std::stoull(it->second);
-
-			if (bodySize < 0)
-			{
-				throw std::runtime_error(std::format("Wrong Content-Length: {}", bodySize));
-			}
-
-			std::string_view bodyView(httpMessage.data() + bodyOffset + crlfcrlf.size(), bodySize);
-
 			if (isUTF8)
 			{
-				body = json::utility::toUTF8JSON(bodyView, CP_UTF8);
+				body = json::utility::toUTF8JSON(std::string_view(httpMessage.begin() + httpMessage.find(crlfcrlf) + crlfcrlf.size(), httpMessage.end()), CP_UTF8);
 			}
 			else
 			{
-				body = bodyView;
+				body = std::string(httpMessage.begin() + httpMessage.find(crlfcrlf) + crlfcrlf.size(), httpMessage.end());
 			}
 		}
 
