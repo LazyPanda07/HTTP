@@ -6,12 +6,12 @@ std::string getGetRequest();
 
 std::string getPostRequest();
 
-std::string getPoseRequestWithoutSpaces();
+std::string getPostRequestWithoutSpaces();
 
 std::string getPostRequestJSON();
 
 std::string getHTTPResponse();
 
-std::string getCONNECTRequest();
+std::string getConnectRequest();
 
 std::string getMultipartRequest();

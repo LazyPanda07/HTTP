@@ -27,16 +27,13 @@ std::string getPostRequest()
 		getPostRequestJSON();
 }
 
-std::string getPoseRequestWithoutSpaces()
+std::string getPostRequestWithoutSpaces()
 {
 	return
 		"POST / HTTP/1.1\r\n"
 		"Host:127.0.0.1:8080\r\n"
 		"User-Agent:curl/8.10.1\r\n"
 		"Accept:*/*\r\n"
-		"Content-Type:application/octet-stream\r\n"
-		"Content-Length:579959121\r\n"
-		"Expect:100-continue\r\n"
 		"\r\n";
 }
 
@@ -65,7 +62,7 @@ std::string getHTTPResponse()
 		"\r\n";
 }
 
-std::string getCONNECTRequest()
+std::string getConnectRequest()
 {
 	return
 		"CONNECT server.example.com:80 HTTP/1.1\r\n"
@@ -80,7 +77,7 @@ std::string getMultipartRequest()
 		"POST /upload HTTP/1.1\r\n"
 		"Host: example.com\r\n"
 		"Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW\r\n"
-		"Content-Length: 549\r\n"
+		"Content-Length: 426\r\n"
 		"\r\n"
 		"------WebKitFormBoundary7MA4YWxkTrZu0gW\r\n"
 		"Content-Disposition: form-data; name=\"field1\"\r\n"
