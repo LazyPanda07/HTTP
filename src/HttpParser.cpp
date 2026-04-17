@@ -385,16 +385,11 @@ namespace web
 				throw std::runtime_error("Can't find HTTP body");
 			}
 
-			if (bodyOffset + crlfcrlf.size() >= httpMessage.size())
-			{
-				throw std::runtime_error("Can't find HTTP body");
-			}
+			int64_t bodySize = std::stoull(it->second);
 
-			uint64_t bodySize = std::stoull(it->second);
-
-			if (bodyOffset + crlfcrlf.size() + bodySize > httpMessage.size())
+			if (bodySize < 0)
 			{
-				throw std::runtime_error("Wrong HTTP body");
+				throw std::runtime_error(std::format("Wrong Content-Length: {}", bodySize));
 			}
 
 			std::string_view bodyView(httpMessage.data() + bodyOffset + crlfcrlf.size(), bodySize);
